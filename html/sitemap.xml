@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>http://homepik.com/controllers/index.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/signin.php</loc>
+  <changefreq>yearly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/guest-register.php</loc>
+  <changefreq>yearly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/agent-login.php</loc>
+  <changefreq>yearly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/about.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/contactus.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/faq.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/how_it_works.php</loc>
+  <changefreq>never</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/ratings-explanation.php</loc>
+  <changefreq>never</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/menu.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/addressSearch.php</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/search.php</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/privacy.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/controllers/tos.php</loc>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/documents/HomePik_Investor_Presentation.pdf</loc>
+  <lastmod>2015-11-10T20:13:23+00:00</lastmod>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>http://homepik.com/documents/PressRelease.pdf</loc>
+  <lastmod>2015-11-10T17:09:44+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+</url>
+</urlset>

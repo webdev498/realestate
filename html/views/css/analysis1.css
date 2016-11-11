@@ -1,0 +1,24 @@
+
+.version.analysis {	color: #0000EC;	background-color: #97DA38;}
+
+.FAQ-1-grey-bd {	color: #939393;	font-family: lato, sans-serif;	font-size: 18px;	font-weight: 600;	line-height: 25px;	padding: 0px;}
+.Text-1 {	color: #7F7F7F;	font-family: lato, sans-serif;	font-size: 16px;	font-weight: 300;	line-height: 22px;	padding: 0px;}
+.clip_frame {	overflow: hidden;}
+.grpelem,.accordion_wrapper {	display: inline;	float: left;}
+
+#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 800px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;}
+#page_position_content {	margin-bottom: -4px;	width: 100%;}
+#page-header{   padding-top: 65px !important;}
+#overlay{	display: none;	background-color: white;	height: 115%;	width: 100%;	top: 0;	left: 0;	position: absolute;	z-index: 300;	opacity: 0.9;}
+.form-control {	max-width: 250px !important;}
+.report-header {	text-align: center;	color: #0085C6;	font-size: 18px;	font-weight: 300;	padding-bottom: 15px;}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
+   #page{	width: 100%; min-height: 600px; }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
+	#page{ width: 100%; min-height: 900px;	}
+	.report-header { text-align: center; color: #0085C6; font-size: 14px; font-weight: 300;	padding-bottom: 15px;	}
+	#overlay { height: 1500%;	}
+}

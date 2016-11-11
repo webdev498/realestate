@@ -1,0 +1,59 @@
+html{ font-size: 1em; }
+body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-weight:normal; letter-spacing: 0.02em; margin: 0 auto 20px; line-height:140%; letter-spacing: 0.05em; }
+
+#signinBackground{ background-image: url('/images/fotolia_61552970.jpg'); background-position: center; height: 950px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#header{ margin: auto; max-width: 960px; }
+#wrapper{ margin: auto; max-width: 960px; }
+#signinArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 430px; margin: auto; margin-top: 7%; max-width: 580px; min-width: 440px; position: fixed; }
+#agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: 11%; max-width: 580px; min-width: 440px; position: fixed; }
+#signinHeader{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
+#loginHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
+#signinBorder{ margin:auto; padding: 40px; }
+#signinSubmit { background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: 400; margin-right: 25px; }
+#arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
+#disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
+
+.input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
+.text-popups{ color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding: 0px; }
+.ui-autocomplete { max-height: 200px; overflow-x: hidden; overflow-y: auto; }
+
+*, *::before, *::after { box-sizing: content-box; }
+a, a:visited, a:hover{ color: #D2008F !important; font-weight: 400 !important; text-decoration: none !important; }
+input:focus, select:focus, textarea:focus, button:focus { outline: none; }
+tr > td{ padding-bottom: 1em !important; }
+label { display: inline; font-weight: normal; }
+
+.ui-dialog .ui-dialog-titlebar{ display: none; }
+.ui-dialog{ box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; }
+.ui-dialog .ui-dialog-buttonpane{ border-width: 0 0 0 0 !important; }
+.ui-dialog .ui-dialog-buttonpane button{ background: transparent none repeat scroll 0% 0%; border: medium none; color: #646464; font-weight: 600; }
+
+.ui-dialog.errorMessage{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-weight: normal; font-size: 1.1em; font-family: 'Lato', sans-serif; height: 150px !important; left: 50% !important; margin: -50px 0 0 -125px; position: fixed !important; top: 43% !important; width: 240px !important; z-index: 1001; }
+.ui-dialog.errorMessage #ajax-box #registerRquirements{ margin-top: 30px; }
+.ui-dialog.errorMessage #ajax-box #invalidBuyerEmail{ margin-top: 5px; }
+.ui-dialog.errorMessage .ui-resizable-handle{ display: none !important; }
+
+.ui-widget-overlay{ background: #ffffff; height: 1000px !important; opacity: 0.8; }
+
+@font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
+
+@media (max-width:479px){
+  .container-fluid{ padding: 0 5px;}
+  #signinArea{ height: 475px; margin:0 !important; min-width:auto !important; width:97% !important; }
+  #signinArea div{ padding:30px 20px 0; }
+  #signinBorder tr td:nth-child(2){ width:75% !important; }  
+  #signinBorder tr td input{ float:right; width:95% !important; }  
+  #signinSubmit{ float:right !important; margin:0; }  
+  #disclaimer{ padding: 0 !important; }
+}
+@media (min-width:480px) and (max-width:639px){ 
+  #signinArea{ position: absolute; width:95% !important; }  
+  #signinArea div{ padding:4% 5% 0; width:90%; }  
+  #signin .row{ margin:0; }  
+  #signinBorder tr td:nth-child(1){ max-width:20% !important; width:20% !important; }    
+  #signinBorder tr td:nth-child(2){ width:55% !important; }  
+  #signinBorder tr td input{ width:95% !important; }  
+  #signinSubmit{ margin:0; min-width:100px; }
+}
+@media (min-width:640px) and (max-width:767px){ #signinArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } }
+@media (min-width:768px) and (max-width:800px){ #signinArea{ left: 10%; top: 1%; width: 580px !important; } }

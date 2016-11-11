@@ -1,0 +1,46 @@
+.version.ratings_explanation{ color: #0000E4; background-color: #5FFC75; }
+
+/* css from site_global.css */
+.FAQ-1-grey-bd{ color: #939393; font-family: lato, sans-serif; font-size: 18px; font-weight: 600; line-height: 25px; padding: 0px; }
+.Subhead-2{ color: #7F7F7F; font-family: lato, sans-serif; font-size: 30px; font-weight: 300; text-align: center; padding: 0px; }
+.Subhead-2 h2 { margin: 0 !important; }
+/* end of css from site_global.css */
+
+#ratings{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
+#page{ background-color: transparent; background-image: none; border-width: 0px; border-color: #000000; margin-left: auto; margin-right: auto; max-width: 1200px; min-height: 745px; padding-bottom: 50px; width: 100%; z-index: 1; }
+
+#overlay{ background-color: white; display: none; height: 120%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
+
+#u8950-3,#u8949-3{ line-height: 0px; }
+#u8950{ color: #7E499E; font-size: 20px; line-height: 28px; }
+#u8949{ color: #D3922C; font-size: 20px; line-height: 28px; }
+#u8942-2,#u8950-2,#u8949-2{ line-height: 25px; }
+#u8942-3,#u8948-2{ color: #0085C6; line-height: 0px; }
+#u8942,#u8948{ font-size: 20px; line-height: 28px; }
+#u8942-5,#u8950-5,#u8949-5,#u8948-4{ font-family: lato, sans-serif; font-weight: 600 !important; }
+#u8948-5{ text-align: left; }
+
+.row{ width: 100%; }
+.content{ padding-top: 20px; }
+.information-container{ padding-top: 50px; }
+.panel{ border: none; box-shadow: none; }
+.panel-border{ border: 1px solid #B2B2B2; border-bottom: 0; border-right: 0; border-top: 0; }
+.ratings-panel { height: 100%; min-height: 475px !important; }
+.panel-body { padding: 0 15px 15px; }
+.bubbleMeaning{ padding-bottom: 5px; }
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
+   #page{ margin-left: 0px !important; margin-right: 0px !important; width: 100%; }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
+  #page{ margin-left: 0px !important; margin-right: 0px !important; width: 100%; }
+	#overlay { height: 150%; }
+}
+@media (max-width: 991px){
+	#third-panel{ border: none; }
+	.ratings-panel{ min-height: 310px !important; }
+}
+@media (max-width: 767px){
+	#second-panel, #third-panel, #fourth-panel{ border: none; }
+	.ratings-panel{ min-height: 0 !important; }
+}

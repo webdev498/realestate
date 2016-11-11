@@ -1,0 +1,18 @@
+.version.privacy {color: #00001E; background-color: #D27654; }
+#privacy{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }#page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; margin-left: auto; margin-right: auto; max-width: 1200px; padding-bottom: 50px; width: 100%; z-index: 1; }
+#page_position_content{ margin-bottom: -4px; width: 100%; }
+#u25521{ left: 0px !important; }
+.menuNavBar { margin-left: 0px !important; }
+#pu2680 { margin-left: 0px !important; }
+#overlay{ background-color: white; display: none; height: 115%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
+.indent{ padding-left: 20px; }
+.extra-indent{ padding-left: 30px; }
+#privacy{ margin-bottom: 50px; }
+#privacySection{ max-width: 1200px; width: inherit; }
+#privacyText{ max-width: 1200px; min-height: 1780px; width: inherit; }
+#u22654-4{ background-color: transparent; color: #0085C6; font-family: lato, sans-serif; font-size: 24px; font-weight: 700; line-height: 29px; margin-left: 1px; margin-top: 39px; min-height: 29px; position: relative; width: 190px; z-index: 63; }
+.boldText{ font-weight: 600; }
+#backBtn{ display: none; }
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 1024px) and (orientation: landscape){ #privacy{ margin-left: 5px; } }
+@media only screen and (max-device-width: 768px){ #page { max-width: 100%; } #privacy{ margin-left: 5px; } }

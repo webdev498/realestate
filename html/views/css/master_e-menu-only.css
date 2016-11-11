@@ -1,0 +1,133 @@
+#u16034-4
+{
+	background-color: #FFFFFF;
+	line-height: 18px;
+	font-size: 18px;
+	color: #7F7F7F;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u24587-4
+{
+	background-color: #FFFFFF;
+	text-align: right;
+	font-size: 18px;
+	color: #0085C6;
+	line-height: 18px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u16033-4
+{
+	background-color: #C2C2C2;
+	text-align: center;
+	font-size: 15px;
+	color: #FFFFFF;
+	line-height: 15px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u16033-2
+{
+	padding-top: 5px;
+	line-height: 0px;/* 0 for mixed font sized paras; applied on spans instead */
+}
+
+#u16033
+{
+	font-size: 13px;
+	font-family: lato, sans-serif;
+	font-weight: 700;
+	line-height: 13px;
+}
+
+#u16025,#u16026
+{
+	background-color: #C2C2C2;
+}
+
+#u16027
+{
+	border-width: 0px;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+#u16028
+{
+	border: 1px solid #b2b2b2;
+	border-radius: 0;
+	box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.33) inset, -1px -1px 2px rgba(0, 0, 0, 0.33) inset;
+	color: #646464;
+	font-family: lato;
+	font-weight: 300;
+	text-align: right;
+}
+
+#u16028::before
+{
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	top: -1px;
+	left: -1px;
+	bottom: -1px;
+	right: -1px;
+	box-shadow: inset 1px 1px 2px rgba(255,255,255,0.33), inset -1px -1px 2px rgba(0,0,0,0.33);
+}
+
+#u16029-4
+{
+	background-color: transparent;
+	text-align: left;
+	font-size: 15px;
+	color: #7F7F7F;
+	line-height: 18px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u25535,#u16030
+{
+	background-color: transparent;
+}
+
+#u5036
+{
+	background-color: #B2B2B2;
+}
+
+#u15187-16
+{
+	background-color: transparent;
+	color: #FFFFFF;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u15187-2,#u15187-4,#u15187-6,#u15187-8,#u15187-10,#u15187-12
+{
+	color: #0085C6;
+}
+
+#u15188-4
+{
+	background-color: transparent;
+	text-align: right;
+	font-size: 24px;
+	color: #FFFFFF;
+	line-height: 29px;
+	font-family: lato, sans-serif;
+	font-weight: 400;
+}
+
+#u15188
+{
+	font-family: '__FontAwesome_5';
+	font-weight: 400;
+}
+
+

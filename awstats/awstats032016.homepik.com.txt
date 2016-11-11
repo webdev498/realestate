@@ -1,0 +1,828 @@
+AWSTATS DATA FILE 6.95 (build 1.943)
+# If you remove this file, all statistics for date 201603 will be lost/reset.
+# Last config file used to build this data file was /etc/awstats/awstats.homepik.com.conf.
+
+# Position (offset in bytes) in this file for beginning of each section for
+# direct I/O access. If you made changes somewhere in this file, you should
+# also remove completely the MAP section (AWStats will rewrite it at next
+# update).
+BEGIN_MAP 27
+POS_GENERAL 1957                
+POS_TIME 2644                
+POS_VISITOR 17793               
+POS_DAY 26488               
+POS_DOMAIN 3569                
+POS_LOGIN 3804                
+POS_ROBOT 4021                
+POS_WORMS 4757                
+POS_EMAILSENDER 4888                
+POS_EMAILRECEIVER 5031                
+POS_SESSION 26755               
+POS_SIDER 26963               
+POS_FILETYPES 5166                
+POS_OS 5410                
+POS_BROWSER 5602                
+POS_SCREENSIZE 6311                
+POS_UNKNOWNREFERER 6385                
+POS_UNKNOWNREFERERBROWSER 6682                
+POS_ORIGIN 6790                
+POS_SEREFERRALS 6937                
+POS_PAGEREFS 7113                
+POS_SEARCHWORDS 8195                
+POS_KEYWORDS 8368                
+POS_MISC 2306                
+POS_ERRORS 8450                
+POS_CLUSTER 3660                
+POS_SIDER_404 8605                
+END_MAP
+
+# LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
+# FirstTime   = Date of first visit for history file
+# LastTime    = Date of last visit for history file
+# LastUpdate  = Date of last update - Nb of parsed records - Nb of parsed old records - Nb of parsed new records - Nb of parsed corrupted - Nb of parsed dropped
+# TotalVisits = Number of visits
+# TotalUnique = Number of unique visitors
+# MonthHostsKnown   = Number of hosts known
+# MonthHostsUnKnown = Number of hosts unknown
+BEGIN_GENERAL 8
+LastLine 20160316115522 27638 6599506 65314826295
+FirstTime 20160310142530
+LastTime 20160316115522
+LastUpdate 20160316115702 2018 0 2018 0 0
+TotalVisits 432                 
+TotalUnique 191                 
+MonthHostsKnown 0                   
+MonthHostsUnknown 222                 
+END_GENERAL
+
+# Misc ID - Pages - Hits - Bandwidth
+BEGIN_MISC 10
+QuickTimeSupport 0 0 0
+JavaEnabled 0 0 0
+JavascriptDisabled 0 0 0
+PDFSupport 0 0 0
+WindowsMediaPlayerSupport 0 0 0
+AddToFavourites 0 210 0
+RealPlayerSupport 0 0 0
+TotalMisc 0 0 0
+DirectorSupport 0 0 0
+FlashSupport 0 0 0
+END_MISC
+
+# Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
+BEGIN_TIME 24
+0 51 392 807581 27 47 1211066
+1 311 512 3036678 61 140 2717018
+2 28 112 2022204 36 57 621994
+3 215 358 4894575 37 90 1199435
+4 114 414 6187790 54 90 822633
+5 33 41 235671720 38 47 712147
+6 19 19 320905 24 59 1195755
+7 28 36 306429 45 76 537914
+8 76 536 31408559 107 271 3164490
+9 148 1634 7383446 69 380 1097865
+10 376 3028 12006159 81 612 973941
+11 2274 4831 14688515 804 1539 1951156
+12 526 2390 8373841 113 619 3425546
+13 201 1925 8478341 291 845 921816
+14 211 2172 3145168 99 776 3651309
+15 1929 5676 22648115 921 1695 2303864
+16 662 3676 36162374 338 950 1454117
+17 688 1460 60527540 1498 1751 2098812
+18 1689 1867 6876748 74 318 3089432
+19 57 261 593024 42 70 658404
+20 26 91 2083273 43 55 1383030
+21 18 76 1281530 33 61 1722273
+22 32 71 1618487 49 63 1509173
+23 23 116 1537583 24 37 1128002
+END_TIME
+
+# Domain - Pages - Hits - Bandwidth
+# The 10 first Pages must be first (order not required for others)
+BEGIN_DOMAIN 1
+ip 9735 31694 472060585
+END_DOMAIN
+
+# Cluster ID - Pages - Hits - Bandwidth
+BEGIN_CLUSTER 0
+END_CLUSTER
+
+# Login - Pages - Hits - Bandwidth - Last visit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_LOGIN 2
+webadmin 1 1 857 20160311034748
+dblyth 1 1 855 20160310172819
+END_LOGIN
+
+# Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
+# The 10 first Hits must be first (order not required for others)
+BEGIN_ROBOT 16
+bot[\s_+:,\.\;\/\\-] 469 11104694 20160316114732 0
+baiduspider 307 5697289 20160316115502 0
+googlebot 203 4359809 20160316101432 0
+yandex 80 12255348 20160316085502 0
+mj12bot 27 444851 20160315142241 0
+favicon 22 216098 20160316110142 0
+java\/[0-9] 14 193302 20160315014749 0
+slurp 7 79861 20160315132426 0
+powermarks 3 121365 20160311200627 0
+bot[+:,\.\;\/\\-] 3 28610 20160311023102 0
+commons\-httpclient 1 39380 20160310225957 0
+exabot 1 9459 20160313102336 0
+no_user_agent 1 0 20160311183743 0
+spider 1 15419 20160315061717 0
+archive\.org_bot 1 15419 20160313060203 0
+robot 1 15419 20160313173346 0
+END_ROBOT
+
+# Worm ID - Hits - Bandwidth - Last visit
+# The 5 first Hits must be first (order not required for others)
+BEGIN_WORMS 0
+END_WORMS
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first Hits must be first (order not required for others)
+BEGIN_EMAILSENDER 0
+END_EMAILSENDER
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first hits must be first (order not required for others)
+BEGIN_EMAILRECEIVER 0
+END_EMAILRECEIVER
+
+# Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
+BEGIN_FILETYPES 10
+css 6404 20283681 0 0
+png 3132 4541093 0 0
+ico 1 5430 0 0
+pdf 2 1014673 0 0
+pl 2 1712 0 0
+php 9236 381906983 0 0
+html 495 9031941 0 0
+js 11987 50757432 0 0
+jpg 292 4375203 0 0
+gif 143 142437 0 0
+END_FILETYPES
+
+# OS ID - Hits
+BEGIN_OS 13
+linuxandroid 1
+winlong 1
+winxp 1983
+win2000 15
+winnt 1897
+linux 1600
+winvista 11806
+macosx 2572
+winunknown 6
+win2003 3
+wince 2
+Unknown 76
+win2008 11732
+END_OS
+
+# Browser ID - Hits
+BEGIN_BROWSER 42
+safari7.0 194
+msie6.0 98
+webcapture 6
+firefox44.0 13613
+chrome34.0.1847.137 1
+chrome 246
+android 1
+chrome48.0.2564.116 8892
+chrome43.0.2357.125 344
+chrome39.0.2171.95 2
+opera9.00 2
+msie3.02 2
+opera9.80 36
+firefox6.0.2 271
+opera7.60 3
+netscape3.0 6
+firefox43.0 3838
+msie7.0 3
+chrome37.0.2062.120 4
+safari8.0 1
+msie5.0 3
+msie9.0 33
+chrome10.0.648.134 1
+opera9.0 2
+Unknown 1
+opera7.54 3
+safari9.0.3 275
+chrome49.0.2623.87 1786
+firefox38.0 242
+chrome28.0.1500.71 21
+msie5.5 6
+chrome49.0.2623.75 7
+firefox45.0 1
+safari9.0 838
+mozilla 500
+chrome48.0.2564.109 2
+chrome46.0.2490.86 1
+firefox3.6.3 1
+chrome41.0.2228.0 2
+chrome48.0.2564.97 362
+safari 43
+firefox35.0 1
+END_BROWSER
+
+# Screen size - Hits
+BEGIN_SCREENSIZE 0
+END_SCREENSIZE
+
+# Unknown referer OS - Last visit date
+BEGIN_UNKNOWNREFERER 4
+Opera/9.80_(Android;_Opera_Mini/12.0.1987/37.7936;_U;_en)_Presto/2.12.423_Version/12.16 20160312023347
+Mozilla/4.0_(compatible;) 20160311123818
+Who.is_Bot 20160310162705
+Mozilla/5.0_Firefox/35.0 20160312014145
+END_UNKNOWNREFERER
+
+# Unknown referer Browser - Last visit date
+BEGIN_UNKNOWNREFERERBROWSER 1
+Who.is_Bot 20160310162705
+END_UNKNOWNREFERERBROWSER
+
+# Origin - Pages - Hits 
+BEGIN_ORIGIN 6
+From0 1012 1050
+From1 0 0
+From2 15 15
+From3 82 82
+From4 8626 30547
+From5 0 0
+END_ORIGIN
+
+# Search engine referers ID - Pages - Hits
+BEGIN_SEREFERRALS 3
+google 13 13
+bing 1 1
+yahoo 1 1
+END_SEREFERRALS
+
+# External page referers - Pages - Hits
+# The 10 first Pages must be first (order not required for others)
+BEGIN_PAGEREFS 33
+http://sorus.ucoz.ru 6 6
+http://273-fz.ru 3 3
+http://rostov.xrus.org 3 3
+http://ukr-cegla.com.ua 3 3
+http://boleznikogi.com 3 3
+http://hyipmanager.in/karta-sajta/ 3 3
+http://svetodiodoff.ru 3 3
+http://sdi-pme.com 3 3
+http://piter.xrus.org 3 3
+http://bio.trade-jp.net 3 3
+http://pizza-tycoon.com 1 1
+http://hvd-store.com 1 1
+http://www.drugstoreforyou.com 2 2
+http://xn-----6kcaacnblni5c5bicdpcmficy.xn--p1ai 2 2
+http://burger-imperia.com 1 1
+http://hydropump.su 3 3
+http://userequip.com 3 3
+http://gogps.me 3 3
+http://brendbutik.ru 3 3
+http://pizza-imperia.com 1 1
+http://www.bellmarc.com/nyc-real-estate 1 1
+http://vucms.com/shop/ 1 1
+http://kazan.xrus.org 3 3
+http://volgograd.xrus.org 2 2
+http://voronezh.xrus.org 3 3
+http://chelyabinsk.xrus.org 2 2
+http://owohho.com 3 3
+http://elz.by 3 3
+http://el-nation.com 2 2
+http://akvamaster.dp.ua 3 3
+http://binomo.kz 3 3
+http://royal-betting.net 2 2
+http://quirktools.com/screenfly/ 1 1
+END_PAGEREFS
+
+# Search keyphrases - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_SEARCHWORDS 2
+homepik 1
+home+pik 1
+END_SEARCHWORDS
+
+# Search keywords - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_KEYWORDS 3
+homepik 1
+pik 1
+home 1
+END_KEYWORDS
+
+# Errors - Hits - Bandwidth
+BEGIN_ERRORS 6
+401 4 1912
+302 1784 725632
+206 10 675310
+500 67 352
+301 8 2532
+404 7424 2286463
+END_ERRORS
+
+# URL with 404 errors - Hits - Last URL referer
+BEGIN_SIDER_404 155
+/js/jquery/jquery-ui.min.js 3 http://www.homepik.com/
+/245E54 1 http://homepik.com/search.php
+/awstats/icon/other/he.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/mime/image.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/users/jquery/jquery.validate.min.js 36 http://homepik.com/controllers/users/agent-process.php
+/controllers/function.mysql-query 1 -
+/js/jquery/theme/images/controls.png 574 http://homepik.com/
+/views/css/images/gradient.png 507 http://homepik.com/
+/635W42 4 http://homepik.com/search.php
+/wp-content/themes/u-design/scripts/script.js 1 -
+/twitter-bootstrap-v2/docs/assets/js/bootstrap-transition.js 93 http://homepik.com/
+/awstats/icon/clock/hr5.png 4 http://homepik.com/awstats/homepik.com.html
+/site/sha 1 -
+/awstats/icon/other/hp.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/index.php 1 -
+/controllers/listing_import2.php 3 -
+/images/green-circle.png 2 http://www.homepik.com/
+/awstats/icon/other/vu.png 4 http://homepik.com/awstats/homepik.com.html
+/api/comments 2125 http://homepik.com/controllers/test2.php
+/js/jquery/jquery.ui.multiselect.min.js 4 http://www.homepik.com/
+/awstats/icon/browser/opera.png 4 http://homepik.com/awstats/homepik.com.html
+/445E86 3 http://homepik.com/search.php
+/awstats/icon/browser/unknown.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/report1.php 1 -
+/js/jquery/jquery.ui.ipad.alt.js 3 http://www.homepik.com/
+/images/purple-circle.png 2 http://www.homepik.com/
+/awstats/icon/other/vv.png 5 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/clock/hr10.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/flags/ip.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/other/hh.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/mime/jscript.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/clock/hr3.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery.ui.touch-punch.js 3 http://www.homepik.com/
+/controllers/buyer-signin1.php 1 -
+/awstats/icon/browser/safari.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery/theme/jquery.ui.multiselect.css 2 http://www.homepik.com/
+/wp-login.php 2 http://homepik.com/wp-login.php
+/controllers/users/twitter-bootstrap-v2/docs/assets/js/bootstrap-transition.js 25 http://homepik.com/controllers/users/agent-process.php
+/controllers/images/loadingAnimation.gif 692 http://homepik.com/controllers/report.php
+/js/jquery/jquery.multi-select.js 4 http://www.homepik.com/
+/js/jqgrid/css/ui.jqgrid.css 2 http://www.homepik.com/
+/awstat 1 -
+/LiveSearchSiteAuth.xml 1 -
+/controllers/ajax.php 3 http://homepik.com/search.php
+/controllers/style1.css 1 http://homepik.com/controllers/about2.php
+/js/jqgrid/js/jquery.jqGrid.min.js 3 http://www.homepik.com/
+/awstats/icon/browser/msie.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/mime/pl.png 4 http://homepik.com/awstats/homepik.com.html
+/isqrdixa.html 1 -
+/awstats/icon/other/vp.png 6 http://homepik.com/awstats/homepik.com.html
+/BingSiteAuth.xml 1 -
+/images/loadingAnimation.gif 110 http://homepik.com/
+/controllers/data-example.php 1 -
+/js/mage/cookies.js 2 homepik.com
+/controllers/get-sessions.php 3 http://www.homepik.com/
+/awstats/icon/clock/hr8.png 4 http://homepik.com/awstats/homepik.com.html
+/117W82 4 http://homepik.com/search.php
+/images/pink-circle-filled.png 2 http://homepik.com/
+/js/jquery/jquery.validate.min.js 3 http://www.homepik.com/
+/js/jquery/jquery.qtip.min.js 3 http://www.homepik.com/
+/controllers/test2.php 1 -
+/awstats/icon/clock/hr11.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery.cookie.js 3 http://www.homepik.com/
+/awstats/icon/clock/hr12.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery/theme/images/overlay.png 115 http://homepik.com/
+/cgi-bin/awstats/awstats.pl 5 -
+/400E54 4 http://homepik.com/search.php
+/images/pink-circle.png 2 http://www.homepik.com/
+/views/css/jquery/theme/images/ui-bg_glass_75_e6e6e6_1x400.png 17 http://homepik.com/views/css/style.css
+/awstats/icon/os/win.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/browser/firefox.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/imgs/logoc.png 2 http://homepik.com/controllers/about2.php
+/awstats/icon/clock/hr1.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/clock/hr7.png 4 http://homepik.com/awstats/homepik.com.html
+/phpmyadmin 1 -
+/50E77 4 http://homepik.com/search.php
+/bootstrap/js/bootstrap.min.js 3 http://www.homepik.com/
+/js/jquery/spinner.js 3 http://www.homepik.com/
+/sitemap.xml 1 -
+/robots.txt 101 -
+/images/amenities/burnst.png 3 http://homepik.com/search.php
+/awstats/icon/mime/html.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/os/linux.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/browser/adobe.png 4 http://homepik.com/awstats/homepik.com.html
+/370E76 5 http://homepik.com/search.php
+/gitweb/gitweb.cgi 1 -
+/controllers/users/images/loadingAnimation.gif 16 http://homepik.com/controllers/users/agent-process.php
+/js/jquery/theme/thickbox.css 2 http://www.homepik.com/
+/js/jquery/jquery-ui.touchpunch.js 3 http://www.homepik.com/
+/js/jquery.idletimeout.js 3 http://www.homepik.com/
+/awstats/icon/other/awstats_logo6.png 4 http://homepik.com/awstats/homepik.com.html
+/177E79 1 http://homepik.com/search.php
+/js/jqgrid/js/i18n/grid.locale-en.js 3 http://www.homepik.com/
+/awstats/icon/mime/php.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery/bbq.jquery.js 3 http://www.homepik.com/
+/awstats/icon/other/hk.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/browser/netscape.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery/theme/images/loading_background.png 563 http://homepik.com/
+/yqhrgqbuud.html 1 -
+/users/logout.php 1 http://homepik.com/search.php
+/js/jquery/theme/spinner.css 2 http://www.homepik.com/
+/js/jquery.idletimer.js 3 http://www.homepik.com/
+/search/ 15 http://aeroc.net.ua/
+/about.php 1 http://www.homepik.com/
+/controllers/charts.php 1 -
+/awstats/icon/clock/hr2.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats 2 -
+/awstats/icon/os/unknown.png 4 http://homepik.com/awstats/homepik.com.html
+/js/jquery/theme/images/border.png 573 http://homepik.com/
+/controllers/js/bootstrap.min.js 1 http://homepik.com/controllers/about2.php
+/420E64 5 http://homepik.com/search.php
+/cgi-bin/awstats 1 -
+/js/jquery/jquery.lightbox.js 3 http://www.homepik.com/
+/1IRVPL 4 http://homepik.com/search.php
+/js/jquery/theme/images/loading.gif 563 http://homepik.com/
+/js/jquery/theme/jquery-ui-1.8.6.custom.css 2 http://www.homepik.com/
+/awstats/icon/other/hx.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/reports.php 1 -
+/js/jquery/theme/colorbox.css 2 http://www.homepik.com/
+/awstats/icon/clock/hr4.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/mime/css.png 4 http://homepik.com/awstats/homepik.com.html
+/apple-touch-icon.png 5 -
+/controllers/keepalive.php 1 http://homepik.com/controllers/report.php
+/bootstrap/css/bootstrap.min.css 3 http://www.homepik.com/
+/js/jquery/jquery.thickbox.js 3 http://www.homepik.com/
+/views/css/style.css 3 http://www.homepik.com/
+/js/jquery/theme/jquery.lightbox-0.5.css 2 http://www.homepik.com/
+/bingsiteauth.xml 1 -
+/awstats/icon/browser/mozilla.png 4 http://homepik.com/awstats/homepik.com.html
+/ops/git/homepik/info/refs 2 -
+/awstats/icon/browser/android.png 4 http://homepik.com/awstats/homepik.com.html
+/images/laptop.JPG 2 http://www.homepik.com/
+/awstats/icon/clock/hr6.png 4 http://homepik.com/awstats/homepik.com.html
+/awstats/icon/os/mac.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/print.css 8 http://homepik.com/controllers/saved.php
+/awstats/icon/other/vk.png 5 http://homepik.com/awstats/homepik.com.html
+/images/welcome.JPG 3 http://www.homepik.com/
+/views/css/print.css 2 http://www.homepik.com/
+/homepik/info/refs 2 -
+/search.php 1 -
+/apple-touch-icon-precomposed.png 5 -
+/controllers/css/bootstrap-responsive.min.css 1 http://homepik.com/controllers/about2.php
+/images/blue-circle.png 2 http://www.homepik.com/
+/controllers/twitter-bootstrap-v2/docs/assets/js/bootstrap-transition.js 901 http://homepik.com/controllers/report.php
+/awstats/icon/browser/chrome.png 4 http://homepik.com/awstats/homepik.com.html
+/controllers/test1.php 1 -
+/awstats/icon/clock/hr9.png 4 http://homepik.com/awstats/homepik.com.html
+/js/fancybox/jquery.fancybox-1.3.4.css 2 http://www.homepik.com/
+/views/css/profile.css 2 http://www.homepik.com/
+/controllers/data-example1.php 1 -
+/js/jquery/jquery.colorbox.js 3 http://www.homepik.com/
+/controllers/css/bootstrap.min.css 1 http://homepik.com/controllers/about2.php
+/wp-content/plugins/wysija-newsletters/js/tinymce/tiny_mce.js 1 -
+/js/fancybox/jquery.mousewheel-3.0.4.pack.js 3 http://www.homepik.com/
+/awstats/icon/other/vh.png 6 http://homepik.com/awstats/homepik.com.html
+END_SIDER_404
+
+# Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
+# [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
+# The 10 first Hits must be first (order not required for others)
+BEGIN_VISITOR 222
+108.195.21.196 3285 12077 56348571 20160316115522 20160316085056 /controllers/get-sessions.php
+172.5.60.84 2000 11146 103729815 20160316101548
+173.51.253.223 1520 1540 2772657 20160310185847
+207.110.16.50 923 1621 10994057 20160316113305 20160316111927 /controllers/get-sessions.php
+203.100.69.194 510 1725 246052433 20160315023954
+173.68.165.186 369 541 2902982 20160311152230
+74.65.206.15 179 280 2307778 20160315012911
+69.116.127.148 146 306 3644711 20160313210307
+72.69.156.222 124 529 5059673 20160315143907
+104.162.195.97 102 263 2119657 20160314152301
+123.125.71.15 3 3 46257 20160312231520
+204.79.180.55 0 1 5097 
+220.181.108.143 1 1 15419 20160315132327
+204.79.180.79 0 1 12790 
+123.125.71.27 2 2 30838 20160314021437
+204.79.180.207 0 1 3139 
+123.125.71.44 3 3 46257 20160313151306
+46.118.153.38 27 27 1092285 20160316000152
+220.181.108.141 1 1 15419 20160311142040
+220.181.108.159 1 1 15419 20160310182559
+220.181.108.81 1 1 15419 20160312042141
+166.137.252.46 1 1 15419 20160312153447
+220.181.108.77 3 3 46257 20160314122114
+123.125.71.33 4 4 61676 20160314011718
+204.79.180.145 1 1 15419 20160315203554
+123.125.71.58 3 3 46257 20160315001534
+173.48.206.42 9 112 2445304 20160312170901
+123.125.71.43 2 2 30838 20160314001603
+151.207.250.61 12 126 2308752 20160312171226
+220.181.108.146 1 1 15419 20160312162347
+10.0.7.190 4 7 87095 20160314154351
+220.181.108.99 1 1 15419 20160315052231
+204.79.180.26 0 1 6362 
+54.147.214.61 1 1 15419 20160313224249
+123.125.71.51 2 2 30838 20160315091625
+123.125.71.19 1 1 15419 20160315151707
+220.181.108.116 3 3 46257 20160316102157
+220.181.108.140 4 4 61676 20160313102524
+220.181.108.179 2 2 30838 20160312142515
+123.125.71.41 3 3 46257 20160314201548
+220.181.108.118 1 1 15419 20160314112109
+107.77.106.65 3 66 1297685 20160311152047
+123.125.71.80 2 2 30838 20160316031659
+65.55.210.102 0 8 75258 
+220.181.108.110 1 1 15419 20160316032135
+220.181.108.153 1 1 15419 20160313072556
+91.200.12.7 2 2 67936 20160312141401
+123.125.71.77 1 1 15419 20160311152154
+220.181.108.86 1 1 15419 20160314072226
+220.181.108.121 2 2 30838 20160315072229
+220.181.108.120 1 1 15419 20160316082226
+46.119.112.209 3 3 121365 20160311155639
+123.125.71.54 1 1 15419 20160312201453
+69.22.242.22 72 175 1860142 20160315161241
+204.79.180.203 0 1 21078 
+204.79.180.181 0 2 266313 
+199.30.25.65 0 10 153919 
+220.181.108.108 3 3 46257 20160316052141
+96.250.224.151 9 77 1322327 20160311162640
+104.168.96.142 1 1 33968 20160314011757
+204.79.180.183 0 1 8852 
+10.0.7.33 20 242 2044242 20160310172819
+123.125.71.23 1 1 15419 20160315231655
+123.125.71.79 1 1 15419 20160311122556
+123.125.71.20 5 5 77095 20160315171750
+204.79.180.233 0 1 5973 
+107.167.106.213 2 36 1052702 20160312023347
+91.200.12.143 2 2 67936 20160312222810
+220.181.108.186 2 2 30838 20160315232224
+136.243.172.46 1 1 15419 20160312211132
+197.231.221.211 1 1 15419 20160313120836
+178.32.53.53 1 1 15419 20160311215035
+24.45.4.15 2 20 357886 20160314123752
+123.125.71.56 3 3 46257 20160315061710
+123.125.71.34 3 3 46257 20160314231502
+123.125.71.107 1 1 15419 20160316061543
+220.181.108.155 3 3 46257 20160315122329
+220.181.108.105 3 3 46257 20160316042209
+220.181.108.83 4 4 61676 20160316072202
+123.125.71.60 2 2 30838 20160314041543
+123.125.71.82 1 1 1644 20160310151548
+204.79.180.125 0 1 1374 
+123.125.71.88 1 1 15419 20160311082229
+123.125.71.74 1 1 15419 20160311102328
+123.125.71.86 3 3 32482 20160316021714
+46.118.235.150 3 3 121365 20160313123916
+204.79.180.209 0 1 1291 
+123.125.71.57 3 3 46257 20160313031546
+220.181.108.102 2 2 30838 20160316062154
+123.125.71.84 1 1 15419 20160310231607
+123.125.71.109 2 2 30838 20160316101652
+220.181.108.145 5 5 63320 20160315102212
+123.125.71.75 2 2 30838 20160311142134
+220.181.108.92 2 2 30838 20160314082204
+220.181.108.94 1 1 15419 20160312082155
+204.79.180.51 0 1 37107 
+220.181.108.107 2 2 30838 20160314062209
+220.181.108.151 3 3 32482 20160315202213
+123.125.71.13 1 1 15419 20160314151543
+220.181.108.96 2 2 30838 20160314032115
+123.125.71.16 2 2 30838 20160315051732
+62.210.75.243 2 21 643039 20160315151858
+204.79.180.66 0 1 9590 
+123.125.71.117 3 3 46257 20160311112217
+123.125.71.114 1 1 15419 20160316071629
+123.125.71.28 1 1 15419 20160313011509
+74.66.15.235 2 42 94624 20160311231900
+131.253.38.67 1 1 15419 20160311121049
+172.56.26.154 2 41 968405 20160311095311
+107.77.70.61 2 41 968405 20160310222953
+123.125.71.72 2 2 30838 20160316091616
+173.79.228.139 2 40 967680 20160311135754
+220.181.108.89 2 2 30838 20160313182014
+220.181.108.161 1 1 15419 20160311032022
+220.181.108.139 5 5 77095 20160311072144
+220.181.108.113 4 4 61676 20160315032047
+220.181.108.187 6 6 92514 20160315222201
+123.125.71.55 1 1 15419 20160313191524
+204.79.180.154 0 1 5118 
+109.163.234.8 1 1 15419 20160314063927
+123.125.71.40 3 3 46257 20160315031529
+220.181.108.106 1 1 15419 20160312032041
+220.181.108.101 1 1 15419 20160312062153
+95.211.205.151 1 1 15419 20160311040443
+123.125.71.14 3 3 46257 20160315071731
+204.79.180.250 0 1 1279 
+178.137.94.117 19 19 768645 20160316113436 20160316113433 /search/
+220.181.108.150 2 2 30838 20160313052516
+220.181.108.158 1 1 15419 20160312182403
+220.181.108.119 1 1 15419 20160312022035
+220.181.108.184 3 3 46257 20160313112443
+123.125.71.45 3 3 46257 20160315101756
+204.79.180.92 0 2 42612 
+176.8.88.108 3 3 121365 20160312021932
+204.79.180.52 0 1 8590 
+204.79.180.190 0 1 6494 
+123.125.71.18 1 1 15419 20160313061713
+123.125.71.26 2 2 30838 20160315161644
+220.181.108.109 3 3 46257 20160315042158
+123.125.71.24 2 2 30838 20160313181517
+123.125.71.53 4 4 61676 20160315201758
+220.181.108.80 2 2 30838 20160313132245
+91.121.141.219 1 1 15419 20160312091727
+204.79.180.31 0 1 1022 
+204.79.180.69 0 1 19517 
+173.51.196.50 48 53 8286030 20160315161949
+123.125.71.32 2 2 30838 20160314051550
+123.125.71.38 2 2 30838 20160315081737
+220.181.108.111 2 2 30838 20160314172120
+151.80.40.50 1 1 33968 20160311121627
+35.0.59.57 2 14 230648 20160314234234
+123.125.71.22 2 2 30838 20160315211725
+123.125.71.78 2 2 30838 20160316011716
+204.79.180.194 0 1 361 
+220.181.108.87 2 2 30838 20160312072333
+220.181.108.75 1 1 15419 20160311182019
+123.125.71.47 1 1 15419 20160314101552
+66.249.85.186 1 1 1644 20160310155133
+123.125.71.42 3 3 46257 20160315141742
+204.79.180.87 0 1 38307 
+220.181.108.185 1 1 15419 20160315142208
+220.181.108.93 1 1 15419 20160315062205
+123.125.71.21 1 1 15419 20160313071635
+205.203.130.22 8 121 2338172 20160315100723
+220.181.108.85 2 2 30838 20160313222116
+220.181.108.84 2 2 30838 20160314012150
+204.79.180.89 0 1 91622 
+220.181.108.182 2 2 30838 20160313092614
+220.181.108.114 1 1 15419 20160314152149
+123.125.71.12 2 2 30838 20160314121650
+204.79.180.27 0 1 9763 
+220.181.108.91 1 1 15419 20160313151947
+123.125.71.49 2 2 30838 20160314191516
+220.181.108.149 2 2 30838 20160316002153
+65.55.210.189 0 1 5973 
+62.210.148.87 2 2 67936 20160316081136
+54.208.201.249 1 1 1644 20160310162705
+204.79.180.234 0 1 4727 
+46.161.9.6 1 1 33968 20160312183420
+46.118.115.115 21 21 849555 20160314224318
+123.125.71.92 3 3 46257 20160316081731
+204.79.180.85 0 1 205136 
+5.49.178.190 1 1 15419 20160315201141
+10.0.7.40 1 1 857 20160311034748
+123.125.71.116 1 1 15419 20160316111623 20160316111623 /
+204.79.180.127 0 2 43690 
+36.224.44.175 1 1 15419 20160312224842
+123.125.71.29 4 4 61676 20160313211418
+220.181.108.152 2 2 30838 20160312132645
+123.125.71.46 3 3 46257 20160315191743
+220.181.108.157 1 1 15419 20160315152147
+123.125.71.69 1 1 15419 20160311132216
+123.125.71.76 1 1 15419 20160311012228
+24.104.239.114 2 2 9668 20160313234932
+220.181.108.181 1 1 15419 20160310202531
+123.125.71.30 3 3 46257 20160313121610
+220.181.108.154 4 4 61676 20160315192227
+123.125.71.111 1 1 15419 20160311052346
+198.98.108.54 1 1 15419 20160312014145
+220.181.108.183 1 1 15419 20160315092212
+204.79.180.170 0 1 10100 
+123.125.71.39 2 2 30838 20160313051602
+220.181.108.95 4 4 61676 20160316092223
+123.125.71.48 4 4 61676 20160315221655
+220.181.108.117 3 3 46257 20160316112153 20160316112153 /
+220.181.108.162 2 2 30838 20160312202433
+209.58.131.213 1 7 9519 20160310162837
+220.181.108.144 2 2 17063 20160312212407
+220.181.108.112 1 1 15419 20160315012107
+204.79.180.224 0 1 4946 
+220.181.108.103 1 1 15419 20160316022309
+220.181.108.163 2 2 30838 20160313232123
+192.227.161.21 1 1 33968 20160315012608
+123.125.71.113 2 2 30838 20160316041619
+220.181.108.88 1 1 15419 20160314002217
+123.125.71.52 2 2 30838 20160314171526
+220.181.108.177 3 3 46257 20160315172257
+220.181.108.82 2 2 30838 20160314221926
+123.125.71.36 2 2 30838 20160314111531
+123.125.71.25 1 1 15419 20160314181302
+220.181.108.97 1 1 15419 20160314102143
+123.125.71.50 1 1 15419 20160311161401
+END_VISITOR
+
+# Date - Pages - Hits - Bandwidth - Visits
+BEGIN_DAY 7
+20160310 1741 2473 41930156 33
+20160311 3412 6932 105574849 77
+20160312 101 309 5995647 77
+20160313 230 430 6137613 66
+20160314 1841 7920 267250647 71
+20160315 2095 8628 39736846 76
+20160316 315 5002 5434827 32
+END_DAY
+
+# Session range - Number of visits
+BEGIN_SESSION 7
+1h+ 18
+5mn-15mn 3
+15mn-30mn 5
+2mn-5mn 3
+30s-2mn 5
+0s-30s 385
+30mn-1h 8
+END_SESSION
+
+# URL - Pages - Bandwidth - Entry - Exit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_SIDER 89
+/controllers/keepalive.php 4785 9570 0 3
+/controllers/price.php 1588 846064 0 2
+/controllers/get-sessions.php 840 3722 1 33
+/ 389 5474541 320 288
+/controllers/ajax.php 311 1659968 1 0
+/controllers/about2.php 191 2248904 2 0
+/myadmin/import.php 123 38918446 0 0
+/myadmin/sql.php 119 58295161 0 1
+/controllers/guest-register1.php 89 3135137 0 0
+/controllers/get-agents.php 88 426326 1 2
+/myadmin/server_sql.php 1 8892 0 0
+/controllers/save-criteria-msg.php 4 2576 0 0
+/controllers/guest-register.php/trackback/ 1 33968 0 1
+/controllers/jqgrid2.php 1 130688 0 0
+/controllers/press1.php 1 10938 0 0
+/documents/PressRelease.pdf 1 158016 0 0
+/controllers/complete-register1.php 14 543779 0 0
+/controllers/ 9 138771 0 0
+/documents/HomePik_Investor_Presentation.pdf 1 856657 0 0
+/myadmin/export.php 3 253472779 0 0
+/controllers/guest-msg.php 32 32288 0 0
+/controllers/signin.php 33 317361 2 0
+/awstats/ 5 5678 3 1
+/controllers/agent-signin1.php 7 73674 1 0
+/controllers/menu.php 36 440241 0 0
+/controllers/check-buyer.php 2 958 0 0
+/myadmin/index.php 49 140266 1 0
+/controllers/index.php 54 833058 1 0
+/myadmin/querywindow.php 21 229463 0 0
+/controllers/listing_import2.php 72 31464 65 64
+/awstats/homepik.com.html 3 249654 0 2
+/myadmin/db_search.php 2 23262 0 0
+/controllers/users/agent-process.php 9 59996 0 0
+/controllers/press.php 5 47295 0 0
+/controllers/contactus1.php 5 55679 0 0
+/controllers/learnmore1.php 5 43295 0 0
+/myadmin/db_structure.php 26 1843981 0 1
+/controllers/buyers.php 1 30874 0 0
+/myadmin/js/messages.php 45 222090 0 2
+/myadmin/db_export.php 4 95290 0 0
+/controllers/report1.php 18 205606 0 0
+/search/ 76 3074580 16 15
+/myadmin/server_databases.php 1 10031 0 0
+/controllers/guest-register.php 15 509520 7 6
+/controllers/about.php 7 80829 0 0
+/controllers/complete-register.php 1 33070 0 0
+/myadmin/ 12 54749 4 0
+/controllers/report.php 18 247402 0 0
+/myadmin/tbl_export.php 2 78636 0 0
+/controllers/videos.php 2 19994 0 0
+/controllers/buyer-profile.php 5 134054 0 0
+/controllers/saved.php 5 233860 0 0
+/controllers/contactus.php 3 29034 0 0
+/controllers/weTest.php 47 281908 1 0
+/controllers/invest1.php 2 23652 0 0
+/controllers/users/guest-register-process.php 7 48533 0 0
+/myadmin/db_sql.php 10 87885 0 0
+/myadmin/navigation.php 47 535634 0 0
+/myadmin/tbl_structure.php 5 1459107 0 0
+/controllers/about1.php 8 102558 0 0
+/controllers/learnmore.php 6 46362 1 0
+/controllers/jqgrid.php 45 4158629 0 0
+/controllers/check-agent.php 8 40 0 0
+/controllers/agent-listings.php 1 20559 0 0
+/controllers/phpinfo.php 3 67793 0 0
+/controllers/agent-signin.php 14 130592 0 0
+/controllers/profile.php 79 2479232 0 0
+/controllers/dialog.php 1 285 0 0
+/myadmin/themes/svg_gradient.php 12 5844 0 0
+/controllers/users/complete-register-process.php 1 6995 0 0
+/controllers/delete-criteria.php 1 0 0 0
+/controllers/addressSearch.php 1 31453 0 0
+/myadmin/phpmyadmin.css.php 52 1593968 0 2
+/search.php 60 2618659 2 2
+/controllers/add-buyer.php 1 2061 0 0
+/controllers/test2.php 70 676597 0 0
+/controllers/messages.php 9 24336 0 0
+/myadmin/main.php 22 607012 0 0
+/controllers/verification1.php 12 297426 0 0
+/cgi-bin/awstats/awstats.pl 2 1712 1 2
+/controllers/invest.php 5 51465 0 0
+/controllers/verification.php 4 81460 0 0
+/controllers/get-search-criteria.php 1 286 0 0
+/controllers/users/process.php 1 1693 0 0
+/controllers/videos1.php 2 22112 0 0
+/controllers/check-criteria.php 1 4 0 0
+/controllers/signin1.php 38 385019 2 0
+/controllers/analytics.php 1 11841 0 0
+/myadmin/tbl_sql.php 16 230462 0 0
+END_SIDER

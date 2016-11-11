@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>  
+ <title>Basic HTML5 Column Chart </title>
+  <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Top Oil Reserves"    
+      },
+      animationEnabled: true,
+      axisY: {
+        title: "Reserves(MMbbl)"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      data: [
+
+      {        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "Total Inventory",
+        dataPoints: [      
+        {y: 297571, label: "Studio"},
+        {y: 267017,  label: "1 BR" },
+        {y: 175200,  label: "2 BR"},
+        {y: 154580,  label: "3 BR"}        
+        ]
+      }   
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+</head>
+  <body>
+  <div id="chartContainer" style="height: 280px; width: 350px;">
+    </div>
+  </body>
+</html>

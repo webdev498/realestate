@@ -1,0 +1,85 @@
+
+.version.index {	color: #0000F4;	background-color: #FD895B;}
+
+/* start of menu css */
+#menu{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; } 
+#page {	z-index: 1;	width: inherit;	max-width: 1200px;	min-height: 900px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 50px;	margin-left: auto;	margin-right: auto;}
+#page_position_content{	margin-bottom: -4px;	width: 100%;}
+#overlay{	display: none;	background-color: white;	height: 106%;	width: 100%;	top: 0;	left: 0;	position: absolute;	z-index: 300;	opacity: 0.9;}
+#u26451-5{	z-index: 124;	width: 12px;	min-height: 27px;	background-color: transparent;	color: #B2B2B2;	font-size: 14px;	line-height: 20px;	font-family: '__FontAwesome_5';	font-weight: 400;	position: relative;	margin-right: -10000px;	margin-top: 7px;	left: 200px;	top: -80px;}
+#u26451-5b{	z-index: 124;	width: 12px;	min-height: 27px;	background-color: transparent;	color: #B2B2B2;	font-size: 20px;	line-height: 20px;	font-family: '__FontAwesome_5';	font-weight: 400;	position: relative;	margin-right: -10000px;	left: 300px;}
+#u24590-4-1 {	z-index: 41;	width: 235px;	min-height: 24px;	position: relative;	margin-right: -10000px;	margin-top: 9px;	left: 709px;}
+#u2678{	z-index: 3;	width: 1200px;	height: 1px;	margin-top: 15px;	position: relative;}
+#u2688-4{	z-index: 13;	width: 42px;	min-height: 42px;	position: relative;	margin-right: -10000px;	left: 1157px;}
+#u2688-4-1{	z-index: 13;	width: 42px;	min-height: 42px;	position: relative;	margin-right: -10000px;	left: 957px;}
+#u25504{	z-index: 2;	width: 1237px;	left: -19px;	position: relative;}
+#u25504_img{	width: 1237px;	height: 91px;}
+#main-section{	width: 100%;	max-width: 1200px;}
+#pu7925{	max-width: 846px;	height: 390px;	margin-left: auto;	margin-right: auto;	margin-top: 72px;}
+
+.menu-image img{	max-height: 374px;	max-width: 156px;	width: 100%;	height: auto;}
+.menu-image{	margin-right: 14px;}
+.menu-image.first-image{	margin-left: 2px;}
+.menu-image.last-image{	margin-right: 0 !important;}
+.adminLink{ color: #0085C6 !important; font-family: lato, sans-serif; font-size: 18px; line-height: 25px; margin: 0 15px; text-decoration: underline !important; }
+
+#u7925{	z-index: 31;	width: 18.5%;	background-color: transparent;	position: relative;}
+#u7931{	z-index: 37;	width: 18.5%;	background-color: transparent;	position: relative;}
+#u7927{	z-index: 33;	width: 18.5%;	background-color: transparent;	position: relative;}
+#u8055{	z-index: 47;	width: 18.5%;	background-color: transparent;	position: relative;}
+#u7929{	z-index: 35;	width: 18.5%;	background-color: transparent;	position: relative;}
+#u7931_img,#u7927_img,#u7929_img{	margin-right: -1px;}
+#u28169_img,#u7927_img,#u7929_img{	margin-right: -1px;}
+#u8048{	z-index: 39;	max-width: 845px;	border-width: 0px;	border-color: transparent;	background-color: transparent;	margin-left: auto;	margin-right: auto;	position: relative;	text-align: center;}
+#u7952{	z-index: 40;	width: 100px;	height: 100px;	position: relative;	margin-right: -10000px;	background: transparent url("/images/button_search_hr_states-u7952-fr.png") no-repeat left top;	background-size: contain;}
+#u7952:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_search_hr_states-u7952-r-fr.png") no-repeat left top;	background-size: contain;}
+#u7952:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_search_hr_states-search_down.png") no-repeat left top;	background-size: contain;}
+#u7952-2{	z-index: 40;	width: 100px;	height: 100px;	position: relative;	margin-top: 10px;	margin-right: -10000px;	background: transparent url("/images/button_search_hr_states-u7952-fr.png") no-repeat left top;	background-size: contain;}
+#u7952-2:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 10px -10000px 0px 0px;	background: transparent url("/images/button_search_hr_states-u7952-r-fr.png") no-repeat left top;	background-size: contain;}
+#u7952-2:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 10px -10000px 0px 0px;	background: transparent url("/images/button_search_hr_states-search_down.png") no-repeat left top;	background-size: contain;}
+#pu4865{	width: 0.01px;}
+#u4865{	z-index: 41;	width: 100px;	background-color: transparent;	position: relative;	margin-right: -10000px;	margin-top: 1px;	left: -10px;}
+#u7968{	z-index: 43;	width: 100px;	height: 100px;	position: relative;	margin-right: -10000px;	background: transparent url("/images/button_buying_formula_hr_states-buying_formual_normal.png") no-repeat left top;	background-size: contain;}
+#u7968:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_buying_formula_hr_states-u7968-r-fr.png") no-repeat left top;	background-size: contain;}
+#u7968:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_buying_formula_hr_states-buying_formual_down.png") no-repeat left top;	background-size: contain;}
+#u8000{	z-index: 44;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_my_profile_hr_states-my_profile_normal.png") no-repeat left top;	background-size: contain;}
+#u8000:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_my_profile_hr_states-my_profile_over.png") no-repeat left top;	background-size: contain;}
+#u8000:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_my_profile_hr_states-my_profile_down.png") no-repeat left top;	background-size: contain;}
+#u8016{	z-index: 45;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_saved_listings_hr_states-u8016-fr.png") no-repeat left top;	background-size: contain;}
+#u8016:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_saved_listings_hr_states-saved_listings_over.png") no-repeat left top;	background-size: contain;}
+#u8016:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_saved_listings_hr_states-saved_listings_down.png") no-repeat left top;	background-size: contain;}
+#u27965{	z-index: 44;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_envelope_states-u27965-fr.png") no-repeat left top;	background-size: contain;}
+#u27965:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_envelope_states-envelope_over.png") no-repeat left top;	background-size: contain;}
+#u27965:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_envelope_states-envelope_down.png") no-repeat left top;	background-size: contain;}
+#u28069{	z-index: 29;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_add_buyer_states-add%20_buyer_normal.png") no-repeat left top;	background-size: contain;}
+#u28069:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_add_buyer_states-add%20_buyer_over.png") no-repeat left top;	background-size: contain;}
+#u28069:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_add_buyer_states-add%20_buyer_down.png") no-repeat left top;	background-size: contain;}
+#u28093{	z-index: 28;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_manage_buyers_states-manage_buyers_normal.png") no-repeat left top;	background-size: contain;}
+#u28093:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_manage_buyers_states-manage_buyers_over.png") no-repeat left top;	background-size: contain;}
+#u28093:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_manage_buyers_states-manage_buyers_down.png") no-repeat left top;	background-size: contain;}
+#u28141{	z-index: 27;	width: 100px;	height: 100px;	position: relative;	background: transparent url("/images/button_agent_folder_states-u28141-fr.png") no-repeat left top;	background-size: contain;}
+#u28141:hover{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_agent_folder_states-agent_folder_over.png") no-repeat left top;	background-size: contain;}
+#u28141:active{	width: 100px;	height: 100px;	min-height: 0px;	margin: 0px -10000px 0px 0px;	background: transparent url("/images/button_agent_folder_states-agent_folder_down.png") no-repeat left top;	background-size: contain;}
+
+#u7137-5{ color: #0085C6; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; font-style: italic; line-height: 25px; }
+#u7137-4,#u7137-6{ font-family: lato, sans-serif; font-size: 18px; font-style: italic; font-weight: 300; line-height: 25px; }
+#x22476-5{ cursor: pointer; }
+
+.button-text{	line-height: 22px;	font-size: 18px;	color: #7F7F7F;	font-family: lato,sans-serif;	font-weight: 300;	top: 120px;	position: absolute;	text-align: center;	left: -9px;	width: 120px;}
+.button-links{	cursor: pointer;	display: inline-block;	width: 100px;	height: 185px;	margin-right: 42px;	margin-left: 30px;	text-align: center;}
+.last-button{	margin-right: 27px !important;}
+
+.timeoutPopup{ z-index: 1000; }
+.ui-widget-overlay.ui-front{ z-index: 999; }
+
+@media (max-width: 575px){
+	#pu7925{ display: none;	}
+	#u8048{	top: 75px;}
+	.last-button{	margin-right: 40px !important;}
+}
+
+@media (max-width: 790px){
+	.menu-image{ margin-right: 10px;}
+	#pu7925{ height: 350px;}
+}
+/* end of buyer-options css */

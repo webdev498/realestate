@@ -1,0 +1,129 @@
+.version.buyer_profile_edit { color: #0000E9; background-color: #FA78B4; }
+
+#overlay{ background-color: white; display: none; height: 108%; left: 0; opacity: 0.9; position: fixed; top: 0; width: 100%; z-index: 530; }
+.ui-autocomplete{ min-width: 115px !important; z-index: 1015 !important; }
+
+.ui-dialog-titlebar{ display: none; }
+.ui-dialog{ display: block; height: auto; left: 117px; outline: 0px none; position: absolute; width: 1115px; z-index: 1003; }
+.ui-dialog.errorMessage{ box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; width: 250px !important; }
+.editFormula.ui-dialog{ top: 85px !important; }
+
+.close-edit-buyer-formula-popup{ color: #B2B2B2; cursor: pointer; float: right; font-size: 21px !important; }
+input#minPrice, input#maxPrice{ color: rgb(0, 0, 0); font-family: lato,sans-serif; font-size: 21px; font-weight: 300; height: 27px; width: 112px; line-height: 26px; }
+#bedrooms_slider.ui-slider, #location_grade.ui-slider, #building_grade.ui-slider, #views_grade.ui-slider, #bedroom_grade.ui-slider, #living_grade.ui-slider, #price.ui-slider{ background: transparent; border: none; cursor: pointer; height: 30px; position: absolute; width: 400px; z-index: 533; }
+#bedrooms_slider .ui-slider-handle, #location_grade .ui-slider-handle, #building_grade .ui-slider-handle, #views_grade .ui-slider-handle, #bedroom_grade .ui-slider-handle, #living_grade .ui-slider-handle, #price .ui-slider-handle{ background: white; border: white; border-radius: 1000px !important; cursor: pointer; height: 37px; width: 37px; z-index: 534; }
+#bedrooms_slider .ui-slider-range, #location_grade .ui-slider-range, #building_grade .ui-slider-range, #views_grade .ui-slider-range, #bedroom_grade .ui-slider-range, #living_grade .ui-slider-range, #price .ui-slider-range{ background: transparent; border: none; cursor: pointer; }
+a.ui-slider-handle span { font-family: 'Lato', sans-serif; font-size: 28px; font-weight: 100; left: 9px; position: relative; text-decoration: none; top: 8px; }
+a.ui-slider-handle span.smaller { font-family: 'Lato', sans-serif; font-size: 28px; font-weight: 100; left: 3px; position: relative; text-decoration: none; top: 8px; }
+#price a.ui-slider-handle span{ color: #2F9EB6; font-family: 'Lato', sans-serif; font-size: 50px; font-weight: 600; left: 10px; position: relative; text-decoration: none; top: 3px; }
+#bedrooms_slider a.ui-slider-handle span, #building_grade span.ui-slider-handle span { color: #7E499E; }
+#location_grade a.ui-slider-handle span{ color: #2F9EB6; left: 13px; top: 6px; }
+#building_grade a.ui-slider-handle span{ color: #7E499E; left: 13px; top: 6px; }
+#views_grade a.ui-slider-handle span { color: #D2008F; left: 13px; top: 6px;}
+#bedroom_grade a.ui-slider-handle span { color: #DD6000; }
+#living_grade a.ui-slider-handle span { color: #569243; }
+#bedrooms_slider, #location_grade{ margin-left: 45px; margin-top: 36px; }
+#price, #building_grade{ margin-left: 45px; margin-top: 193px; }
+#views_grade{ margin-left: 45px; margin-top: 358px; }
+#bedroom_grade { margin-left: 45px; margin-top: 515px; }
+#living_grade { margin-left: 45px; margin-top: 677px; }
+#bedroomSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 38px; position: relative; top: 40px; width: 427px; z-index: 500; }
+#priceSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 43px; position: absolute; top: 337px; width: 433px; z-index: 500; }
+#locationSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 605px; position: absolute; top: 180px; width: 430px; z-index: 400; }
+#buildingSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 605px; position: absolute; top: 337px; width: 430px; z-index: 500; }
+#viewSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 605px; position: absolute; top: 502px; width: 430px; z-index: 500; }
+#bedroomAreaSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 605px; position: absolute; top: 659px; width: 430px; z-index: 500; }
+#livingRoomSliderText{ color: white; font-family: lato,sans-serif; font-size: 22.5pt; font-weight: 100; left: 605px; position: absolute; top: 821px; width: 430px; z-index: 500; }
+.leftNum{ float: left; }
+.rightNum{ float: right; }
+
+#y25208 tr > td{ cursor: pointer; padding-bottom: 20px !important; padding-right: 10px; text-align: center; }
+#editPage{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; margin-left: auto; margin-right: auto; min-height: 900px; z-index: 1; }
+#y25246-3{ background-color: transparent; left: -197px; margin-right: -10000px; margin-top: 302px; position: relative; width: 5px; z-index: 266; }
+#y25241-3{ background-color: transparent; left: -111px; margin-right: -10000px; margin-top: 232px; position: relative; width: 5px; z-index: 262; }
+#py2678{ margin-left: -35px; margin-right: -10000px; width: 0.01px; }
+#py25217-6{ margin-left: 26px; margin-right: -10000px; margin-top: 38px; padding-bottom: 0px; width: 0.01px; }
+#y25217-6{ background-color: transparent; color: #0085C6; font-family: lato, sans-serif; font-size: 24px; font-weight: 700; line-height: 29px; margin-left: 31px; min-height: 44px; position: relative; width: 459px; z-index: 424; }
+#y25217{ line-height: 29px; }
+#y25217-2{ color: #7F7F7F; font-family: lato, sans-serif; font-weight: 300; line-height: 29px; }
+#y25217-3{ color: #7F7F7F; font-family: lato, sans-serif; font-size: 18px; font-style: italic; font-weight: 400; line-height: 22px; text-decoration: underline; }
+#py25231-53{ margin-top: 51px; width: 0.01px; }
+#y25231-53{ background-color: transparent; left: 36px; margin-right: -10000px; min-height: 850px; position: relative; width: 474px; z-index: 273; }
+#y25231-23,#y25231-26,#y25231-29,#y25231-32,#y25231-42,#y25231-45,#y25231-48,#y25231-51{ color: #000000; font-family: lato, sans-serif; font-size: 21px; font-weight: 300; line-height: 0px; }
+#y25224-14{ background-color: transparent; color: #000000; font-family: lato, sans-serif; font-size: 21px; font-weight: 300; left: 272px; line-height: 26px; margin-right: -10000px; margin-top: 368px; min-height: 136px; position: relative; width: 228px; z-index: 326; }
+#y25217-4,#y25224-3,#y25224-6,#y25224-9,#y25224-12{ line-height: 0px; }
+#y25231-21,#y25231-24,#y25231-27,#y25231-30,#y25231-40,#y25231-43,#y25231-46,#y25231-49,#y25224,#y25224-4,#y25224-7,#y25224-10{ color: #939393; font-family: '__FontAwesome_5'; font-size: 18px; font-weight: 400; line-height: 22px; }
+#y25231-22,#y25231-25,#y25231-28,#y25231-31,#y25231-41,#y25231-44,#y25231-47,#y25231-50,#y25224-2,#y25224-5,#y25224-8,#y25224-11{ line-height: 26px; }
+#y25220{ background-color: transparent; margin-left: 25px; margin-top: 15px; position: relative; width: 500px; z-index: 396; }
+#y25211{ background-color: transparent; margin-left: 25px; margin-top: 120px; position: relative; width: 500px; z-index: 408; }
+#y25385{ background-color: transparent; border-color: transparent; border-width: 0px; left: 208px; position: relative; top: 35px; width: 285px; z-index: 431; }
+#y25398{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; height: 29px; position: relative; width: 115px; z-index: 433; }
+#y25386{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; height: 29px; left: 48px; position: relative; width: 115px; z-index: 432; }
+#y25398::before,#y25386::before{ bottom: -1px; box-shadow: inset 1px 1px 2px rgba(255,255,255,0.33), inset -1px -1px 2px rgba(0,0,0,0.33); content: ""; left: -1px; pointer-events: none; position: absolute; right: -1px; top: -1px; }
+#y25216{ background-color: #7F7F7F; height: 965px; left: 562px; margin-right: -10000px; margin-top: 133px; position: relative; width: 1px; z-index: 430; }
+#py25213-56{ margin-left: 585px; margin-right: -10000px; margin-top: 133px; width: 0.01px; }
+#y25213-56{ background-color: transparent; left: 34px; margin-right: -10000px; min-height: 1060px; position: relative; width: 445px; z-index: 340; }
+#y25231-10,#y25213-2{ color: #2F9EB6; font-family: lato, sans-serif; font-size: 22px; font-weight: 600; line-height: 27px; }
+#y25213-19{ color: #D2008F; font-family: lato, sans-serif; font-size: 21px; font-weight: 300; line-height: 26px; }
+#y25231-39,#y25213-26,#y25213-27{ color: #DD6000; font-family: lato, sans-serif; font-size: 22px; font-weight: 600; line-height: 27px; }
+#y25213-34,#y25213-35{ color: #569243; font-family: lato, sans-serif; font-size: 22px; font-weight: 600; line-height: 27px; }
+#y25231-2,#y25213-10,#y25213-11,#y25213-12,#y25213-15,#y25213-16,#y25213-28,#y25213-36{ color: #7E499E; font-family: lato, sans-serif; font-size: 22px; font-weight: 600; line-height: 27px; }
+#y25213-44{ color: #D2008F; font-family: lato, sans-serif; font-size: 22px; font-weight: 400; line-height: 0px; }
+#y25213-41{ color: #2F9EB6; font-weight: 600; line-height: 27px; }
+#y25213-42{ line-height: 27px; }
+#y25231-20,#y25213-18,#y25213-45,#y25213-46,#y25213-47,#y25213-48,#y25213-49,#y25213-50,#y25213-51{ color: #D2008F; font-family: lato, sans-serif; font-size: 22px; font-weight: 600; line-height: 27px; }
+#y25213-54{ color: #D2008F; font-family: lato, sans-serif; font-size: 22px; font-weight: 400; line-height: 0px; padding-top: 12px; text-align: right; }
+#y25231-3,#y25231-4,#y25231-6,#y25231-7,#y25231-8,#y25231-11,#y25231-12,#y25231-14,#y25231-16,#y25231-17,#y25231-18,#y25231-36,#y25231-37,#y25213-3,#y25213-4,#y25213-6,#y25213-7,#y25213-8,#y25213-14,#y25213-20,#y25213-22,#y25213-23,#y25213-24,#y25213-30,#y25213-31,#y25213-32,#y25213-38,#y25213-40,#y25213-43,#y25213-52{ color: #000000; font-family: lato, sans-serif; font-size: 21px; font-weight: 300; line-height: 26px; }
+#y25213-53{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 17px; }
+#y25229{ background-color: transparent; left: 25px; position: relative; top: 32px; width: 500px; z-index: 398; }
+#y25225{ background-color: transparent; left: 25px; position: relative; top: 525px; width: 500px; z-index: 400; }
+#y25222{ background-color: transparent; left: 25px; position: relative; top: 400px; width: 500px; z-index: 402; }
+#y25227{ background-color: transparent; left: 25px; position: relative; top: 280px; width: 500px; z-index: 404; }
+#y25214{ background-color: transparent; left: 25px; position: relative; top: 152px; width: 500px; z-index: 406; }
+#y25374{ background-color: transparent; border-color: transparent; border-width: 0px; left: 25px; position: relative; top: 645px; width: 443px; z-index: 410; }
+#amenitiesSeparator{ background-color: rgb(127, 127, 127); height: 137px; left: 307px; margin-right: -10000px; margin-top: 3px; position: absolute; width: 1px; z-index: 430; }
+#y25208{ background-color: transparent; margin-left: 7px; margin-right: -10000px; position: relative; width: 441px; z-index: 500; }
+.y25210-11{ background-color: transparent; font-family: lato, sans-serif; font-size: 12px; font-weight: 400; line-height: 12px; z-index: 413; }
+#y25210-5{ padding-bottom: 38px; }
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
+  .editFormula{ left: 16% !important; top: 2% !important; width: 550px !important;}
+  .editFormula #ajax-box3{ overflow-x: hidden; }
+  .ui-dialog.addBuyerPopup{ left: 200px !important; }
+  #y25216{ display: none; }
+  #y25213-56{ left: -524px; top: 700px; }
+  #y25229, #y25214, #y25227, #y25222, #y25225{ left: -534px; width: 460px; }
+  #y25229 { top: 737px; }
+  #location_grade{ margin-left: -515px; top: 847px; }
+  #y25214{ top: 855px; }
+  #building_grade{ margin-left: -515px; top: 845px; }
+  #y25227{ top: 980px; }
+  #views_grade{ margin-left: -515px; top: 841px; }
+  #y25222{ top: 1100px; }
+  #bedroom_grade{ margin-left: -515px; top: 842px; }
+  #bedroomAreaSliderText{ left: 45px; top: 1360px; }
+  #y25225{ top: 1225px; }
+  #living_grade{ margin-left: -515px; top: 842px; }
+  #livingRoomSliderText{ left: 45px; top: 1521px; }
+  #y25374{ left: -534px; top: 1345px;  }
+  
+  #y25213-56 div{ width: 99%; }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+  .editFormula{ left: 3px !important; width: 1020px !important;}
+  .editFormula #ajax-box3{ padding: .5em 0;}
+  .ui-dialog.addBuyerPopup{ left: 300px !important; }
+  #y25217-6{ margin-left: 15px; }
+  #y25231-53{ left: 20px; }
+  #y25224-14{ left: 256px; }
+  #priceSliderText{ left: 41px; }
+  #y25385{ left: 192px; }
+  #y25216{ left: 546px; }
+  #y25213-56{ left: 5px; }
+  #y25229, #y25214, #y25227, #y25222, #y25225{ left: 0; width: 460px; }
+  #y25374{ left: 0; }
+  #location_grade, #building_grade, #views_grade, #bedroom_grade, #living_grade{ margin-left: 20px; }
+  #bedroomAreaSliderText, #livingRoomSliderText{ left: 579px; }
+
+  #y25213-56 div{ width: 99%; }
+}

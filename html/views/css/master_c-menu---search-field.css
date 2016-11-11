@@ -1,0 +1,166 @@
+#u15620-4
+{
+	background-color: #FFFFFF;
+	line-height: 18px;
+	font-size: 18px;
+	color: #7F7F7F;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u15620-4-1
+{
+	background-color: #FFFFFF;
+	line-height: 18px;
+	font-size: 18px;
+	color: #7F7F7F;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+	min-width: 220px;
+	padding-top: 10px;
+}
+
+#u24590-4
+{
+	background-color: #FFFFFF;
+	text-align: right;
+	font-size: 18px;
+	color: #0085C6;
+	line-height: 18px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u24590-4-1
+{
+	background-color: #FFFFFF;
+	text-align: right;
+	font-size: 18px;
+	color: #0085C6;
+	line-height: 18px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u2688-4
+{
+	background-color: #C2C2C2;
+	text-align: center;
+	font-size: 15px;
+	color: #FFFFFF;
+	line-height: 15px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u2688-4-1
+{
+	background-color: #C2C2C2;
+	text-align: center;
+	font-size: 15px;
+	color: #FFFFFF;
+	line-height: 15px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+
+#u2688-2
+{
+	padding-top: 5px;
+	line-height: 0px;/* 0 for mixed font sized paras; applied on spans instead */
+}
+
+#u2688
+{
+	font-size: 13px;
+	font-family: lato, sans-serif;
+	font-weight: 700;
+	line-height: 13px;
+}
+
+#u2678,#u2679
+{
+	background-color: #C2C2C2;
+}
+
+#u2680
+{
+	border-width: 0px;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+#u2681
+{
+	border: 1px solid #b2b2b2;
+	border-radius: 0;
+	box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.33) inset, -1px -1px 2px rgba(0, 0, 0, 0.33) inset;
+	color: #646464;
+	font-family: lato;
+	font-weight: 300;
+	text-align: right;
+}
+
+#u2681::before
+{
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	top: -1px;
+	left: -1px;
+	bottom: -1px;
+	right: -1px;
+	box-shadow: inset 1px 1px 2px rgba(255,255,255,0.33), inset -1px -1px 2px rgba(0,0,0,0.33);
+}
+
+#u2682-4
+{
+	background-color: transparent;
+	text-align: left;
+	font-size: 15px;
+	color: #7F7F7F;
+	line-height: 18px;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u25521,#u2683
+{
+	background-color: transparent;
+}
+
+#u2595
+{
+	background-color: #B2B2B2;
+}
+
+#u15181-16
+{
+	background-color: transparent;
+	color: #FFFFFF;
+	font-family: lato, sans-serif;
+	font-weight: 300;
+}
+
+#u15181-2,#u15181-4,#u15181-6,#u15181-8,#u15181-10,#u15181-12
+{
+	color: #0085C6;
+}
+
+#u15182-4
+{
+	background-color: transparent;
+	text-align: right;
+	font-size: 24px;
+	color: #FFFFFF;
+	line-height: 29px;
+	font-family: lato, sans-serif;
+	font-weight: 400;
+}
+
+#u15182
+{
+	font-family: '__FontAwesome_5';
+	font-weight: 400;
+}

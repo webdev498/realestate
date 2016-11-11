@@ -1,0 +1,68 @@
+html{ font-size: 1em; }
+body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-weight:normal; letter-spacing: 0.05em; line-height:140%; margin: 0 auto 20px; }
+
+#verificationBackground1 { background-image: url('/images/adobestock_823928652.jpg'); background-position: center; height: 950px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#verificationBackground2 { background-image: url('/images/fotolia_82688508.jpg'); background-position: center; height: 950px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#header{ margin: auto; max-width: 960px; }
+#wrapper{ margin: auto; max-width: 960px; }
+#verificationArea.short{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 15%; max-width: 580px; min-width: 560px; }
+#verificationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 6%; max-width: 580px; min-width: 560px; }
+#verificationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
+#verificationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
+#verificationBorder{ margin:auto; padding: 40px 40px 0; }
+#verificationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width:280px; }
+#verificationArea select.macFF{ width:260px; }
+#disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
+#verificationSubmit, #verificationVerify{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
+#arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
+
+.input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
+*, *::before, *::after { box-sizing: content-box; }
+a, a:visited, a:hover{ color: #D2008F !important; font-weight: 400 !important; text-decoration: none !important; }
+input:focus, select:focus, textarea:focus, button:focus { outline: none; }
+tr > td{ padding-bottom: 1em !important; }
+label { display: inline; font-weight: normal; }
+.text-popups{ color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding: 0px; }
+.ui-autocomplete { max-height: 200px; overflow-x: hidden; overflow-y: auto; }
+
+.ui-dialog .ui-dialog-titlebar{ display: none; }
+.ui-dialog{ box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; z-index: 1001; }
+.ui-dialog .ui-dialog-buttonpane{ border-width: 0 0 0 0 !important; }
+.ui-dialog .ui-dialog-buttonpane button{ background: transparent none repeat scroll 0% 0%; border: medium none; color: #646464; font-weight: 600; }
+.ui-dialog.errorMessage{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-weight: normal; font-size: 1.1em; font-family: 'Lato', sans-serif; height: 150px !important; left: 50% !important; margin: -50px 0 0 -125px; padding: 0 !important; position: fixed !important; top: 43% !important; width: 240px !important; z-index: 1001; }
+.ui-dialog.errorMessage #ajax-box #registerRquirements{ margin-top: 30px; }
+.ui-dialog.errorMessage #ajax-box #invalidBuyerEmail{ margin-top: 5px; }
+.ui-dialog.errorMessage .ui-resizable-handle{ display: none !important; }
+
+.ui-widget-overlay{ background: #ffffff; height: 1020px !important; opacity: 0.8; }
+
+@font-face{ font-family: '__FontAwesome_5'; src: url('../fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
+
+@media (max-width:479px){
+  .container-fluid{ padding-left: 5px !important; padding-right: 5px !important; }
+  #verificationArea{ margin-top: 15px; min-width:auto !important; }
+  #verificationTop, #verificationBorder{ padding:15px 15px 0; }
+  #verificationBorder tr td:last-child{ width:60%; }  
+  #verificationBorder td input{ width:90%; } 
+  #verificationBorder td select{ height:auto !important; padding: 2px; width:87%; }
+}
+@media (min-width:480px) and (max-width:639px){
+  #verificationArea{ min-width:auto !important; }  
+  #verificationTop, #verificationBorder{ padding:15px 15px 0; }  
+  #verificationBorder td input{ width:90%; }  
+  #verificationBorder td select{ height:auto !important; padding:2px; width:90%; }  
+  #verificationBorder tr td:last-child{ width:60%; } 
+}
+@media (min-width:640px) and (max-width:767px){
+  #verificationArea{ height: auto !important; left: 4%; margin-top: 15px; position: absolute; }  
+  #verificationBorder td input{ width:90%; }  
+  #verificationBorder td select{ height: auto !important; padding: 2px; width: 89%; }  
+  #verificationBorder tr td:last-child{ width:60%; }  
+  #disclaimer{ float: left; text-align: justify; width: 100%; }
+}
+@media (min-width:768px) and (max-width:800px){
+  #verificationArea{ height: auto !important; left: 15%; position: absolute; }  
+  #verificationBorder td input { width: 90%; }  
+  #verificationBorder td select { height: auto !important; padding: 2px; width: 89%; } 
+  #verificationBorder tr td:last-child{ width:60%; }
+}

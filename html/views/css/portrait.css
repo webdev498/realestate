@@ -1,0 +1,123 @@
+.ajaxbox {
+    margin-top:-10%;
+    margin-left:7%;  
+    width:60%;
+    left: 0px;
+  }
+.break
+{
+  margin-bottom:0px !important;
+}
+ .mini.ui-slider
+{
+  width: 280px;
+} 
+
+.numberline
+{
+  width: 276px;
+}
+.mini.ui-slider .ui-slider-handle
+{
+   width: 20px;
+    height: 20px;
+}
+a.ui-slider-handle span
+{
+  font-size:23px;
+  top:-3px;
+}
+#bedrooms_slider
+{
+  margin-left:6%;
+}
+
+#price_box a.ui-slider-handle span
+{
+      font-size: 43px;
+}
+#bedroom_grade a.ui-slider-handle span, #living_grade a.ui-slider-handle span
+{
+  font-size:19px;
+}
+#bedroom .ui-slider-handle
+{
+  margin-left: -5%;
+}
+.select .selectborder
+{
+  width: 346px;
+}
+.select .ui-icon.ui-icon-triangle-2-n-s
+{
+  margin-right: 21%;
+}
+.continue
+{
+  left: 50px;
+}
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr
+{
+  width:250px;
+}
+#floor_box
+{
+  margin-left: -8%;
+}
+.logout
+{
+  margin-left: -30% !important;
+}
+.label
+{
+  margin-left:10%;
+}
+#tabs.ui-tabs .ui-tabs-nav
+{
+  width:850px !important;
+}
+#amenities
+{
+  margin-left:-5%;
+}
+#key
+{
+  right:200px;
+}
+#floor_box
+{
+  margin-left:-10%;
+}
+#building .numberline, 
+#location .numberline,
+#living .numberline
+{
+  margin-left:1%;
+}
+#view .mini.ui-slider
+{
+  width:230px;
+}
+#view a.ui-slider-handle span
+{
+  font-size:23px;
+}
+body
+{
+	-ms-touch-action: manipulation;	/* IE10  */
+	touch-action: manipulation;		/* IE11+ */
+ }  
+ #bedroom, #building
+ {
+   margin-left:-4%;
+ }
+ #amenities
+ {
+   margin-right:6%;
+ }
+ #view .mini.ui-slider .ui-slider-handle
+ {
+   width:23px;
+   height:23px;
+ }
+/* CSS Document */

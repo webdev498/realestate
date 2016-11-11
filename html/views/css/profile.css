@@ -1,0 +1,103 @@
+body {   font-family: 'Lato', sans-serif;   width: auto;   /*zoom: 1;*/}
+a img{		    border: none;}
+
+#profile {	color: #707070;	}
+h1, #profile h2, #profile h3, #profile h4, #profile h5, #profile h6, #profile form {display:block;margin:0;padding:0;font-weight:normal;}
+
+#profile body, #profile form, #profile label, #profile td, #profile th {   color:#646464;   font-family: 'Lato', sans-serif;   font-size:17px;   font-weight:normal;   line-height:140%;   letter-spacing: 0.05em;}
+#profile td{    vertical-align: top;}
+ h1{text-transform:uppercase;font-size:1.32em;margin:5px 0;padding:0;font-family: 'Lato', sans-serif;}
+
+#profile h2{   text-transform: uppercase;   font-size: 24px;   margin: 0;   padding: 0;   font-family: 'Lato', sans-serif;   color: #808080;   letter-spacing: 4px;}
+#profile .rte_content h3{    text-transform:uppercase;    font-size:13px;    margin:0;    padding:0 0 3px 0;    font-family: 'Lato', sans-serif;}
+#profile a, #profile  a:link{color:black;outline: none;text-decoration: none;}
+#profile .agent-info-list:hover{    color:#0085c6;}
+#profile h1 a, #profile  h2 a, #profile  h3 a, #profile  h4 a, #profile  h5 a, #profile  h6 a{    text-decoration: none;}
+#profile p{    margin:0 0 10px 0;}
+#profile img {    border:none;}
+#profile body {margin:0;padding:0;}
+#profile select option{    padding:0 3px;}
+#profile .clear{    clear:both;    }
+#profile .black {    color:black;}
+#profile .small {    font-size: x-small;}
+#profile .right{    text-align: right;}
+#profile select {border:1px solid #cccccc;margin-top:3px;padding:1px;}
+#profile #wrapper {width:980px;margin:0;padding:0;}
+#profile #head, #profile  #logo {width:980px;height:96px;margin:0;padding:0;border-bottom:1px solid #ffffff;}
+#profile #logo h1{    display:none;}
+#profile #menu {	background-color:#606060;	xletter-spacing:1px;	padding-left:40px;	height:30px;	font-family: 'Lato', sans-serif;}
+
+
+/* ############################# listing details ############################# */
+#profile .listingtop1, #profile  .listingmain1, #profile  .listingint1 {width:375px;float:left;margin-right:20px;background-color: white;}
+#profile .listingtop1 h1.blue {    font-family: 'Lato', sans-serif;    font-size: 30px;;    letter-spacing: 0.1em;    text-transform: uppercase;}
+#profile .listingtop1 h2.blue{    margin:5px 0 20px 0;        text-transform: uppercase;}
+#profile .listingtop2, #profile  .listingmain2 {    float: left;    /*margin-left: 30px; Use for the non-bootstrap search*/    margin-left: 25px;    width: 240px;}
+#lm3 {	width: 210px !important;	marging: 31px;	}
+#profile .listingtop3, #profile   .listingmain3 {width:205px;float:right;margin-left:10px;}
+#mkt_desc {   text-align: justify;   letter-spacing: 0em;   color: #646464;   font-family: lato, sans-serif;   font-size: 17px;   line-height: 23px;   line-height: 23px;   text-align: justify;   padding: 0px;}
+#profile .infobox{    padding: 0 0 30px;}
+#profile .infobox h2 {    border-bottom: 1px solid #cccccc;    margin-bottom:10px;}
+#profile .prop h2 {    margin-bottom:10px;        margin: 0;    color: #777777;    font-size: 23px;    text-transform:none;    text-decoration:none;    font-family:'Lato', sans-serif;    font-weight:bold;    letter-spacing:0em;}
+#profile .imagebig img{width:366px;height:253px;overflow:hidden;background-color:white;margin-bottom:5px;text-align:left;}
+
+/*
+#profile .imagebig {
+	display:inline-block;
+	position: relative;
+}
+
+#profile .imagebig:after {
+	content:'';
+	display:block;
+	width:33px;
+	height:33px;
+	position:absolute;
+	top:0;
+	right:0;
+	background:url(../images/magnifier.png);
+}
+
+#profile .imagebig img {
+	display: block;
+}
+
+#profile .imagebig img::selection { background-color: transparent; }
+*/
+
+#profile .listinggalleryback, #profile .listinggallerymore {margin-left:2px;margin-top:2px;}
+#profile .listingdetailhead {          margin-top:30px;    border-bottom: 1px solid #ccc;     padding-bottom:2px;}
+#profile .images {    padding-top: 3px;}
+#profile .images .imagesgallery {margin-top:5px;width:370px;}
+#profile .images .imagesgallery .gallerysmallimage img {width:120px;height:80px;margin-right:3px;margin-bottom:3px;float:left;text-align:left;background-color:white;cursor: pointer;}
+#profile .listingmain2 table.detailscontent .icons .fa-2x{   font-size: 31px;}
+#profile .listingmain2 table.detailscontent .icons th{   left: -7px;}
+#profile .listingmain2 table.detailscontent{    border-collapse: collape;    border-spacing:0;    margin:0; padding:0;    width:100%;}
+#profile .listingmain2 table.detailscontent tr th{    font-weight:normal;    text-align:left;    padding:0; margin:0;}
+#profile .listingmain2 table.detailscontent tr td{   text-align:right;   padding:0; margin:0;}
+#profile .listingmain2 table.amenitiesList tr td {   line-height: 20px;   font-family: lato, sans-serif;   font-size: 17px;}
+#profile .listingmain3 .contact h2 a {color:#666666;text-transform:uppercase;font-weight:100;text-decoration:none;}
+#profile .listingmain3 .contact img.arrow {margin-left:10px;}
+#profile .listingmain3 .contact img.calculator {    margin-top:12px;}
+
+@media print{
+  #profile .icons {    border-radius: 0.2em;    cursor: pointer;    height: 1.4em;    margin: 0.8em 0.8em 0px 0px;    opacity: 0.6;    width: 1.8em;  }
+}
+
+/*@viewport {
+  min-width: 768px;
+  max-width: 1024px;
+}*/
+
+@-ms-viewport {  width: device-width;}
+
+/* Email Form Popup */
+.ui-dialog.emailForm{   background-color: #ffffff;   border-color: #b2b2b2;   border-style: solid;   border-width: 1px;   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);   height: auto !important;   left: 38% !important;   margin: -50px 0 0 -125px;   padding-bottom: 5px;   position: fixed !important;   top: 27% !important;   width: 585px !important;   z-index: 1010;}
+
+/* Agent Bio Popup */
+.ui-dialogue-agent-bio{   background-color: #ffffff;   border-color: #b2b2b2;   border-style: solid;   border-width: 1px;   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);   height: auto !important;   left: 38% !important;   margin: -50px 0 0 -125px;   max-height: 580px;   overflow-y: auto;   padding-bottom: 69px;   position: fixed !important;   top: 10% !important;   width: 610px !important;   z-index: 1010;}
+.ui-dialogue-agent-bio .ui-resizable-handle{   display: none !important;}
+
+/*Cost Estimator Popup */
+.ui-dialog.costEstimatorPopup{   background-color: #ffffff;   border-color: #b2b2b2;   border-style: solid;   border-width: 1px;   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);   height: auto !important;   left: 38% !important;   margin: -50px 0 0 -125px;   max-height: 515px;   overflow-y: auto;   padding-bottom: 69px;   position: fixed !important;   top: 10% !important;   width: 585px !important;   z-index: 1015;}
+.ui-dialog.costEstimatorPopup .ui-resizable-handle{	display: none !important;}

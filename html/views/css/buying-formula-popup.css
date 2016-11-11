@@ -1,0 +1,33 @@
+
+.version.buying_formula_popup {	color: #0000F5;	background-color: #A86D7C;}
+.ui-dialog .ui-dialog-titlebar{	display: none;}
+.ui-dialog{	box-shadow: 4px 4px 8px rgba(0,0,0,0.25);	font-weight: normal;	font-size: 1.1em;	font-family: 'Lato', sans-serif;}
+.buyingFormulaPopup.ui-dialog{	background-color: #ffffff;	border-color: #b2b2b2;	border-style: solid;	border-width: 1px;	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);	height: auto !important;	left: 42% !important;	margin: -50px 0 0 -125px;	position: fixed !important;	top: 20% !important;	width: 460px !important;	z-index: 1001;
+.ui-dialog.errorMessage{	box-shadow: 4px 4px 8px rgba(0,0,0,0.25);	width: 250px !important;	font-weight: normal;	font-size: 1.1em;	font-family: 'Lato', sans-serif;}
+.ui-dialog .ui-dialog-buttonpane{	border-width: 0 0 0 0 !important;}
+.ui-dialog .ui-dialog-buttonpane button{	background: transparent none repeat scroll 0% 0%;	border: medium none;	font-weight: 600;	color: #646464;}
+
+#overlay{	display: none;	background-color: white;	height: 190%;	width: 100%;	top: 0;	left: 0;	position: absolute;	z-index: 1000;	opacity: 0.9;}
+#u21879{	z-index: 128;	width: 367px;	border-width: 0px;	border-color: transparent;	background-color: transparent;	margin-bottom: -14px;	position: relative;	margin-right: -10000px;	margin-top: 43px;	left: 46px;}
+#u21880-30{	z-index: 129;	width: 367px;	min-height: 279px;	background-color: transparent;	position: relative;	margin-right: -10000px;}
+#u21880-2{	text-align: left;	line-height: 36px;	font-family: lato, sans-serif;	font-weight: 300;}
+#u21880-5{	color: #0085C6;	font-family: lato, sans-serif;	font-weight: 600;}
+#u21880-12{	font-family: lato, sans-serif;	font-weight: 300;	font-style: italic;}
+#u21880-14,#u21880-17{	color: #646464;	font-family: lato, sans-serif;	font-weight: 300;}
+#u21880-3,#u21880-10,#u21880-16{	font-family: lato, sans-serif;	font-weight: 700;}
+#u21880-22{	text-align: justify;	padding-top: 14px;	font-family: lato, sans-serif;	font-weight: 400;}
+#u21880-7,#u21880-18{	font-family: '__FontAwesome_5';	font-weight: 400;}
+#u21880-19,#u21880-20{	font-family: lato, sans-serif;	font-weight: 300;}
+#u21880-26{	text-align: right;	padding-top: 6px;	font-family: lato, sans-serif;	font-weight: 400;	line-height: 0px;/* 0 for mixed font sized paras; applied on spans instead */}
+#u21880-24{	font-size: 14px;	color: #0085C6;	font-family: '__FontAwesome_5';	font-weight: 400;	line-height: 20px;}
+#u21880-23,#u21880-25{	line-height: 25px;}
+#u21880-8,#u21880-27,#u21880-28{	font-family: lato, sans-serif;	font-weight: 400;}
+#u26451-4{	z-index: 124;	width: 12px;	min-height: 27px;	background-color: transparent;	color: #B2B2B2;	font-size: 14px;	line-height: 20px;	font-family: '__FontAwesome_5';	font-weight: 400;	position: relative;	margin-right: -10000px;	margin-top: 7px;	left: 410px;	top: -410px;}
+#u26451-5{	z-index: 124;	width: 12px;	min-height: 27px;	background-color: transparent;	color: #B2B2B2;	font-size: 14px;	line-height: 20px;	font-family: '__FontAwesome_5';	font-weight: 400;	position: relative;	margin-right: -10000px;	margin-top: 7px;	left: 210px;	top: -125px;}
+#muse_css_mq,.html{	background-color: #FFFFFF;}
+
+body{	position: relative;	min-width: 1200px;}
+
+.verticalspacer{	min-height: 1px;}
+
+@font-face{	font-family: '__FontAwesome_5';	src: url('/views/fonts/fontawesome-webfont.eot');	src: local('☺'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg');	font-weight: 400;	font-style: normal;}
