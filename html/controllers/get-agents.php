@@ -13,7 +13,7 @@ if(isset($_POST['new'])){
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    if($row['agent_id'] != "JLF" && $row['agent_id'] != "JSK" && $row['agent_id'] != "AG1" && $row['agent_id'] != "AG2" && $row['agent_id'] != "DB1" && $row['agent_id'] != "LPP" && $row['agent_id'] != "DJB" && $row['agent_id'] != "WLE" && $row['agent_id'] != "LKB" && $row['agent_id'] != "ABA" && $row['agent_id'] != "ACD"){
+    if($row['agent_id'] != "JLF" && $row['agent_id'] != "JSK" && $row['agent_id'] != "AG1" && $row['agent_id'] != "AG2" && $row['agent_id'] != "DB1" && $row['agent_id'] != "DJB" && $row['agent_id'] != "WLE"){
       $name = $row['last_name'] . ",  " . $row['first_name'];
       array_push($agents, $name);
     }

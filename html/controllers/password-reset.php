@@ -27,7 +27,7 @@ include("basicHead.php");
       this.setState(change);
     },
     checkInput: function(){
-      if(this.state.email != "" || this.state.newPass != "" || this.state.confPass != ""){ return true; }
+      if(this.state.email != "" && this.state.newPass != "" && this.state.confPass != ""){ return true; }
       else{ return false; }
     },
     validate: function(e){
