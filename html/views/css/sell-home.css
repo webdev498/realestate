@@ -9,7 +9,7 @@
 
 .col-md-5ths{ border-bottom: none; border-left: none; border-right: 1px solid #B2B2B2; border-top: none; display: inline-block; width: 234px; }
 .col-md-5ths:last-child{ border-right: none; }
-.panel{ border: none; box-shadow: none; }
+.panel{ border: none; box-shadow: none; margin-bottom: 0 !important; }
 .panel-body{ min-height: 381px; padding: 0 15px; }
 .first-panel{ padding-left: 0; }
 
