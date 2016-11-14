@@ -35,47 +35,47 @@ else{ $mainPage = ""; }
 									<h3 className="text-popups"><span className="c_green">Select</span> your basic parameters</h3>
 									<h4 className="reducedWidth">Using simple sliders, make selections for four primary categories:</h4>
 									<h4 className="item-height">&nbsp;</h4>
-									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="http://homepik.com/images/price_range.png"/></span> Price range</h4>
-									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="http://homepik.com/images/number_of_bedroom.png"/></span> Number of bedrooms</h4>
-									<h4 className="item-height Text-2-ex-lead word-overflow"><span className="cont_img"><img src="http://homepik.com/images/nightborhood.png"/></span> Neighborhoods</h4>
-									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="http://homepik.com/images/property_types.png"/></span> Property types</h4>
+									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="/images/price_range.png"/></span> Price range</h4>
+									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="/images/number_of_bedroom.png"/></span> Number of bedrooms</h4>
+									<h4 className="item-height Text-2-ex-lead word-overflow"><span className="cont_img"><img src="/images/nightborhood.png"/></span> Neighborhoods</h4>
+									<h4 className="item-height Text-2-ex-lead"><span className="cont_img"><img src="/images/property_types.png"/></span> Property types</h4>
 								</div>
 								<div className="col-xs-12 col-sm-3 column2">
 									<h3 className="text-popups"><span className="c_orange">Define</span> your buying formula</h3>
 									<h4>Using simple sliders, make selections for five primary motivators:</h4>
 									<h4 className="item-height">&nbsp;</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/location.png"/></span> Location grade</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/building.png"/></span> Building grade</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/ser.png"/></span> View grade</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/bed.png"/></span> Master bedroom size</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/sofa.png"/></span> Living room size</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/location.png"/></span> Location grade</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/building.png"/></span> Building grade</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/ser.png"/></span> View grade</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/bed.png"/></span> Master bedroom size</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/sofa.png"/></span> Living room size</h4>
 									<p>...and desired amenities such as fireplace, laundry and outdoor space.</p>
-									<img className="amenityIcon" src="http://homepik.com/images/icon_fireplace_2_30k_33px.png"/>
-									<img className="amenityIcon" src="http://homepik.com/images/washer_3_37px.png"/>
-									<img className="amenityIcon" src="http://homepik.com/images/icon_roofdeck_4_30k_33px.png"/>
+									<img className="amenityIcon" src="/images/icon_fireplace_2_30k_33px.png"/>
+									<img className="amenityIcon" src="/images/washer_3_37px.png"/>
+									<img className="amenityIcon" src="/images/icon_roofdeck_4_30k_33px.png"/>
 								</div>
 								<div className="col-xs-12 col-sm-3 column3">
 									<h3 className="text-popups"><span className="c_pink">Search</span> for apartments that match it</h3>
-									<span className="cont_img pinkArrow"><img src="http://homepik.com/images/search_homepik.png"/></span>
+									<span className="cont_img pinkArrow"><img src="/images/search_homepik.png"/></span>
 									<h4 className="pink_arrow"><span className="homepik">HomePik</span>&nbsp; will scan the entire database of available apartments in New York City for those that match your buying formula</h4>
 								</div>
 								<div className="col-xs-12 col-sm-3 column4">
 									<h3 className="text-popups"><span className="c_blue">View</span> the results of the search</h3>
 									<h4 className="item-height"><span className="homepik">HomePik</span> has located every apartment that meets your minimum criteria and compared them using its patented rating system:</h4>
 									<h4 className="item-height">&nbsp;</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/meets.png"/></span>  = meets your criteria</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/exceeds.png"/></span>  = exceeds your criteria</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/greatly.png"/></span>  = greatly exceeds your criteria</h4>
-										<img src="http://homepik.com/images/divider_d.png"/>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/meets.png"/></span>  = meets your criteria</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/exceeds.png"/></span>  = exceeds your criteria</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/greatly.png"/></span>  = greatly exceeds your criteria</h4>
+										<img src="/images/divider_d.png"/>
 									<p className="text-center"><span className="c_blue_p">HomePik is the one and only search engine able to compare properties.</span> Your searches. Your way.</p>
 								</div>
 								<div className="col-xs-12 col-sm-3 border_right_none column5">
 									<h3 className="text-popups"><span className="c_purple">Manage</span> your searches and selections</h3>
 									<h4 className="item-height">Save searches and properties, email them, and connect with your agent</h4>
 									<h4 className="item-height">&nbsp;</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/save_to_folders.png"/></span> Save to folders</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/emails.png"/></span> Email</h4>
-									<h4 className="item-height"><span className="cont_img"><img src="http://homepik.com/images/chose_your_agent.png"/></span> Choose an agent</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/save_to_folders.png"/></span> Save to folders</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/emails.png"/></span> Email</h4>
+									<h4 className="item-height"><span className="cont_img"><img src="/images/chose_your_agent.png"/></span> Choose an agent</h4>
 								</div>
 							</div>
 							<div className="container" id="videoDocumentSection">
@@ -93,7 +93,7 @@ else{ $mainPage = ""; }
 									<div className="col-md-4 col-md-offset-2 pdf-image">
 										<p className="FAQ-1-grey-bd" style={{marginBottom: 20 + "px"}}>PowerPoint Presentation</p>
 										<div>
-											<a href="/documents/HomePik_Investor_Presentation.pdf"><img className="image-container" alt="press release" src="http://homepik.com/images/investimage.JPG" title="PowerPoint Presentation" /></a>
+											<a href="/documents/HomePik_Investor_Presentation.pdf"><img className="image-container" alt="press release" src="/images/investimage.JPG" title="PowerPoint Presentation" /></a>
 										</div>
 									</div>
 								</div>
