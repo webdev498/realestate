@@ -99,7 +99,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														echo "<center class='Text-1 clearfix title'>Login Error</center>";
 														echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 														echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the login to re-enter an email.</center> ";
-														echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+														echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 												} else {
 													//if there was a match continue checking
 													//select all rows where the email and password match the ones submitted by the user
@@ -150,7 +150,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 										echo "<center class='Text-1 clearfix title'>Login Error</center>";
 										echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 										echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the login to re-enter an email.</center> ";
-										echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+										echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 									}
 								}
 							}

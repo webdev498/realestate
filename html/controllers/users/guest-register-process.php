@@ -81,7 +81,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							if($agent != 'true') {
 								echo "<center class='Text-1 clearfix title'>Registration Error</center>";
 								echo "<center class='Text-1 clearfix'><br><br>An account already exists with that email. Select Buyer Login to log into HomePik or Reset Password to reset your password.</center>";
-								echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/signin.php"><button type="button" id="back">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/controllers/verification.php"><button type="button" id="back">Go to Reset Password &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+								echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/signin.php"><button type="button" id="back" class="extraSpace">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/controllers/verification.php"><button type="button" id="back">Go to Reset Password &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 							} else {
 								echo "<center class='Text-1 clearfix title'>Registration Error</center>";
 								echo "<center class='Text-1 clearfix'><br><br>You must log in using Agent Login.</center>";

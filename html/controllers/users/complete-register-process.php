@@ -101,7 +101,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 									echo "<center class='Text-1 clearfix title'>Complete Registration Error</center>";
 									echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 									echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the registration form to re-enter an email.</center> ";
-									echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/complete-register.php?f='.$firstName.'&l='.$lastName.'&e='.$email.'&p='.$phone.'&a='.$agent_code.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a>&nbsp;&nbsp;<a href="/controllers/signin.php"><button type="button" id="back">Create Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+									echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/complete-register.php?f='.$firstName.'&l='.$lastName.'&e='.$email.'&p='.$phone.'&a='.$agent_code.'"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a>&nbsp;&nbsp;<a href="/controllers/signin.php"><button type="button" id="back">Create Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 								} else {
 									$res = mysql_query("UPDATE users SET password = '" . $newPassword . "', rtime = '" . $registerTime . "', phone = '" . $phone . "', security_question = '" . $question . "', security_answer = '" . $answer . "' WHERE email = '" . $email . "'");
 									$row = mysql_fetch_assoc($res);
@@ -292,7 +292,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								echo "<center class='Text-1 clearfix title'>Complete Registration Error</center>";
 								echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 								echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the <b>Registration Form</b> to re-enter an email.</center> ";
-								echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a>&nbsp;&nbsp;<a href="/controllers/sigin.php"><button type="button" id="back">Create Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+								echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a>&nbsp;&nbsp;<a href="/controllers/sigin.php"><button type="button" id="back">Create Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 							}
 							else{
 								echo "<center class='Text-1 clearfix title'>Complete Registration Error</center>";
