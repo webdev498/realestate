@@ -321,7 +321,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 						<div className="clearfix colelem i_c_f" id="pu6300">
 							<a href="/search.php#newSearch">
 								<div className="museBGSize grpelem" id="u6300"></div>
-								<div className="i_b_c" id="browse" >BROWSE</div>
+								<div className="i_b_c" id="browse" >BROWSE<br/>no password required</div>
 							</a>
 							<a href="/controllers/how-it-works.php?MP=index">
 								<div className="museBGSize grpelem" id="u6316">  </div>
@@ -329,7 +329,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 							</a>
 							<a href="/controllers/guest-register.php">
 								<div className="museBGSize grpelem" id="u617"> </div>
-								<div className="i_b_c">SIGN UP</div>
+								<div className="i_b_c">SIGN UP<br/>become a registered buyer</div>
 							</a>
 							<a href="/controllers/signin.php">
 								<div className="museBGSize grpelem" id="u622">   </div>
