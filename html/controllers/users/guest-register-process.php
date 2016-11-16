@@ -99,9 +99,12 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$assigned = $row['e_mail'];
 							$agentFirstname = $row['firstname'];
 							$agentLastname = $row['lastname'];
+							
+							if($phone != ''){ $securityOption = "Phone"; }
+							else if( $question != "default" ){ $securityOption = "Question"; }
 
 							//insert the row into the database
-							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')");
+							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, security_option phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $securityOption . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')");
 
 							$message = "Hello ".$firstName." ".$lastName.",<br><br>";
 							$message .= "Thank you for registering on HomePik.com.<br><br>";
