@@ -2,6 +2,7 @@
 session_start();
 include("../dbconfig.php");
 include("../functions.php");
+include("../emailconfig.php");
 include("../basicHeadOld.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
@@ -148,7 +149,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 						mysql_query("UPDATE users SET online = '" . $time . "' WHERE email = '" . $email . "' "); //update the online field							
 						$_SESSION['logged_in'] = $time;
 						
-						$message = 'Hello ' . $row2['first_name']. ' ' . $row2['lastname'] . ', <br><br>';
+						$message = "Hello " . $row2['first_name']. " " . $row2['lastname'] . ", <br><br>";
 						$message .= 'Your password for HomePik has been reset.';
 						$message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$email."'>Change Email Alert Settings</a></center><br>";
 						$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
