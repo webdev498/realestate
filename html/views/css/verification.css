@@ -6,15 +6,20 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #header{ margin: auto; max-width: 960px; }
 #wrapper{ margin: auto; max-width: 960px; }
 #verificationArea.short{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 15%; max-width: 580px; min-width: 560px; }
-#verificationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 6%; max-width: 580px; min-width: 560px; }
-#verificationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
-#verificationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
-#verificationBorder{ margin:auto; padding: 40px 40px 0; }
-#verificationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width:280px; }
-#verificationArea select.macFF{ width:260px; }
+#verificationArea.long, #buyerInformationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 6%; max-width: 580px; min-width: 560px; }
+#verificationTop, #buyerInformationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
+#verificationHeader, #buyerInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
+#verificationBorder, #buyerInformationBorder{ margin:auto; padding: 40px 40px 0; }
+#verificationArea select, #buyerInformationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; height: 30px; width:280px; }
+#verificationArea select.macFF, #buyerInformationArea select.macFF{ width:260px; }
 #disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
-#verificationSubmit, #verificationVerify{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
+#verificationSubmit, #verificationVerify, #verifiedButton, #resetPasswordSubmit, #editBuyerInformationSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
 #arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
+.fa.fa-check{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 24px; font-weight: 400; line-height: 34px; }
+#editOptions{ cursor: pointer; float: right; }
+#editOptions .indent{ margin-right: 10px; }
+#editOptions #editBuyerInformationSubmit{ font-weight: normal; }
+#editOptions .fa.fa-check, #editOptions .fa.fa-circle-thin{ color: #646464; font-family: '__FontAwesome_5'; line-height: 25px; }
 
 .input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
 *, *::before, *::after { box-sizing: content-box; }
@@ -40,29 +45,29 @@ label { display: inline; font-weight: normal; }
 
 @media (max-width:479px){
   .container-fluid{ padding-left: 5px !important; padding-right: 5px !important; }
-  #verificationArea{ margin-top: 15px; min-width:auto !important; }
-  #verificationTop, #verificationBorder{ padding:15px 15px 0; }
-  #verificationBorder tr td:last-child{ width:60%; }  
-  #verificationBorder td input{ width:90%; } 
-  #verificationBorder td select{ height:auto !important; padding: 2px; width:87%; }
+  #verificationArea, #buyerInformationArea{ margin-top: 15px; min-width:auto !important; }
+  #verificationTop, #verificationBorder, #buyerInformationTop, #buyerInformationBorder{ padding:15px 15px 0; }
+  #verificationBorder tr td:last-child, #buyerInformationBorder tr td:last-child{ width:60%; }  
+  #verificationBorder td input, #buyerInformationBorder td input{ width:90%; } 
+  #verificationBorder td select, #buyerInformationBorder td select{ height:auto !important; padding: 2px; width:87%; }
 }
 @media (min-width:480px) and (max-width:639px){
-  #verificationArea{ min-width:auto !important; }  
-  #verificationTop, #verificationBorder{ padding:15px 15px 0; }  
-  #verificationBorder td input{ width:90%; }  
-  #verificationBorder td select{ height:auto !important; padding:2px; width:90%; }  
-  #verificationBorder tr td:last-child{ width:60%; } 
+  #verificationArea, #buyerInformationArea{ min-width:auto !important; }  
+  #verificationTop, #verificationBorder, #buyerInformationTop, #buyerInformationBorder{ padding:15px 15px 0; }  
+  #verificationBorder td input, #buyerInformation td input{ width:90%; }  
+  #verificationBorder td select, #buyerInformation td select{ height:auto !important; padding:2px; width:90%; }  
+  #verificationBorder tr td:last-child, #buyerInformation tr td:last-child{ width:60%; } 
 }
 @media (min-width:640px) and (max-width:767px){
-  #verificationArea{ height: auto !important; left: 4%; margin-top: 15px; position: absolute; }  
-  #verificationBorder td input{ width:90%; }  
-  #verificationBorder td select{ height: auto !important; padding: 2px; width: 89%; }  
-  #verificationBorder tr td:last-child{ width:60%; }  
+  #verificationArea, #buyerInformationArea{ height: auto !important; left: 4%; margin-top: 15px; position: absolute; }  
+  #verificationBorder td input, #buyerInformation td input{ width:90%; }  
+  #verificationBorder td select, #buyerInformation td select{ height: auto !important; padding: 2px; width: 89%; }  
+  #verificationBorder tr td:last-child, #buyerInformation tr td:last-child{ width:60%; }  
   #disclaimer{ float: left; text-align: justify; width: 100%; }
 }
 @media (min-width:768px) and (max-width:800px){
-  #verificationArea{ height: auto !important; left: 15%; position: absolute; }  
-  #verificationBorder td input { width: 90%; }  
-  #verificationBorder td select { height: auto !important; padding: 2px; width: 89%; } 
-  #verificationBorder tr td:last-child{ width:60%; }
+  #verificationArea, #buyerInformationArea{ height: auto !important; left: 15%; position: absolute; }  
+  #verificationBorder td input, #buyerInformation td input { width: 90%; }  
+  #verificationBorder td select, #buyerInformation td select { height: auto !important; padding: 2px; width: 89%; } 
+  #verificationBorder tr td:last-child, #buyerInformation tr td:last-child{ width:60%; }
 }

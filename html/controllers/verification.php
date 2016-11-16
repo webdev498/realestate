@@ -17,19 +17,10 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
   <?php include_css("/views/css/verification.css"); ?>
   <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 </head>
-<body class="varification_page">
-  <? if(!isset($_GET['x'])){ ?>
-    <div id="verificationBackground1"></div>
-  <? }
-  if(isset($_GET['x'])){ ?>
-    <div id="verificationBackground2"></div>
-  <? } ?>
+<body class="verification_page">
+  <div id="verificationBackground2"></div>
   <div id="verification"></div>
   <div id='ajax-box'></div>
-
-  <? if($_GET['agentlogout'] == 'true'){ // we must log the agent out of bellmarc.net, not just homepik
-    print '<iframe src="http://bellmarc.net/logout" style="display:none;"></iframe>';
-  } ?>
 
 <script type="text/babel">
   var Verify = React.createClass({
@@ -267,11 +258,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             <div className="row">
               <div className="col-md-2 col-sm-2"></div>
               <div className="col-md-7 col-sm-10 col-xs-11">
-                <? if(!isset($_GET['x'])){ ?>
-                  <div id="verificationArea" className='short'>
-                <? }else{ ?>
-                  <div id="verificationArea" className='long'>
-                <? } ?>
+                <div id="verificationArea" className='long'>
                   <div id="verificationTop">
                     <span id="verificationHeader" className="text-popups">Buyer Verification</span>
                   </div>
@@ -282,13 +269,11 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           <col width="250"/><col width="350"/>
                         </colgroup>
                         <tbody>
-                          <? if(isset($_GET['x'])){ ?>
-                            <tr>
+                          <tr>
                             <td className="text-popups" colSpan="2">
                               <div style={{textAlign: "justify"}}>The password you entered did not match the one on file for the email entered. Return to buyer login <a href='/controllers/signin.php'>here</a> or enter the information below to verify who you are.<br/><br/></div>
                             </td>
-                            </tr>
-                          <? } ?>
+                          </tr>
                           <tr>
                             <td className="text-popups">First Name:</td>
                             <td className="text-popups"><input type="text" id="formFirstName" className="grade_desc input1" name="firstName" autoFocus onChange={this.handleChange.bind(this, 'firstname')} />{this.state.firstname != "" ? null : <strong id="firstnameMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }<br/></td>
@@ -338,12 +323,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           </tr>
                           <tr>
                             <td colSpan="2">
-                              <? if(!isset($_GET['x'])){ ?>
-                                <input type="hidden" name="formStep" value="verification1" />
-                              <? }
-                              if(isset($_GET['x'])){ ?>
-                                <input type="hidden" name="formStep" value="verification2" />
-                              <? } ?>
+                              <input type="hidden" name="formStep" value="verification2" />
                               <input type="hidden" name="code" value="<?=$password?>" /><br />
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                               {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }

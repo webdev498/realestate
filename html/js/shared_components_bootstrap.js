@@ -1726,6 +1726,17 @@ window.NavBar = React.createClass({
 		  }
 		});
   },
+  editSearch: function(){
+    $.get("/controllers/ajax.php", {
+      storeSearchPage: 'true', //Call the PHP function
+      page: "tab-1",
+      success: function(result){
+        $( document ).ajaxStop(function() {
+          window.location.assign("/search.php");
+        });
+      }
+    });
+  },
   selectFormula: function(){
     var $dialog =  $("#ajax-box").dialog({
       width: 795,

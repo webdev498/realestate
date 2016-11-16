@@ -156,7 +156,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                           <tr><td></td></tr>
                           <tr>
                             <td colSpan="2" algin="center">
-                              <a href="verification.php" className="text-popups">Forgot Your Password ?</a>
+                              <a href="forgot-password.php" className="text-popups">Forgot Your Password ?</a>
                             </td>
                           </tr>
                           <tr>

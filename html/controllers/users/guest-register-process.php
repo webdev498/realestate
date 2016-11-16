@@ -115,7 +115,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$message .= "<br><br>You are recieving this email because you created an account with HomePik with this email address. If you did not make this request please ignore this email.<br>";
 							$message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$email."'>Change Email Alert Settings</a></center><br>";
 							$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
-							$message .= "HomePik.com is licensed to Bellmarc";
 
 							$mail->addAddress($email);
 							$mail->Subject = 'HomePik Account';
@@ -222,7 +221,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$message .= "<br><br><br><br>You are recieving this email because you created an account with HomePik with this email address. If you did not make this request please ignore this email.<br>";
 							$message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$email."'>Change Email Alert Settings</a></center><br>";
 							$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
-							$message .= "HomePik.com is licensed to Bellmarc";
 
 							$mail->addAddress($email);
 							$mail->Subject = 'HomePik Disclosure Form Copy';
@@ -238,7 +236,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 										  Email: ' . $email ;
 							  $message .= "<br><br>This email was sent to ".$assigned." because you are a registered agent at HomePik.com.";
 							  $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
-							  $message .= "HomePik.com is licensed to Bellmarc";
 
 								$mail->addAddress($assigned);
 								$mail->Subject = 'HomePik.com New Buyer';
