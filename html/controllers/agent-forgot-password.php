@@ -255,6 +255,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
         e.preventDefault();
       }
     },
+    back: function(){
+      window.location.assign("javascript:history.back()")
+    },
     render: function(){
       return(
         <div id="wrapper">
@@ -292,7 +295,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                             <td className="text-popups" colSpan="2"><strong style={{color: "#D2008F"}}>{'\u002A'} No account associated with that email.</strong></td>
                           </tr>
                           <tr>
-                            <td colSpan="2">                            
+                            <td colSpan="2">
+                              <a href="javascript:history.back()"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>                            
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups" onClick={this.verify}>Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }                            
                               {this.state.step == 2 ? <span id="verifiedButton"><i className="fa fa-check"></i> Verify</span> : null }
                             </td>

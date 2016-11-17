@@ -259,6 +259,41 @@ else{ $mainPage = ""; }
         }.bind(this)
 		  });
     },
+    updatePhone: function(){
+		  var number = this.state.addAgent_phone;
+		  var x = number.replace(/\D/g,'');
+
+		  if (x.length == 10 && !isNaN(x)){
+				var y = '('+x[0]+x[1]+x[2]+')'+x[3]+x[4]+x[5]+'-'+x[6]+x[7]+x[8]+x[9]; // Reformat phone number
+				this.setState({ addAgent_phone: y }); // Replace number with formatted number
+		  }else {
+				if(x.length > 0 || (x.length <= 0 && number.match(/[a-z]/i))){
+					$("#ajax-box").dialog({
+					modal: true,
+					height: 'auto',
+					width: 'auto',
+					autoOpen: false,
+					dialogClass: 'ajaxbox errorMessage',
+					buttons : {
+						Ok: function(){
+							$(this).dialog("close");
+						}
+					},
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+					});
+					$('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
+						$('#ajax-box').dialog('open');
+					});
+				}
+		  }
+		},
 	  render: function(){
       var agents = this.state.registered_agents.map(function (agent) {
         return(
@@ -286,7 +321,7 @@ else{ $mainPage = ""; }
                         </tr>
                         <tr>
                           <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
-                          <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')}/></td>
+                          <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')} onBlur={this.updatePhone}/></td>
                           <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                   
                         </tr>
                         <tr>

@@ -598,6 +598,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                           <td colSpan="2">                            
                             <input type="hidden" name="formStep" value="verification1" />
                             <input type="hidden" name="code" value="<?php echo $password?>" /><br />
+                            <a href="javascript:history.back()"><button id="backBtn" className="text-popups"><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                             {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                             {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups" onClick={this.validate}>Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }                            
                             {this.state.step == 3 ? <span id="verifiedButton"><i className="fa fa-check"></i> Verify</span> : null }

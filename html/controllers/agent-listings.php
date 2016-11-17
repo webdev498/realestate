@@ -1732,7 +1732,7 @@ $agent_id = $row['id'];
                 <div className="row">
                   <div className="col-md-3 col-sm-3 col-xs-12 folderDetails">
                     {this.state.openFolder == name ? <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><img className="block" id="u16154_img" src="/images/icon_folder_open_blue_1a.png" alt="" width="40" height="37"/></span> : <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><i className="fa fa-folder-o"></i></span> }
-                    <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {name}</a></span>
+                    <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {name} ({folderName})</a></span>
                   </div>
                   <div className="col-md-2 col-sm-2 col-xs-12 folderDetails indent"><span id="u16157-7">Last updated: {last_update}</span></div>
                   <div className="col-md-2 col-sm-2 col-xs-12 folderDetails indent customWidth"><span id="u28562-3"><a style={{cursor: "pointer"}} onClick={this.emailBuyerFolder.bind(this, folderName, buyer)}>email listings</a></span></div>
@@ -1744,7 +1744,7 @@ $agent_id = $row['id'];
                 <div className="row">
                   <div className="col-md-3 col-sm-3 col-xs-12 folderDetails">
                     {this.state.openFolder == name ? <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><img className="block" id="u16154_img" src="/images/icon_folder_open_blue_1a.png" alt="" width="40" height="37"/></span> : <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><i className="fa fa-folder-o"></i></span> }
-                    <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {name}</a></span>
+                    <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {name} ({folderName})</a></span>
                   </div>
                   <div className="col-md-2 col-sm-2 col-xs-12 folderDetails indent"><span id="u16157-7">Last updated: {last_update}</span></div>
                   <div className="col-md-2 col-sm-2 col-xs-12 folderDetails indent customWidth"><span id="u28562-3"><a style={{cursor: "pointer"}} onClick={this.activateFolder.bind(this, folderName, buyer)}>make folder active</a></span></div>

@@ -274,6 +274,7 @@ else{ $mainPage = ""; }
 		},
     render: function(){
 			var folders = this.state.folders.map(function (folder) {
+        var buyerName = folder['buyerName'];
 				var name = folder['name'];
 				var key = name.replace(/ /g,"_").replace(/\//g, '_');
 				var last_update = folder['last_update'];
@@ -412,7 +413,7 @@ else{ $mainPage = ""; }
               <div className="row">
                 <div className="col-md-3 col-sm-3 col-xs-12 folderDetails">
                   {this.state.openFolder == name ? <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><img className="block" id="u16154_img" src="/images/icon_folder_open_blue_1a.png" alt="" width="40" height="37"/></span> : <span id="u16157" style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}><i className="fa fa-folder-o"></i></span> }
-                  <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {name}</a></span>
+                  <span id="u16157-2"><a style={{cursor: "pointer"}} onClick={this.openFolder.bind(this,name)}>&nbsp; {buyerName} ({name})</a></span>
                 </div>
                 <div className="col-md-2 col-sm-1 col-xs-12 folderDetails indent customWidth"><span id="u16157-7">{agent_name}</span></div>
                 <div className="col-md-2 col-sm-2 col-xs-12 folderDetails indent"><span id="u16157-7">Last updated: {last_update}</span></div>

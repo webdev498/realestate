@@ -13,9 +13,13 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #verificationArea select, #buyerInformationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; height: 30px; width:280px; }
 #verificationArea select.macFF, #buyerInformationArea select.macFF{ width:260px; }
 #disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
+
+#backBtn{ background: none; border: none; font-family: 'Lato', sans-serif; font-size: 1.1em !important; font-weight: bold; }
+a:hover #backBtn, #backBtn:hover{ color: #646464 !important; }
 #verificationSubmit, #verificationVerify, #verifiedButton, #resetPasswordSubmit, #editBuyerInformationSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
 #arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
 .fa.fa-check{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 24px; font-weight: 400; line-height: 34px; }
+
 #editOptions{ cursor: pointer; float: right; }
 #editOptions .indent{ margin-right: 10px; }
 #editOptions #editBuyerInformationSubmit{ font-weight: normal; }

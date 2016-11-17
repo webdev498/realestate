@@ -129,6 +129,10 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
         e.preventDefault();
       }
     },
+    back: function(e){
+      e.preventDefault();
+      window.location.assign("agent-signin.php");
+    },
     render: function(){
       return(
         <div id="wrapper">
@@ -186,6 +190,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                                 <input type="hidden" name="formStep" value="verification2" />
                               <? } ?>
                               <input type="hidden" name="code" value="<?=$password?>" /><br />
+                              <a href="agent-signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button>
                             </td>
                           </tr>

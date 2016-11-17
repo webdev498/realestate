@@ -251,6 +251,10 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
         e.preventDefault();
       }
     },
+    back: function(e){
+      e.preventDefault();
+      window.location.assign("signin.php");
+    },
     render: function(){
       return(
         <div id="wrapper">
@@ -325,6 +329,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                             <td colSpan="2">
                               <input type="hidden" name="formStep" value="verification2" />
                               <input type="hidden" name="code" value="<?=$password?>" /><br />
+                              <a href="signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                               {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                             </td>
