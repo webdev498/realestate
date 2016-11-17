@@ -71,23 +71,14 @@ else if( isset($_GET['getAgentSave']) ){
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     
   while( $b = mysql_fetch_array($result,MYSQL_ASSOC) ){
-    $f = array('id' => $b['id'], 'name' => $b['name'] );
+    $f = array('id'   => $b['id'], 'name' => $b['name'] );
     array_push($folders, $f);
   }
-  
-  $SQL2 = "SELECT id FROM `Agent_Import` WHERE e_mail = '".$_SESSION['email']."'";
-  $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-  $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
     
-	$SQL3 = "SELECT * FROM `users` WHERE (P_agent = '".$row2['id']."') OR (P_agent2 = '".$row2['id']."') AND (archived != '1') ORDER BY last_name ASC";
-	$result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
-	while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC)) {
-    
-    $SQL4 = "SELECT name FROM `users_folders` WHERE (email = '".$row3['email']."') AND (agent LIKE '".$row2['id']."')";
-    $result4 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-    $row4 = mysql_fetch_array($result2,MYSQL_ASSOC);
-    
-	  $name = array("id"=>$row3['id'], "first_name"=> $row3['first_name'], "last_name"=> $row3['last_name'], "email"=>$row3['email'], "folderName"=> $row4['name']);
+	$SQL = "SELECT u.* FROM `users` AS u LEFT JOIN `Agent_Import` AS a ON u.P_agent=a.id OR u.P_agent2=a.id WHERE (a.e_mail = '".$email."') AND (u.archived != '1') ORDER BY last_name ASC";
+	$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+	  $name = array("id"=>$row['id'], "first_name"=> $row['first_name'], "last_name"=> $row['last_name'], "email"=>$row['email']);
 	  array_push($buyers, $name);
 	}
 	
