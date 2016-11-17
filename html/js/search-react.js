@@ -843,8 +843,8 @@ var Tabs = React.createClass({
       }
       storePage("tab-1");
       $.cookie("searchName", "");
-      $.cookie("minPrice", 0);
-      $.cookie("maxPrice", 90);
+      $.cookie("minPrice", 1);
+      $.cookie("maxPrice", 20);
       $.cookie('location', 1);
       $.cookie("building", 1);
       $.cookie("views", 1);
