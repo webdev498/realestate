@@ -1902,7 +1902,7 @@ window.NavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a style={{cursor: "pointer"}} onClick={this.guestlogout}>Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
-                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
+                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
                     <li><a href={"/controllers/saved.php?MP="+this.props.mainPage}>Guest Folder</a></li>
                   </ul>
               : null }
@@ -1910,7 +1910,7 @@ window.NavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
-                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
+                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
                     <li><a href={"buyer-profile.php?MP="+this.props.mainPage} className="my-profile">My Profile</a></li>
                     <li><a href={"saved.php?MP="+this.props.mainPage}>Listing Folders</a></li>
                     <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages</a></li>
@@ -1920,7 +1920,7 @@ window.NavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
-                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
+                    {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href={"buyers.php?MP="+this.props.mainPage}>Manage Buyers</a></li>
                     <li><a href={"agent-listings.php?MP="+this.props.mainPage}>Saved Listings</a></li>

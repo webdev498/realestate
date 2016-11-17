@@ -31,7 +31,9 @@ else{ $mainPage = ""; }
         registered_archived_agents: [],
         addAgent_firstname: "",
         addAgent_lastname: "",
+        addAgent_title: "",
         addAgent_email: "",
+        addAgent_phone: "",
         addAgent_agentId: "",
         addAgent_status: "",
         agentTableDisplay: ""
@@ -145,6 +147,8 @@ else{ $mainPage = ""; }
         email: this.state.addAgent_email,
         firstname: this.state.addAgent_firstname,
         lastname: this.state.addAgent_lastname,
+        title: this.state.addAgent_title,
+        phone: this.state.addAgent_phone,
         agent_id: this.state.addAgent_agentId,
         status: this.state.addAgent_status,
         success: function(result){
@@ -176,6 +180,8 @@ else{ $mainPage = ""; }
           this.setState({addAgent_email: ""});
           this.setState({addAgent_firstname: ""});
           this.setState({addAgent_lastname: ""});
+          this.setState({addAgent_title: ""});
+          this.setState({addAgent_phone: ""});
           this.setState({addAgent_agentId: ""});
           this.setState({addAgent_status: ""});
           $("input[type=radio]").prop('checked', false);
@@ -276,9 +282,11 @@ else{ $mainPage = ""; }
                         <tr>
                           <td>First Name: </td><td><input className="input1" name="firstname" value={this.state.addAgent_firstname} onChange={this.handleChange.bind(this, 'addAgent_firstname')}/></td>
                           <td>Last Name: </td><td><input className="input1" name="lastname" value={this.state.addAgent_lastname} onChange={this.handleChange.bind(this, 'addAgent_lastname')}/></td>
+                          <td>Title: </td><td><input className="input1" name="title" value={this.state.addAgent_title} onChange={this.handleChange.bind(this, 'addAgent_title')}/></td>
                         </tr>
                         <tr>
                           <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
+                          <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')}/></td>
                           <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                   
                         </tr>
                         <tr>

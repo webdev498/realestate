@@ -101,4 +101,21 @@ if($_POST['getEmail']){
   echo json_encode($email);
 }
 
+if(isset($_POST['fullValidation'])){
+  $email = $_POST['email'];
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $id = $_POST['id'];
+  
+  $SQL = "SELECT EXISTS (SELECT * FROM `registered_agents` WHERE (email = '".$email."') AND (first_name = '".$firstName."') AND (last_name = '".$lastName."') AND (agent_id = '".$id."')) as num";
+  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  if($row['num'] == 0){
+    echo "doesn't exist";
+  }
+  else{
+    echo "exists";
+  }
+}
+
 ?>

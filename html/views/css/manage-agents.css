@@ -6,21 +6,23 @@
 #u8522-1{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; font-weight: bold; color: #0085C6; }
 #adminOptions{ margin-left: 33px; }
 #addAgentTitle, #removeAgentsTitle, #updateAgentsTitle{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; color: #0085C6; }
-#removeAgents{ padding-bottom: 50px; }
+#addAgentForm, #removeAgents{ padding-bottom: 50px; }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover{ color: #0085C6 !important; }
 .tab-content{ margin-top: 20px; }
 #activeAgentsSection{padding-bottom: 15px; }
 #activeAgents, #archivedAgents{ margin-left: 10px; }
-#addAgentSubmit{ background: none; border: none; font-family: 'Lato', sans-serif; font-size: 1.1em; margin-left: 60%; padding-bottom: 25px; }
+#addAgentSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; }
 #removeAgentsSubmit, #updateAgentsSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; padding-bottom: 25px; }
 #loading{ font-size: 16pt; margin-left: 10px; min-height: 200px; width: 100%; }
 #noAgents{ display: none; font-size: 16pt; margin-left: 10px; min-height: 200px; width: 100%; }
 #overlay{ background-color: white; display: none; height: 110%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
 
-.input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; margin-left: 10px; margin-right: 30px; width: 280px; }
+.input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; margin-left: 10px; margin-right: 30px; width: 260px; }
 .agentAddedConfirmation{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-weight: normal; font-size: 1.1em; font-family: 'Lato', sans-serif; height: 175px !important; left: 50% !important; margin: -50px 0 0 -125px; padding-bottom: 69px; position: fixed !important; top: 43% !important; width: 240px !important; z-index: 1001; }
 
 tr > td{  padding-bottom: 1em;}
+#addAgentForm tr > td:nth-child(odd){ float: right; }
 label{ font-size: 18px; font-weight: unset !important; padding-right: 80px; }
+input[type="radio"].indent{ margin-left: 12px; }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { #page{ min-height: 614px; } }
