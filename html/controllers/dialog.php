@@ -132,6 +132,7 @@ else if( isset($_POST['agentSaveListingInFolders']) ){
         
         $message = "Hello " . $buyer_name . ",";
         $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
+		$message .= 'Listing Link: http://homepik.com/controllers/saved.php?user='. $user;
         $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
@@ -198,6 +199,7 @@ else if( isset($_POST['saveListingInMyFolders']) ){
         
         $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
         $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
+		$message .= 'Listing Link: http://homepik.com/controllers/saved.php?user='. $user;
         $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
