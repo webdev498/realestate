@@ -35,13 +35,26 @@ if( isset($_GET['getMyFolders']) ){
   ini_set('display_errors', '1');
   $folders = array();
 	
-	if(isset($_GET['email'])){ $SQL = "SELECT * FROM users_folders WHERE (user = '".$_GET['email']."') AND (agent LIKE '%".$agent_id."%') ORDER BY name ASC"; }
-  else if(isset($_SESSION['guestID'])){ $SQL = "SELECT * FROM users_folders WHERE (user = '".$_SESSION['guestID']."')";}
-  else{ $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') ORDER BY name ASC"; }
+	if(isset($_GET['email'])){
+    $SQL = "SELECT * FROM users_folders WHERE (user = '".$_GET['email']."') AND (agent LIKE '%".$agent_id."%') ORDER BY name ASC";
+    $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$_GET['email']."')";
+  }
+  else if(isset($_SESSION['guestID'])){
+    $SQL = "SELECT * FROM users_folders WHERE (user = '".$_SESSION['guestID']."')";
+    $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$_SESSION['guestID']."')";
+  }
+  else{
+    $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') ORDER BY name ASC";
+    $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$email."')";
+  }
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     
   while( $b = mysql_fetch_array($result,MYSQL_ASSOC) ){
-    $o = array( 'id'   => $b['id'], 'name' => $b['name'], 'last_update' => $b['last_update'] );
+        
+    $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+    $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+    
+    $o = array( 'id' => $b['id'], 'name' => $b['name'], 'last_update' => $b['last_update'], 'buyerName' => $row2['name'] );
     array_push($folders, $o);
   }
         
@@ -65,7 +78,7 @@ else if( isset($_GET['getAgentSave']) ){
 	$SQL = "SELECT u.* FROM `users` AS u LEFT JOIN `Agent_Import` AS a ON u.P_agent=a.id OR u.P_agent2=a.id WHERE (a.e_mail = '".$email."') AND (u.archived != '1') ORDER BY last_name ASC";
 	$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-	  $name = array("id"=>$row['id'], "first_name"=> $row['first_name'], "last_name"=> $row['last_name'], "email"=>$row['email']);
+	  $name = array("id"=>$row['id'], "first_name"=> $row['first_name'], "last_name"=> $row['last_name'], "email"=>$row['email'], "folderName"=> $b['name']);
 	  array_push($buyers, $name);
 	}
 	
