@@ -1006,6 +1006,12 @@ if(isset($_GET['agentSave'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
   if($_SESSION['agent']){
+	 $SQL = "SELECT firstname, lastname FROM `Agent_Import` where (e_mail = '".$_SESSION['email']."')";
+     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+      $agent_firstname = $row['firstname'];
+      $agent_lastname = $row['lastname'];
+    }
     foreach($buyers as $buyer){	  
       if(strpos($buyer, "@bellmarc.com") !== false){
         //$sql = "SELECT * FROM queued_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'";
@@ -1050,6 +1056,7 @@ if(isset($_GET['agentSave'])){
           if($notifications == 'all' || $notifications == 'folder'){
             $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
             $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
+			$message .= 'Listing Link: http://homepik.com/controllers/saved.php?user='. $user;
             $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
             $message .= "HomePik.com is licensed by Nice Idea Media";
             $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$buyer."'>Change Email Alert Settings</a></center><br>";
