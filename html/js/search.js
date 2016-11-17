@@ -2425,7 +2425,7 @@ $(document).ready(function(){
         if (lastBuyersSavedTo.length > 0) {
           buyers.forEach(function(v,k){
             if (lastBuyersSavedTo.indexOf(v.email) > -1) {
-              html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"' checked/><span> "+v.last_name+", "+v.first_name+"</span></label></li>";
+              html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"' checked/><span> "+v.last_name+", "+v.first_name+" ("+v.folderName+")</span></label></li>";
             }
           });
 
@@ -2434,7 +2434,7 @@ $(document).ready(function(){
 
             buyers.forEach(function(v,k){
               if (lastBuyersSavedTo.indexOf(v.email) < 0) {
-                html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"'/><span> "+v.last_name+", "+v.first_name+"</span></label></li>";
+                html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"'/><span> "+v.last_name+", "+v.first_name+" ("+v.folderName+")</span></label></li>";
               }
             });
 
@@ -2442,7 +2442,7 @@ $(document).ready(function(){
         }
         else{
           buyers.forEach(function(v,k){
-            html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"'/><span> "+v.last_name+", "+v.first_name+"</span></label></li>";
+            html += "<li><label><input type='checkbox' class='save-this-listing-popup-checkbox' value='"+v.email+"'/><span> "+v.last_name+", "+v.first_name+" ("+v.folderName+")</span></label></li>";
           });
         }
     html +="</ul><br/><br/>"
