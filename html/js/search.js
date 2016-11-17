@@ -3417,9 +3417,11 @@ $(document).ready(function(){
           + "<div id='u16157-8'>"
             + "<div class='folderDetails' data-user='"+folder.user+"' data-folder='"+folder.name+"'>"
               + "<span id='u16157' class='toggleFolder closedFolder' style='cursor: pointer;'><i class='fa fa-folder-o'></i></span>"
-              + "<span id='u16157' class='toggleFolder openFolder' style='cursor: pointer; display: none'><img className='block' id='u16154_img' src='/images/icon_folder_open_blue_1a.png' alt='' width='40' height='37'/></span>"
-              + "<span id='u16157-2' class='toggleFolder'><a style='cursor: pointer;'>&nbsp; "+folder.name+"</a></span>"
-            + "</div>"
+              + "<span id='u16157' class='toggleFolder openFolder' style='cursor: pointer; display: none'><img className='block' id='u16154_img' src='/images/icon_folder_open_blue_1a.png' alt='' width='40' height='37'/></span>";
+              if (user == "buyer" || user == "guest"){ html += "<span id='u16157-2' class='toggleFolder'><a style='cursor: pointer;'>&nbsp; " + folder.buyerName + " (" + folder.name + ")</a></span>"; }
+              else if (user == "agent-buyer"){ html += "<span id='u16157-2' class='toggleFolder'><a style='cursor: pointer;'>&nbsp; " + folder.name + " (" + folder.folderName + ")</a></span>"; }
+              else{ html += "<span id='u16157-2' class='toggleFolder'><a style='cursor: pointer;'>&nbsp; " + folder.name + "</a></span>"; }              
+            html += "</div>"
             + "<div class='folderDetails'><span id='u16157-7'>"+folder.agent+"</span></div>"
             + "<div class='folderDetails'><span id='u16157-7'>Last updated: "+folder.last_update+"</span></div>";
             if(user == "agent-buyer"){ html += "<div class='folderDetails'><span id='u28562-3' class='emailFolder' data-user='"+folder.user+"' data-folder='"+folder.folderName+"' data-type='"+user+"'><a style='cursor: pointer;'>email listings</a></span></div>"; }
