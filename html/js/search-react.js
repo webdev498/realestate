@@ -843,8 +843,8 @@ var Tabs = React.createClass({
       }
       storePage("tab-1");
       $.cookie("searchName", "");
-      $.cookie("minPrice", 1);
-      $.cookie("maxPrice", 20);
+      $.cookie("minPrice", 0);
+      $.cookie("maxPrice", 32);
       $.cookie('location', 1);
       $.cookie("building", 1);
       $.cookie("views", 1);
@@ -1201,8 +1201,8 @@ var Tabs = React.createClass({
     var newconstruction = $.cookie("newconstruction");
     
   	// IF NO STORED VAULES SET TO DEFAULT
-    if(!minPrice){ minPrice = 1; }
-    if(!maxPrice){ maxPrice = 20; }
+    if(!minPrice){ minPrice = 0; }
+    if(!maxPrice){ maxPrice = 32; }
     if(!locationGrade){ locationGrade = 1; }
     if(!buildingGrade){ buildingGrade = 1; }
     if(!viewsGrade){ viewsGrade = 1; }
@@ -1516,7 +1516,8 @@ var Tabs = React.createClass({
     // Translate the slider value into price increments. "price" is the value submitted in the search request;
     // "display" is what's shown to the user.
     var	prices = [
-			'', // no slider value of 0
+			//'', // no slider value of 0
+			{"price":0,"display":"0"}, // if slider value is 0
 			{"price":100000,"display":"100K"}, // if slider value is 1
 			{"price":200000,"display":"200K"}, // if slider value is 2
 			{"price":300000,"display":"300K"}, // if slider value is 3
@@ -1554,7 +1555,7 @@ var Tabs = React.createClass({
     $( "#price" ).slider({
       animate: true,
       range: 'true',
-      min: 1,
+      min: 0,
       max: 32,
       values: [minPrice, maxPrice ],
       slide: function( event, ui ) { /* Function to execute when sliding the price slider */
@@ -1577,9 +1578,9 @@ var Tabs = React.createClass({
       }
     }).addTouch();
     if(minPrice != "null"){ $( "#min_price" ).text(prices[minPrice]["display"]).attr('data-price',prices[minPrice]["price"]); }
-    else{ $( "#min_price" ).text(prices[1]["display"]).attr('data-price',prices[1]["price"]); }
+    else{ $( "#min_price" ).text(prices[0]["display"]).attr('data-price',prices[0]["price"]); }
     if(maxPrice != "null"){ $( "#max_price" ).text(prices[maxPrice]["display"]).attr('data-price',prices[maxPrice]["price"]); }
-    else{ $( "#max_price" ).text(prices[20]["display"]).attr('data-price',prices[20]["price"]); }
+    else{ $( "#max_price" ).text(prices[32]["display"]).attr('data-price',prices[32]["price"]); }
 
     // NUMBER OF BEDROOMS
     $( "#bedrooms_slider" ).slider({
