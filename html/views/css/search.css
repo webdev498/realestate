@@ -191,7 +191,7 @@ span.area.grade_desc { display: none; font-family: 'Lato', sans-serif; font-size
 #living .ui-slider-handle { color: RGB(112,159,69); }
 /* #location .ui-slider-range, #price_box .ui-slider-range, #building .ui-slider-range, #bedrooms_box .ui-slider-range, #view .ui-slider-range, #nbhood_box .ui-slider-range, #floor_box .ui-slider-range, #bedroom .ui-slider-range, #living .ui-slider-range { background: transparent; cursor: pointer; height: 27px; margin: 0 auto; top: -6px; width: 100% !important; } */
 #bedrooms_box .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 13px; margin: 0 auto; top: -6px; width: 105% !important; }
-#price_box .ui-slider-range { background: transparent; cursor: pointer; height: 27px; margin: 0 auto; top: -6px; width: 100% !important; }
+#price_box .ui-slider-range { background: transparent; cursor: pointer; height: 27px; margin: 0 auto; top: -6px; width: 97% !important; }
 #location .ui-slider-range, #building .ui-slider-range, #view .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 12px; margin: 0 auto; top: -6px; width: 106% !important; }
 #bedroom .ui-slider-range, #living .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 5px; margin: 0 auto; top: -6px; width: 110% !important; }
 .ui-slider-horizontal { height: 0.1em; }
