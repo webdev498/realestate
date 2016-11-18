@@ -22,12 +22,12 @@ else{ $starter_buyer = ''; }
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
 
-$SQL = "SELECT firstname, lastname, e_mail, id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+$SQL = "SELECT first_name, last_name, email, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
 $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result,MYSQL_ASSOC);
-$agent_first_name = $row['firstname'];
-$agent_last_name = $row['lastname'];
-$agent_id = $row['id'];
+$agent_first_name = $row['first_name'];
+$agent_last_name = $row['last_name'];
+$agent_id = $row['agent_id'];
 
 $SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
 $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());

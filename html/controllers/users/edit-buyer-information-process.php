@@ -87,20 +87,20 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								$pass = string_encrypt($password, $registerTime);
 								
 								if(strlen($agent1) > 3){
-									$SQL = "SELECT id FROM `Agent_Import` where (name = '".$agent1."')";
+									$SQL = "SELECT agent_id FROM `registered_agents` WHERE (CONCAT(first_name, ' ', last_name) = '".$agent1."')";
 									$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 									$row = mysql_fetch_array($result,MYSQL_ASSOC);
 									
-									if(isset($row['id'])){ $agent1 = $row['id']; }
+									if(isset($row['agent_id'])){ $agent1 = $row['agent_id']; }
 									else{ $agent1 = ""; }
 								}
 								
 								if(strlen($agent2) > 3){
-									$SQL = "SELECT id FROM `Agent_Import` where (name = '".$agent2."')";
+									$SQL = "SELECT agent_id FROM `registered_agents` WHERE (CONCAT(first_name, ' ', last_name) = '".$agent2."')";
 									$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 									$row = mysql_fetch_array($result,MYSQL_ASSOC);
 									
-									if(isset($row['id'])){ $agent2 = $row['id']; }
+									if(isset($row['agent_id'])){ $agent2 = $row['agent_id']; }
 									else{ $agent2 = ""; }
 								}
 								

@@ -37,10 +37,10 @@ else{
 }
 
 if($role == "agent"){
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$agent_email."') AND (e_mail != '')";
+  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$agent_email."') AND (email != '')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
+  $agent_id = $row['agent_id'];
 }
 
 ?>

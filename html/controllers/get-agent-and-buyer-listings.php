@@ -112,10 +112,10 @@ if($email != ''){
     $results[] = $folder;
   }
   
-  $SQL = "SELECT id FROM `Agent_Import` where (e_mail = '" . $email . "')";
+  $SQL = "SELECT agent_id FROM `registered_agents` where (email = '" . $email . "')";
   $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  $agent_id = $row['id'];
+  $agent_id = $row['agent_id'];
   
   $day = date('U') - 86400;
   $SQL = "SELECT * FROM users_folders WHERE (agent LIKE '%".$agent_id."%') AND (last_update > ".$day.") ORDER BY last_update DESC";
@@ -133,7 +133,7 @@ if($email != ''){
     $row['last_update'] = date( "m/d/y", $row['last_update']);
     
     if(strpos($row['agent'], ',') === false){
-      $SQL2 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$row['agent']."')";
+      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$row['agent']."')";
       $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $row['agent'] = $row2['name'];
@@ -141,12 +141,12 @@ if($email != ''){
     else{
       $agents = explode(",", $row['agent']);
       
-      $SQL2 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agents[0]."')";
+      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')";
       $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $agent1 = $row2['name'];
       
-      $SQL3 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agents[1]."')";
+      $SQL3 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')";
       $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
       $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
       $agent2 = $row3['name'];
@@ -251,7 +251,7 @@ if($email != ''){
     }
     
     if($agent_code != "" && $agent_code != null){
-      $SQL = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agent_code."')";
+      $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent_code."')";
       $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent1'] = $row['name'];
@@ -261,7 +261,7 @@ if($email != ''){
     }
     
     if($agent2_code != "" && $agent2_code != null){
-      $SQL = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agent2_code."')";
+      $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent2_code."')";
       $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent2'] = $row['name'];

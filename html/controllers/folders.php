@@ -17,11 +17,12 @@ if ($_SESSION['agent']){
     $savedBuyer = "";
   }
   
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$email."')";
+  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
-} elseif ($_SESSION['user']){
+  $agent_id = $row['agent_id'];
+}
+elseif ($_SESSION['user']){
   $user = $_SESSION['id'];
   $role = 'user';
   $email = $_SESSION['email'];

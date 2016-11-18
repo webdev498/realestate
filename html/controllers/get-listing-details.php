@@ -199,6 +199,14 @@ if($list_num != ''){
   
       $agent_id_1 = $pAgent;
     }
+    
+    $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."')";
+    $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+    $row = mysql_fetch_assoc($result);
+    $active = $row['active'];
+
+    if((!isset($active)) || $active == "N"){ $agent_id_1 = ''; }
+    
     if ($agent_id_1 == '' || $agent_id_1 == null) {
       switch ($nbrhood) {
         case 'Far Uptown': $email = 'wmilvaney@cbbellmarc.com';
@@ -244,56 +252,48 @@ if($list_num != ''){
   
       if ($agent_1_v2 != '')
       {
-        $SQL = "SELECT status, active FROM Agent_Import WHERE (id = '" . $agent_1_v2 . "'); ";
+        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_1_v2 . "'); ";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
-        
-        $status = $row['status'];
         $active = $row['active'];
         
-        if($status != '3' && $active == "Y"){
+        if($active == "Y"){
           $agentNums[$agentCount] = $agent_1_v2;
           $agentCount++;
         }
       }
       elseif ($agent_2_v2 != '')
       {
-        $SQL = "SELECT status, active FROM Agent_Import WHERE (id = '" . $agent_2_v2 . "'); ";
+        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_2_v2 . "'); ";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
-        
-        $status = $row['status'];
         $active = $row['active'];
         
-        if($status != '3' && $active == "Y"){
+        if($active == "Y"){
           $agentNums[$agentCount] = $agent_2_v2;
           $agentCount++;
         }
       }
       elseif ($agent_3_v2 != '')
       {
-        $SQL = "SELECT status, active FROM Agent_Import WHERE (id = '" . $agent_3_v2 . "'); ";
+        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_3_v2 . "'); ";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
-        
-        $status = $row['status'];
         $active = $row['active'];
         
-        if($status != '3' && $active == "Y"){
+        if($active == "Y"){
           $agentNums[$agentCount] = $agent_3_v2;
           $agentCount++;
         }
       }
       elseif ($agent_4_v2 != '')
       {
-        $SQL = "SELECT status, active FROM Agent_Import WHERE (id = '" . $agent_4_v2 . "'); ";
+        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_4_v2 . "'); ";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
-        
-        $status = $row['status'];
         $active = $row['active'];
         
-        if($status != '3' && $active == "Y"){
+        if($active == "Y"){
           $agentNums[$agentCount] = $agent_4_v2;
           $agentCount++;
         }
@@ -368,18 +368,17 @@ if($list_num != ''){
   }
   
   if ($agent_id_1 != '') {
-    $SQL = "SELECT firstname, lastname, title, id, cell_phone, e_mail, bio FROM Agent_Import WHERE (id = '".$agent_id_1."'); ";
+    $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."'); ";
     $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $agent_id = $row['id'];
-    $agent_firstname = $row['firstname'];
-    $agent_lastname = $row['lastname'];
+    $agent_id = $row['agent_id'];
+    $agent_firstname = $row['first_name'];
+    $agent_lastname = $row['last_name'];
     $agent_title = $row['title'];
     $agent_title = str_replace('Executive', 'Exec.', $agent_title);
-    $agent_cellphone = $row['cell_phone'];
+    $agent_cellphone = $row['phone'];
     $agent_ext = "";
-    $agent_email = $row['e_mail'];
-    $agent_id = $row['id'];
+    $agent_email = $row['email'];
     $agent_bio = $row['bio'];
     if($agent_title == "Sales Manager" || $agent_title == "Sales Manager"){
       $agent_title = "Licensed Real Estate Sales Manager";
@@ -437,19 +436,17 @@ if($list_num != ''){
   $priceImg = "price.php?id=$list_num&code=$list_num";
   //If the user has a P_agent2, get the info
   if ($pAgent2 != "" && $pAgent2 != null){
-    $SQL = "SELECT firstname, lastname, title, id, cell_phone, e_mail, bio FROM Agent_Import WHERE (id = '".$pAgent2."'); ";
+    $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$pAgent2."'); ";
     $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $agent2_id = $row['id'];
-  
-    $agent2_firstname = $row['firstname'];
-    $agent2_lastname = $row['lastname'];
+    $agent2_id = $row['id'];  
+    $agent2_firstname = $row['first_name'];
+    $agent2_lastname = $row['last_name'];
     $agent2_title = $row['title'];
     $agent2_title = str_replace('Executive', 'Exec.', $agent2_title);
-    $agent2_cellphone = $row['cell_phone'];
+    $agent2_cellphone = $row['phone'];
     $agent2_ext = "";
-    $agent2_email = $row['e_mail'];
-    $agent2_id = $row['id'];
+    $agent2_email = $row['email'];
     $agent2_bio = $row['bio'];
     if($agent2_title == "Sales Manager" || $agent2_title == "Sales Manager"){
       $agent2_title = "Licensed Real Estate Sales Manager";

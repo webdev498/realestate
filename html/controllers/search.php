@@ -23,11 +23,11 @@ else {
   if(isset($_SESSION['agent'])){
     // GET THE LIST_NUM OF ALL SAVED LISTINGS SO WE CAN MARK THEM WITH AS SAVED IN THE LISTING DETAILS
     $saved_listings = array();
-    $SQL = "SELECT id FROM Agent_Import WHERE e_mail = '".$_SESSION['email']."'";
+    $SQL = "SELECT agent_id FROM `registered_agents` WHERE email = '".$_SESSION['email']."'";
     $rs = mysql_query($SQL);
-    while ($row = mysql_fetch_array($rs)) {
-      $id = $row['id'];
-    }
+    $row = mysql_fetch_array($rs);
+    $id = $row['agent_id'];
+
     if(isset($id)){ 
       $SQL = "SELECT email FROM users WHERE P_agent = '".$id."'";
       $rs = mysql_query($SQL);
@@ -48,11 +48,11 @@ else {
   }
 
   if(isset($_SESSION['agent'])){
-    $SQL = "SELECT firstname, lastname, id FROM `Agent_Import` where (e_mail = '" . $_SESSION['email'] . "')";
+    $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
     $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
     $row = mysql_fetch_array($result, MYSQL_ASSOC);
-    $name = $row['firstname'] . " " . $row['lastname'];
-    $agentID = $row['id'];
+    $name = $row['first_name'] . " " . $row['last_name'];
+    $agentID = $row['agent_id'];
     $num_searches = 0;
   }
   elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){

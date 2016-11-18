@@ -19,10 +19,10 @@ $_SESSION['viewingBuyer'] = 'false';
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
 
-$sql = "SELECT firstname, lastname, id FROM `Agent_Import` where (e_mail = '".$agent_email."')";
+$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '".$agent_email."')";
 $res = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($res,MYSQL_ASSOC);
-$agent_id = $row['id'];
+$agent_id = $row['agent_id'];
 ?>
 
   <title>HomePik - Agent Folders</title>

@@ -12,10 +12,10 @@ if(isset($_POST['agentID'])){
  $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_POST['agentID']."%') ORDER BY name ASC"; 
 }
 else if($_SESSION['agent']){
-  $SQL1 = "SELECT id FROM Agent_Import WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL1 = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
   $rs1 = mysql_query($SQL1);
   $row1 = mysql_fetch_array($rs1);
-  $agentID = $row1['id'];
+  $agentID = $row1['agent_id'];
   
   $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$agentID."%') ORDER BY name ASC"; 
 }
@@ -47,7 +47,7 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
   
   if($agents != ''){
     if(strpos($agents, ',') === false){
-      $SQL2 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agents."')";
+      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents."')";
       $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $agents = $row2['name'];
@@ -55,12 +55,12 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     else{
       $agents = explode(",", $agents);
       
-      $SQL2 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agents[0]."')";
+      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')";
       $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $agent1 = $row2['name'];
       
-      $SQL3 = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` WHERE (id = '".$agents[1]."')";
+      $SQL3 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')";
       $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
       $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
       $agent2 = $row3['name'];

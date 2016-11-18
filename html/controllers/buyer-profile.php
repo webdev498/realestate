@@ -29,26 +29,26 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 }
 
 if($agent_code != ""){
-  $SQL = "SELECT a.firstname, a.lastname, a.cell_phone ,a.e_mail, a.id, u.P_agent FROM `Agent_Import` a, `users` u WHERE (u.email='".$buyer_email."') AND (a.id = u.P_agent)";
+  $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    $agent_first_name = $row['firstname'];
-    $agent_last_name = $row['lastname'];
-    $agent_email = $row['e_mail'];
-    $agent_cellphone = $row['cell_phone'];
+    $agent_first_name = $row['first_name'];
+    $agent_last_name = $row['last_name'];
+    $agent_email = $row['email'];
+    $agent_cellphone = $row['phone'];
   }
 }
 
 if($agent2_code != ""){
-  $SQL = "SELECT a.firstname, a.lastname, a.cell_phone ,a.e_mail, a.id, u.P_agent FROM `Agent_Import` a, `users` u WHERE (u.email='".$buyer_email."') AND (a.id = u.P_agent2)";
+  $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    $agent2_first_name = $row['firstname'];
-    $agent2_last_name = $row['lastname'];
-    $agent2_email = $row['e_mail'];
-    $agent2_cellphone = $row['cell_phone'];
+    $agent2_first_name = $row['first_name'];
+    $agent2_last_name = $row['last_name'];
+    $agent2_email = $row['email'];
+    $agent2_cellphone = $row['phone'];
   }
 }
 

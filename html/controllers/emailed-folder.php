@@ -25,10 +25,10 @@ else{
 }
 
 if($role == "agent"){
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$agent_email."')";
+  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$agent_email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
+  $agent_id = $row['agent_id'];
 }
 else{
   $agent_id = "";
@@ -39,11 +39,11 @@ $folder = $_GET['folder'];
 $name = $_GET['name'];
 
 if(strpos($sender, "@bellmarc.com") !== false){
-  $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$sender."')";
+  $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$sender."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $sender_firstname = $row['firstname'];
-  $sender_lastname = $row['lastname'];
+  $sender_firstname = $row['first_name'];
+  $sender_lastname = $row['last_name'];
 }
 else{
   $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$sender."')";

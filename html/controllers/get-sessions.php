@@ -30,10 +30,10 @@ if(isset($_POST['getLastName'])){
   echo json_encode($name);
 }
 if(isset($_POST['getAgentLastName'])){
-  $SQL = "SELECT lastname FROM `Agent_Import` where (e_mail = '" . $_SESSION['email'] . "')";
+  $SQL = "SELECT last_name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
   $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  $name = $row['lastname'];
+  $name = $row['last_name'];
   
   if(!isset($name)){
     $_name = explode('@', $_SESSION['email']);
@@ -51,23 +51,15 @@ if(isset($_POST['getInformation'])){
     $role = "user";
   }
   elseif($_SESSION['agent']){
-    $SQL = "SELECT CONCAT(firstname, ' ', lastname) AS name FROM `Agent_Import` where (e_mail = '" . $_SESSION['email'] . "')";
+    $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
     $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
     $row = mysql_fetch_array($result, MYSQL_ASSOC);
     $name = $row['name'];
     $role = "agent";
     
     if(!isset($name)){
-      $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
-      $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-      $row = mysql_fetch_array($result, MYSQL_ASSOC);
-      $name = $row['name'];
-      $role = "agent";
-      
-      if(!isset($name)){
-        $_name = explode('@', $_SESSION['email']);
-        $name = $_name[0];
-      }
+      $_name = explode('@', $_SESSION['email']);
+      $name = $_name[0];
     }
   }
   else{

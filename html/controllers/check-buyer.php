@@ -19,20 +19,20 @@ if(isset($_POST['partialValidation'])){
   $info = $row;
   
   if($row['P_agent'] != '' && $row['P_agent'] != null){
-    $SQL2 = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '".$row['P_agent']."'";
+    $SQL2 = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '".$row['P_agent']."'";
     $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
     $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
-    $agent1 = $row2['firstname'] . " " . $row2['lastname'];
+    $agent1 = $row2['first_name'] . " " . $row2['last_name'];
     
     $info['agent1'] = $agent1;
   }
   else{ $info['agent1'] = ""; }
   
   if($row['P_agent2'] != '' && $row['P_agent2'] != null){
-    $SQL3 = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '".$row['P_agent2']."'";
+    $SQL3 = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '".$row['P_agent2']."'";
     $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
     $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-    $agent2 = $row3['firstname'] . " " . $row3['lastname'];
+    $agent2 = $row3['first_name'] . " " . $row3['last_name'];
     
     $info['agent2'] = $agent2;
   }

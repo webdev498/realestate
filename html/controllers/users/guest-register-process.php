@@ -94,11 +94,11 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$password = string_encrypt($password, $registerTime);
 							$assigned = $_REQUEST['assigned'];
 							//Get email of agent code
-							$res = mysql_query("SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '" . $agent_code . "')") or die("Couldn't execute query.".mysql_error());
+							$res = mysql_query("SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '" . $agent_code . "')") or die("Couldn't execute query.".mysql_error());
 							$row = mysql_fetch_assoc($res);
-							$assigned = $row['e_mail'];
-							$agentFirstname = $row['firstname'];
-							$agentLastname = $row['lastname'];
+							$assigned = $row['email'];
+							$agentFirstname = $row['first_name'];
+							$agentLastname = $row['last_name'];
 							
 							if($phone != ''){ $securityOption = "Phone"; }
 							else if( $question != "default" ){ $securityOption = "Question"; }

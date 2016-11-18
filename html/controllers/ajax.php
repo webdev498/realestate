@@ -26,11 +26,11 @@ if(isset($_GET['emailListing'])){
   $res = mysql_query("INSERT INTO emailed_listings(`from`,`list_num`, `to`, `code`, `time`) VALUES  ('".$from."','".$list_num."','".$to."','".$code."','".$time."')")  or die(mysql_error());
 
   if(isset($_SESSION['agent'])){
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE e_mail = '".$from."'";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$from."'";
     $res = mysql_query($SQL) or die(mysql_error());
     $row = mysql_fetch_array($res,MYSQL_ASSOC);
-    $firstname = $row['firstname'];
-    $lastname = $row['lastname'];
+    $firstname = $row['first_name'];
+    $lastname = $row['last_name'];
 
     $message = "Hello,";
     $message .= "<br><br>";
@@ -122,11 +122,11 @@ if(isset($_GET['contact'])){
       $lastname = $row['last_name'];
     }
 
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE e_mail = '".$to."'";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'";
     $res = mysql_query($SQL) or die(mysql_error());
     while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $first_name = $row['firstname'];
-      $last_name = $row['lastname'];
+      $first_name = $row['first_name'];
+      $last_name = $row['last_name'];
     }
 
     $SQL = "SELECT * FROM `vow_data` WHERE list_numb = '".$list_num."'";
@@ -157,11 +157,11 @@ if(isset($_GET['contact'])){
   else{
     $res = mysql_query("INSERT INTO contacted(`user`,`list_num`, `contacted`, `time`) VALUES  ('".$from."','".$list_num."','".$to."','".$time."')")  or die(mysql_error());
 
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE e_mail = '".$to."'";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'";
     $res = mysql_query($SQL) or die(mysql_error());
     while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $first_name = $row['firstname'];
-      $last_name = $row['lastname'];
+      $first_name = $row['first_name'];
+      $last_name = $row['last_name'];
     }
 
    $SQL = "SELECT * FROM `vow_data` WHERE list_numb = '".$list_num."'";
@@ -201,11 +201,11 @@ if(isset($_GET['emailChart'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$agentEmail."')";
+  $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agentEmail."')";
   $res = mysql_query($SQL) or die(mysql_error());
   while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-    $firstname = $row['firstname'];
-    $lastname = $row['lastname'];
+    $firstname = $row['first_name'];
+    $lastname = $row['last_name'];
   }
 
   if($_SESSION['email']==$to){
@@ -253,24 +253,20 @@ if(isset($_GET['makePrimary'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT firstname, lastname, e_mail FROM Agent_Import WHERE id = '".$agentCode."'";
+  $SQL = "SELECT first_name, last_name, email FROM `registered_agents` WHERE agent_id = '".$agentCode."'";
   $res = mysql_query($SQL)  or die(mysql_error());
-
-  while ($row = mysql_fetch_assoc($res)) {
-    $agentEmail = $row['e_mail'];
-    $agentFirstName = $row['firstname'];
-    $agentLastName = $row['lastname'];
-  }
+  $row = mysql_fetch_assoc($res);
+  $agentEmail = $row['email'];
+  $agentFirstName = $row['first_name'];
+  $agentLastName = $row['last_name'];
 
   $SQL = "SELECT * FROM users WHERE email = '".$user."'";
   $res = mysql_query($SQL)  or die(mysql_error());
-
-  while ($row = mysql_fetch_assoc($res)) {
-    $buyerFirstName = $row['first_name'];
-    $buyerLastName = $row['last_name'];
-    $pAgent = $row['P_agent'];
-    $pAgent2 = $row['P_agent2'];
-  }
+  $row = mysql_fetch_assoc($res);
+  $buyerFirstName = $row['first_name'];
+  $buyerLastName = $row['last_name'];
+  $pAgent = $row['P_agent'];
+  $pAgent2 = $row['P_agent2'];
 
   if ($pAgent == ""){ //Add agent
     if ($pAgent2 == "") { // No secondary - assign as primary
@@ -499,11 +495,11 @@ if(isset($_GET['email_saved'])){
     $mail->Body = $message;    
     $mail->send();
   } else { // went through agent side
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$agent."')";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agent."')";
     $res = mysql_query($SQL) or die(mysql_error());
     while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $firstname = $row['firstname'];
-      $lastname = $row['lastname'];
+      $firstname = $row['first_name'];
+      $lastname = $row['last_name'];
     }
   
     $message = "Hello,";
@@ -785,11 +781,11 @@ if(isset($_GET['emailFolder'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
   if($_SESSION['agent']){
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $sender_firstname = $row['firstname'];
-    $sender_lastname = $row['lastname'];
+    $sender_firstname = $row['first_name'];
+    $sender_lastname = $row['last_name'];
   }
   else{
     $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$sender."')";
@@ -800,11 +796,11 @@ if(isset($_GET['emailFolder'])){
   }
   
   if(strpos($recipient, "@bellmarc.com") !== false){
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$recipient."')";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$recipient."')";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $recipient_firstname = $row['firstname'];
-    $recipient_lastname = $row['lastname'];
+    $recipient_firstname = $row['first_name'];
+    $recipient_lastname = $row['last_name'];
   }
   else{
     $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$recipient."')";
@@ -908,11 +904,11 @@ if(isset($_GET['save'])){
           $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')";
           $res = mysql_query($SQL)  or die(mysql_error());
           
-          $SQL3 = "SELECT firstname, lastname FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+          $SQL3 = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
           $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
           $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-          $agent_firstname = $row3['firstname'];
-          $agent_lastname = $row3['lastname'];
+          $agent_firstname = $row3['first_name'];
+          $agent_lastname = $row3['last_name'];
           
           $SQL = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$user."')";
           $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
@@ -957,12 +953,12 @@ if(isset($_GET['save'])){
         $folderAgent = $row['agent'];
         
         if($folderAgent != ""){      
-          $SQL3 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$folderAgent."')";
+          $SQL3 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$folderAgent."')";
           $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
           $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-          $agent_firstname = $row3['firstname'];
-          $agent_lastname = $row3['lastname'];
-          $agent_email = $row3['e_mail'];
+          $agent_firstname = $row3['first_name'];
+          $agent_lastname = $row3['last_name'];
+          $agent_email = $row3['email'];
           
           $SQL5 = "SELECT first_name, last_name FROM `users` WHERE (email = '".$user."')";
           $res5 = mysql_query($SQL5) or die("Couldn't execute query." . mysql_error());
@@ -1004,11 +1000,11 @@ if(isset($_GET['agentSave'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
   if($_SESSION['agent']){
-	 $SQL = "SELECT firstname, lastname FROM `Agent_Import` where (e_mail = '".$_SESSION['email']."')";
+	 $SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$_SESSION['email']."')";
      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
      while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $agent_firstname = $row['firstname'];
-      $agent_lastname = $row['lastname'];
+      $agent_firstname = $row['first_name'];
+      $agent_lastname = $row['last_name'];
     }
     foreach($buyers as $buyer){	  
       if(strpos($buyer, "@bellmarc.com") !== false){
@@ -1097,11 +1093,11 @@ if(isset($_GET['saveAndEmail'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
   if($_SESSION['agent']){
-    $SQL = "SELECT firstname, lastname FROM `Agent_Import` where (e_mail = '".$_SESSION['email']."')";
+    $SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$_SESSION['email']."')";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $firstname = $row['firstname'];
-      $lastname = $row['lastname'];
+      $firstname = $row['first_name'];
+      $lastname = $row['last_name'];
     }
 
     $SQL = "SELECT first_name, last_name, notifications FROM `users` where (email = '".$user."')";
@@ -1227,11 +1223,11 @@ if(isset($_GET['saveAll'])){
     }
   }
 
-  $SQL4 = "SELECT firstname, lastname FROM `Agent_Import` where (e_mail = '".$agent."')";
+  $SQL4 = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$agent."')";
   $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result4,MYSQL_ASSOC)) {
-    $firstname = $row['firstname'];
-    $lastname = $row['lastname'];
+    $firstname = $row['first_name'];
+    $lastname = $row['last_name'];
   }
   
   $message .= $firstname . " " . $lastname . " has added listings to your folder.";
@@ -1608,12 +1604,12 @@ if(isset($_GET['clear_one_saved_from_folders'])){
         $buyer_firstname = $row4['first_name'];
         $buyer_lastname = $row4['last_name'];
         
-        $SQL5 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$agent_id."')";
+        $SQL5 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$agent_id."')";
         $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
         $row5 = mysql_fetch_array($result5,MYSQL_ASSOC);
-        $agent_firstname = $row5['firstname'];
-        $agent_lastname = $row5['lastname'];
-        $agent_email = $row5['e_mail'];
+        $agent_firstname = $row5['first_name'];
+        $agent_lastname = $row5['last_name'];
+        $agent_email = $row5['email'];
         
         $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
         $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has removed a listing from thier folder: " . $folder;
@@ -1756,14 +1752,12 @@ if(isset($_GET['AddPrimary'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT firstname, lastname, id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    $fn = $row['firstname'];
-    $ln = $row['lastname'];
-    $id = $row['id'];
-  }
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  $fn = $row['first_name'];
+  $ln = $row['last_name'];
+  $id = $row['agent_id'];
 
   $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
@@ -1796,14 +1790,12 @@ if(isset($_GET['AddPrimary2'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT firstname, lastname, id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    $fn = $row['firstname'];
-    $ln = $row['lastname'];
-    $id = $row['id'];
-  }
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  $fn = $row['first_name'];
+  $ln = $row['last_name'];
+  $id = $row['agent_id'];
 
   $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
@@ -1843,14 +1835,12 @@ if(isset($_GET['addBuyer'])){
 
   if($num == 0){
 
-    $SQL = "SELECT firstname, lastname, id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+    $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-    while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $fn = $row['firstname'];
-      $ln = $row['lastname'];
-      $id = $row['id'];
-    }
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);
+    $fn = $row['first_name'];
+    $ln = $row['last_name'];
+    $id = $row['agent_id'];
 
     $to = $_GET['firstname'] . " " . $_GET['lastname'] . " <" . $_GET['email'] . ">";
     $email = $_GET['email'];

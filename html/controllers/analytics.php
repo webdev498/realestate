@@ -26,28 +26,28 @@ $name = $name[0];
 // If the user has been rate limited because of too many requests, cut them off (VOW RULE)
 $limit = limit();
 if ($limit != 'clear') {
-    limit();
+  limit();
 } else {
-	  if($name == "guest"){
+	if($name == "guest"){
 		header('Location: /users/logout.php');
-	  }
-	  if($_SESSION['agent']){
-		$SQL = "SELECT firstname, lastname FROM `Agent_Import` where (e_mail = '" . $_SESSION['email'] . "')";
+	}
+	if($_SESSION['agent']){
+		$SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
 		$result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		  $name = $row['firstname'] . " " . $row['lastname'];
+		  $name = $row['first_name'] . " " . $row['last_name'];
 		}
-	  }
-	  elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
+	}
+	elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
 		$SQL = "SELECT first_name, last_name FROM `users` where (email = '" . $_SESSION['email'] . "')";
 		$result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		  $name = $row['first_name'] . " " . $row['last_name'];
 		}
-	  }
-	  else{
+	}
+	else{
 		$name = "Guest";
-	  }
+	}
 }
 
 

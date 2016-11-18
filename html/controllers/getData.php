@@ -15,13 +15,12 @@ if (!$_SESSION['user']) {
 
 $email = $_SESSION['email'];
 
-$sql = "SELECT firstname, lastname, id FROM `Agent_Import` where (e_mail = '".$email."')";
+$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '".$email."')";
 $res = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
-while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-  $firstname = $row['firstname'];
-  $lastname = $row['lastname'];
-  $id = $row['id'];
-}
+$row = mysql_fetch_array($res,MYSQL_ASSOC);
+$firstname = $row['first_name'];
+$lastname = $row['last_name'];
+$id = $row['agent_id'];
 
 $name = explode('@', $_SESSION['email']);
 $name = $name[0];

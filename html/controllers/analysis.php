@@ -20,12 +20,12 @@ else{ $mainPage = ""; }
 $analytics = $_SESSION['analytics'];
 $analysis = $_SESSION['activity_analysis'];
 $email = $_SESSION['email'];
-$sql = "SELECT firstname, lastname, id FROM `Agent_Import` where e_mail= '".$email."'";
+$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where email= '".$email."'";
 $res = mysql_query( $sql ) or die("Couldn't execute query. Error 1.".mysql_error());
 while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-  $firstname = $row['firstname'];
-  $lastname = $row['lastname'];
-  $id = $row['id'];
+  $firstname = $row['first_name'];
+  $lastname = $row['last_name'];
+  $id = $row['agent_id'];
 }
 $name = explode('@', $_SESSION['email']);
 $name = $name[0];
@@ -155,16 +155,16 @@ $name = $name[0];
           <fieldset class="form-group">
             <select class="form-control" id="agentYearlyCode" name="agentYearlyCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `firstname`, `lastname`, `id` FROM `Agent_Import` WHERE (`status` != '3') and (`active` = 'Y') GROUP BY id ORDER BY lastname ASC";
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['firstname'] != ".T." && $row['firstname'] != ".F." && $row['lastname'] != ".T." && $row['lastname'] != ".F."){
-                  $id = $row['id'];
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
                   if (strlen($id) <= 1){
                     $name = "No Agent";
                   } else {
-                    $name = $row['lastname'] . ",  " . $row['firstname'];
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
                   }
                   echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
                   //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
@@ -227,16 +227,16 @@ $name = $name[0];
           <fieldset class="form-group">
             <select class="form-control" id="agentCode" name="agentCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `firstname`, `lastname`, `id` FROM `Agent_Import` WHERE (`status` != '3') and (`active` = 'Y') GROUP BY id ORDER BY lastname ASC";
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['firstname'] != ".T." && $row['firstname'] != ".F." && $row['lastname'] != ".T." && $row['lastname'] != ".F."){
-                  $id = $row['id'];
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
                   if (strlen($id) <= 1){
                     $name = "No Agent";
                   } else {
-                    $name = $row['lastname'] . ",  " . $row['firstname'];
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
                   }
                   echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
                   //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
@@ -1311,11 +1311,11 @@ $( '#agentYearlyCode' ).each( function () {
 
 
     // Agent Name
-		$sql = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '" . $agentCode . "'";
+		$sql = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '" . $agentCode . "'";
 		$result = mysql_query( $sql ) or die("Couldn't execute query. Error 2.".mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			$firstname = $row['firstname'];
-			$lastname = $row['lastname'];
+			$firstname = $row['first_name'];
+			$lastname = $row['last_name'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1748,11 +1748,11 @@ if (isset($_POST['agent-yearly'])) {
 
 
     // Agent Name
-		$sql = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '" . $agentYearlyCode . "'";
+		$sql = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '" . $agentYearlyCode . "'";
 		$result = mysql_query( $sql ) or die("Couldn't execute query. Error 2.".mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			$firstname = $row['firstname'];
-			$lastname = $row['lastname'];
+			$firstname = $row['first_name'];
+			$lastname = $row['last_name'];
 		}
 
     if ($_POST['agentCode'] == ""){

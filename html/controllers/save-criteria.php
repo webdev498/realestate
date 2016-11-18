@@ -278,10 +278,10 @@ if($num_rows >= 1){
     $amen = implode(", ", $amenities);
     
     if($_SESSION['agent']){
-      $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+      $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
       $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
-      $agent_id = $row['id'];
+      $agent_id = $row['agent_id'];
       
       if($searchName == ""){
         $SQL = "SELECT name FROM `users_folders` WHERE (user = '".$email."') AND (agent = '".$agent_id."')";

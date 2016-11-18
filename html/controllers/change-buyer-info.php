@@ -79,12 +79,12 @@ if($_POST['code']){
   }  
   
   // Get agent's information
-  $SQL6 = "SELECT a.firstname, a.lastname, a.cell_phone ,a.e_mail, a.id, u.P_agent FROM `Agent_Import` a, `users` u WHERE (u.email='".$email."') AND (a.id = u.P_agent)";
+  $SQL6 = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$email."') AND (r.agent_id = u.P_agent)";
   $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error());
   $row6 = mysql_fetch_array($result6,MYSQL_ASSOC);
-  $agent = $row6['e_mail'];
-  $afirstname = $row6['firstname'];
-  $alastname = $row6['lastname'];
+  $agent = $row6['email'];
+  $afirstname = $row6['first_name'];
+  $alastname = $row6['last_name'];
   
   // Get buyer's information
   $SQL7 = "SELECT first_name, last_name FROM `users` WHERE (email='".$email."')";
@@ -130,12 +130,12 @@ if($_POST['code2']){
   $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
   
   // Get the agent's information
-  $SQL6 = "SELECT a.firstname, a.lastname, a.cell_phone ,a.e_mail, a.id, u.P_agent2 FROM `Agent_Import` a, `users` u WHERE (u.email='".$email."') AND (a.id = u.P_agent2)";
+  $SQL6 = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent2 FROM `registered_agents` r, `users` u WHERE (u.email='".$email."') AND (r.agent_id = u.P_agent2)";
   $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error());
   $row6 = mysql_fetch_array($result6,MYSQL_ASSOC);
-  $agent = $row6['e_mail'];
-  $afirstname = $row6['firstname'];
-  $alastname = $row6['lastname'];
+  $agent = $row6['email'];
+  $afirstname = $row6['first_name'];
+  $alastname = $row6['last_name'];
   
   // Send the agent an email they have been added to the account.
   $message = "Hello " . $afirstname . " " . $alastname . ",<br><br>";
@@ -167,12 +167,12 @@ if($_POST['delete']){
   $id2 = $row['P_agent2'];
   
   // Get the first agent's information
-  $SQL2 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$id."')";
+  $SQL2 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$id."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);  
-  $agent = $row2['e_mail'];
-  $afirstname = $row2['firstname'];
-  $alastname = $row2['lastname'];
+  $agent = $row2['email'];
+  $afirstname = $row2['first_name'];
+  $alastname = $row2['last_name'];
   
   // Get folder associated with first agent
   $SQL3 = "SELECT name, agent FROM `users_folders` WHERE (user = '".$email."') AND (agent LIKE '%".$id."%')";
@@ -238,12 +238,12 @@ if($_POST['delete2']){
   $id = $row['P_agent2'];
   
   // Get agent 2's information
-  $SQL2 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$id."')";
+  $SQL2 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$id."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
-  $agent = $row2['e_mail'];
-  $afirstname = $row2['firstname'];
-  $alastname = $row2['lastname'];
+  $agent = $row2['email'];
+  $afirstname = $row2['first_name'];
+  $alastname = $row2['last_name'];
   
   // Get the folder associated with that agent.
   $SQL3 = "SELECT name, agent FROM `users_folders` WHERE (user = '".$email."') AND (agent LIKE '%".$id."%')";
@@ -288,15 +288,15 @@ if($_POST['update']){
 }
 
 if($_POST['updateListings']){
-  $SQL = "SELECT a.e_mail FROM `Agent_Import` a, `users` u WHERE (u.email = '".$email."') AND (a.id = u.P_agent)";
+  $SQL = "SELECT r.email FROM `registered_agents` r, `users` u WHERE (u.email = '".$email."') AND (r.agent_id = u.P_agent)";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $P_agent = $row['e_mail'];
+  $P_agent = $row['email'];
   
-  $SQL = "SELECT a.e_mail FROM `Agent_Import` a, `users` u WHERE (u.email = '".$email."') AND (a.id = u.P_agent2)";
+  $SQL = "SELECT r.email FROM `registered_agents` r, `users` u WHERE (u.email = '".$email."') AND (r.agent_id = u.P_agent2)";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $P_agent2 = $row['e_mail'];
+  $P_agent2 = $row['email'];
   
   $SQL = "SELECT * FROM `saved_listings` WHERE (user = '".$email."') AND (agent = '')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());

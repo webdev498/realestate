@@ -18,12 +18,12 @@ if ($_SESSION['agent']){
     $savedBuyer = "";
   }
   
-  $SQL = "SELECT * FROM `Agent_Import` WHERE (e_mail = '".$email."')";
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
-  $agent_firstname = $row['firstname'];
-  $agent_lastname = $row['lastname'];
+  $agent_id = $row['agent_id'];
+  $agent_firstname = $row['first_name'];
+  $agent_lastname = $row['last_name'];
 
 } elseif ($_SESSION['user']){
   $user = $_SESSION['id'];
@@ -77,7 +77,7 @@ else if( isset($_GET['getAgentSave']) ){
     array_push($folders, $f);
   }
     
-	$SQL = "SELECT u.*, f.* FROM `users` AS u LEFT JOIN `Agent_Import` AS a ON u.P_agent=a.id OR u.P_agent2=a.id LEFT JOIN `users_folders` as f ON u.email=f.user WHERE (a.e_mail = '".$email."') AND (u.archived != '1') ORDER BY last_name ASC ";
+	$SQL = "SELECT u.*, f.* FROM `users` AS u LEFT JOIN `registered_agents` AS r ON u.P_agent=r.agent_id OR u.P_agent2=r.agent_id LEFT JOIN `users_folders` as f ON u.email=f.user WHERE (r.email = '".$email."') AND (u.archived != '1') ORDER BY last_name ASC ";
 	$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	  $name = array("id"=>$row['id'], "first_name"=> $row['first_name'], "last_name"=> $row['last_name'], "email"=>$row['email'], "folderName"=>$row['name']);
@@ -98,12 +98,12 @@ else if( isset($_POST['agentSaveListingInFolders']) ){
   $buyernames = array();
   $buyeremails = array();
   
-  $SQL = "SELECT * FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
-  $agent_firstname = $row['firstname'];
-  $agent_lastname = $row['lastname'];
+  $agent_id = $row['agent_id'];
+  $agent_firstname = $row['first_name'];
+  $agent_lastname = $row['last_name'];
   
   	
   foreach ($buyers as $buyer) {
@@ -176,12 +176,12 @@ else if( isset($_POST['saveListingInMyFolders']) ){
 	if(isset($_POST['buyer'])){
 	  $buyer = $_POST['buyer'];
 	  
-	  $SQL = "SELECT firstname, lastname, id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+	  $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
 	  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 	  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-      $agent_firstname = $row['firstname'];
-      $agent_lastname = $row['lastname'];
-	  $agent = $row['id'];
+      $agent_firstname = $row['first_name'];
+      $agent_lastname = $row['last_name'];
+	  $agent = $row['agent_id'];
 	  
 	  foreach ($folders as $folder) {
       $SQL = "SELECT * FROM `users_folders` WHERE (user = '".$buyer."') AND (name = '" . $folder . "')";
@@ -252,12 +252,12 @@ else if( isset($_POST['saveListingInMyFolders']) ){
         $SQL2 = "UPDATE `users_folders` SET `last_update`='".date('U')."' WHERE (`user` = '".$_SESSION['email']."') AND (`name` = '".$folder."')";
         $res2 = mysql_query($SQL2)  or die(mysql_error());
         
-        $SQL3 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$folderAgent."')";
+        $SQL3 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$folderAgent."')";
         $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
         $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-        $agent_firstname = $row3['firstname'];
-        $agent_lastname = $row3['lastname'];
-        $agent_email = $row3['e_mail'];
+        $agent_firstname = $row3['first_name'];
+        $agent_lastname = $row3['last_name'];
+        $agent_email = $row3['email'];
         
         $SQL5 = "SELECT first_name, last_name FROM `users` WHERE (email = '".$_SESSION['email']."')";
         $res5 = mysql_query($SQL5) or die("Couldn't execute query." . mysql_error());
@@ -312,12 +312,12 @@ else if( isset($_POST['saveListingInMyOneFolder']) ){
     $res2 = mysql_query($SQL2)  or die(mysql_error());
     
     if($folderAgent != "" && $folderAgent != null){
-      $SQL3 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$folderAgent."')";
+      $SQL3 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$folderAgent."')";
       $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
       $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-      $agent_firstname = $row3['firstname'];
-      $agent_lastname = $row3['lastname'];
-      $agent_email = $row3['e_mail'];
+      $agent_firstname = $row3['first_name'];
+      $agent_lastname = $row3['last_name'];
+      $agent_email = $row3['email'];
       
       $SQL5 = "SELECT first_name, last_name FROM `users` WHERE (email = '".$_SESSION['email']."')";
       $res5 = mysql_query($SQL5) or die("Couldn't execute query." . mysql_error());
@@ -415,12 +415,12 @@ else if( isset($_POST['saveListingToLastFolders']) ){
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $agent_id = $row['agent'];
       
-      $SQL = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$agent_id."')";
+      $SQL = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$agent_id."')";
       $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
-      $agent_firstname = $row['firstname'];
-      $agent_lastname = $row['lastname'];
-      $agent_email = $row['e_mail'];
+      $agent_firstname = $row['first_name'];
+      $agent_lastname = $row['last_name'];
+      $agent_email = $row['email'];
       
       $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
       $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to your folder: " . $folder;
@@ -444,10 +444,10 @@ else if( isset($_POST['saveListingToLastBuyers']) ){
   $time = date('U');
   $buyernames = array();
   
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['id'];
+  $agent_id = $row['agent_id'];
   	
   foreach ($buyers as $buyer) {
     
@@ -559,12 +559,12 @@ else if( isset($_POST['deleteListingFromFolders']) ){
         $buyer_firstname = $row4['first_name'];
         $buyer_lastname = $row4['last_name'];
         
-        $SQL5 = "SELECT firstname, lastname, e_mail FROM `Agent_Import` WHERE (id = '".$agent_id."')";
+        $SQL5 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$agent_id."')";
         $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
         $row5 = mysql_fetch_array($result5,MYSQL_ASSOC);
-        $agent_firstname = $row5['firstname'];
-        $agent_lastname = $row5['lastname'];
-        $agent_email = $row5['e_mail'];
+        $agent_firstname = $row5['first_name'];
+        $agent_lastname = $row5['last_name'];
+        $agent_email = $row5['email'];
         
         $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
         $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has removed a listing from thier folder: " . $folder;
