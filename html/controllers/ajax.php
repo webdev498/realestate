@@ -1986,7 +1986,7 @@ if(isset($_GET['addAgent'])){
   if($num == 0){
     $password = generateRandomString();
     $pass = string_encrypt($password, $registerTime);
-    $res =  mysql_query("INSERT INTO registered_agents(first_name, last_name, title, email, phone, agent_id, password, active, rtime, pass_set) VALUES('".$_GET['firstname']."','".$_GET['lastname']."','".$_GET['title']."','".$_GET['email']."','".$_GET['phone']."','".$_GET['agent_id']."','".$pass."','".$_GET['status']."','".$registerTime."','".$registerTime."') ON DUPLICATE KEY UPDATE rtime=VALUES(rtime)");
+    $res =  mysql_query("INSERT INTO registered_agents(first_name, last_name, title, email, phone, agent_id, password, active, admin, rtime, pass_set) VALUES('".$_GET['firstname']."','".$_GET['lastname']."','".$_GET['title']."','".$_GET['email']."','".$_GET['phone']."','".$_GET['agent_id']."','".$pass."','".$_GET['status']."','".$_GET['admin']."','".$registerTime."','".$registerTime."') ON DUPLICATE KEY UPDATE rtime=VALUES(rtime)");
     
     $message = "Hello " . $_GET['firstname'] . " " . $_GET['lastname'] . ", <br/><br/>";
     $message .= "Your agent account with HomePik as been created. Below you will find your login information: <br/>";

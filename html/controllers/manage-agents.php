@@ -36,6 +36,7 @@ else{ $mainPage = ""; }
         addAgent_phone: "",
         addAgent_agentId: "",
         addAgent_status: "",
+        addAgent_admin: "",
         agentTableDisplay: ""
       };
 	  },
@@ -151,6 +152,7 @@ else{ $mainPage = ""; }
         phone: this.state.addAgent_phone,
         agent_id: this.state.addAgent_agentId,
         status: this.state.addAgent_status,
+        admin: this.state.addAgent_admin,
         success: function(result){
           $("#ajax-box2").dialog({
             modal: true,
@@ -183,7 +185,8 @@ else{ $mainPage = ""; }
           this.setState({addAgent_title: ""});
           this.setState({addAgent_phone: ""});
           this.setState({addAgent_agentId: ""});
-          this.setState({addAgent_status: ""});
+          this.setState({addAgent_status: ""});          
+          this.setState({addAgent_admin: ""});
           $("input[type=radio]").prop('checked', false);
           
           var ajaxStop = 0;
@@ -326,6 +329,7 @@ else{ $mainPage = ""; }
                         </tr>
                         <tr>
                           <td>Status: </td><td><input type="radio" name="status" value="Y" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Active &nbsp;&nbsp;&nbsp;<input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Not Active</td>
+                          <td>Administrator: </td><td><input type="radio" name="admin" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> Yes &nbsp;&nbsp;&nbsp;<input type="radio" name="admin" value="N" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> No</td>
                         </tr>
                       </tbody>
                     </table>
