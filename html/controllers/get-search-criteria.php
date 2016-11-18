@@ -36,6 +36,8 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 }
 
 switch ($min_price) {
+  case "0": $min_price = '0';
+      break;
   case "100000": $min_price = '1';
       break;
   case "200000": $min_price = '2';
