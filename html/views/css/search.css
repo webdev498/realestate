@@ -1019,6 +1019,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 /*11-7-2016 css start*/
 #building .label, #bedrooms_box .label{ color:#7e499e;}
 .criterion .mini{ float:left; width:100%;}
+.criterion #price.mini{ width: 94%; }
 .criterion div.label{ float:left; width:100%; padding:0;}
 #view #views_desc{ float:left; width:100%;}
 #previous span{ float:left !important;}
