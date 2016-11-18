@@ -18,7 +18,7 @@ if ($_SESSION['agent']){
     $savedBuyer = "";
   }
   
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$email."')";
+  $SQL = "SELECT * FROM `Agent_Import` WHERE (e_mail = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   $agent_id = $row['id'];
@@ -102,6 +102,7 @@ else if( isset($_POST['agentSaveListingInFolders']) ){
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   $agent_id = $row['id'];
+  
   	
   foreach ($buyers as $buyer) {
     if(strpos($buyer, "@bellmarc.com") !== false){
