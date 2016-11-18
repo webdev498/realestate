@@ -98,10 +98,12 @@ else if( isset($_POST['agentSaveListingInFolders']) ){
   $buyernames = array();
   $buyeremails = array();
   
-  $SQL = "SELECT id FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
+  $SQL = "SELECT * FROM `Agent_Import` WHERE (e_mail = '".$_SESSION['email']."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   $agent_id = $row['id'];
+  $agent_firstname = $row['firstname'];
+  $agent_lastname = $row['lastname'];
   
   	
   foreach ($buyers as $buyer) {
@@ -148,7 +150,7 @@ else if( isset($_POST['agentSaveListingInFolders']) ){
         
         $message = "Hello " . $buyer_name . ",";
         $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
-        $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+        //$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
 		$message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
@@ -215,7 +217,7 @@ else if( isset($_POST['saveListingInMyFolders']) ){
         
         $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
         $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
-		$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+		//$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
         $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
@@ -265,7 +267,7 @@ else if( isset($_POST['saveListingInMyFolders']) ){
         
         $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
         $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to their folder: " . $folder;
-		$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+		//$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
         $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
@@ -325,7 +327,7 @@ else if( isset($_POST['saveListingInMyOneFolder']) ){
       
       $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
       $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to their folder: " . $folder;
-	  $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+	  //$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
       $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
       $message .= "HomePik.com is licensed by Nice Idea Media";
   
@@ -422,7 +424,7 @@ else if( isset($_POST['saveListingToLastFolders']) ){
       
       $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
       $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to your folder: " . $folder;
-	  $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+	  //$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
       $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
       $message .= "HomePik.com is licensed by Nice Idea Media";
   
@@ -491,7 +493,7 @@ else if( isset($_POST['saveListingToLastBuyers']) ){
         
         $message = "Hello " . $buyer_name . ",";
         $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
-		$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+		//$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
         $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
         $message .= "HomePik.com is licensed by Nice Idea Media";
     
