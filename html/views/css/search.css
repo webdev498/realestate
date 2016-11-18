@@ -221,7 +221,7 @@ span.area.grade_desc { display: none; font-family: 'Lato', sans-serif; font-size
 #searchbtn { top: 50px; }
 .ui-state-default .ui-icon { background-image: url("/images/gray_cross.jpg"); background-position: 0 0; margin-right: -2px; margin-top: 1px; }
 #price_box.criterion { margin-right: 0 !important;  width: 100% !important; }
-#price.mini.ui-slider { margin: 17px 0 0 5% !important; width: 89%; }
+/*#price.mini.ui-slider { margin: 17px 0 0 5% !important; width: 89%; }*/
 #price.mini.ui-slider #max_price_slider.ui-slider-handle{ margin-left:1px;}
 .select .ui-icon.ui-icon-triangle-2-n-s { background: rgba(0, 0, 0, 0) url("/images/selectarrow.png") no-repeat scroll 0 0 !important; top: 10px; }
 .select .ui-multiselect-checkboxes label { font-size: 21px; }
