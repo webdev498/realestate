@@ -22,6 +22,8 @@ if ($_SESSION['agent']){
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   $agent_id = $row['id'];
+  $agent_firstname = $row['firstname'];
+  $agent_lastname = $row['lastname'];
 
 } elseif ($_SESSION['user']){
   $user = $_SESSION['id'];
