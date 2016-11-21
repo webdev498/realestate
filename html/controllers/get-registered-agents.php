@@ -6,31 +6,47 @@ include("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-$agents = array();
-
 if(isset($_POST['allAgents'])){
-  $SQL = "SELECT first_name, last_name, email FROM `registered_agents` ORDER BY last_name ASC";
+  $agents = array();
+  
+  $SQL = "SELECT first_name, last_name, email, admin FROM `registered_agents` ORDER BY last_name ASC";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     array_push($agents, $row);
   }
+  
+  echo json_encode($agents);
 }
 
-if(isset($_POST['activeAgents'])){
-  $SQL = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (active = 'Y' ) ORDER BY last_name ASC";
+else if(isset($_POST['activeAgents'])){
+  $agents = array();
+  
+  $SQL = "SELECT first_name, last_name, email, admin FROM `registered_agents` WHERE (active = 'Y' ) ORDER BY last_name ASC";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     array_push($agents, $row);
   }
+  
+  echo json_encode($agents);
 }
 
-if(isset($_POST['archivedAgents'])){
-  $SQL = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (active = 'N' ) ORDER BY last_name ASC";
+else if(isset($_POST['archivedAgents'])){
+  $agents = array();
+  
+  $SQL = "SELECT first_name, last_name, email, admin FROM `registered_agents` WHERE (active = 'N' ) ORDER BY last_name ASC";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     array_push($agents, $row);
   }
+  
+  echo json_encode($agents);
 }
 
-echo json_encode($agents);
+else if(isset($_POST['information'])){
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$_POST['email']."')";
+  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  
+  echo json_encode($row);
+}
 ?>

@@ -23,6 +23,188 @@ else{ $mainPage = ""; }
   <div id='ajax-box'></div>
   <div id='ajax-box2'></div>
 <script type="text/babel">
+  var EditAgentInfo = React.createClass({
+    getInitialState: function(){
+      return{
+        firstname: this.props.info['first_name'],
+        lastname: this.props.info['last_name'],
+        title: this.props.info['title'],        
+        oldEmail: this.props.info['email'],
+        email: this.props.info['email'],
+        phone: this.props.info['phone'],
+        agentID: this.props.info['agent_id'],
+        status: this.props.info['active'],
+        admin: this.props.info['admin'],
+        bio: this.props.info['bio'],
+        edit: "false"
+      }
+    },    
+	  handleChange: function (name, event) {
+      var change = {};
+      change[name] = event.target.value;
+      this.setState(change);
+    },
+    handleEditOptionChange: function(name,event){
+      this.setState({edit: "true"});
+    },
+    updatePhone: function(){
+		  var number = this.state.phone;
+		  var x = number.replace(/\D/g,'');
+
+		  if (x.length == 10 && !isNaN(x)){
+				var y = '('+x[0]+x[1]+x[2]+')'+x[3]+x[4]+x[5]+'-'+x[6]+x[7]+x[8]+x[9]; // Reformat phone number
+				this.setState({ phone: y }); // Replace number with formatted number
+		  }else {
+				if(x.length > 0 || (x.length <= 0 && number.match(/[a-z]/i))){
+					$("#ajax-box").dialog({
+					modal: true,
+					height: 'auto',
+					width: 'auto',
+					autoOpen: false,
+					dialogClass: 'ajaxbox errorMessage',
+					buttons : {
+						Ok: function(){
+							$(this).dialog("close");
+						}
+					},
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+					});
+					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+						$('#ajax-box').dialog('open');
+					});
+				}
+		  }
+		},
+    submitInfo: function(){
+      $.get("ajax.php", {
+        updateAgent: 'true',
+        oldEmail: this.state.oldEmail,
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        title: this.state.title,
+        email: this.state.email,
+        phone: this.state.phone,
+        status: this.state.status,
+        admin: this.state.admin,
+        bio: this.state.bio,
+        success: function(result){
+          console.log(result);
+          var ajaxStop = 0;
+          $(document).ajaxStop(function() {
+            if(ajaxStop == 0){
+              ajaxStop++;
+              this.setState({edit: "false"});
+              this.props.getActiveAgents();
+              this.props.getArchivedAgents();
+            }
+          }.bind(this));
+        }.bind(this)
+		  });
+    },
+    closePopup: function(){
+      $("#overlay").hide();
+      {this.props.closeDialog()}
+    },
+    render: function(){
+      return(
+        <div id="agentInformationArea">
+          <div id="agentInformationTop">
+            <span id="agentInformationHeader" className="text-popups">Agent Information</span>
+            <img src="/images/button_pen_states.png" style={{float: "right"}}/>
+            <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
+          </div>
+          <div id="agentInformationBorder">
+            <table cellPadding="2" cellSpacing="0" border="0">
+              <colgroup><col width="250"/><col width="350"/></colgroup>
+              <tbody>
+                <tr>
+                  <td className="text-popups">First Name:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <input type="text" id="formFirstName" className="grade_desc input1" value={this.state.firstname} name="firstName" autoFocus onChange={this.handleChange.bind(this, 'firstname')} /> : this.state.firstname }<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Last Name:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <input type="text" id="formLastName" className="grade_desc input1" value={this.state.lastname} name="lastName" onChange={this.handleChange.bind(this, 'lastname')} /> : this.state.lastname }<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Title:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <input type="text" autoCapitalize="off" id="formTitle" className="grade_desc input1" value={this.state.title} name="title" onChange={this.handleChange.bind(this, 'title')} /> : this.state.title }</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Email:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <input type="text" autoCapitalize="off" id="formEmail" className="grade_desc input1" value={this.state.email} name="email" onChange={this.handleChange.bind(this, 'email')} /> : this.state.email }</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Phone:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <input type="text" autoCapitalize="off" id="formPhone" className="grade_desc input1" value={this.state.phone} name="phone" onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/> : this.state.phone }</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Agent ID:</td>
+                  {/* <td className="text-popups">{this.state.edit == "true" ? <input type="text" autoCapitalize="off" id="formAgentID" className="grade_desc input1" value={this.state.agentID} name="phone" onChange={this.handleChange.bind(this, 'agentID')} /> : this.state.agentID }</td> */}
+                  <td className="text-popups">{this.state.agentID}</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Status:</td>
+                  <td className="text-popups">
+                    {this.state.edit == "true" ?
+                      <span>
+                        {this.state.status == "Y" ? <input type="radio" name="status" value="Y" className="indent" checked onChange={this.handleChange.bind(this, 'status')}/> : <input type="radio" name="status" value="Y" className="indent" onChange={this.handleChange.bind(this, 'status')}/> } Active &nbsp;&nbsp;&nbsp;
+                        {this.state.status == "N" ? <input type="radio" name="status" value="N" checked onChange={this.handleChange.bind(this, 'status')}/> : <input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'status')}/> } Not Active
+                      </span>
+                    :
+                      <span>{this.state.status == "Y" ? <span>Active</span> : <span>Not Active</span> }</span>
+                    }
+                  </td>
+                </tr>                  
+                <tr>
+                  <td className="text-popups">Administrator:</td>
+                  <td className="text-popups">
+                    {this.state.edit == "true" ?
+                      <span>
+                        {this.state.admin == "Y" ? <input type="radio" name="admin" value="Y" checked className="indent" onChange={this.handleChange.bind(this, 'admin')}/> : <input type="radio" name="admin" value="Y" className="indent" onChange={this.handleChange.bind(this, 'admin')}/> } Yes &nbsp;&nbsp;&nbsp;
+                        {this.state.admin == "N" ? <input type="radio" name="admin" value="N" checked onChange={this.handleChange.bind(this, 'admin')}/> : <input type="radio" name="admin" value="N" onChange={this.handleChange.bind(this, 'admin')}/> } No
+                      </span>
+                    :
+                      <span>{this.state.admin == "Y" ? <span>Yes</span> : <span>No</span> } </span>
+                    }
+                  </td>
+                </tr>                                  
+                <tr>
+                  <td className="text-popups">Bio:</td>
+                  <td className="text-popups">{this.state.edit == "true" ? <textarea type="text" id="formBio" value={this.state.bio} name="bio" onChange={this.handleChange.bind(this, 'bio')} /> : this.state.bio }</td>
+                </tr>
+                <tr><td></td></tr>
+                {this.state.edit == "true" ?
+                  <tr>
+                    <td colSpan="2">
+                      <button type="submit" id="editAgentInformationSubmit" className="text-popups" onClick={this.submitInfo}>Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
+                    </td>
+                  </tr>
+                :
+                  <tr id="editInformation">
+                    <td className="text-popups" colSpan="2">
+                      Do you want to edit this information?
+                      <span id="editOptions">
+                        {this.state.edit == "true" ? <span className="indent"><i className="fa fa-check"></i> yes</span> : <span className="indent" onClick={this.handleEditOptionChange}><i className="fa fa-circle-thin"></i> yes</span> }
+                        <span onClick={this.closePopup}><i className="fa fa-circle-thin"></i> no</span>
+                      </span>
+                    </td>
+                  </tr>
+                }                          
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    }    
+  });
+  
   var ManageAgents = React.createClass({
     getInitialState: function() {
       return{
@@ -44,6 +226,11 @@ else{ $mainPage = ""; }
       this.getAgents();
       this.getActiveAgents();
       this.getArchivedAgents();
+      
+      $("body").delegate(".updateAgentA","click", function(e){
+        var email = e.target.id;
+        this.editAgent(email);
+      }.bind(this));
     },
 	  handleChange: function (name, event) {
       var change = {};
@@ -57,14 +244,8 @@ else{ $mainPage = ""; }
       data: {"allAgents": "true"},
 			success: function(data){
 			  var agents = JSON.parse(data);
-			  var ajaxStop = 0;
-			  $(document).ajaxStop(function() {
-          if(ajaxStop == 0){
-            ajaxStop++;
-            this.setState({registered_agents: agents});
-            this.displayAgents(agents, "all");
-          }
-			  }.bind(this));
+        this.setState({registered_agents: agents});
+        this.displayAgents(agents, "all");
 			}.bind(this),
 			error: function(){
 			  console.log("failed");
@@ -78,14 +259,8 @@ else{ $mainPage = ""; }
         data: {"activeAgents": "true"},
         success: function(data){
           var agents = JSON.parse(data);
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              this.setState({registered_active_agents: agents});
-              this.displayAgents(agents, "active");
-            }
-          }.bind(this));
+          this.setState({registered_active_agents: agents});
+          this.displayAgentsLinked(agents, "active");
         }.bind(this),
         error: function(){
           console.log("failed");
@@ -99,14 +274,45 @@ else{ $mainPage = ""; }
         data: {"archivedAgents": "true"},
         success: function(data){
           var agents = JSON.parse(data);
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              this.setState({registered_archived_agents: agents});
-              this.displayAgents(agents, "archived");
+          this.setState({registered_archived_agents: agents});
+          this.displayAgentsLinked(agents, "archived");
+        }.bind(this),
+        error: function(){
+          console.log("failed");
+        }
+		  });
+    },
+    editAgent: function(email){    
+      $.ajax({
+        type: "POST",
+        url: "get-registered-agents.php",
+        data: {"information": "true", "email": email},
+        success: function(data){
+          var info = JSON.parse(data);
+          
+          var $dialog =  $("#ajax-box").dialog({
+            width: 560,
+            dialogClass: 'ajaxbox editAgentInfoPopup',
+            close: function(){
+              ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+              var div = document.createElement('div');
+              div.id = 'ajax-box';
+              document.getElementsByTagName('body')[0].appendChild(div);
+              $( this ).remove();
+            },
+            open: function(){
+              $("#overlay").bind("click", function(){
+                $("#ajax-box").dialog('close');
+                $("#overlay").hide();
+              });
             }
-          }.bind(this));
+          });
+          var closeDialog = function(){
+            $dialog.dialog('close');
+          }
+    
+          $("#overlay").show();
+          ReactDOM.render(<EditAgentInfo closeDialog={closeDialog} info={info} getActiveAgents={this.getActiveAgents} getArchivedAgents={this.getArchivedAgents}/>, $dialog[0]);
         }.bind(this),
         error: function(){
           console.log("failed");
@@ -127,7 +333,8 @@ else{ $mainPage = ""; }
         
         table += "<tr>";
         for(var j=0; j< group.length; j++){
-          table += "<td><input type='checkbox' name='deleteAgent' value='"+group[j]['email']+"'/> <label>"+group[j]['last_name']+", "+group[j]['first_name']+"</label></td>";
+          if(group[j]['admin'] == "Y"){ table += "<td><input type='checkbox' name='deleteAgent' value='"+group[j]['email']+"'/> <label>"+group[j]['last_name']+", "+group[j]['first_name']+" (A)</label></td>"; }
+          else{ table += "<td><input type='checkbox' name='deleteAgent' value='"+group[j]['email']+"'/> <label>"+group[j]['last_name']+", "+group[j]['first_name']+"</label></td>"; }          
         }
         table += "</tr>";
         
@@ -135,8 +342,34 @@ else{ $mainPage = ""; }
         row++;
       }
       
-      if(section == "all"){ $("#displayAgents").html(table); }
-      else if(section == "active"){ $("#displayActiveAgents").html(table); }
+      $("#displayAgents").html(table);
+      $("#loading").hide();
+      $("#noAgents").show();     
+    },
+    displayAgentsLinked: function(agents, section){
+      var numRows = Math.ceil(agents.length/5);
+      var group = [];
+      var row = 0;
+      var table = "";
+      
+      while(row < numRows){
+        for(var i=row; i < agents.length; i+=numRows){
+          if(agents[i] != ""){ group.push(agents[i]); }
+          else{ break; }
+        }
+        
+        table += "<tr>";
+        for(var j=0; j< group.length; j++){
+          if(group[j]['admin'] == "Y"){ table += "<td><input type='checkbox' name='updateAgent' value='"+group[j]['email']+"'/> <label><a class='updateAgentA' id='"+group[j]['email']+"'>"+group[j]['last_name']+", "+group[j]['first_name']+" (A)</a></label></td>"; }
+          else{ table += "<td><input type='checkbox' name='updateAgent' value='"+group[j]['email']+"'/> <label><a class='updateAgentA' id='"+group[j]['email']+"'>"+group[j]['last_name']+", "+group[j]['first_name']+"</a></label></td>"; }          
+        }
+        table += "</tr>";
+        
+        group = [];
+        row++;
+      }
+      
+      if(section == "active"){ $("#displayActiveAgents").html(table); }
       else if(section == "archived"){ $("#displayArchivedAgents").html(table); }
       $("#loading").hide();
       $("#noAgents").show();     
@@ -152,8 +385,8 @@ else{ $mainPage = ""; }
         phone: this.state.addAgent_phone,
         agent_id: this.state.addAgent_agentId,
         status: this.state.addAgent_status,
-        admin: this.state.addAgent_admin,
         success: function(result){
+          console.log(result);
           $("#ajax-box2").dialog({
             modal: true,
             height: 'auto',
@@ -181,7 +414,7 @@ else{ $mainPage = ""; }
           
           this.setState({addAgent_email: ""});
           this.setState({addAgent_firstname: ""});
-          this.setState({addAgent_lastname: ""});
+          this.setState({addAgent_lastname: ""});          
           this.setState({addAgent_title: ""});
           this.setState({addAgent_phone: ""});
           this.setState({addAgent_agentId: ""});
@@ -291,18 +524,13 @@ else{ $mainPage = ""; }
             });
           }
 					});
-					$('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
+					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
 						$('#ajax-box').dialog('open');
 					});
 				}
 		  }
 		},
 	  render: function(){
-      var agents = this.state.registered_agents.map(function (agent) {
-        return(
-          <td><input type="checkbox" name="deleteAgent" value={agent.email}/> <label>{agent.last_name}, {agent.first_name}</label></td>
-        );
-      });
       return(
         <div className="clearfix" id="page">
           <div className="position_content" id="page_position_content">
@@ -325,10 +553,10 @@ else{ $mainPage = ""; }
                         <tr>
                           <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
                           <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')} onBlur={this.updatePhone}/></td>
-                          <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                   
+                          <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                                           
                         </tr>
                         <tr>
-                          <td>Status: </td><td><input type="radio" name="status" value="Y" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Active &nbsp;&nbsp;&nbsp;<input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Not Active</td>
+                          <td>Status: </td><td><input type="radio" name="status" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Active &nbsp;&nbsp;&nbsp;<input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Not Active</td>
                           <td>Administrator: </td><td><input type="radio" name="admin" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> Yes &nbsp;&nbsp;&nbsp;<input type="radio" name="admin" value="N" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> No</td>
                         </tr>
                       </tbody>
@@ -357,7 +585,7 @@ else{ $mainPage = ""; }
                   
                 </div>
                 <div id="updateAgents">
-                  <span className="Text-1" id="updateAgentsTitle">Update Agent Status</span>
+                  <span className="Text-1" id="updateAgentsTitle">Update Agent Status / Profile <span id="u16159-2">click name to edit profile</span></span>
                   <div id="agentsRegisteredSection">
                 
                     <ul className="nav nav-tabs" role="tablist">

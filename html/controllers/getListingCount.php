@@ -79,7 +79,7 @@ if ((authentication() == 'guest')){
   $all_listing_count['public_listingcount'] = $public_portal_listing_count;
 
   //======get homepik listing count====
-  $select = "SELECT vow_data.* ";
+  $select = "SELECT COUNT(*) ";
   $from = " FROM vow_data ";
   $where = " WHERE (vow_data.status = 'AVAIL') AND ";
 
@@ -90,7 +90,7 @@ if ((authentication() == 'guest')){
   echo json_encode($all_listing_count);
 
 } else{
-  $select = "SELECT vow_data.* ";
+  $select = "SELECT COUNT(*) ";
   $from = " FROM vow_data ";
   $where = " WHERE (vow_data.status = 'AVAIL') AND ";
 

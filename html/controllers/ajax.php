@@ -2010,6 +2010,31 @@ if(isset($_GET['addAgent'])){
   }
 };
 
+// UPDATE AGENT
+if(isset($_GET['updateAgent'])){
+  $oldEmail = $_GET['oldEmail'];
+
+  $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
+  $db = mysql_select_db('sp', $con) or die(mysql_error());
+
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$oldEmail."')";
+  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $num = mysql_num_rows($result);
+  
+  if($num > 0){
+    $res = mysql_query("UPDATE `registered_agents` SET `first_name`='".$_GET['firstname']."',`last_name`='".$_GET['lastname']."',`title`='".$_GET['title']."',`email`='".$_GET['email']."',`phone`='".$_GET['phone']."',`bio`='".$_GET['bio']."',`active`='".$_GET['status']."',`admin`='".$_GET['admin']."' WHERE (email = '".$oldEmail."')");
+    
+    if($oldEmail != $_GET['email']){
+      $res2 = mysql_query("UPDATE `messages` SET `agent`='".$_GET['email']."' WHERE (agent = '".$oldEmail."')");
+      $res3 = mysql_query("UPDATE `messages` SET `sender`='".$_GET['email']."' WHERE (sender = '".$oldEmail."')");
+      $res4 = mysql_query("UPDATE `queued_listings` SET `user`='".$_GET['email']."',`saved_by`='".$_GET['email']."' WHERE (user = '".$oldEmail."')");
+      $res5 = mysql_query("UPDATE `saved_listings` SET `saved_by`='".$_GET['email']."' WHERE (saved_by = '".$oldEmail."')");
+      $res6 = mysql_query("UPDATE `users_folders` SET `user`='".$_GET['email']."' WHERE (user = '".$oldEmail."')");
+      $res7 = mysql_query("UPDATE `viewed_listings` SET `user`='".$_GET['email']."' WHERE (user = '".$oldEmail."')");
+    }
+  }
+};
+
 // SAVE MESSAGE
 if(isset($_GET['saveMessage'])){
   $buyer = $_GET['buyer'];
