@@ -107,7 +107,6 @@ if ($limit != 'clear') {
 };
 ?>
 
-<?php include_once("analyticstracking.php") ?>
 <?php include_once('autoLogout.php'); ?>
 </body>
 </html>

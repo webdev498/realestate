@@ -114,7 +114,7 @@ else {
 	print $templatebody;
 };
 ?>
-<?php include_once("analyticstracking.php") ?>
+
 <?php include_once('autoLogout.php'); ?>
 
 </body>
