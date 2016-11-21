@@ -28,7 +28,7 @@ tr > td{ padding-bottom: 1em !important; }
 label{ font-size: 18px; font-weight: unset !important; padding-right: 80px; }
 input[type="radio"].indent{ margin-left: 12px; }
 
-.editAgentInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; }
+.editAgentInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 400 }
 .editAgentInfoPopup .ui-resizable-handle{ display: none !important; }
 #agentInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
 #agentInformationTop #closePopup{ left: 510px !important; }
