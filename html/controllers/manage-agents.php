@@ -208,6 +208,7 @@ else{ $mainPage = ""; }
   var ManageAgents = React.createClass({
     getInitialState: function() {
       return{
+        mainPage: "<? echo $mainPage ?>",
         registered_agents: [],
         registered_active_agents: [],
         registered_archived_agents: [],

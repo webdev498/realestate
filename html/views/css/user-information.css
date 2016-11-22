@@ -6,7 +6,7 @@
 #u8522-1{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; font-weight: bold; color: #0085C6; }
 #userTypeSelect, #userSelect{ padding-bottom: 15px; }
 
-#overlay{ background-color: white; display: none; height: 110%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
+#overlay{ background-color: white; display: none; height: 100%; left: 0; opacity: 0.9; position: fixed; top: 0; width: 100%; z-index: 600; }
 input[type="radio"].indent{ margin-left: 12px; }
 #userInformation #usersInfo tr > td{ padding-bottom: 0.3em !important; }
 #userInformation #usersInfo tr > td:nth-child(odd){ float: right; padding-right: 10px; }
@@ -25,6 +25,7 @@ input[type="radio"].indent{ margin-left: 12px; }
 #u1330-19{ line-height: 25px; }
 #u1330-20{ font-size: 14px;	color: #0085C6;	font-family: '__FontAwesome_5';	font-weight: 400;	line-height: 20px; }
 #u1330-8,#u1330-22{	font-family: lato, sans-serif;	font-weight: 400; }
+#closePopup3{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 370px; width: 10px; }
 
 #agentsBuyers{ margin-top: 30px; }
 #buyerList{ margin-bottom: 30px; }

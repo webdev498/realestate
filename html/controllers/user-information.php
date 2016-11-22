@@ -79,6 +79,7 @@ else{ $mainPage = ""; }
   var UserInformation = React.createClass({
     getInitialState: function() {
       return{
+        mainPage: "<? echo $mainPage ?>",
         users: [],
         user_type: "",
         selected_user: "",
