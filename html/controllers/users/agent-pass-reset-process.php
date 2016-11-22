@@ -73,64 +73,7 @@ if($_SESSION['role']){ $role = $_SESSION['role']; }
 									$_SESSION['email'] = $email;
 									$_SESSION['role'] = 'agent';
 									$_SESSION['agent'] = 'true';
-
-									// Set session for Google Analytics and Activity Analysis
-									switch ($email) {
-										case 'nbinder@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'dbinder@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'lpolanco@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'dcroland@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;																												
-											$_SESSION['admin_options'] = '';
-											break;
-										case 'dblyth@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'acannard@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'jsarkodie@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'jfranke@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;
-											$_SESSION['admin_options'] = $email;
-											break;
-										case 'wenglish@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;																												
-											$_SESSION['admin_options'] = '';
-											break;
-										case 'lburton@bellmarc.com':
-											$_SESSION['analytics'] = $email;
-											$_SESSION['activity_analysis'] = $email;																												
-											$_SESSION['admin_options'] = '';
-											break;
-										default:
-											$_SESSION['analytics'] = '';
-											$_SESSION['activity_analysis'] = '';														
-											$_SESSION['admin_options'] = '';
-									}
+									$_SESSION['admin'] = $row2['admin'];
 									
 									echo "<br><br><center class='Text-1 clearfix'>Welcome back. Your password is now reset and your agent privileges are reinstalled.</center><br><br>";
 									echo '<br><center class="Text-1 clearfix"><a href="/menu.php"><button type="button" id="back">Go to Agent Home Page &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';

@@ -124,7 +124,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								  //if the number of matchs is 1
 								  if ($num1 >= 1) {
 									//select all rows from the table where the email matches the one entered by the user
-									$res = mysql_query("SELECT id, first_name, last_name, agent_id FROM registered_agents WHERE email = '" . $email . "'");
+									$res = mysql_query("SELECT id, first_name, last_name, agent_id, admin FROM registered_agents WHERE email = '" . $email . "'");
 									$row = mysql_fetch_assoc($res);
 									$fn = strtolower($row['first_name']);
 									$ln = strtolower($row['last_name']);
@@ -135,64 +135,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 										$_SESSION['email'] = $email;
 										$_SESSION['role'] = 'agent';
 										$_SESSION['agent'] = 'true';
-
-										// Set session for Google Analytics and Activity Analysis
-										switch ($email) {
-											case 'nbinder@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'dbinder@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'lpolanco@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'dcroland@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;																												
-												$_SESSION['admin_options'] = '';
-												break;
-											case 'dblyth@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'acannard@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'jsarkodie@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'jfranke@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;
-												$_SESSION['admin_options'] = $email;
-												break;
-											case 'wenglish@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;																												
-												$_SESSION['admin_options'] = '';
-												break;
-											case 'lburton@bellmarc.com':
-												$_SESSION['analytics'] = $email;
-												$_SESSION['activity_analysis'] = $email;																												
-												$_SESSION['admin_options'] = '';
-												break;
-											default:
-												$_SESSION['analytics'] = '';
-												$_SESSION['activity_analysis'] = '';														
-												$_SESSION['admin_options'] = '';
-										}
+										$_SESSION['admin'] = $row['admin'];
 
 										echo "<br><br><center class='Text-1 clearfix'><b>Logging In...</b></center>";
 										print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";

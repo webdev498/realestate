@@ -31,6 +31,33 @@ if($_POST['code']){
   echo json_encode($info);
 }
 
+if(isset($_POST['reassignCheck'])){
+  
+  if(isset($_POST['id'])){ $id = $_POST['id']; }
+  else if(isset($_POST['firstname'])){
+    $SQL1 = "SELECT agent_id FROM `registered_agents` WHERE (first_name = '".$_POST['firstname']."') AND (last_name = '".$_POST['lastname']."')";
+    $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());    
+    $row1 = mysql_fetch_array($result1,MYSQL_ASSOC); 
+    $id = $row1['agent_id'];
+  }
+  else{ $id = ""; }
+  
+  if($id != ""){
+    $SQL = "SELECT EXISTS (SELECT * FROM `users` where (email = '".$_POST['email']."') AND (P_agent = '".$id."' || P_agent2 = '".$id."')) as num";
+    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());    
+    $row = mysql_fetch_array($result,MYSQL_ASSOC); 
+    $num = $row['num'];
+    
+    if($num > 0){ $status = "used"; }
+    else{ $status = "good"; }
+  }
+  else{
+    $status = "invalid";
+  }
+  
+  echo json_encode($status);
+}
+
 if($_POST['name']){
   $firstName = $_POST['firstname'];
   $lastName = $_POST['lastname'];

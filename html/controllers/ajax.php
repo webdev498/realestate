@@ -2146,4 +2146,14 @@ if(isset($_GET['deleteAgent'])){
     $res =  mysql_query("DELETE FROM `registered_agents` WHERE (email = '".$agent."')")  or die(mysql_error());
   }
 }; // DELETE AGENT END
+
+// REASSIGN BUYER'S AGENT
+if(isset($_GET['reassignAgent'])){
+  $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
+  $db = mysql_select_db('sp', $con) or die(mysql_error());
+  
+  if($_GET['agent'] == "agent1"){ $res =  mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
+  else if($_GET['agent'] == "agent2"){ $res =  mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
+  
+}; // REASSIGN BUYER'S AGENT END
 ?>
