@@ -5,8 +5,10 @@
 #u8521-1{	z-index: 47;	max-width: 100%;	min-height: 460px;	background-color: transparent;	line-height: 25px;	font-size: 18px;	margin-top: 10px;	padding-bottom: 100px; }
 #u8522-1{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; font-weight: bold; color: #0085C6; }
 #userTypeSelect, #userSelect{ padding-bottom: 15px; }
+#reassignAgent{ color: #7F7F7F; cursor: pointer; font-family: lato, sans-serif; font-size: 15px; font-weight: 300; font-style: italic; line-height: 18px; margin-left: 15px; }
+#reassignAgent:hover { color: #0085C6; text-decoration: none; }
 
-#overlay{ background-color: white; display: none; height: 100%; left: 0; opacity: 0.9; position: fixed; top: 0; width: 100%; z-index: 600; }
+#overlay{ background-color: white; display: none; height: 110%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
 input[type="radio"].indent{ margin-left: 12px; }
 #userInformation #usersInfo tr > td{ padding-bottom: 0.3em !important; }
 #userInformation #usersInfo tr > td:nth-child(odd){ float: right; padding-right: 10px; }
