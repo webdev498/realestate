@@ -130,18 +130,18 @@ var Analytics = React.createClass({
 					</div>
 					<div className="row">
 						<div className="col-md-6 col-md-offset1">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR_nuLGFqnBPWz4UlB9xLhd6ihysFK8yXM_6Rl2HD6-B7_qaJvJhUhqvZ-Lhwim0wVlWDEnKSywN5iz/pubchart?oid=890762391&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/12J9EqAOCR63p3YoWW6LPfAzgEh5DJvaI4rUzlVtEy6I/pubchart?oid=1640876707&amp;format=image"></iframe>
 						</div>
 						<div className="col-md-5 col-md-offset2">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR_nuLGFqnBPWz4UlB9xLhd6ihysFK8yXM_6Rl2HD6-B7_qaJvJhUhqvZ-Lhwim0wVlWDEnKSywN5iz/pubchart?oid=890762391&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/12J9EqAOCR63p3YoWW6LPfAzgEh5DJvaI4rUzlVtEy6I/pubchart?oid=524076379&amp;format=image"></iframe>
 						</div>
 					</div>
 					<div className="row">
 						<div className="col-md-6 col-md-offset1">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/1Bb59Rrb-9pChTL0-DWKF87LSK0uLtilanN1Sq0ozFH8/pubchart?oid=1902376730&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR_nuLGFqnBPWz4UlB9xLhd6ihysFK8yXM_6Rl2HD6-B7_qaJvJhUhqvZ-Lhwim0wVlWDEnKSywN5iz/pubchart?oid=890762391&amp;format=image"></iframe>
 						</div>
 						<div className="col-md-5 col-md-offset2">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/1Bb59Rrb-9pChTL0-DWKF87LSK0uLtilanN1Sq0ozFH8/pubchart?oid=1203979306&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR_nuLGFqnBPWz4UlB9xLhd6ihysFK8yXM_6Rl2HD6-B7_qaJvJhUhqvZ-Lhwim0wVlWDEnKSywN5iz/pubchart?oid=890762391&amp;format=image"></iframe>
 						</div>
 					</div>
 					<div className="row">
