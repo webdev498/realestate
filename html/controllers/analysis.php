@@ -10,7 +10,7 @@ if (!$_SESSION['user']) {
   print "<script> window.location = '/users/logout.php' </script>";
 }
 
-if ($_SESSION['activity_analysis'] == ''){
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
   print "<script> window.location = '/users/logout.php' </script>";
 }
 

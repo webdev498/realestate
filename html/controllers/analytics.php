@@ -14,7 +14,7 @@ if (!$_SESSION['email']){
   print "<script> window.location = '/users/logout.php' </script>";
 }
 
-if ($_SESSION['analytics'] == ''){
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
   print "<script> window.location = '/users/logout.php' </script>";
 }
 

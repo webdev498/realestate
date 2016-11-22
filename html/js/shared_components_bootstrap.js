@@ -2250,6 +2250,7 @@ window.AddressSearch = React.createClass({
       <div className="clearfix colelem" id="pu2680">
         {this.props.mainPage == "index" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/index.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Home</span></a></span> : null }
         {this.props.mainPage == "menu" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/menu.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Menu</span></a></span> : null }
+        {this.props.mainPage == "admin" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="../controllers/admin-menu.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Administrator Menu</span></a></span> : null }
         {this.props.mainPage == "criteria" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/search.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Search Criteria</span></a></span> : null }
         {this.props.mainPage == "results" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/search.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Search Results</span></a></span> : null }
         {this.props.mainPage == "address" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/addressSearch.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Address Search Results</span></a></span> : null }
