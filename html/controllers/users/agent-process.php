@@ -9,7 +9,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>HomePik - Processing Buyer Login</title>
+	<title>HomePik - Processing Agent Login</title>
 	<link rel="stylesheet" type="text/css" href="/views/css/process.css"/>
 </head>
 <body>
@@ -121,6 +121,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													$_SESSION['email'] = $email;
 													$_SESSION['role'] = 'agent';
 													$_SESSION['agent'] = 'true';
+													$_SESSION['admin'] = $row['admin'];
 													
 													//Clear the guest ID saved in session as user is no longer a guest
 													unset($_SESSION['guestID']);
@@ -129,64 +130,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													echo "<center class='Text-1 clearfix'>Logging in...</center>";
 													//redirect them to the menu page
 													print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";
-				
-													// Set session for Google Analytics and Activity Analysis
-													switch ($email) {
-														case 'nbinder@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'dbinder@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'lpolanco@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'dcroland@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;																												
-															$_SESSION['admin_options'] = '';
-															break;
-														case 'dblyth@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'acannard@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'jsarkodie@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'jfranke@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;
-															$_SESSION['admin_options'] = $email;
-															break;
-														case 'wenglish@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;																												
-															$_SESSION['admin_options'] = '';
-															break;
-														case 'lburton@bellmarc.com':
-															$_SESSION['analytics'] = $email;
-															$_SESSION['activity_analysis'] = $email;																												
-															$_SESSION['admin_options'] = '';
-															break;
-														default:
-															$_SESSION['analytics'] = '';
-															$_SESSION['activity_analysis'] = '';														
-															$_SESSION['admin_options'] = '';
-													}
 				
 													// Sets session for inactivity after 30 minutes
 													$_SESSION['last_activity'] = time();

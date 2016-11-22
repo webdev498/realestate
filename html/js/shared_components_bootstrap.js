@@ -2291,6 +2291,27 @@ var ComingSoon = React.createClass({
 });
 
 window.Footer = React.createClass({
+  getInitialState: function() {
+    return{
+      role: "",
+      admin: "",
+    };
+  },
+  componentDidMount: function(){
+    $.ajax({
+		  type: "POST",
+		  url: "/controllers/get-sessions.php",
+		  data: {"getInformation": "true"},
+		  success: function(data){
+        var info = JSON.parse(data);
+        this.setState({role: info['role']});
+        this.setState({admin: info['adminOptions']});
+      }.bind(this),
+		  error: function() {
+        console.log("failed");
+		  }
+		});
+  },
   comingSoon: function(){
     var $dialog =  $("#ajax-box").dialog({
       width: 250,
@@ -2315,7 +2336,6 @@ window.Footer = React.createClass({
     }.bind(this)
 
     $("#overlay").show();
-    //$('.comingSoon').show(); // To make the popup appear on the search results.
     ReactDOM.render(<ComingSoon closeDialog={closeDialog}/>, $dialog[0]);
   },
   render: function () {
@@ -2345,6 +2365,7 @@ window.Footer = React.createClass({
               </ul>
 
               <ul className="nav navbar-nav navbar-right">
+                {this.state.admin == "Y" ? <li><a href={"admin-menu.php?MP="+this.props.mainPage}>Administrator</a></li> : null }
                 <li className="socialMedia" >
                   <img id="facebook" src="/images/socialMedia_facebook.png" onClick={this.comingSoon} title='Facebook'/>
                   <img id="twitter" src="/images/socialMedia_twitter.png" onClick={this.comingSoon} title='Twitter'/>

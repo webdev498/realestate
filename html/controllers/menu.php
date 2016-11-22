@@ -14,25 +14,20 @@ if (!$_SESSION['email']){
   print "<script> window.location = '/users/logout.php' </script>";
 }
 
-$limit = limit(); // If the user has been rate limited because of too many requests, cut them off (VOW RULE)
-if ($limit != 'clear') {
-    limit();
-} else {
-  if(isset($_SESSION['agent'])){
-    $agent_email = $_SESSION['email'];
-    $analyticsOption = $_SESSION['analytics'];
-    $analysisAgent = $_SESSION['activity_analysis'];
-    $adminOptions = $_SESSION['admin_options'];
-    $role = "agent";
-  }
-  elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
-    $role = "user";
-  }
-  else{
-    $name = "Guest";
-    $role = "guest";
-  }
-};
+if(isset($_SESSION['agent'])){
+  $agent_email = $_SESSION['email'];
+  $analyticsOption = $_SESSION['analytics'];
+  $analysisAgent = $_SESSION['activity_analysis'];
+  $adminOptions = $_SESSION['admin_options'];
+  $role = "agent";
+}
+elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
+  $role = "user";
+}
+else{
+  $name = "Guest";
+  $role = "guest";
+}
 ?>
 
   <title>HomePik - Main Menu</title>
@@ -519,8 +514,6 @@ if ($limit != 'clear') {
     getInitialState: function() {
       return{
         email: "<? echo $agent_email ?>",
-        analyticsOption: "<? echo $analyticsOption ?>",
-        analysisAgent: "<? echo $analysisAgent ?>",
         adminOptions: "<? echo $adminOptions ?>"
       };
     },
@@ -593,9 +586,6 @@ if ($limit != 'clear') {
             </a>
           </div>
           <div id="u8048">
-            {this.state.analyticsOption != "" ? <a href="analytics.php?MP=menu" className="adminLink">Analytics</a> : null}
-            {this.state.analysisAgent != "" ? <a href="analysis.php?MP=menu" className="adminLink">Activity Analysis</a> : null}
-            {this.state.adminOptions != "" ? <a href="manage-agents.php?MP=menu" className="adminLink">Manage Agents</a> : null}
             <a href="change-password.php?MP=menu" className="adminLink">Change Password</a>
           </div>
         </div>
@@ -615,7 +605,6 @@ if ($limit != 'clear') {
           <div className="position_content" id="page_position_content">
             <Header />
             <MenuNavBar />
-            <a href="javascript:history.back();" className="b_test" style={{display:'none'}}> <span id="backArrow"></span> GO BACK</a>
             <AddressSearch mainPage={""}/>
             {this.state.role == "agent" ? <AgentOptions /> : null}
           	{this.state.role == "user" ? <BuyerOptions /> :null}
