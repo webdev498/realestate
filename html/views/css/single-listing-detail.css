@@ -19,7 +19,8 @@
 .essentialsHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 0px 0px 3px;	padding: 0px 0px 5px;}
 .spaceHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 6px 0px 6px;	padding: 0px 0px 3px;;}
 .featuresHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 0px 0px 7px;	padding: 0px 0px 2px;}
-.contactHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 0px 0px 11px;	padding: 0px 0px 5px;}
+/*.contactHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 0px 0px 11px;	padding: 0px 0px 5px;}*/
+.contactHeader{	border-bottom: 1px solid rgb(194, 194, 194);	margin: 0px;	padding: 0px;}
 .blue{ color: #0085c6 !important; }
 
 #bigImage{	height: 345px;	width: 490px;}
