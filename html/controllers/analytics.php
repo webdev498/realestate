@@ -122,10 +122,10 @@ var Analytics = React.createClass({
 					</div>
 					<div className="row">
 						<div className="col-md-6 col-md-offset1">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/1Bb59Rrb-9pChTL0-DWKF87LSK0uLtilanN1Sq0ozFH8/pubchart?oid=2134646551&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSbQEUOvSccypv509bp3eIH6IBy8qJ5yXP-FbGBiytKPWFAD5-NXnIjeGqFvy1n0e9S0qTrFWV9vYbi/pubchart?oid=1734270620&amp;format=image"></iframe>
 						</div>
 						<div className="col-md-5 col-md-offset2">
-							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/1Bb59Rrb-9pChTL0-DWKF87LSK0uLtilanN1Sq0ozFH8/pubchart?oid=2106691329&amp;format=image"></iframe>
+							<iframe className="iframe" seamless frameBorder="1" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSbQEUOvSccypv509bp3eIH6IBy8qJ5yXP-FbGBiytKPWFAD5-NXnIjeGqFvy1n0e9S0qTrFWV9vYbi/pubchart?oid=1130476696&amp;format=image"></iframe>
 						</div>
 					</div>
 					<div className="row">
