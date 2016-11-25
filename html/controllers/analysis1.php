@@ -1953,6 +1953,13 @@ if (isset($_POST['agent-yearly'])) {
 
 
     $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
+	
+	$body = $SQL;
+$body .= $result;
+$headers = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/html\r\n";
+$headers .= "From: HomePik.com <no-reply@homepik.com>\r\n";
+mail("wenglish@bellmarc.com", "sp", $body, $headers);
 
     //Total inventory
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
