@@ -1852,7 +1852,7 @@ if (isset($_POST['agent-yearly'])) {
 	
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
-    $sql = "SELECT COUNT(*) AS buyerListingCount, id FROM `users`, `saved_listings` WHERE email = user AND rtime >= '" . $rtimeBegDate . "' AND rtime <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+    $sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
     //$sql = "SELECT COUNT(*) AS buyerCount, id FROM `users` WHERE (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
     $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
