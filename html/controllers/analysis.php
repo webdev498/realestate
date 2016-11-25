@@ -2038,7 +2038,7 @@ if (isset($_POST['agent-yearly'])) {
 				};
 
         var options2 = {
-          title: 'Buyers Total:   <?php echo $buyerChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyers Total:   <?php echo $buyerAllChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
