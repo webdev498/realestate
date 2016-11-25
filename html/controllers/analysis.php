@@ -1849,6 +1849,33 @@ if (isset($_POST['agent-yearly'])) {
 
 
     $jsonBuyerAllChart = json_encode($buyerAllChart);
+	
+	//Total buyer listings
+    //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
+    $sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+    //$sql = "SELECT COUNT(*) AS buyerCount, id FROM `users` WHERE (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+    $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+
+    $buyerAllListingsChartTotal = 0;
+    $buyerAllListingsChart = array(
+			'cols' => array(
+				 array('type' => 'string', 'label' => 'Listings'),
+				 array('type' => 'number', 'label' => 'Number')
+			)
+		);
+
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $buyerAllListingsChart['rows'][] = array(
+            'c' => array (
+                 array('v' => 'Buyers'),
+                 array('v' => $row['buyerListingCount'])
+             )
+        );
+        $buyerAllListingsChartTotal = $buyerAllListingsChartTotal + $row['buyerListingCount'];
+    }
+
+
+    $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
 
     //Total inventory
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
@@ -1961,7 +1988,16 @@ if (isset($_POST['agent-yearly'])) {
         // New Buyers for date selected
       //  var data2 = new google.visualization.DataTable(<?php echo $jsonBuyerChart;?>);
         // All Buyers for date selected
-        var data3 = new google.visualization.DataTable(<?php echo $jsonBuyerAllChart;?>);
+        var data2 = new google.visualization.DataTable(<?php echo $jsonBuyerAllChart;?>);
+        var view2 = new google.visualization.DataView(data2);
+        view2.setColumns([0, 1, {
+            type: 'string',
+            role: 'annotation',
+            sourceColumn: 1,
+            calc: 'stringify'
+        }]);
+		// All Buyers listings for date selected
+        var data3 = new google.visualization.DataTable(<?php echo $jsonBuyerAllListingsChart;?>);
         var view3 = new google.visualization.DataView(data3);
         view3.setColumns([0, 1, {
             type: 'string',
@@ -2002,7 +2038,7 @@ if (isset($_POST['agent-yearly'])) {
 				};
 
         var options2 = {
-          title: 'New Buyers Total:   <?php echo $buyerChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyers Total:   <?php echo $buyerChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
@@ -2017,7 +2053,7 @@ if (isset($_POST['agent-yearly'])) {
         };
 
         var options3 = {
-          title: 'Buyers Total:   <?php echo $buyerAllChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyer Saved Listings Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
@@ -2064,12 +2100,15 @@ if (isset($_POST['agent-yearly'])) {
 			// chart.draw(data2, options2);
 
        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+			 chart.draw(view2, options2);
+			 
+	   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
 			 chart.draw(view3, options3);
 
-       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
+       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
 			 chart.draw(view4, options4);
 
-       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
+       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div8'));
 			 chart.draw(view5, options5);
 
 			}

@@ -1859,7 +1859,7 @@ if (isset($_POST['agent-yearly'])) {
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
 			'cols' => array(
-				 array('type' => 'string', 'label' => 'Buyers'),
+				 array('type' => 'string', 'label' => 'Listings'),
 				 array('type' => 'number', 'label' => 'Number')
 			)
 		);
@@ -2058,7 +2058,7 @@ if (isset($_POST['agent-yearly'])) {
           height: 400,
           legend: { position: "none" },
           hAxis: {
-            title: 'Listings',
+            title: '',
             minValue: 0,
           },
           vAxis: {
