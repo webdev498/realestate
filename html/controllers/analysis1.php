@@ -1427,12 +1427,12 @@ $( '#agentYearlyCode' ).each( function () {
 		if ($agentArea == 'North') {
 			if ($agentArea == 'North') {
 				"SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
-			}
-		} else {
+			} else  {
 				"SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+			}	
 		}
 	}
-    $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+		$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
@@ -1663,7 +1663,7 @@ $( '#agentYearlyCode' ).each( function () {
         };
 		
 		var options6 = {
-          title: 'Buyer Saved Listings Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   through <?php echo $chartLabelEnd;?>',
+          title: 'Buyer Saved Listings Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   <?php echo $agentArea;?> \nPeriod:   through <?php echo $chartLabelEnd;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
@@ -1921,9 +1921,17 @@ if (isset($_POST['agent-yearly'])) {
     $jsonBuyerAllChart = json_encode($buyerAllChart);
 	
 	//Total buyer listings
-    //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
-    $sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
-    //$sql = "SELECT COUNT(*) AS buyerCount, id FROM `users` WHERE (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+    if ($agentArea == 'All Markets'){
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+    } else {
+		if ($agentArea == 'North') {
+			if ($agentArea == 'North') {
+				"SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+			}
+		} else {
+				"SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+		}
+	}
     $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
