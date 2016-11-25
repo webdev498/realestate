@@ -1875,7 +1875,7 @@ if (isset($_POST['agent-yearly'])) {
     }
 
 
-    $jsonBuyerAllChart = json_encode($buyerAllListingsChart);
+    $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
 
     //Total inventory
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
@@ -1996,7 +1996,7 @@ if (isset($_POST['agent-yearly'])) {
             sourceColumn: 1,
             calc: 'stringify'
         }]);
-		// All Buyers for date selected
+		// All Buyers listings for date selected
         var data3 = new google.visualization.DataTable(<?php echo $jsonBuyerAllListingsChart;?>);
         var view3 = new google.visualization.DataView(data3);
         view3.setColumns([0, 1, {
@@ -2038,7 +2038,7 @@ if (isset($_POST['agent-yearly'])) {
 				};
 
         var options2 = {
-          title: 'New Buyers Total:   <?php echo $buyerChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyers Total:   <?php echo $buyerChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
@@ -2053,7 +2053,7 @@ if (isset($_POST['agent-yearly'])) {
         };
 
         var options3 = {
-          title: 'Buyers Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyer Saved Listings Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
