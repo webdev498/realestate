@@ -8,22 +8,24 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 if (!$_SESSION['user']) {
   print "<script> window.location = '/users/logout.php' </script>";
-  //header('Location: /users/logout.php');
 }
 
-if ($_SESSION['activity_analysis'] == ''){
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
   print "<script> window.location = '/users/logout.php' </script>";
 }
+
+if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
+else{ $mainPage = ""; }
 
 $analytics = $_SESSION['analytics'];
 $analysis = $_SESSION['activity_analysis'];
 $email = $_SESSION['email'];
-$sql = "SELECT firstname, lastname, id FROM `Agent_Import` where e_mail= '".$email."'";
+$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where email= '".$email."'";
 $res = mysql_query( $sql ) or die("Couldn't execute query. Error 1.".mysql_error());
 while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-  $firstname = $row['firstname'];
-  $lastname = $row['lastname'];
-  $id = $row['id'];
+  $firstname = $row['first_name'];
+  $lastname = $row['last_name'];
+  $id = $row['agent_id'];
 }
 $name = explode('@', $_SESSION['email']);
 $name = $name[0];
@@ -34,8 +36,7 @@ $name = $name[0];
 	<script type="text/javascript">
     if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "jquery.watch.js", "jquery.musepolyfill.bgsize.js", "buyer-options.css"], "outOfDate":[]};
 	</script>
-  <link rel="stylesheet" type="text/css" href="/views/css/analysis.css"/>
-  <link rel="stylesheet" type="text/css" href="/views/css/shared_components_bootstrap.css"/>
+  <?php include_css("/views/css/analysis.css"); ?>
 </head>
 <body>
 <div className="clearfix" id="page">
@@ -154,16 +155,16 @@ $name = $name[0];
           <fieldset class="form-group">
             <select class="form-control" id="agentYearlyCode" name="agentYearlyCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `firstname`, `lastname`, `id` FROM `Agent_Import` WHERE (`status` != '3') and (`active` = 'Y') GROUP BY id ORDER BY lastname ASC";
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['firstname'] != ".T." && $row['firstname'] != ".F." && $row['lastname'] != ".T." && $row['lastname'] != ".F."){
-                  $id = $row['id'];
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
                   if (strlen($id) <= 1){
                     $name = "No Agent";
                   } else {
-                    $name = $row['lastname'] . ",  " . $row['firstname'];
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
                   }
                   echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
                   //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
@@ -226,16 +227,16 @@ $name = $name[0];
           <fieldset class="form-group">
             <select class="form-control" id="agentCode" name="agentCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `firstname`, `lastname`, `id` FROM `Agent_Import` WHERE (`status` != '3') and (`active` = 'Y') GROUP BY id ORDER BY lastname ASC";
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['firstname'] != ".T." && $row['firstname'] != ".F." && $row['lastname'] != ".T." && $row['lastname'] != ".F."){
-                  $id = $row['id'];
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
                   if (strlen($id) <= 1){
                     $name = "No Agent";
                   } else {
-                    $name = $row['lastname'] . ",  " . $row['firstname'];
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
                   }
                   echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
                   //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
@@ -287,7 +288,6 @@ $name = $name[0];
 			</div>
 		</div>
 	</div>
-	<!--<div id="footer"></div>-->
   </div>
 </div>
 <div id="footer"></div>
@@ -296,7 +296,6 @@ $name = $name[0];
 <div id="ajax-box2"></div>
 
 <script src="/js/jquery.watch.js?3866665977" type="text/javascript"></script>
-<script src="/js/shared_components_bootstrap.js" type="text/babel"></script>
 <script type="text/babel">
 
   ReactDOM.render(
@@ -305,17 +304,17 @@ $name = $name[0];
   );
 
   ReactDOM.render(
-    <NavBar />,
+    <NavBar mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("navbar")
   );
 
   ReactDOM.render(
-    <AddressSearch />,
+    <AddressSearch mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("address-search")
   );
 
   ReactDOM.render(
-    <Footer />,
+    <Footer mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 
@@ -324,8 +323,7 @@ $name = $name[0];
 <?php
 // listings MONTHLY REPORTS
 if (isset($_POST['report-submit'])) {
-  include("basicHead.php");
-  include("autoLogout.php");
+
   ?>
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
@@ -778,8 +776,7 @@ if (isset($_POST['report-submit'])) {
 
 // LISTINGS YEAR_TO_DATE REPORT
 if (isset($_POST['listings-yearly'])) {
-  include("basicHead.php");
-  include("autoLogout.php");
+
   ?>
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
@@ -1215,8 +1212,7 @@ if (isset($_POST['listings-yearly'])) {
 
 // AGENT MONTHLY REPORTS
 if (isset($_POST['agent-submit'])) {
-  include("basicHead.php");
- include("autoLogout.php");
+
 ?>
 <!--Change all other dropdowns to first option-->
 <script type="text/javascript">
@@ -1315,11 +1311,11 @@ $( '#agentYearlyCode' ).each( function () {
 
 
     // Agent Name
-		$sql = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '" . $agentCode . "'";
+		$sql = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '" . $agentCode . "'";
 		$result = mysql_query( $sql ) or die("Couldn't execute query. Error 2.".mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			$firstname = $row['firstname'];
-			$lastname = $row['lastname'];
+			$firstname = $row['first_name'];
+			$lastname = $row['last_name'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1667,36 +1663,8 @@ $( '#agentYearlyCode' ).each( function () {
 
 // AGENT YEAR TO DATE REPORTS
 if (isset($_POST['agent-yearly'])) {
-  include("basicHead.php");
-  include("autoLogout.php");
+
   ?>
-  <link rel="stylesheet" type="text/css" href="/views/css/analysis.css"/>
-  <link rel="stylesheet" type="text/css" href="/views/css/shared_components_bootstrap.css"/>
-  <script src="/js/shared_components_bootstrap.js" type="text/babel"></script>
-  <script type="text/babel">
-
-    ReactDOM.render(
-      <Header />,
-      document.getElementById("header")
-    );
-
-    ReactDOM.render(
-      <NavBar />,
-      document.getElementById("navbar")
-    );
-
-    ReactDOM.render(
-      <AddressSearch />,
-      document.getElementById("address-search")
-    );
-
-    ReactDOM.render(
-      <Footer />,
-      document.getElementById("footer")
-    );
-
-  </script>
-
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
   $( '#listMonth' ).each( function () {
@@ -1780,11 +1748,11 @@ if (isset($_POST['agent-yearly'])) {
 
 
     // Agent Name
-		$sql = "SELECT firstname, lastname FROM `Agent_Import` WHERE id = '" . $agentYearlyCode . "'";
+		$sql = "SELECT first_name, last_name FROM `registered_agents` WHERE agent_id = '" . $agentYearlyCode . "'";
 		$result = mysql_query( $sql ) or die("Couldn't execute query. Error 2.".mysql_error());
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			$firstname = $row['firstname'];
-			$lastname = $row['lastname'];
+			$firstname = $row['first_name'];
+			$lastname = $row['last_name'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1881,6 +1849,33 @@ if (isset($_POST['agent-yearly'])) {
 
 
     $jsonBuyerAllChart = json_encode($buyerAllChart);
+	
+	//Total buyer listings
+    //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
+    $sql = "SELECT COUNT(*) AS listingCount, id FROM `users` WHERE rtime >= '" . $rtimeBegDate . "' AND rtime <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+    //$sql = "SELECT COUNT(*) AS buyerCount, id FROM `users` WHERE (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+    $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+
+    $buyerAllListingsChartTotal = 0;
+    $buyerAllListingsChart = array(
+			'cols' => array(
+				 array('type' => 'string', 'label' => 'Buyers'),
+				 array('type' => 'number', 'label' => 'Number')
+			)
+		);
+
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $buyerAllListingsChart['rows'][] = array(
+            'c' => array (
+                 array('v' => 'Buyers'),
+                 array('v' => $row['buyerCount'])
+             )
+        );
+        $buyerAllListingsChartTotal = $buyerAllListingsChartTotal + $row['buyerCount'];
+    }
+
+
+    $jsonBuyerAllChart = json_encode($buyerAllListingsChart);
 
     //Total inventory
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
@@ -1993,7 +1988,16 @@ if (isset($_POST['agent-yearly'])) {
         // New Buyers for date selected
       //  var data2 = new google.visualization.DataTable(<?php echo $jsonBuyerChart;?>);
         // All Buyers for date selected
-        var data3 = new google.visualization.DataTable(<?php echo $jsonBuyerAllChart;?>);
+        var data2 = new google.visualization.DataTable(<?php echo $jsonBuyerAllChart;?>);
+        var view2 = new google.visualization.DataView(data2);
+        view2.setColumns([0, 1, {
+            type: 'string',
+            role: 'annotation',
+            sourceColumn: 1,
+            calc: 'stringify'
+        }]);
+		// All Buyers for date selected
+        var data3 = new google.visualization.DataTable(<?php echo $jsonBuyerAllListingsChart;?>);
         var view3 = new google.visualization.DataView(data3);
         view3.setColumns([0, 1, {
             type: 'string',
@@ -2049,7 +2053,7 @@ if (isset($_POST['agent-yearly'])) {
         };
 
         var options3 = {
-          title: 'Buyers Total:   <?php echo $buyerAllChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
+          title: 'Buyers Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   All Areas \nPeriod:   <?php echo $chartStartDate;?> - <?php echo $chartEndDate;?>',
           width: 600,
           height: 400,
           legend: { position: "none" },
@@ -2096,12 +2100,15 @@ if (isset($_POST['agent-yearly'])) {
 			// chart.draw(data2, options2);
 
        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+			 chart.draw(view2, options2);
+			 
+	   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
 			 chart.draw(view3, options3);
 
-       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
+       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
 			 chart.draw(view4, options4);
 
-       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
+       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div8'));
 			 chart.draw(view5, options5);
 
 			}
@@ -2112,6 +2119,8 @@ if (isset($_POST['agent-yearly'])) {
 			</script>
 <?php }
 }
+
 ?>
+<?php include_once('autoLogout.php'); ?>
 </body>
 </html>
