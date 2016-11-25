@@ -1419,7 +1419,7 @@ $( '#agentYearlyCode' ).each( function () {
 	
 	 $jsonBuyerAllChart = json_encode($buyerAllChart);
 	
-	//Total buyer listings
+	//Total buyer listings by area
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentArea == 'All Markets'){
 		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
@@ -1430,7 +1430,8 @@ $( '#agentYearlyCode' ).each( function () {
 				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
 			}	
 		}
-	}$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+	
+	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
@@ -1929,7 +1930,8 @@ if (isset($_POST['agent-yearly'])) {
 				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
 			}	
 		}
-	}$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+	
+	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
