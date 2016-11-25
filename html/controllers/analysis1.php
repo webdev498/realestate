@@ -1954,7 +1954,7 @@ if (isset($_POST['agent-yearly'])) {
 
     $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
 	
-	$body = $SQL;
+$body = $sql;
 $body .= $result;
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html\r\n";
