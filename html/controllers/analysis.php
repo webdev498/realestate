@@ -1867,7 +1867,7 @@ if (isset($_POST['agent-yearly'])) {
     while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $buyerAllListingsChart['rows'][] = array(
             'c' => array (
-                 array('v' => 'Buyers'),
+                 array('v' => 'Listings'),
                  array('v' => $row['buyerListingCount'])
              )
         );
@@ -2058,7 +2058,7 @@ if (isset($_POST['agent-yearly'])) {
           height: 400,
           legend: { position: "none" },
           hAxis: {
-            title: '',
+            title: 'Listings',
             minValue: 0,
           },
           vAxis: {
