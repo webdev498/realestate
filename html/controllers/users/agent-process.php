@@ -126,6 +126,9 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													//Clear the guest ID saved in session as user is no longer a guest
 													unset($_SESSION['guestID']);
 													
+													//update the online field
+													mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' ");
+													
 													//show message
 													echo "<center class='Text-1 clearfix'>Logging in...</center>";
 													//redirect them to the menu page

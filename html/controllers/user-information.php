@@ -91,7 +91,11 @@ else{ $mainPage = ""; }
         reassign_agent2: "false",
         agent1_id: "",
         agent2_id: "",
-        step: 1
+        step: 1,
+        month: "default",
+        day: "default",
+        year: "default",
+        activity: []
       };
 	  },
     handleChange: function (name, event) {
@@ -145,7 +149,6 @@ else{ $mainPage = ""; }
 				data: {"information": "true", "email": email},
 				success: function(data){
 					var info = JSON.parse(data);
-          console.log(typeof(info))
 					var ajaxStop = 0;
 					$(document).ajaxStop(function() {
 					  if(ajaxStop == 0){
@@ -408,6 +411,98 @@ else{ $mainPage = ""; }
 			$("#overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.selected_user_info.email} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
+    checkDate: function(){
+      var m = this.state.month;
+      var d = this.state.day;
+      var y = this.state.year;
+      
+      if( (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d <= 31 || d == "default") ){ return true; } // Check if month has 31 days
+      else if( (m == 4 || m == 6 || m == 9 || m == 11) && (d <= 30 || d == "default") ){ return true; } // Check if month has 30 days
+      else if( m == 2 && d == "default" ){ return true; } // February only selected no day
+      else if( m == 2 && d != "default" ){ // February and day selected 
+        if( ( ( ( y % 4 == 0 ) && ( y % 100 != 0) ) || ( year % 400 == 0 ) ) && (d <= 29 || d == "default" ) ){ return true; } // Leap year day <= 29
+        else{
+          if( d <= 28 ){ return true; } // Not leap year day <= 28
+          else{ return false; } // Invalid date
+        }
+      }
+      else{ return false; } // Invalid date
+    },
+    getAgentActivity: function(){    
+      if(this.state.month == "default" || this.state.year == "default"){ // Check if a date is defaulted
+        $("#ajax-box").dialog({
+					modal: true,
+					height: 'auto',
+					width: 'auto',
+					autoOpen: false,
+					dialogClass: 'ajaxbox errorMessage',
+					buttons : {
+						Ok: function(){
+							$(this).dialog("close");
+						}
+					},
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('/controllers/messages.php #needDate',function(){
+          $('#ajax-box').dialog('open');
+        });
+      }
+      else{
+        if(this.checkDate()){
+          $.ajax({
+            type: "POST",
+            url: "get-activity.php",
+            data: {"user": "agent", "email": this.state.selected_user_info['email'], "id": this.state.selected_user_info['agent_id'], "month": this.state.month, "day": this.state.day, "year": this.state.year},
+            success: function(data){
+              var activity = JSON.parse(data);
+              var ajaxStop = 0;
+              $(document).ajaxStop(function() {
+                if(ajaxStop == 0){
+                  ajaxStop++;
+                  this.setState({activity: activity});
+                  $("#userActivityInfo").show();
+                }
+              }.bind(this));              
+            }.bind(this),
+            error: function(){
+              console.log("failed");
+            }
+          });
+        }
+        else{
+          $("#ajax-box").dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            autoOpen: false,
+            dialogClass: 'ajaxbox errorMessage',
+            buttons : {
+              Ok: function(){
+                $(this).dialog("close");
+              }
+            },
+            close: function() {
+              $( this ).dialog( "destroy" );
+            },
+            open: function(){
+              $(".ui-widget-overlay").bind("click", function(){
+                $("#ajax-box").dialog('close');
+              });
+            }
+          });
+          $('#ajax-box').load('/controllers/messages.php #invalidDate',function(){
+            $('#ajax-box').dialog('open');
+          });
+        }
+      }
+    },
 	  render: function(){
       var users = this.state.users.map(function(user) {
         return(
@@ -597,116 +692,193 @@ else{ $mainPage = ""; }
             <Header />
             <NavBar mainPage={this.state.mainPage} />
             <AddressSearch mainPage={this.state.mainPage} />
-            <div className="Text-1" id="u8521-1">
+            <div className="Text-1 container-fluid" id="u8521-1">
               <span className="Text-1" id="u8522-1">User Information</span>
-              <div id="userInformationSection">
-                <div id="userTypeSelect">
-                  Select a user: 
-                  <input type="radio" name="user_type" value="agent" className="indent" onChange={this.handleUserChange.bind(this, 'user_type')}/> Agent &nbsp;&nbsp;&nbsp;<input type="radio" name="user_type" value="buyer" onChange={this.handleUserChange.bind(this, 'user_type')}/> Buyer
-                </div>
-                {this.state.step  > 1 ?
-                  <div id="userSelect">
-                    {this.state.user_type == "agent" ? <span>Select an agent: </span> : null }
-                    {this.state.user_type == "buyer" ? <span>Select a buyer: </span> : null }
-                    <select onChange={this.handleUserSelect.bind(this, 'selected_user')}>
-                      <option value="default" selected="selected">Select user</option>
-                      {users}
-                    </select>
-                  </div>
-                : null }
-                {this.state.step > 2 ?
-                  <div id="userInformation">
-                    {this.state.user_type == "agent" ?
-                      <div>
-                        <table>
-                          <colgroup><col width="100"/><col width="500"/></colgroup>
-                          <tbody>
-                            <tr><td>First Name: </td><td>{this.state.selected_user_info.first_name}</td></tr>
-                            <tr><td>Last Name: </td><td>{this.state.selected_user_info.last_name}</td></tr>
-                            <tr><td>Title: </td><td>{this.state.selected_user_info.title}</td></tr>
-                            <tr><td>Email: </td><td>{this.state.selected_user_info.email}</td></tr>
-                            <tr><td>Phone: </td><td>{this.state.selected_user_info.phone != "" ? this.state.selected_user_info.phone : <span>N/A</span>}</td></tr>
-                            <tr><td>Agent ID: </td><td>{this.state.selected_user_info.agent_id}</td></tr>
-                            <tr><td>Bio: </td><td>{this.state.selected_user_info.bio != "" ? this.state.selected_user_info.bio : <span>N/A</span>}</td></tr>
-                          </tbody>
-                        </table>
-                        
-                        <div id="agentsBuyers">
-                          <div className="clearfix grpelem" id="u16159-5">
-                            <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Buyers</span></p>
-                          </div>
-                          <br/><br/>
-                          <div id="buyerList">
-                            {buyers}
-                          </div>
-                        </div>
+              <div className="row">
+                <div className="col-md-5 col-sm-5 col-xs-12">
+                  <div id="userInformationSection">
+                    <div id="userTypeSelect">
+                      Select a user: 
+                      <input type="radio" name="user_type" value="agent" className="indent" onChange={this.handleUserChange.bind(this, 'user_type')}/> Agent &nbsp;&nbsp;&nbsp;<input type="radio" name="user_type" value="buyer" onChange={this.handleUserChange.bind(this, 'user_type')}/> Buyer
+                    </div>
+                    {this.state.step  > 1 ?
+                      <div id="userSelect">
+                        {this.state.user_type == "agent" ? <span>Select an agent: </span> : null }
+                        {this.state.user_type == "buyer" ? <span>Select a buyer: </span> : null }
+                        <select onChange={this.handleUserSelect.bind(this, 'selected_user')}>
+                          <option value="default" selected="selected">Select user</option>
+                          {users}
+                        </select>
                       </div>
                     : null }
-                    {this.state.user_type == "buyer" ?
-                      <div>
-                        <table id="usersInfo">
-                          <tbody>
-                            <tr><td>ID: </td><td>{this.state.selected_user_info.id}</td></tr>
-                            <tr><td>First Name: </td><td>{this.state.selected_user_info.first_name}</td></tr>
-                            <tr><td>Last Name: </td><td>{this.state.selected_user_info.last_name}</td></tr>
-                            <tr><td>Email: </td><td>{this.state.selected_user_info.email}</td></tr>
-                            <tr><td>Phone: </td><td>{this.state.selected_user_info.phone != "" ? this.state.selected_user_info.phone : <span>N/A</span>}</td></tr>                            
-                            <tr>
-                              <td>Agent 1: </td>
-                              {this.state.selected_user_info.P_agent != "" && this.state.selected_user_info.P_agent != null ?
-                                <td>{this.state.reassign_agent1 == "true" ?
-                                  <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent1")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
-                                :
-                                  <span>{this.state.selected_user_info.P_agent} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
-                                } </td>
-                              :
-                                <td>N/A</td>
-                              }
-                            </tr>
-                            {this.state.selected_user_info.P_agent2 != "" && this.state.selected_user_info.P_agent2 != null ?
-                              <tr>
-                                <td>Agent 2: </td>
-                                <td>{this.state.reassign_agent2 == "true" ?
-                                  <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent2")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
-                                :
-                                  <span>{this.state.selected_user_info.P_agent2} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
-                                } </td>
-                              </tr>
-                            : null}
-                          </tbody>
-                        </table>
-                      
-                        <div className="container-fluid folder-section">
-                          <div className="row">
-                            <div className="col-md-5 col-sm-5 col-xs-12 pageTitle">
+                    {this.state.step > 2 ?
+                      <div id="userInformationPortion">
+                        {this.state.user_type == "agent" ?
+                          <div>
+                            <table id="usersInfo">
+                              <colgroup><col width="100"/><col width="350"/></colgroup>
+                              <tbody>
+                                <tr><td>First Name: </td><td>{this.state.selected_user_info.first_name}</td></tr>
+                                <tr><td>Last Name: </td><td>{this.state.selected_user_info.last_name}</td></tr>
+                                <tr><td>Title: </td><td>{this.state.selected_user_info.title}</td></tr>
+                                <tr><td>Email: </td><td>{this.state.selected_user_info.email}</td></tr>
+                                <tr><td>Phone: </td><td>{this.state.selected_user_info.phone != "" ? this.state.selected_user_info.phone : <span>N/A</span>}</td></tr>
+                                <tr><td>Agent ID: </td><td>{this.state.selected_user_info.agent_id}</td></tr>
+                                <tr><td>Bio: </td><td>{this.state.selected_user_info.bio != "" ? this.state.selected_user_info.bio : <span>N/A</span>}</td></tr>
+                              </tbody>
+                            </table>
+                            
+                            <div id="agentsBuyers">
                               <div className="clearfix grpelem" id="u16159-5">
-                                <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Listing Folders </span><span id="u16159-2">click name to open</span></p>
+                                <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Buyers</span></p>
+                              </div>
+                              <br/><br/>
+                              <div id="buyerList">
+                                {buyers}
                               </div>
                             </div>
                           </div>
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="clearfix"></div>
-                              {this.state.buyer_folders.length > 0 ?
-                                <div id="folderSection">
-                                  {folders}
+                        : null }
+                        {this.state.user_type == "buyer" ?
+                          <div>
+                            <table id="usersInfo">
+                              <colgroup><col width="100"/><col width="350"/></colgroup>
+                              <tbody>
+                                <tr><td>ID: </td><td>{this.state.selected_user_info.id}</td></tr>
+                                <tr><td>First Name: </td><td>{this.state.selected_user_info.first_name}</td></tr>
+                                <tr><td>Last Name: </td><td>{this.state.selected_user_info.last_name}</td></tr>
+                                <tr><td>Email: </td><td>{this.state.selected_user_info.email}</td></tr>
+                                <tr><td>Phone: </td><td>{this.state.selected_user_info.phone != "" ? this.state.selected_user_info.phone : <span>N/A</span>}</td></tr>                            
+                                <tr>
+                                  <td>Agent 1: </td>
+                                  {this.state.selected_user_info.P_agent != "" && this.state.selected_user_info.P_agent != null ?
+                                    <td>{this.state.reassign_agent1 == "true" ?
+                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent1")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
+                                    :
+                                      <span>{this.state.selected_user_info.P_agent} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
+                                    } </td>
+                                  :
+                                    <td>N/A</td>
+                                  }
+                                </tr>
+                                {this.state.selected_user_info.P_agent2 != "" && this.state.selected_user_info.P_agent2 != null ?
+                                  <tr>
+                                    <td>Agent 2: </td>
+                                    <td>{this.state.reassign_agent2 == "true" ?
+                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent2")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
+                                    :
+                                      <span>{this.state.selected_user_info.P_agent2} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
+                                    } </td>
+                                  </tr>
+                                : null}
+                              </tbody>
+                            </table>
+                          </div>
+                        : null}
+                      </div>
+                    : null }
+                  </div>
+                </div>
+            
+                {this.state.step > 2 && this.state.user_type == "agent" ?
+                  <div className="col-md-7 col-sm-7 col-xs-12">
+                    <div id="userActivity">
+                      Select a date to view agent's activity: 
+                      <select id="month" onChange={this.handleChange.bind(this, 'month')}>
+                        <option value="default">Month</option>
+                        <option value="1">January</option><option value="2">February</option><option value="3">March</option>
+                        <option value="4">April</option><option value="5">May</option><option value="6">June</option>
+                        <option value="7">July</option><option value="8">August</option><option value="9">September</option>
+                        <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+                      </select>
+                      <select id="day" onChange={this.handleChange.bind(this, 'day')}>
+                        <option value="default">Day</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                        <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                        <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                        <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                        <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+                      </select>
+                      <select id="year" onChange={this.handleChange.bind(this, 'year')}>
+                        <option value="default">Year</option>
+                        <option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option>
+                      </select>
+                      <button onClick={this.getAgentActivity}>View Activity</button>
+                      <div id="userActivityInfo">
+                        <table id="userActivityInfoTable">
+                          <tbody>
+                            <tr>
+                              <td>Last login: </td><td>{this.state.activity['login']}</td>
+                            </tr>
+                            <tr>
+                              <td>New Buyers: </td><td>{this.state.activity['buyers']} buyers</td>
+                            </tr>
+                            <tr>
+                              <td>Searches Performed: </td><td>{this.state.activity['searches']} searches</td>
+                            </tr>
+                            <tr>
+                              <td>Listings Viewed: </td><td>{this.state.activity['listingsViewed']} listings</td>
+                            </tr>
+                            <tr>
+                              <td>Listings Emailed: </td><td>{this.state.activity['listingsEmailed']} listings</td>
+                            </tr>
+                            <tr>
+                              <td>Listings Saved to thier Folder: </td><td>{this.state.activity['listingsSavedFolder']} listings</td>
+                            </tr>
+                            <tr>
+                              <td>Listings Saved to Buyer Folders: </td><td>{this.state.activity['listingsSavedBuyers']} listings</td>
+                            </tr>
+                            <tr>
+                              <td>Messages Received: </td><td>{this.state.activity['messagesReceived']} messages</td>
+                            </tr>
+                            <tr>
+                              <td>Messages Sent: </td><td>{this.state.activity['messagesSent']} messages</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                : null }
+                
+                <div id="userInformationSection2">
+                  {this.state.step > 2 ?
+                    <div id="userInformationPortion">
+                      {this.state.user_type == "buyer" ?
+                        <div>                      
+                          <div className="folder-section">
+                            <div className="row">
+                              <div className="col-md-5 col-sm-5 col-xs-12 pageTitle">
+                                <div className="clearfix grpelem" id="u16159-5">
+                                  <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Listing Folders </span><span id="u16159-2">click name to open</span></p>
                                 </div>
-                              :
-                                <div>
-                                  <div id="loading" className="Text-1"><span>Loading Folders...</span></div>
-                                  <div id="noFolders" className="Text-1">
-                                    <span>No Saved Folders</span>
-                                    <p>&nbsp;</p>
-                                  </div>                      
-                                </div>
-                              }
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="clearfix"></div>
+                                {this.state.buyer_folders.length > 0 ?
+                                  <div id="folderSection">
+                                    {folders}
+                                  </div>
+                                :
+                                  <div>
+                                    <div id="loading" className="Text-1"><span>Loading Folders...</span></div>
+                                    <div id="noFolders" className="Text-1">
+                                      <span>No Saved Folders</span>
+                                      <p>&nbsp;</p>
+                                    </div>                      
+                                  </div>
+                                }
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    : null}
-                  </div>
-                : null }
+                      : null}
+                    </div>
+                  : null }
+                </div>
               </div>
             </div>
           </div>

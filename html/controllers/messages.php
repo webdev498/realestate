@@ -44,3 +44,5 @@
 <div id="errorMessage" class="text-popups"><p>Something went wrong. Please try again.</p></div>
 <div id="guestSave" class='text-popups need-to-signup-first-div bubble speech'><span class='fa fa-times need-to-signup-first-div-closer'></span>This listing has been temporarily saved. All saved listings will be removed when you logout.<br/><span class="bottomCloser need-to-signup-first-div-closer">Ok</span></div>
 <div id="agentAdded" class="text-popups"><p>An agent account for <span id="agentName"></span> has been created and an email has been sent.</p></div>
+<div id="needDate" class="text-popups"><p>You must select at least a month and a year.</p></div>
+<div id="invalidDate" class="text-popups"><p>The date entered is invalid, please check.</p></div>
