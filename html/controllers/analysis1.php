@@ -1923,7 +1923,7 @@ if (isset($_POST['agent-yearly'])) {
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentYearlyArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $agentEmail . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $agentEmail . "' AND list_num = list_numb AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentYearlyArea == 'North') {
 			$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
