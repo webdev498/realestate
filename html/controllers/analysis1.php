@@ -1925,9 +1925,9 @@ if (isset($_POST['agent-yearly'])) {
 		$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `saved_listings`, WHERE saved_listings.agent = $email AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentYearlyArea == 'North') {
-		$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `saved_listings`, `vow_data' WHERE saved_listings.agent = $email  AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = $email  AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `saved_listings`, `vow_data' WHERE saved_listings.agent = $email  AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = $email  AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			}	
 		}
 	
