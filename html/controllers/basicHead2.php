@@ -13,7 +13,7 @@
     <meta name="keywords" content="Manhattan Apartments, Manhattan Condos, Manhattan apartments for rent, manhattan condos for rent, nyc apartments, ny apartments, apartments nyc, apartments in nyc, manhattan apartments for sale, manhattan condos for sale, luxury living nyc, manhattan luxury apartments"/>
     <link rel="profile" href="http://homepik.com">
 
-    <!--<link rel="stylesheet" href="/js/jquery/theme/jquery-ui-1.8.6.custom.min.css"/>
+    <link rel="stylesheet" href="/js/jquery/theme/jquery-ui-1.8.6.custom.min.css"/>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/views/css/shared_components_bootstrap.css"/>
 
@@ -30,7 +30,7 @@
     <script src="/js/react/build/react.min.js"></script>
     <script src="/js/react/build/react-dom.min.js"></script>
     <script src="/js/react/build/browser.min.js"></script>
-    <script src="/js/shared_components_bootstrap.js" type="text/babel"></script>-->
+    <script src="/js/shared_components_bootstrap.js" type="text/babel"></script>
     <script>
       $.ajax({
         type: "POST",
