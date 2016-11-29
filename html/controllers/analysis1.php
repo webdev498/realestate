@@ -1322,6 +1322,7 @@ $( '#agentYearlyCode' ).each( function () {
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$firstname = $row['first_name'];
 			$lastname = $row['last_name'];
+			$agentEmail = $row['email'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1422,12 +1423,12 @@ $( '#agentYearlyCode' ).each( function () {
 	//Total buyer listings by area
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount, list_numb FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentArea == 'North') {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "'  AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			}	
 		}
 	
