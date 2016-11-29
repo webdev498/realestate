@@ -286,6 +286,12 @@ $name = $name[0];
           <div id="chart_div10" className="report-chart"></div>
 				</div>
 			</div>
+						<div class="row">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+					<div id="chart_div11" className="report-chart"></div>
+          <div id="chart_div12" className="report-chart"></div>
+				</div>
+			</div>
 		</div>
 	</div>
   </div>
@@ -1316,6 +1322,7 @@ $( '#agentYearlyCode' ).each( function () {
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$firstname = $row['first_name'];
 			$lastname = $row['last_name'];
+			$agentEmail = $row['email'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1410,10 +1417,46 @@ $( '#agentYearlyCode' ).each( function () {
         );
         $buyerAllChartTotal = $buyerAllChartTotal + $row['buyerCount'];
     }
+	
+	 $jsonBuyerAllChart = json_encode($buyerAllChart);
+	
+	//Total buyer listings by area
+    //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
+	if ($agentArea == 'All Markets'){
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+    } else {
+		if ($agentArea == 'North') {
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+			} else  {
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "'  AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+			}	
+		}
+	
+	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+
+    $buyerAllListingsChartTotal = 0;
+    $buyerAllListingsChart = array(
+			'cols' => array(
+				 array('type' => 'string', 'label' => 'Listings'),
+				 array('type' => 'number', 'label' => 'Number')
+			)
+		);
+
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $buyerAllListingsChart['rows'][] = array(
+            'c' => array (
+                 array('v' => 'Listings'),
+                 array('v' => $row['buyerListingCount'])
+             )
+        );
+        $buyerAllListingsChartTotal = $buyerAllListingsChartTotal + $row['buyerListingCount'];
+    }
 
 
-    $jsonBuyerAllChart = json_encode($buyerAllChart);
+    $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
 
+
+   
     //Total inventory at end of the month
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
     if ($agentArea == 'All Markets'){
@@ -1548,6 +1591,15 @@ $( '#agentYearlyCode' ).each( function () {
             sourceColumn: 1,
             calc: 'stringify'
         }]);
+		// All Buyers Listings
+        var data6 = new google.visualization.DataTable(<?php echo $jsonBuyerAllListingsChart;?>);
+        var view6 = new google.visualization.DataView(data6);
+        view6.setColumns([0, 1, {
+            type: 'string',
+            role: 'annotation',
+            sourceColumn: 1,
+            calc: 'stringify'
+        }]);
         // Total listings for date selected
         var data4 = new google.visualization.DataTable(<?php echo $jsonAgentChartTotal;?>);
         var view4 = new google.visualization.DataView(data4);
@@ -1609,6 +1661,21 @@ $( '#agentYearlyCode' ).each( function () {
             minValue: 0,
           },
         };
+		
+		var options6 = {
+          title: 'Buyer Saved Listings Total:   <?php echo $buyerAllListingsChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   <?php echo $agentArea;?> \nPeriod:   through <?php echo $chartLabelEnd;?>',
+          width: 600,
+          height: 400,
+          legend: { position: "none" },
+          hAxis: {
+            title: '',
+            minValue: 0,
+          },
+          vAxis: {
+            title: 'Monthly Totals',
+            minValue: 0,
+          },
+        };
 
         var options4 = {
 					title: 'Total Listings:   <?php echo $agentAllChartTotal;?> \nAgent:   <?php echo $firstname;?> <?php echo $lastname;?> \nArea:   <?php echo $agentArea;?> \nPeriod:   through <?php echo $chartLabelEnd;?>',
@@ -1644,11 +1711,14 @@ $( '#agentYearlyCode' ).each( function () {
 
        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
 			 chart.draw(view3, options3);
-
-       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div8'));
-			 chart.draw(view4, options4);
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div8'));
+			 chart.draw(view6, options6);
 
        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div10'));
+			 chart.draw(view4, options4);
+
+       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div12'));
 			 //chart.draw(data5, options5);
        chart.draw(view5, options5);
 
@@ -1753,6 +1823,7 @@ if (isset($_POST['agent-yearly'])) {
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$firstname = $row['first_name'];
 			$lastname = $row['last_name'];
+			$agentEmail = $row['email'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1852,9 +1923,17 @@ if (isset($_POST['agent-yearly'])) {
 	
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
-    $sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
-    //$sql = "SELECT COUNT(*) AS buyerCount, id FROM `users` WHERE (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
-    $result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+	if ($agentYearlyArea == 'All Markets'){
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND  time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+    } else {
+		if ($agentYearlyArea == 'North') {
+			$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+			} else  {
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "'  AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+			}	
+		}
+	
+	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
@@ -1876,6 +1955,7 @@ if (isset($_POST['agent-yearly'])) {
 
 
     $jsonBuyerAllListingsChart = json_encode($buyerAllListingsChart);
+	
 
     //Total inventory
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND list_date <= '" . $agentEndDate . "' AND status = 'AVAIL' GROUP BY bed";
@@ -2058,7 +2138,7 @@ if (isset($_POST['agent-yearly'])) {
           height: 400,
           legend: { position: "none" },
           hAxis: {
-            title: 'Listings',
+            title: '',
             minValue: 0,
           },
           vAxis: {
