@@ -111,12 +111,17 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
         });
       }
       else{
+        console.log(this.state.firstname)
+        console.log(this.state.lastname)
+        console.log(this.state.email)
         $.ajax({
           type: "POST",
           url: "check-buyer.php",
           data: {"partialValidation": "true", "email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname},
           success: function(data){
+            console.log(data);
             var info = jQuery.parseJSON(data);
+            console.log(info);
   
             if(info != null){
               $("#error").hide();
@@ -328,7 +333,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           <tr>
                             <td colSpan="2">
                               <input type="hidden" name="formStep" value="verification2" />
-                              <input type="hidden" name="code" value="<?=$password?>" /><br />
+                              <input type="hidden" name="code" value="<?php echo $password?>" /><br />
                               <a href="signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                               {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
