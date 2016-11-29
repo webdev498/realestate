@@ -99,12 +99,14 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$assigned = $row['email'];
 							$agentFirstname = $row['first_name'];
 							$agentLastname = $row['last_name'];
+							if($agent_code != ""){ $agentAssignTime = $registerTime; }
+							else{ $agentAssignTime = 0; }
 							
 							if($phone != ''){ $securityOption = "Phone"; }
 							else if( $question != "default" ){ $securityOption = "Question"; }
 
 							//insert the row into the database
-							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, security_option phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $securityOption . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')");
+							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, P_agent_assign_time, security_option phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $agentAssignTime . "','" . $securityOption . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')");
 
 							$message = "Hello ".$firstName." ".$lastName.",<br><br>";
 							$message .= "Thank you for registering on HomePik.com.<br><br>";

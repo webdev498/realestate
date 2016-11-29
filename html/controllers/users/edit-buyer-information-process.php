@@ -79,7 +79,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								//echo '<br><br><center class="Text-1 clearfix"><a href="../guest-register.php?f='.$firstName.'&l='.$lastName.'&e='.$email.'&p='.$phone.'&a='.$agent_code.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a></center>';
 							}
 							else{
-								$res2 = mysql_query("SELECT id, assigned, rtime FROM users WHERE email = '" . $oldEmail . "'");
+								$res2 = mysql_query("SELECT * FROM users WHERE email = '" . $oldEmail . "'");
 								$row2 = mysql_fetch_assoc($res2);
 								$firstName = ucfirst($firstName);
 								$lastName = ucfirst($lastName);
@@ -104,7 +104,23 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 									else{ $agent2 = ""; }
 								}
 								
-								$res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent2 = '".$agent2."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'");						
+								if($agent1 != $row2['P_agent'] && $agent2 == $row2['P_agent2']){
+									if($agent1 == ""){ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assing_time=0, P_agent2 = '".$agent2."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+									else{ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assign_time='".date('U')."', P_agent2 = '".$agent2."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+								}
+								else if($agent1 == $row2['P_agent'] && $agent2 != $row2['P_agent2']){
+									if($agent2 == ""){ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent2 = '".$agent2."', P_agent2_assign_time=0, security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+									else{ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent2 = '".$agent2."', P_agent2_assign_time='".date('U')."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+								}
+								else if($agent1 != $row2['P_agent'] && $agent2 != $row2['P_agent2']){
+									if($agent1 == "" && $agent2 == ""){ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assign_time=0, P_agent2 = '".$agent2."', P_agent2_assign_time=0, security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+									else if($agent1 != "" && $agent2 == ""){ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assign_time='".date('U')."', P_agent2 = '".$agent2."', P_agent2_assign_time=0, security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+									else if($agent1 == "" && $agent2 != ""){ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assign_time=0, P_agent2 = '".$agent2."', P_agent2_assign_time='".date('U')."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+									else{ $res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent_assign_time='".date('U')."', P_agent2 = '".$agent2."', P_agent2_assign_time='".date('U')."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'"); }
+								}
+								else{							
+									$res3 = mysql_query("UPDATE users SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', P_agent = '".$agent1."', P_agent2 = '".$agent2."', security_option = '".$securityOption."', phone = '".$phone."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $email . "'");
+								}
 								
 								$_SESSION['id'] = $row2['id'];
 								$_SESSION['assigned'] = $row2['assigned'];

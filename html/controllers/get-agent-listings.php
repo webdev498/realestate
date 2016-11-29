@@ -57,7 +57,7 @@ if($email != ''){
         $value = number_format($value, 0, '.', ',');
     };
 
-    $SQL = "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')";
+    $SQL = "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."') ORDER BY time DESC";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $date = date( "m/d/y", $row['time']);

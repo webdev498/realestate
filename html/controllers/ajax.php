@@ -271,7 +271,7 @@ if(isset($_GET['makePrimary'])){
   if ($pAgent == ""){ //Add agent
     if ($pAgent2 == "") { // No secondary - assign as primary
 
-      $SQL = "UPDATE users SET P_agent = '".$agentCode."' WHERE email = '".$user."'";
+      $SQL = "UPDATE users SET P_agent = '".$agentCode."', P_agent_assign_time='".date('U')."' WHERE email = '".$user."'";
       $res = mysql_query($SQL)  or die(mysql_error());
       
       $SQL = "UPDATE users_folders SET agent = '".$agentCode."' WHERE (user = '".$user."')";
@@ -296,7 +296,7 @@ if(isset($_GET['makePrimary'])){
 
     } else if ($pAgent2 != "") { // Move secondary to primary
 
-      $SQL = "UPDATE users SET P_agent = P_agent2, P_agent2 = '' WHERE email = '".$user."'";
+      $SQL = "UPDATE users SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
       $res = mysql_query($SQL)  or die(mysql_error());
       print $SQL;
 
@@ -353,7 +353,7 @@ if(isset($_GET['makePrimary'])){
         }
       
         // Re-assign second agent as first if exists
-        $SQL = "UPDATE `users` SET P_agent = P_agent2, P_agent2 = '' WHERE email = '".$user."'";
+        $SQL = "UPDATE `users` SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
         $res = mysql_query($SQL)  or die(mysql_error());
         
         // Re-assign folder associated with second agent
@@ -369,7 +369,7 @@ if(isset($_GET['makePrimary'])){
         $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
       }
       else{ // If user only has the one agent
-        $SQL = "UPDATE `users` SET P_agent = '' WHERE email = '".$user."' ";
+        $SQL = "UPDATE `users` SET P_agent = '', P_agent_assign_time=0 WHERE email = '".$user."' ";
         $res = mysql_query($SQL)  or die(mysql_error());
         
         // Remove agent from folder associated with agent
@@ -432,7 +432,7 @@ if(isset($_GET['makePrimary'])){
       }
       
       // Delete the agent from the buyer's account
-      $SQL = "UPDATE users SET P_agent2 = '' WHERE email = '".$user."'";
+      $SQL = "UPDATE users SET P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
       $res = mysql_query($SQL)  or die(mysql_error());
       
       print $SQL;
@@ -632,8 +632,7 @@ if(isset($_GET['makeFolder'])){
 // EMAIL A LISTING
 if(isset($_GET['checkListings'])){
   $listNum = $_GET['list_num'];
-  $user = $_SESSION['email'];
-  
+  $user = $_SESSION['email'];  
 }
 
 // UPDATE BUYER'S SAVED FOLDER
@@ -1008,20 +1007,14 @@ if(isset($_GET['agentSave'])){
     }
     foreach($buyers as $buyer){	  
       if(strpos($buyer, "@bellmarc.com") !== false){
-        //$sql = "SELECT * FROM queued_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'";
         $sql = "SELECT * FROM queued_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "'";
         $rs = mysql_query($sql);
         $num = mysql_num_rows($rs);
       
         if ($num < 1){
-          //$SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')";
           $SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$buyer."','".$list_num."','".$from."','".$comments."','agent','','".$time."')";
           $res = mysql_query($SQL)  or die(mysql_error());
         }
-        /*
-        $SQL2 = "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."'";
-        $res2 = mysql_query($SQL2)  or die(mysql_error());
-        */
       }
       else{
         $SQL1 = "SELECT name FROM `users_folders` WHERE (user = '".$buyer."') AND (agent = '".$agent_id."')";
@@ -1050,7 +1043,7 @@ if(isset($_GET['agentSave'])){
           if($notifications == 'all' || $notifications == 'folder'){
             $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
             $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
-			$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+            $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
             $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
             $message .= "HomePik.com is licensed by Nice Idea Media";
             $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$buyer."'>Change Email Alert Settings</a></center><br>";
@@ -1150,10 +1143,7 @@ if(isset($_GET['saveAndEmail'])){
       $rs1 = mysql_query($sql1);
       $num1 = mysql_num_rows($rs1);
 
-      if($num1  >= 1){
-        //Do nothing
-      }
-      else{
+      if($num1 == 0){
         $SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$from."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')";
         $res = mysql_query($SQL)  or die(mysql_error());
       }
@@ -1179,12 +1169,7 @@ if(isset($_GET['saveAndEmail'])){
     $rs = mysql_query($sql);
     $num = mysql_num_rows($rs);
 
-    if ($num >= 1)
-    {
-      //Do nothing
-    }
-    else
-    {
+    if ($num == 0){
       $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')";
       $res = mysql_query($SQL)  or die(mysql_error());
     }
@@ -1212,12 +1197,7 @@ if(isset($_GET['saveAll'])){
     $rs = mysql_query($SQL3);
     $num = mysql_num_rows($rs);
 
-    if ($num >= 1)
-    {
-      //Do nothing
-    }
-    else
-    {
+    if ($num == 0){
       $SQL2 = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$buyer."','".$row['list_num']."','".$agent."','".$row['comments']."','agent','".$agent."','".$time."')";
       $res2 = mysql_query($SQL2) or die(mysql_error());
     }
@@ -1761,13 +1741,12 @@ if(isset($_GET['AddPrimary'])){
 
   $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-  while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
-    $firstname = $row2['first_name'];
-    $lastname = $row2['last_name'];
-    $notifications = $row['notifications'];
-  }
+  $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+  $firstname = $row2['first_name'];
+  $lastname = $row2['last_name'];
+  $notifications = $row['notifications'];
 
-  $SQL3 = "UPDATE `users` SET `P_agent` = '".$id."' WHERE (email = '".$email."')";
+  $SQL3 = "UPDATE `users` SET `P_agent` = '".$id."', `P_agent_assign_time`='".date('U')."' WHERE (email = '".$email."')";
   $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
 
   if($notifications == "all" || $notifications == "messages"){
@@ -1799,13 +1778,12 @@ if(isset($_GET['AddPrimary2'])){
 
   $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-  while($row2 = mysql_fetch_array($result2,MYSQL_ASSOC)) {
-    $firstname = $row2['first_name'];
-    $lastname = $row2['last_name'];
-    $notifications = $row['notifications'];
-  }
+  $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+  $firstname = $row2['first_name'];
+  $lastname = $row2['last_name'];
+  $notifications = $row['notifications'];
 
-  $SQL3 = "UPDATE `users` SET `P_agent2` = '".$id."' WHERE (email = '".$email."')";
+  $SQL3 = "UPDATE `users` SET `P_agent2` = '".$id."', `P_agent2_assign_time`='".date('U')."' WHERE (email = '".$email."')";
   $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
 
   if($notifications == 'all' || $notifications == "messages"){
@@ -1844,7 +1822,7 @@ if(isset($_GET['addBuyer'])){
 
     $to = $_GET['firstname'] . " " . $_GET['lastname'] . " <" . $_GET['email'] . ">";
     $email = $_GET['email'];
-    $res =  mysql_query("INSERT INTO users (email, first_name, last_name, phone, rtime, pass_set, assigned, active, P_agent, notifications) VALUES('".$_GET['email']."','".$_GET['firstname']."','".$_GET['lastname']."','".$_GET['phone']."','".$registerTime."','".$registerTime."','".$_SESSION['email']."','2','".$id."', 'all') ON DUPLICATE KEY UPDATE assigned=VALUES(assigned), rtime=VALUES(rtime)");
+    $res =  mysql_query("INSERT INTO users (email, first_name, last_name, phone, rtime, pass_set, assigned, active, P_agent, P_agent_assign_time, notifications) VALUES('".$_GET['email']."','".$_GET['firstname']."','".$_GET['lastname']."','".$_GET['phone']."','".$registerTime."','".$registerTime."','".$_SESSION['email']."','2','".$id."', '".$registerTime."', 'all') ON DUPLICATE KEY UPDATE assigned=VALUES(assigned), rtime=VALUES(rtime)");
 
     $message = "Hello " . $_GET['firstname'] . " " . $_GET['lastname'] . ", <br><br>";
     $message .= "$fn $ln from HomePik has invited you to join HomePik.com, which is a unique real-estate search engine that has a patented technology to allow users to compare listings. As a result, users are guided in finding the best listing on the market, based on their preferences.";
@@ -1960,7 +1938,6 @@ if(isset($_GET['addBuyer'])){
     $message .= "<br><br><br><br>You are recieving this email because you created an account with HomePik with this email address. If you did not make this request please ignore this email.<br>";
     $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$email."'>Change Email Alert Settings</a></center><br>";
     $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
-    $message .= "HomePik.com is licensed to Bellmarc";
 
     $mail->addAddress($email);
     $mail->Subject = 'HomePik Disclosure Form Copy';
@@ -1993,7 +1970,6 @@ if(isset($_GET['addAgent'])){
     $message .= "Email / Username: $email <br/>";
     $message .= "Password: $password";
     $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
-    //$message .= "HomePik.com is licensed to Bellmarc";
 
     $mail->addAddress($email);
     $mail->Subject = 'HomePik Agent Account Created';
@@ -2040,8 +2016,7 @@ if(isset($_GET['saveMessage'])){
   $buyer = $_GET['buyer'];
   $agent = $_GET['agent'];
   $sender = $_GET['sender'];
-  $message = $_GET['message'];
-  
+  $message = $_GET['message'];  
   $message = str_replace("'", "\'", $message);
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
@@ -2065,21 +2040,12 @@ if(isset($_GET['archiveBuyer'])){
 if(isset($_GET['deleteBuyer'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-
-  // Delete buyer's saved listings
-  $res = mysql_query("DELETE FROM saved_listings WHERE (user = '".$_GET['buyer']."')")  or die(mysql_error());
   
-  // Delete buyer's messages
-  $res = mysql_query("DELETE FROM messages WHERE (buyer = '".$_GET['buyer']."')")  or die(mysql_error());
-
-  // Delete buyer's saved formulas
-  $res = mysql_query("DELETE FROM Users_Search WHERE (email = '".$_GET['buyer']."')")  or die(mysql_error());
-  
-  // Delete buyer's folders
-  $res = mysql_query("DELETE FROM users_folders WHERE (user = '".$_GET['buyer']."')")  or die(mysql_error());
-
-  // Delete buyer account
-  $res =  mysql_query("DELETE FROM users WHERE (email = '".$_GET['buyer']."')")  or die(mysql_error());
+  $res = mysql_query("DELETE FROM saved_listings WHERE (user = '".$_GET['buyer']."')")  or die(mysql_error()); // Delete buyer's saved listings  
+  $res = mysql_query("DELETE FROM messages WHERE (buyer = '".$_GET['buyer']."')")  or die(mysql_error()); // Delete buyer's messages
+  $res = mysql_query("DELETE FROM Users_Search WHERE (email = '".$_GET['buyer']."')")  or die(mysql_error()); // Delete buyer's saved formulas
+  $res = mysql_query("DELETE FROM users_folders WHERE (user = '".$_GET['buyer']."')")  or die(mysql_error()); // Delete buyer's folders
+  $res =  mysql_query("DELETE FROM users WHERE (email = '".$_GET['buyer']."')")  or die(mysql_error()); // Delete buyer account
 }; // DELETE BUYER END
 
 //MARK SAVED LISTINGS AS VIEWED
@@ -2087,11 +2053,8 @@ if(isset($_GET['savedViewed']) && $_GET['savedViewed']== 'true'){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-  if ($_SESSION['agent']){
-    $res =  mysql_query("UPDATE saved_listings SET aviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error());
-  } elseif ($_SESSION['user']){
-    $res =  mysql_query("UPDATE saved_listings SET bviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error());
-  }
+  if ($_SESSION['agent']){ $res =  mysql_query("UPDATE saved_listings SET aviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
+  elseif ($_SESSION['user']){ $res =  mysql_query("UPDATE saved_listings SET bviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
 }; //MARK SAVED LISTINGS AS VIEWED END
 
 // ACTIVATE BUYER
@@ -2152,8 +2115,8 @@ if(isset($_GET['reassignAgent'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-  if($_GET['agent'] == "agent1"){ $res =  mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
-  else if($_GET['agent'] == "agent2"){ $res =  mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
+  if($_GET['agent'] == "agent1"){ $res =  mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."', `P_agent_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
+  else if($_GET['agent'] == "agent2"){ $res =  mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."', `P_agent2_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
   
 }; // REASSIGN BUYER'S AGENT END
 ?>

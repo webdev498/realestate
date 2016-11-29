@@ -54,7 +54,7 @@ if($_POST['code']){
   $code = $_POST['code'];
   
   // Add agent to the account
-  $SQL = "UPDATE `users` SET P_agent='".$code."' WHERE (email = '".$email."')";
+  $SQL = "UPDATE `users` SET P_agent='".$code."', P_agent_assign_time='".date('U')."' WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   
   // Assign agent to the buyer's folder
@@ -122,7 +122,7 @@ if($_POST['code2']){
   $lastname = $row1['last_name'];
   
   // Add second agent to the acccount
-  $SQL2= "UPDATE `users` SET P_agent2='".$code."' WHERE (email = '".$email."')";
+  $SQL2= "UPDATE `users` SET P_agent2='".$code."', P_agent2_assign_time='".date('U')."' WHERE (email = '".$email."')";
   $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
     
   // Add the folder
@@ -213,7 +213,7 @@ if($_POST['delete']){
   }
   
   // Remove the first agent from the buyer's account
-  $SQL7 = "UPDATE `users` SET P_agent='' WHERE (email = '".$email."')";
+  $SQL7 = "UPDATE `users` SET P_agent='', P_agent_assign_time=0 WHERE (email = '".$email."')";
   $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error());
 
   // Send email to first agent that they have been removed from the account.
@@ -266,7 +266,7 @@ if($_POST['delete2']){
   }
    
   // Remove the agent from the buyer's account
-  $SQL7 = "UPDATE `users` SET P_agent2='' WHERE (email = '".$email."')";
+  $SQL7 = "UPDATE `users` SET P_agent2='', P_agent2_assign_time=0 WHERE (email = '".$email."')";
   $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error());
   
   // Send email to agent agent that they have been removed from account.
@@ -282,7 +282,7 @@ if($_POST['delete2']){
 }
 
 if($_POST['update']){
-  $SQL = "UPDATE users set P_agent = P_agent2, P_agent2 = '' WHERE (email = '".$email."')";
+  $SQL = "UPDATE users set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assing_time=0 WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
 }
