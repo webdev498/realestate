@@ -77,7 +77,7 @@ else if( isset($_GET['getAgentSave']) ){
     array_push($folders, $f);
   }
     
-	$SQL = "SELECT u.*, f.* FROM `users` AS u LEFT JOIN `registered_agents` AS r ON u.P_agent=r.agent_id OR u.P_agent2=r.agent_id LEFT JOIN `users_folders` as f ON u.email=f.user WHERE (r.email = '".$email."') AND (u.archived != '1') ORDER BY last_name ASC ";
+	$SQL = "SELECT u.*, f.* FROM `users` AS u LEFT JOIN `registered_agents` AS r ON u.P_agent=r.agent_id OR u.P_agent2=r.agent_id LEFT JOIN `users_folders` as f ON u.email=f.user WHERE (r.email = '".$email."') AND (u.archived != '1') AND (f.agent = r.agent_id) ORDER BY last_name ASC ";
 	$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 	while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 	  $name = array("id"=>$row['id'], "first_name"=> $row['first_name'], "last_name"=> $row['last_name'], "email"=>$row['email'], "folderName"=>$row['name']);

@@ -91,7 +91,7 @@ if($agent_id != ''){
         $value = number_format($value, 0, '.', ',');
     };
 
-    $SQL = "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$folder['user']."') AND (saved_listings.folder = '".$folder['folderName']."')";
+    $SQL = "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$folder['user']."') AND (saved_listings.folder = '".$folder['folderName']."') ORDER BY time DESC";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 
