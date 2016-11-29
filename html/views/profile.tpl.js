@@ -90,7 +90,7 @@ $('.ui-dialogue-email-send').click(function (){
   var guestName = $('.ui-dialogue-custom-content').find('#guestName').val();
   var guestEmail = $('.ui-dialogue-custom-content').find('#guestEmail').val();
   
-  /*if ( ($('.ui-dialogue-custom-content').find('#guestName').length > 0 && guestName == "") || ($('.ui-dialogue-custom-content').find('#guestEmail').length > 0 && guestEmail == "") || ( $('.ui-dialogue-custom-content').find("#friendSend:checkbox:checked").length <= 0 || ($('.ui-dialogue-custom-content').find("#friendSend:checkbox:checked").length > 0 && $('.ui-dialogue-custom-content').find('#friendEmail').val() == "" ) ) || ( $('.ui-dialogue-custom-content').find("#agent1Send:checkbox:checked").length <= 0 && $('.ui-dialogue-custom-content').find("#agent2Send:checkbox:checked").length <= 0 ) ) {*/
+  
   if ( ($('.ui-dialogue-custom-content').find('#guestName').length > 0 && guestName == "") || ($('.ui-dialogue-custom-content').find('#guestEmail').length > 0 && guestEmail == "") || ( ($('.ui-dialogue-custom-content').find("#friendSend:checkbox:checked").length > 0 && $('.ui-dialogue-custom-content').find('#friendEmail').val() == "" ) ) ) {	  
     $("#ajax-box").dialog({
       modal: true,
