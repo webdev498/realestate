@@ -2115,8 +2115,21 @@ if(isset($_GET['reassignAgent'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-  if($_GET['agent'] == "agent1"){ $res =  mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."', `P_agent_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
-  else if($_GET['agent'] == "agent2"){ $res =  mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."', `P_agent2_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'")  or die(mysql_error()); }
-  
+  if($_GET['agent'] == "agent1"){
+    $res = mysql_query("SELECT P_agent FROM `users` WHERE email='".$_GET['buyer']."'")  or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    
+    $res2 = mysql_query("UPDATE `users_folders` SET `agent`='".$_GET['id']."' WHERE (user='".$_GET['buyer']."') AND (agent='".$row['P_agent']."')") or die(mysql_error());
+    $res3 = mysql_query("UPDATE `Users_Search` SET `agent`='".$_GET['id']."' WHERE (email='".$_GET['buyer']."') AND (agent='".$row['P_agent']."')") or die(mysql_error());
+    $res4 = mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."', `P_agent_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'") or die(mysql_error());
+  }
+  else if($_GET['agent'] == "agent2"){
+    $res = mysql_query("SELECT P_agent2 FROM `users` WHERE email='".$_GET['buyer']."'")  or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    
+    $res2 = mysql_query("UPDATE `users_folders` SET `agent`='".$_GET['id']."' WHERE (user='".$_GET['buyer']."') AND (agent='".$row['P_agent2']."')") or die(mysql_error());
+    $res3 = mysql_query("UPDATE `Users_Search` SET `agent`='".$_GET['id']."' WHERE (email='".$_GET['buyer']."') AND (agent='".$row['P_agent2']."')") or die(mysql_error());
+    $res4 = mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."', `P_agent2_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'") or die(mysql_error());
+  }  
 }; // REASSIGN BUYER'S AGENT END
 ?>
