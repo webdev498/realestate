@@ -76,11 +76,10 @@ else if(isset($_POST['passReset'])){
   }
 }
 else{
-  $SQL = "SELECT * FROM `users` where (email = '".$email."')"; 
+  $SQL = "SELECT * FROM `users` WHERE (email = '".$email."')"; 
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-    $info = $row;
-  } 
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  $info = $row; 
   
   echo json_encode($info);
 }

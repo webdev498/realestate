@@ -113,8 +113,8 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
       else{
         $.ajax({
           type: "POST",
-          url: "/controllers/check-buyer.php",
-          data: {"email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname},
+          url: "check-buyer.php",
+          data: {"partialValidation": "true", "email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname},
           success: function(data){
             var info = jQuery.parseJSON(data);
   
