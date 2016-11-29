@@ -841,44 +841,43 @@ else{ $mainPage = ""; }
                     </div>
                   </div>
                 : null }
-                
-                <div id="userInformationSection2">
-                  {this.state.step > 2 ?
-                    <div id="userInformationPortion">
-                      {this.state.user_type == "buyer" ?
-                        <div>                      
-                          <div className="folder-section">
-                            <div className="row">
-                              <div className="col-md-5 col-sm-5 col-xs-12 pageTitle">
-                                <div className="clearfix grpelem" id="u16159-5">
-                                  <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Listing Folders </span><span id="u16159-2">click name to open</span></p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-12">
-                                <div className="clearfix"></div>
-                                {this.state.buyer_folders.length > 0 ?
-                                  <div id="folderSection">
-                                    {folders}
-                                  </div>
-                                :
-                                  <div>
-                                    <div id="loading" className="Text-1"><span>Loading Folders...</span></div>
-                                    <div id="noFolders" className="Text-1">
-                                      <span>No Saved Folders</span>
-                                      <p>&nbsp;</p>
-                                    </div>                      
-                                  </div>
-                                }
+              </div>
+              <div id="userInformationSection2">
+                {this.state.step > 2 ?
+                  <div id="userInformationPortion">
+                    {this.state.user_type == "buyer" ?
+                      <div>                      
+                        <div className="folder-section">
+                          <div className="row">
+                            <div className="col-md-5 col-sm-5 col-xs-12 pageTitle">
+                              <div className="clearfix grpelem" id="u16159-5">
+                                <p id="u16159-3"><span id="u16159">{this.state.selected_user_info.first_name} {this.state.selected_user_info.last_name}'s Listing Folders </span><span id="u16159-2">click name to open</span></p>
                               </div>
                             </div>
                           </div>
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="clearfix"></div>
+                              {this.state.buyer_folders.length > 0 ?
+                                <div id="folderSection">
+                                  {folders}
+                                </div>
+                              :
+                                <div>
+                                  <div id="loading" className="Text-1"><span>Loading Folders...</span></div>
+                                  <div id="noFolders" className="Text-1">
+                                    <span>No Saved Folders</span>
+                                    <p>&nbsp;</p>
+                                  </div>                      
+                                </div>
+                              }
+                            </div>
+                          </div>
                         </div>
-                      : null}
-                    </div>
-                  : null }
-                </div>
+                      </div>
+                    : null}
+                  </div>
+                : null }
               </div>
             </div>
           </div>
