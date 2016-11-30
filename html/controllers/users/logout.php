@@ -57,7 +57,7 @@ include "../functions.php";
 				header('Location: ../index.php');
 			}
 			elseif (authentication () == 'guest'){
-				mysql_query("DELETE FROM users_folders WHERE user = '".$_SESSION['guestID']."'");
+				mysql_query("DELETE FROM users_folders WHERE name = 'Guest Folder'");
 				mysql_query("DELETE FROM saved_listings WHERE user = '".$_SESSION['guestID']."'");
 				session_unset();
 				session_destroy();
