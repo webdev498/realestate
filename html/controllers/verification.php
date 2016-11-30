@@ -111,17 +111,12 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
         });
       }
       else{
-        console.log(this.state.firstname)
-        console.log(this.state.lastname)
-        console.log(this.state.email)
         $.ajax({
           type: "POST",
           url: "check-buyer.php",
           data: {"partialValidation": "true", "email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname},
           success: function(data){
-            console.log(data);
             var info = jQuery.parseJSON(data);
-            console.log(info);
   
             if(info != null){
               $("#error").hide();

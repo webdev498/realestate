@@ -76,6 +76,256 @@ else{ $mainPage = ""; }
 		}
   });
   
+  var BuyerInfo = React.createClass({
+    getInitialState: function() {
+      return{
+        buyerInfo: [],
+        reassign_agent1: "false",
+        reassign_agent2: "false",
+        agent1_id: "",
+        agent2_id: "",
+        status: false
+      };
+	  },
+    componentDidMount: function(){
+      this.getBuyerInfo();
+    },
+    handleChange: function (name, event) {
+      var change = {};
+      change[name] = event.target.value;
+      this.setState(change);
+    },
+    handleReassignAgent: function(name, event){
+      if(name == "agent1"){ this.setState({reassign_agent1: "true"}); }
+      else if(name == "agent2"){ this.setState({reassign_agent2: "true"}); }
+    },
+    getBuyerInfo: function(){
+      $.ajax({
+				type: "POST",
+				url: "get-buyers.php",
+				data: {"buyerInformation": "true", "email": this.props.buyer},
+				success: function(data){
+					var buyer = JSON.parse(data);
+					this.setState({buyerInfo: buyer});
+					this.setState({agent1_id: buyer['P_agent']});
+					this.setState({agent2_id: buyer['P_agent2']});
+				}.bind(this),
+				error: function(){
+					console.log("failed");
+				}.bind(this)
+		  });
+    },
+    getAgentsForInput: function(){
+		  $.ajax({
+				type: "POST",
+				url: "get-agents.php",
+				data: {"agent": "true", "new": "true"},
+				success: function(data){
+					var info = JSON.parse(data);
+					$( ".agent-code" ).autocomplete({
+						source: info
+					});
+				}.bind(this),
+				error: function(){
+					console.log("failed");
+				}.bind(this)
+		  });
+		},
+		switchAgent: function(agent, event){
+      var code = $("#formAgent").val();
+      
+      if(code.length == 3){
+        $.ajax({
+          type: "POST",
+          url: "check-agent.php",
+          data: {"reassignCheck": "true", "id": code, "email": this.state.buyerInfo['email']},
+          success: function(data){
+            var info = JSON.parse(data);
+
+            if(info == "good"){
+              if(agent == "agent1"){ this.setState({agent1_id: code}); }
+              else if(agent == "agent2"){ this.setState({agent2_id: code}); }
+              this.setState({status: true});
+            }
+            else{
+              $("#ajax-box2").dialog({
+                modal: true,
+                height: 'auto',
+                width: '275px',
+                autoOpen: false,
+                dialogClass: 'ajaxbox invalidCodePopup',
+                buttons: {
+                  Ok: function(){
+                    $(this).dialog("destroy");
+                  }
+                },
+                close: function() {
+                  $( this ).dialog( "destroy" );
+                },
+                open: function(){
+                  $(".ui-widget-overlay").bind("click", function(){
+                    $("#ajax-box2").dialog('close');
+                  });
+                }
+              });
+              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              });
+            }
+          }.bind(this),
+          error: function(){
+            console.log("failed");
+          }
+        });
+      }
+      else{
+        var name = code.split(", ");
+        var firstname = name[1].replace(" ", "");
+        var lastname = name[0];
+
+        $.ajax({
+          type: "POST",
+          url: "check-agent.php",
+          data: {"reassignCheck": "true", "firstname": firstname, "lastname": lastname, "email": this.state.buyerInfo['email']},
+          success: function(data){
+            var info = JSON.parse(data);
+
+            if(info == "good"){
+              $.ajax({
+                type: "POST",
+                url: "check-agent.php",
+                data: {"getID":"true", "firstname": firstname, "lastname": lastname},
+                success: function(data){
+                  var id = JSON.parse(data);
+                  if(agent == "agent1"){ this.setState({agent1_id: id}); }
+                  else if(agent == "agent2"){ this.setState({agent2_id: id}); }
+                  this.setState({status: true});
+                }.bind(this)
+              });
+            }
+            else{
+              $("#ajax-box2").dialog({
+                modal: true,
+                height: 'auto',
+                width: '275px',
+                autoOpen: false,
+                dialogClass: 'ajaxbox invalidCodePopup',
+                buttons: {
+                  Ok: function(){
+                    $(this).dialog("destroy");
+                  }
+                },
+                close: function() {
+                  $( this ).dialog( "destroy" );
+                },
+                open: function(){
+                  $(".ui-widget-overlay").bind("click", function(){
+                    $("#ajax-box2").dialog('close');
+                  });
+                }
+              });
+              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              });
+            }
+          }.bind(this),
+          error: function(){
+            console.log("failed");
+          }
+        });
+      }
+		},
+    assignAgent: function(agent, event){
+      this.switchAgent(agent);
+      setTimeout(function() {
+        if(this.state.status){      
+          if(agent == "agent1"){ var id = this.state.agent1_id; }
+          else if(agent == "agent2"){ var id = this.state.agent2_id; }
+          
+          $.get("ajax.php", {
+            reassignAgent: 'true',
+            buyer: this.state.buyerInfo['email'],
+            agent: agent,
+            id: id,
+            success: function(result){
+              var ajaxStop = 0;
+              $(document).ajaxStop(function() {
+                if(ajaxStop == 0){
+                  ajaxStop++;
+                  if(agent == "agent1"){ this.setState({reassign_agent1: "false"}); }
+                  else if(agent == "agent2"){ this.setState({reassign_agent2: "false"}); }
+                  this.getBuyerInfo();
+                }
+              }.bind(this));
+            }.bind(this)
+          });
+        }
+      }.bind(this), 1000)
+    },
+    closePopup: function(){
+      $("#overlay").hide();
+      {this.props.closeDialog()}
+    },
+    render: function(){
+      return(
+        <div id="buyerInformationArea">
+          <div id="buyerInformationTop">
+            <span id="buyerInformationHeader" className="text-popups">Buyer Information</span>
+            <img src="../images/button_pen_states.png" style={{float: "right"}}/>
+            <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
+          </div>
+          <div id="buyerInformationBorder">
+            <table cellPadding="2" cellSpacing="0" border="0">
+              <colgroup><col width="250"/><col width="350"/></colgroup>
+              <tbody>
+                <tr>
+                  <td className="text-popups">ID:</td>
+                  <td className="text-popups">{this.state.buyerInfo['id']}<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">First Name:</td>
+                  <td className="text-popups">{this.state.buyerInfo['first_name']}<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Last Name:</td>
+                  <td className="text-popups">{this.state.buyerInfo['last_name']}<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Email:</td>
+                  <td className="text-popups">{this.state.buyerInfo['email']}</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Phone:</td>
+                  <td className="text-popups">{this.state.buyerInfo['phone']}</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Agent 1: </td>
+                  {this.state.buyerInfo['P_agent'] != "" && this.state.buyerInfo['P_agent'] != null ?
+                    <td className="text-popups">{this.state.reassign_agent1 == "true" ?
+                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
+                    :
+                      <span>{this.state.buyerInfo['P_agent']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
+                    } </td>
+                  : <td className="text-popups">No Agent</td> }
+                </tr>
+                {this.state.buyerInfo['P_agent2'] != "" && this.state.buyerInfo['P_agent2'] != null ?
+                  <tr>
+                    <td className="text-popups">Agent 2: </td>
+                    <td className="text-popups">{this.state.reassign_agent2 == "true" ?
+                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
+                    :
+                      <span>{this.state.buyerInfo['P_agent2']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
+                    } </td>
+                  </tr>
+                : null}                        
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    }    
+  });
+  
   var UserInformation = React.createClass({
     getInitialState: function() {
       return{
@@ -91,6 +341,7 @@ else{ $mainPage = ""; }
         reassign_agent2: "false",
         agent1_id: "",
         agent2_id: "",
+        status: false,
         step: 1,
         month: "default",
         day: "default",
@@ -256,9 +507,7 @@ else{ $mainPage = ""; }
 		  });
 		},
 		switchAgent: function(agent, event){
-      if(agent == "agent1"){ this.setState({agent1_id: event.target.value}); }
-      else if(agent == "agent2"){ this.setState({agent2_id: event.target.value}); }
-		  var code = event.target.value;
+      var code = $("#formAgent").val();
       
       if(code.length == 3){
         $.ajax({
@@ -271,6 +520,7 @@ else{ $mainPage = ""; }
             if(info == "good"){
               if(agent == "agent1"){ this.setState({agent1_id: code}); }
               else if(agent == "agent2"){ this.setState({agent2_id: code}); }
+              this.setState({status: true});
             }
             else{
               $("#ajax-box2").dialog({
@@ -293,7 +543,7 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
+              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
                 $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
               });
             }
@@ -315,7 +565,7 @@ else{ $mainPage = ""; }
           success: function(data){
             var info = JSON.parse(data);
 
-            if(info.exists == "good"){
+            if(info == "good"){
               $.ajax({
                 type: "POST",
                 url: "check-agent.php",
@@ -324,6 +574,7 @@ else{ $mainPage = ""; }
                   var id = JSON.parse(data);
                   if(agent == "agent1"){ this.setState({agent1_id: id}); }
                   else if(agent == "agent2"){ this.setState({agent2_id: id}); }
+                  this.setState({status: true});
                 }.bind(this)
               });
             }
@@ -348,7 +599,7 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
+              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
                 $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
               });
             }
@@ -360,26 +611,25 @@ else{ $mainPage = ""; }
       }
 		},
     assignAgent: function(agent, event){
-      if(agent == "agent1"){ var id = this.state.agent1_id; }
-      else if(agent == "agent2"){ var id = this.state.agent2_id; }
-      
-      $.get("ajax.php", {
-        reassignAgent: 'true',
-        buyer: this.state.selected_user_info.email,
-        agent: agent,
-        id: id,
-        success: function(result){
-          var ajaxStop = 0;
-					$(document).ajaxStop(function() {
-					  if(ajaxStop == 0){
-              ajaxStop++;
+      this.switchAgent(agent);
+      setTimeout(function() {
+        if(this.state.status){      
+          if(agent == "agent1"){ var id = this.state.agent1_id; }
+          else if(agent == "agent2"){ var id = this.state.agent2_id; }
+          
+          $.get("ajax.php", {
+            reassignAgent: 'true',
+            buyer: this.state.selected_user_info.email,
+            agent: agent,
+            id: id,
+            success: function(result){
               if(agent == "agent1"){ this.setState({reassign_agent1: "false"}); }
               else if(agent == "agent2"){ this.setState({reassign_agent2: "false"}); }
               this.getBuyerInformation(this.state.selected_user_info.email);
-					  }
-					}.bind(this));
-        }.bind(this)
-      });
+            }.bind(this)
+          });
+        }
+      }.bind(this), 1000)
     },
     openFolder: function(name){
 		  if(this.state.openFolder != name){ this.setState({openFolder: name}); }
@@ -411,6 +661,32 @@ else{ $mainPage = ""; }
 			$("#overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.selected_user_info.email} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
+    viewBuyerInfo: function(email){
+      console.log(email);
+      var $dialog =  $("#ajax-box").dialog({
+				width: 565,
+				dialogClass: 'viewBuyerInfoPopup',
+        modal: true,
+				close: function(){
+					ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+					var div = document.createElement('div');
+					div.id = 'ajax-box';
+					document.getElementsByTagName('body')[0].appendChild(div);
+					$( this ).remove();
+				},
+        open: function(){
+          $(this).css("display", "block");
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+			});
+			var closeDialog = function(){
+				$dialog.dialog('close');
+			}.bind(this)
+
+			ReactDOM.render(<BuyerInfo closeDialog={closeDialog} buyer={email} />, $dialog[0]);
+    },
     checkDate: function(){
       var m = this.state.month;
       var d = this.state.day;
@@ -511,7 +787,7 @@ else{ $mainPage = ""; }
       }.bind(this));
       var buyers = this.state.agents_buyers.map(function(buyer) {
         return(
-          <p>{buyer.first_name} {buyer.last_name}</p>
+          <p><a style={{cursor: "pointer"}} onClick={this.viewBuyerInfo.bind(this, buyer.email)}>{buyer.first_name} {buyer.last_name}</a></p>
         );
       }.bind(this));
       var folders = this.state.buyer_folders.map(function (folder) {
@@ -753,7 +1029,7 @@ else{ $mainPage = ""; }
                                   <td>Agent 1: </td>
                                   {this.state.selected_user_info.P_agent != "" && this.state.selected_user_info.P_agent != null ?
                                     <td>{this.state.reassign_agent1 == "true" ?
-                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent1")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
+                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
                                     :
                                       <span>{this.state.selected_user_info.P_agent} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
                                     } </td>
@@ -765,7 +1041,7 @@ else{ $mainPage = ""; }
                                   <tr>
                                     <td>Agent 2: </td>
                                     <td>{this.state.reassign_agent2 == "true" ?
-                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput} onBlur={this.switchAgent.bind(this, "agent2")}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
+                                      <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
                                     :
                                       <span>{this.state.selected_user_info.P_agent2} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
                                     } </td>
