@@ -106,7 +106,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							else if( $question != "default" ){ $securityOption = "Question"; }
 
 							//insert the row into the database
-							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, P_agent_assign_time, security_option phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $agentAssignTime . "','" . $securityOption . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')");
+							$res2 = mysql_query("INSERT INTO users (email, first_name, last_name, password, rtime, pass_set, assigned, P_agent, P_agent_assign_time, security_option phone, security_question, security_answer, notifications) VALUES('" . $email . "','" . $firstName . "','" . $lastName . "','" . $password . "','" . $registerTime . "','" . $registerTime . "','" . $assigned . "','" . $agent_code . "','" . $agentAssignTime . "','" . $securityOption . "','" . $phone . "','" . $question . "','" . $answer . "', 'all')") or die("Couldn't execute query.".mysql_error());
 
 							$message = "Hello ".$firstName." ".$lastName.",<br><br>";
 							$message .= "Thank you for registering on HomePik.com.<br><br>";

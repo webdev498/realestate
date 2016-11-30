@@ -8,6 +8,7 @@
 #reassignAgent{ color: #7F7F7F; cursor: pointer; font-family: lato, sans-serif; font-size: 15px; font-weight: 300; font-style: italic; line-height: 18px; margin-left: 5px; }
 #reassignAgent:hover { color: #0085C6; text-decoration: none; }
 
+.ui-widget-overlay{ z-index: 600; }
 #overlay{ background-color: white; display: none; height: 110%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
 input[type="radio"].indent{ margin-left: 12px; }
 #userInformationPortion #usersInfo tr > td, #userActivityInfo table tr > td{ padding-bottom: 0.3em !important; }
@@ -33,7 +34,7 @@ input[type="radio"].indent{ margin-left: 12px; }
 #u1330-8,#u1330-22{	font-family: lato, sans-serif;	font-weight: 400; }
 #closePopup3{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 370px; width: 10px; }
 
-.viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; }
+.viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; }
 .viewBuyerInfoPopup .ui-resizable-handle{ display: none !important; }
 #buyerInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
 #buyerInformationTop #closePopup{ left: 510px !important; }
