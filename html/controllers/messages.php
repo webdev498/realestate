@@ -41,7 +41,7 @@
 <div id="saveListingAgent" class="text-popups"><p class="Text-1">You must select at least one person to save the listing to.</p></div>
 <div id="loggedOut" class="text-popups"><p class="Text-1">You have been logged off due to inactivity.</p></div>
 <div id="saveError" class="text-popups"><p>Please select at least one folder.</p></div>
-<div id="errorMessage" class="text-popups"><p>Something went wrong. Please try again.</p></div>
+<div id="errorMessage" class="text-popups"><p>Could not locate save point. Please close the save popup and try again.</p></div>
 <div id="guestSave" class='text-popups need-to-signup-first-div bubble speech'><span class='fa fa-times need-to-signup-first-div-closer'></span>This listing has been temporarily saved. All saved listings will be removed when you logout.<br/><span class="bottomCloser need-to-signup-first-div-closer">Ok</span></div>
 <div id="agentAdded" class="text-popups"><p>An agent account for <span id="agentName"></span> has been created and an email has been sent.</p></div>
 <div id="needDate" class="text-popups"><p>You must select at least a month and a year.</p></div>

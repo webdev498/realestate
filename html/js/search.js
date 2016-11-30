@@ -2589,13 +2589,11 @@ $(document).ready(function(){
         autoOpen: false,
         dialogClass: 'ajaxbox errorMessage2 saveError',
         buttons : {
-          Ok: function(){
-            $(this).dialog("close");
-          }
+          Ok: function(){ $(this).dialog("close"); }
         }
       });
       $('#ajax-box').load('/controllers/messages.php #saveError',function(){
-        $('#ajax-box').dialog( "option", "title", "Save Error" ).dialog('open');
+        $('#ajax-box').dialog('open');
       });
     }
     else{
@@ -2603,13 +2601,10 @@ $(document).ready(function(){
       var list_num = $(e.target).attr('data-listing');
       var comment = $(e.target).parents().find('.save-this-listing-popup-comment').val();
 
-      if(referrer == 'heart-list'){
-        var parent_p = $('.heart-list-'+list_num).closest('p#abc');
-      } else if (referrer == 'heart-tab-head'){
-        var parent_p = $('.heart-tabHead-'+list_num).closest('div.tab-head-div');
-      } else if (referrer == 'heart-tab-inner'){
-        var parent_p = $('.heart-tabInner-'+list_num).closest('a.listing-small-icons');
-      } else{
+      if(referrer == 'heart-list'){ var parent_p = $('.heart-list-'+list_num).closest('p#abc'); }
+      else if (referrer == 'heart-tab-head'){ var parent_p = $('.heart-tabHead-'+list_num).closest('div.tab-head-div'); }
+      else if (referrer == 'heart-tab-inner'){ var parent_p = $('.heart-tabInner-'+list_num).closest('a.listing-small-icons'); }
+      else{
         $("#ajax-box").dialog({
           modal: true,
           height: 'auto',
@@ -2617,13 +2612,11 @@ $(document).ready(function(){
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage errorMsg',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #errorMessage',function(){
-          $('#ajax-box').dialog( "option", "title", "Error" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         return;
       }
@@ -2651,7 +2644,6 @@ $(document).ready(function(){
           },3000);
         }
       });
-
       updateSearchCriteria(selected_folders);
     }
   });
@@ -2684,13 +2676,10 @@ $(document).ready(function(){
       var comment = $(e.target).parents().find('.save-this-listing-popup-comment').val();
       var buyer = $(e.target).parents().find('.save-this-listing-dropdown').val();
           
-      if(referrer == 'heart-list'){
-        var parent_p = $('.heart-list-'+list_num).closest('p#abc');
-      } else if (referrer == 'heart-tab-head'){
-        var parent_p = $('.heart-tabHead-'+list_num).closest('div.tab-head-div');
-      } else if (referrer == 'heart-tab-inner'){
-        var parent_p = $('.heart-tabInner-'+list_num).closest('a.listing-small-icons');
-      } else{
+      if(referrer == 'heart-list'){ var parent_p = $('.heart-list-'+list_num).closest('p#abc'); }
+      else if (referrer == 'heart-tab-head'){ var parent_p = $('.heart-tabHead-'+list_num).closest('div.tab-head-div'); }
+      else if (referrer == 'heart-tab-inner'){ var parent_p = $('.heart-tabInner-'+list_num).closest('a.listing-small-icons'); }
+      else{
         $("#ajax-box").dialog({
             modal: true,
             height: 'auto',
@@ -3351,7 +3340,7 @@ $(document).ready(function(){
         var html = "<div class='folder-section compare-saved-listings-div'>";
       }
       if (user != "agent-buyer"){
-        html += "<span class='fa fa-times compare-listings-closer' title='close'></span>"
+        html += "<span class='compare-listings-closer' title='close'>close</span>"
         + "<div class='clearfix grpelem' id='u16159-5'>";
           if (user == "agent") {
             html += "<p id='u16159-3'><span id='u16159'>Your Folders </span><span id='u16159-2'>click name to open</span></p>";

@@ -721,7 +721,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 .compareListingsPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 5% !important; max-height: 97%; max-width: 600px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1005 !important; }
 .compareListingsPopup .ui-resizable-handle{ display: none !important; }
 .compareListingsPopup #compare-listings{ background: #FFFFFF; border: 1px solid #B2B2B2; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 100% !important; left: 5% !important; max-height: 97%; max-width: 1200px; padding: 10px 50px; position: fixed !important; top: 2% !important; width: 90% !important; }
-.fa.fa-times.compare-listings-closer{ color: #b2b2b2 !important; float: right; font-size: 25px !important; margin-right: -35px; }
+.compare-listings-closer{ color: #b2b2b2 !important; cursor: pointer; float: right; font-size: 25px !important; margin-right: -35px; }
 .noSaveMessage{ font-size: 16pt !important; margin-left: 40px; min-height: 40px; width: 250px; }
 #folderSection{	min-height: 125px;	margin-top: 103px; }
 .listingSection{ display: none; }
@@ -766,7 +766,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 #u28562-3{	font-size: 16px;	color: #7F7F7F;	font-family: lato, sans-serif;	font-weight: 600;	font-style: italic;	line-height: 22px;}
 
 /*Email Folder Popup*/
-.emailFolderPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 97%; max-width: 400px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1008 !important; }
+.emailFolderPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 97%; max-width: 400px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1010 !important; }
 .ui-dialog.emailFolderPopup .ui-resizable-handle{	display: none !important;}
 .emailFolderPopup #email-listing-folder{ background: #FFFFFF; border: 1px solid #B2B2B2; border-radius: 6px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: auto !important; left: 35%; max-height: 450px; max-width: 400px; position: fixed; top: 17%; width: 100% !important;}
 .emailFolderPopup textarea{ border: 1px solid rgb(100, 100, 100); height: 100px; width: 350px; }
@@ -851,7 +851,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 #registrationSubmit span { color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: bold; margin: 0 !important; padding: 0; }
 #registrationSubmit span#arrow{ color: #0085c6; margin-left: 5px; }
 #primaryAgentPopup{ position: relative; }
-#primaryAgent { background-color: #ffffff; border: thin solid #939393; box-shadow: 2px 2px 2px #cccccc; color: #646464; font-family: lato,sans-serif; font-size: 15px; height: 402px; left: 450px; line-height: 20px; padding: 25px; position: relative; top: 329px; width: 627px; z-index: 1006; }
+#primaryAgent { background-color: #ffffff; border: thin solid #939393; box-shadow: 2px 2px 2px #cccccc; color: #646464; font-family: lato,sans-serif; font-size: 15px; height: 402px; left: 450px; line-height: 20px; padding: 25px; position: relative; top: 329px; width: 627px; z-index: 1010; }
 #primAgentText{ left: 42px; position: absolute; top: 20px; width: 550px; }
 #primAgentList{ color: #0085C6; padding-left: 20px; }
 #primAgentList p{ color: #606060; }
@@ -893,12 +893,12 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 #closePopup2{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 525px;	top: 10px; width: 10px; }
 
 /* Choose/View Buying Formula */
-.ui-dialog.viewBuyingFormula{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); display: block !important; height: 500px !important; margin: -50px 0 0 -125px; position: fixed !important; top: 15% !important; width: 795px !important; z-index: 1006 !important; }
+.ui-dialog.viewBuyingFormula{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); display: block !important; height: 500px !important; left: 30% !important; margin: -50px 0 0 -125px; position: fixed !important; top: 15% !important; width: 795px !important; z-index: 1010 !important; }
 .ui-dialog.viewBuyingFormula #ajax-box{ height: 100% !important; max-height: 535px; }
 #x26457-4{ font-size: 18px; }
 
 /* Edit Buying Formula */
-.ui-dialog.editFormula { top: 3% !important; z-index: 1007 !important; }
+.ui-dialog.editFormula { top: 3% !important; z-index: 1010 !important; }
 .editFormula .grpelem p{ font-size: unset; }
 .editFormula .ui-autocomplete{ min-width: 115px !important; z-index: 1015 !important; }
 .editFormula .close-edit-buyer-formula-popup{ color: #B2B2B2; cursor: pointer; float: right; font-size: 21px !important; }
