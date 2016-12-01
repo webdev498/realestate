@@ -57,6 +57,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           },
           close: function() {
             $( this ).dialog( "destroy" );
+            $("#ajax-box").html("");
           },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
@@ -83,6 +84,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           },
           close: function() {
             $( this ).dialog( "destroy" );
+            $("#ajax-box").html("");
           },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
@@ -109,6 +111,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           },
           close: function() {
             $( this ).dialog( "destroy" );
+            $("#ajax-box").html("");
           },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){

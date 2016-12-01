@@ -4,9 +4,6 @@ include_once("dbconfig.php");
 include_once('functions.php');
 
 // LOAD SMARTY TEMPLATE ENGINE
-//include_once('/home/webadmin/homepik.com/html/classes/smarty/Smarty.class.php');
-// change path
-// ini_set("display_errors", 1);
 include_once('../classes/smarty/SmartyBC.class.php');
 $smarty = new SmartyBC();
 $smarty->setTemplateDir('../views');
@@ -18,7 +15,7 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
   $code = $_GET['code']; // Encrypted listing number for the URL which changes with each session to prevent the listing # from being made public (VOW RULES)
   $session = session_id();
   $code2 = string_encrypt($list_numb, $session);
-  if ($code == $code2) { // Make sure the code in the listing url was created for the current session before displaying anything (VOW RULES)
+  if($code == $code2) { // Make sure the code in the listing url was created for the current session before displaying anything (VOW RULES)
     $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
     mysql_select_db($database) or die("Error connecting to db.");
     $limit = limit();
@@ -97,9 +94,7 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['contact_email'] = $row['contact_email'];
       $tplvar['contact_phone'] = $row['contact_phone'];
       $tplvar['photo1'] = $row['photo1'];
-      if ($tplvar['photo1'] == '') {
-        $tplvar['photo1'] = 'http://www.homepik.com/images/nopicture3.png';
-      };
+      if ($tplvar['photo1'] == '') { $tplvar['photo1'] = 'http://www.homepik.com/images/nopicture3.png'; };
       $tplvar['photo2'] = $row['photo2'];
       $tplvar['photo3'] = $row['photo3'];
       $tplvar['photo4'] = $row['photo4'];
@@ -111,32 +106,18 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['photo10'] = $row['photo10'];
 
       for($i=1; $i<11; $i++){
-        if(strpos($tplvar['photo'.$i], "JPG")){
-          $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]);
-        }
-
-        if(strpos($tplvar['photo'.$i], "GIF")){
-          $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]);
-        }
-
-        if(strpos($tplvar['photo'.$i], "PNG")){
-          $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]);
-        }
+        if(strpos($tplvar['photo'.$i], "JPG")){ $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]); }
+        if(strpos($tplvar['photo'.$i], "GIF")){ $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]); }
+        if(strpos($tplvar['photo'.$i], "PNG")){ $tplvar['photo'.$i] = strtolower($tplvar['photo'.$i]); }
       }
 
       $str = 'floor';
       $matches = array();
       $photos = array($tplvar['photo1'], $tplvar['photo2'], $tplvar['photo3'], $tplvar['photo4'], $tplvar['photo5'], $tplvar['photo6'], $tplvar['photo7'], $tplvar['photo8'], $tplvar['photo9'], $tplvar['photo10']);
-      foreach($photos as $a) {
-        if(stripos($a, $str) === false){
-          array_push($matches, $a);
-        }
-      }
+      foreach($photos as $a) { if(stripos($a, $str) === false){ array_push($matches, $a); } }
 
       $tplvar['default'] = $matches[0];
-      if ($tplvar['default'] == ""){
-        $tplvar['default'] = $photos[0];
-      };
+      if ($tplvar['default'] == ""){ $tplvar['default'] = $photos[0]; };
 
       // if it's a floor plan, look for a second photo to use instead
       $stristr = stristr($tplvar['photo1'], 'floor');
@@ -149,18 +130,10 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['mkt_desc'] = $row['mkt_desc'];
      	$start = strpos($tplvar['mkt_desc'], "Please call");
 
-     	if($start == 0){
-      	$start = strpos($tplvar['mkt_desc'], "Please contact");
-      }
-      if($start == 0){
-      	$start = strpos($tplvar['mkt_desc'], "Contact");
-      }
-      if($start == 0){
-      	$start = strpos($tplvar['mkt_desc'], "contact");
-      }
-      if($start == 0){
-      	$start = strpos($tplvar['mkt_desc'], "Call");
-      }
+     	if($start == 0){ $start = strpos($tplvar['mkt_desc'], "Please contact"); }
+      if($start == 0){ $start = strpos($tplvar['mkt_desc'], "Contact"); }
+      if($start == 0){ $start = strpos($tplvar['mkt_desc'], "contact"); }
+      if($start == 0){ $start = strpos($tplvar['mkt_desc'], "Call"); }
 
       if($start != false){
       	$contactInfo = substr($tplvar['mkt_desc'], $start);
@@ -171,37 +144,16 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['mkt_desc'] = str_replace("Courtesy of Stribling", "", $tplvar['mkt_desc']);
 
       $images = array();
-
-      if($tplvar['photo1'] != ""){
-        array_push($images, $tplvar['photo1']);
-      }
-      if($tplvar['photo2'] != ""){
-        array_push($images, $tplvar['photo2']);
-      }
-      if($tplvar['photo3'] != ""){
-        array_push($images, $tplvar['photo3']);
-      }
-      if($tplvar['photo4'] != ""){
-        array_push($images, $tplvar['photo4']);
-      }
-      if($tplvar['photo5'] != ""){
-        array_push($images, $tplvar['photo5']);
-      }
-      if($tplvar['photo6'] != ""){
-        array_push($images, $tplvar['photo6']);
-      }
-      if($tplvar['photo7'] != ""){
-        array_push($images, $tplvar['photo7']);
-      }
-      if($tplvar['photo8'] != ""){
-        array_push($images, $tplvar['photo8']);
-      }
-      if($tplvar['photo9'] != ""){
-        array_push($images, $tplvar['photo9']);
-      }
-      if($tplvar['photo10'] != ""){
-        array_push($images, $tplvar['photo10']);
-      }
+      if($tplvar['photo1'] != ""){ array_push($images, $tplvar['photo1']); }
+      if($tplvar['photo2'] != ""){ array_push($images, $tplvar['photo2']); }
+      if($tplvar['photo3'] != ""){ array_push($images, $tplvar['photo3']); }
+      if($tplvar['photo4'] != ""){ array_push($images, $tplvar['photo4']); }
+      if($tplvar['photo5'] != ""){ array_push($images, $tplvar['photo5']); }
+      if($tplvar['photo6'] != ""){ array_push($images, $tplvar['photo6']); }
+      if($tplvar['photo7'] != ""){ array_push($images, $tplvar['photo7']); }
+      if($tplvar['photo8'] != ""){ array_push($images, $tplvar['photo8']); }
+      if($tplvar['photo9'] != ""){ array_push($images, $tplvar['photo9']); }
+      if($tplvar['photo10'] != ""){ array_push($images, $tplvar['photo10']); }
 
       $tplvar['floor'] = $row['floor'];
       $tplvar['floor'] = @number_format($floor, 0, '.', ',');
@@ -299,234 +251,123 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       foreach ($tplvar['amenities'] as $key => $value) {
         if ($value == '.T.' || $value > 0) {
           $num_amens = $num_amens + 1;
-
-          if($num_amens % 2 == 0){
-            $tplvar['amenities_html'] .= "<td>" . $key . "</td></tr><tr>";
-          }
-          else{
-            $tplvar['amenities_html'] .= "<td>" . $key . "</td>";
-          }
-
+          if($num_amens % 2 == 0){ $tplvar['amenities_html'] .= "<td>" . $key . "</td></tr><tr>"; }
+          else{ $tplvar['amenities_html'] .= "<td>" . $key . "</td>"; }
         };
       };
 
       $tplvar['amenities_html'] .= "</tr></tbody></table>";
 
       // Decide which agent's contact info to show (show office manager based on neighborhood unless the user is a buyer who has been assigned to an agent)
-      $email = isset($_SESSION['assigned']) ? $_SESSION['assigned'] : '';
-      $SQL = "SELECT * FROM `registered_agents` WHERE (email = '" . $email . "')";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-      $row = mysql_fetch_array($result, MYSQL_ASSOC);
-      $tplvar['agent_id'] = $row['agent_id'];
-      $tplvar['userEmail'] = $_SESSION['email'];
-      if ($tplvar['contract'] == 'BEXCL')
-      {
-        if($tplvar['role'] == 'buyer'){
-          $SQL = "SELECT * FROM users WHERE (email = '" . $_SESSION['email'] . "')";
-          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-          while ($row = mysql_fetch_assoc($result)) {
-            $tplvar['P_agent'] = $row['P_agent'];
-            $tplvar['P_agent2'] = $row['P_agent2'];
-          }
-          if ($tplvar['P_agent'] == ''){
-            $tplvar['error'] = 'No primary agent';
-            // $tplvar['agent-txt'] = "<span id='agentBtnText'>Make Me Your Primary Agent</span>";
-            $tplvar['agent-txt'] = "<span>Select</span> as your primary agent</div>";
-          }
-          else if($tplvar['P_agent'] == $tplvar['agent_id_1']){
-            $tplvar['agent-txt'] = "<span class='remove-primary'>Remove</span> My Primary Agent";
-          }
-          else{
-            // Do nothing
-          }
-
-          if($tplvar['P_agent2'] == null){
-            $tplvar['P_agent2'] = '';
-          }
-        }
-      }
-      else
-      {
-        if($tplvar['role'] == 'buyer'){
-          $SQL = "SELECT * FROM users WHERE (email = '" . $_SESSION['email'] . "')";
-          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-          while ($row = mysql_fetch_assoc($result)) {
-            $tplvar['P_agent'] = $row['P_agent'];
-            $tplvar['P_agent2'] = $row['P_agent2'];
-          }
-          if ($tplvar['P_agent'] == ''){
-            $tplvar['error'] = 'No primary agent';
-            $tplvar['agent-txt'] = "<span>Select</span> as your primary agent</div>";
-            // $tplvar['agent-txt'] = "<span id='agentBtnText'>Make Me Your Primary Agent</span>";
-          }
-          else{
-            $tplvar['agent_id_1'] = $tplvar['P_agent'];
-            $tplvar['agent-txt'] = "<span class='remove-primary'>Remove</span> My Primary Agent";
-            $tplvar['agent_id_2'] = $tplvar['P_agent2'];
-            $tplvar['agent-txt2'] = "<span class='remove-primary'>Remove</span> My Primary Agent";
-          }
-        }
-        
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['agent_id_1']."')";
+      if($tplvar['role'] == 'buyer'){
+        $SQL = "SELECT * FROM users WHERE (email = '" . $_SESSION['email'] . "')";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
-        $active = $row['active'];
+        $tplvar['P_agent'] = $row['P_agent'];
+        $tplvar['P_agent2'] = $row['P_agent2'];
+        
+        if ($tplvar['P_agent'] == ''){
+          $tplvar['error'] = 'No primary agent';
+          $tplvar['agent-txt'] = "<span>Select</span> as your primary agent</div>";
+        }
+        else{
+          $tplvar['agent_id_1'] = $tplvar['P_agent'];
+          $tplvar['agent-txt'] = "<span class='remove-primary'>Remove</span> My Primary Agent";
+          $tplvar['agent_id_2'] = $tplvar['P_agent2'];
+          $tplvar['agent-txt2'] = "<span class='remove-primary'>Remove</span> My Primary Agent";
+        }
+      }
+      
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['agent_id_1']."')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
 
-        if((!isset($active)) || $active == "N"){ $tplvar['agent_id_1'] = ''; }
+      if((!isset($active)) || $active == "N"){ $tplvar['agent_id_1'] = ''; }
 
-        if ($tplvar['agent_id_1'] == '') {
-          switch ($tplvar['nbrhood']) {
-            case 'Far Uptown': $email = 'wmilvaney@cbbellmarc.com';
-              $phone = '212-874-0100 <br/>x306';
-              break;
-            case 'Upper East': $email = 'jsilver@bellmarc.com';
-              $phone = '212-517-9100 <br/>x212';
-              break;
-            case 'Upper West': $email = 'wmilvaney@cbbellmarc.com';
-              $phone = '212-874-0100 <br/>x306';
-              break;
-            case 'Midtown West': $email = 'lstrobing@bellmarc.com';
-              $phone = '212-239-0900 <br/>x212';
-              break;
-            case 'Midtown East': $email = 'dannyb@bellmarc.com';
-              $phone = '212-688-8530 <br/>x229';
-              break;
-            case 'Greenwich Village': $email = 'rcleary@cbbellmarc.com';
-              $phone = '212-627-3000 <br/>x204';
-              break;
-            case 'Downtown': $email = 'rcleary@cbbellmarc.com';
-              $phone = '212-627-3000 <br/>x204';
-              break;
-          };
-          if(isset($tplvar['error'] )){
-            $tplvar['error'] .= 'Got to neighborhood';
-          }else{
-            $tplvar['error'] = 'Got to neighborhood';
-          }
+      if ($tplvar['agent_id_1'] == '') {
+        $agentNums = array();
+        $agentCount = 0;
+        $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $tplvar['address'] . "'); ";
+        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $row = mysql_fetch_assoc($result);
+        $tplvar['build_location'] = $row['location'];
+        $tplvar['agent_1_v2'] = $row['agent_1'];
+        $tplvar['agent_2_v2'] = $row['agent_2'];
+        $tplvar['agent_3_v2'] = $row['agent_3'];
+        $tplvar['agent_4_v2'] = $row['agent_4'];
 
-          $agentNums = array();
-          $agentCount = 0;
-          $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $tplvar['address'] . "'); ";
+        if ($tplvar['agent_1_v2'] != ''){
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_1_v2'] . "'); ";
           $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-          while ($row = mysql_fetch_assoc($result)) {
-            $tplvar['build_location'] = $row['location'];
-            $tplvar['agent_1_v2'] = $row['agent_1'];
-            $tplvar['agent_2_v2'] = $row['agent_2'];
-            $tplvar['agent_3_v2'] = $row['agent_3'];
-            $tplvar['agent_4_v2'] = $row['agent_4'];
+          $row = mysql_fetch_assoc($result);
+          $active = $row['active'];
+
+          if($active == "Y"){
+            $agentNums[$agentCount] = $tplvar['agent_1_v2'];
+            $agentCount++;
+            $tplvar['error'] .= 'Agent 1 added';
           }
+        }
+        elseif ($tplvar['agent_2_v2'] != ''){
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_2_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $active = $row['active'];
 
-          if ($tplvar['agent_1_v2'] != ''){
-            $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_1_v2'] . "'); ";
-            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            $row = mysql_fetch_assoc($result);
-            $active = $row['active'];
-
-            if($active == "Y"){
-              $agentNums[$agentCount] = $tplvar['agent_1_v2'];
-              $agentCount++;
-              $tplvar['error'] .= 'Agent 1 added';
-            }
+          if($active == "Y"){
+            $agentNums[$agentCount] = $tplvar['agent_2_v2'];
+            $agentCount++;
+            $tplvar['error'] .= 'Agent 2 added';
           }
-          elseif ($tplvar['agent_2_v2'] != ''){
-            $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_2_v2'] . "'); ";
-            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            $row = mysql_fetch_assoc($result);
-            $active = $row['active'];
+        }
+        elseif ($tplvar['agent_3_v2'] != ''){
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_3_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $active = $row['active'];
 
-            if($active == "Y"){
-              $agentNums[$agentCount] = $tplvar['agent_2_v2'];
-              $agentCount++;
-              $tplvar['error'] .= 'Agent 2 added';
-            }
+          if($active == "Y"){
+            $agentNums[$agentCount] = $tplvar['agent_3_v2'];
+            $agentCount++;
+            $tplvar['error'] .= 'Agent 3 added';
           }
-          elseif ($tplvar['agent_3_v2'] != ''){
-            $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_3_v2'] . "'); ";
-            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            $row = mysql_fetch_assoc($result);
-            $active = $row['active'];
+        }
+        elseif ($tplvar['agent_4_v2'] != ''){
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_4_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $active = $row['active'];
 
-            if($active == "Y"){
-              $agentNums[$agentCount] = $tplvar['agent_3_v2'];
-              $agentCount++;
-              $tplvar['error'] .= 'Agent 3 added';
-            }
+          if($active == "Y"){
+            $agentNums[$agentCount] = $tplvar['agent_4_v2'];
+            $agentCount++;
+            $tplvar['error'] .= 'Agent 4 added';
           }
-          elseif ($tplvar['agent_4_v2'] != ''){
-            $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_4_v2'] . "'); ";
-            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            $row = mysql_fetch_assoc($result);
-            $active = $row['active'];
+        }
 
-            if($active == "Y"){
-              $agentNums[$agentCount] = $tplvar['agent_4_v2'];
-              $agentCount++;
-              $tplvar['error'] .= 'Agent 4 added';
-            }
-          }
-
-          if ($agentCount > 0){
-            shuffle($agentNums);
-            $agent_num = $agentNums[0];
-            if (strlen($agent_num) == 3){
-              if($agent_num == "TLH"){
-                $agent_num = "NMA";
-              }
-              $tplvar['agent_id_1'] = $agent_num;
-              $tplvar['error'] .= 'Nothing here';
-              $tplvar['agentCount'] = $agentCount;
-            }
-            else{
-              $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')";
-              $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-              while ($row = mysql_fetch_assoc($result)) {
-                $tplvar['office'] = $row['office'];
-              }
-              if ($tplvar['office'] == 'GC'){
-                $tplvar['office'] == 'CG';
-              }
-              $tplvar['error'] .= 'Got an office';
-
-              //Get code and manager id from office where code is office from zip_to_office
-              $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')";
-              $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-              $tplvar['mgr_id'] ="";
-              while ($row = mysql_fetch_assoc($result)) {
-                $tplvar['mgr_id'] = $row['mgr_id'];
-              }
-              $tplvar['error'] .= 'Got an id';
-              
-              $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')";
-              $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-              $row = mysql_fetch_assoc($result);
-              $active = $row['active'];
-  
-              if($active == "Y"){ $tplvar['agent_id_1'] = $tplvar['mgr_id']; }
-              else{ $tplvar['agent_id_1'] = "NB"; }              
-            }
+        if ($agentCount > 0){
+          shuffle($agentNums);
+          $agent_num = $agentNums[0];
+          if (strlen($agent_num) == 3){
+            $tplvar['agent_id_1'] = $agent_num;
+            $tplvar['error'] .= 'Nothing here';
+            $tplvar['agentCount'] = $agentCount;
           }
           else{
-            // Get office from zip_to_office where zip is zip of building
             $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')";
             $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            while ($row = mysql_fetch_assoc($result)) {
-              $tplvar['office'] = $row['office'];
-            }
-            if($tplvar['office'] == "SS"){
-              $tplvar['office'] = "BSS";
-            }
-            if($tplvar['office'] == "GC"){
-              $tplvar['office'] = "CG";
-            }
+            $row = mysql_fetch_assoc($result);
+            $tplvar['office'] = $row['office'];
+            if($tplvar['office'] == "SS"){ $tplvar['office'] = "BSS"; }
+            if($tplvar['office'] == "GC"){ $tplvar['office'] = "CG"; }
             $tplvar['error'] .= 'Got an office';
 
             //Get code and manager id from office where code is office from zip_to_office
             $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')";
             $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-            $tplvar['mgr_id'] = "";
-            while ($row = mysql_fetch_assoc($result)) {
-              $tplvar['mgr_id'] = $row['mgr_id'];
-            }
+            $row = mysql_fetch_assoc($result);
+            $tplvar['mgr_id'] = isset($row['mgr_id']) ? $row['mgr_id'] : '';
             $tplvar['error'] .= 'Got an id';
             
             $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')";
@@ -535,10 +376,35 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
             $active = $row['active'];
 
             if($active == "Y"){ $tplvar['agent_id_1'] = $tplvar['mgr_id']; }
-            else{ $tplvar['agent_id_1'] = "NB"; }             
+            else{ $tplvar['agent_id_1'] = "NB"; }              
           }
         }
-      };
+        else{
+          // Get office from zip_to_office where zip is zip of building
+          $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $tplvar['office'] = $row['office'];
+          if($tplvar['office'] == "SS"){ $tplvar['office'] = "BSS"; }
+          if($tplvar['office'] == "GC"){ $tplvar['office'] = "CG"; }
+          $tplvar['error'] .= 'Got an office';
+
+          //Get code and manager id from office where code is office from zip_to_office
+          $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $tplvar['mgr_id'] = isset($row['mgr_id']) ? $row['mgr_id'] : '';          
+          $tplvar['error'] .= 'Got an id';
+          
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+          $row = mysql_fetch_assoc($result);
+          $active = $row['active'];
+
+          if($active == "Y"){ $tplvar['agent_id_1'] = $tplvar['mgr_id']; }
+          else{ $tplvar['agent_id_1'] = "NB"; }             
+        }
+      }
 
       $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_1'] . "'); ";
       $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
@@ -552,19 +418,12 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['agent_bio_1'] = $row['bio'];
       $tplvar['agent_title'] = str_replace('Executive', 'Exec.', $tplvar['agent_title']);
 
-      if($tplvar['agent_title'] == "Sales Manager" || $tplvar['agent_title'] == "Sales Manager"){ 
-        $tplvar['agent_title'] = "Licensed Real Estate Sales Manager";
-      }
-      elseif($tplvar['agent_title'] == "Associate Broker"){
-        $tplvar['agent_title'] = "Licensed Associate Real Estate Broker";
-      }
-      elseif($tplvar['agent_title'] == "Salesperson"){
-        $tplvar['agent_title'] = "Licensed Real Estate Salesperson";
-      }
+      if($tplvar['agent_title'] == "Sales Director"){ $tplvar['agent_title'] = "Licensed Real Estate Sales Director"; }
+      elseif($tplvar['agent_title'] == "Sales Manager"){ $tplvar['agent_title'] = "Licensed Real Estate Sales Manager"; }
+      elseif($tplvar['agent_title'] == "Associate Broker"){ $tplvar['agent_title'] = "Licensed Associate Real Estate Broker"; }
+      elseif($tplvar['agent_title'] == "Salesperson"){ $tplvar['agent_title'] = "Licensed Real Estate Salesperson"; }
 
-      if($tplvar['agent_id_1'] == "NB"){
-        $tplvar['agent_email'] = "nbinder@homepik.com";
-      }
+      if($tplvar['agent_id_1'] == "NB"){ $tplvar['agent_email'] = "nbinder@homepik.com"; }
 
       $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_2'] . "'); ";
       $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
@@ -578,15 +437,10 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       $tplvar['agent_bio_2'] = $row['bio'];
       $tplvar['agent2_title'] = str_replace('Executive', 'Exec.', $tplvar['agent_title']);
 
-      if($tplvar['agent2_title'] == "Sales Manager" || $tplvar['agent2_title'] == "Sales Manager"){
-        $tplvar['agent2_title'] = "Licensed Real Estate Sales Manager";
-      }
-      elseif($tplvar['agent2_title'] == "Associate Broker"){
-        $tplvar['agent2_title'] = "Licensed Associate Real Estate Broker";
-      }
-      elseif($tplvar['agent2_title'] == "Salesperson"){
-        $tplvar['agent2_title'] = "Licensed Real Estate Salesperson";
-      }
+      if($tplvar['agent_title'] == "Sales Director"){ $tplvar['agent_title'] = "Licensed Real Estate Sales Director"; }
+      elseif($tplvar['agent2_title'] == "Sales Manager"){ $tplvar['agent2_title'] = "Licensed Real Estate Sales Manager"; }
+      elseif($tplvar['agent2_title'] == "Associate Broker"){ $tplvar['agent2_title'] = "Licensed Associate Real Estate Broker"; }
+      elseif($tplvar['agent2_title'] == "Salesperson"){ $tplvar['agent2_title'] = "Licensed Real Estate Salesperson"; }
 
       // DETERMINE IF IT'S AN IDX LISTING
       $SQL = "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $tplvar['RLS_id'] . "','\"')";
@@ -600,9 +454,7 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       if($_SESSION['agent']){
         foreach ($_SESSION['saved_listings'] as $key => $value) {
           if ($value[1] == $list_numb) {
-            if ($value[0] == $_SESSION['email']) {
-              $value[0] = 'Agent Folder';
-            }
+            if ($value[0] == $_SESSION['email']) { $value[0] = 'Agent Folder'; }
             else{
               $SQL = "SELECT first_name, last_name FROM `users` where (email = '" . $value[0] . "')";
               $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
@@ -616,53 +468,33 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
         }
       }
 
-      if($tplvar['broker'] == 'info@realplusonline.com'){
-        $tplvar['broker'] = "Real Plus Online";
-      }
-      elseif($tplvar['broker'] == 'takumi@realtymx.com'){
-        $tplvar['broker'] = "Realty MX";
-      }
+      if($tplvar['broker'] == 'info@realplusonline.com'){ $tplvar['broker'] = "Real Plus Online"; }
+      elseif($tplvar['broker'] == 'takumi@realtymx.com'){ $tplvar['broker'] = "Realty MX"; }
 
-      if(!$tplvar['contact_phone']){
-        $tplvar['extraPhone'] = "<br>";
-      }
-      else{
-        $tplvar['extraPhone'] = "or {$tplvar['contact_phone']} <br/>";
-      }
+      if(!$tplvar['contact_phone']){ $tplvar['extraPhone'] = "<br>"; }
+      else{ $tplvar['extraPhone'] = "or {$tplvar['contact_phone']} <br/>"; }
 
 
       // HTML TEMPLATE
-
       $templatehead = $smarty->fetch('headReduced.tpl.php', array('tplvar' => $tplvar));
       $template = $smarty->fetch('profile.tpl.php', array('tplvar' => $tplvar));
-  	 //  print $templatehead;
-        print $template; // display the templated profile page
+      print $template; // display the templated profile page
 
-// JAVASCRIPT TEMPLATE
-$jstemplate = $smarty->fetch('profile.tpl.js', array('tplvar' => $tplvar));
- // Display the templated javascript for the profile page
-echo "<div id='tobeInjected' style='display:none'>".
-$jstemplate
-."</div>";
+      // JAVASCRIPT TEMPLATE
+      $jstemplate = $smarty->fetch('profile.tpl.js', array('tplvar' => $tplvar));
+      // Display the templated javascript for the profile page
+      echo "<div id='tobeInjected' style='display:none'>". $jstemplate ."</div>";
 
       //Record viewed listing to the database
-      if (isset($_SESSION['agent'])) {
-        $user = $_SESSION['email'];
-        $role = 'agent';
-      } elseif (isset($_SESSION['user']) && isset($_SESSION['id'])) {
-        $user = $_SESSION['email'];
-        $role = 'user';
+      if(isset($_SESSION['agent']) || isset($_SESSION['buyer'])){
+        $from = (isset($_SESSION['email'])) ? $_SESSION['email'] : '';
+        $role = (isset($_SESSION['agent'])) ? 'agent' : 'user';
+        $time = date('U');
+  
+        $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
+        $db = mysql_select_db('sp', $con) or die(mysql_error());
+        $res = mysql_query("INSERT INTO viewed_listings(`user`,`list_num`, `role`, `time`) VALUES  ('" . $_SESSION['email'] . "','" . $list_numb . "','" . $role . "','" . $time . "')") or die(mysql_error());
       }
-      if(isset($user) && isset($role)){
-
-         $from = (isset($_SESSION['email'])) ? $_SESSION['email']:'';
-      $time = date('U');
-
-      $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-      $db = mysql_select_db('sp', $con) or die(mysql_error());
-      $res = mysql_query("INSERT INTO viewed_listings(`user`,`list_num`, `role`, `time`) VALUES  ('" . $user . "','" . $list_numb . "','" . $role . "','" . $time . "')") or die(mysql_error());
-      }
-
     }
   }
 };
