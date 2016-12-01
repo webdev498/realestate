@@ -919,6 +919,7 @@ if(isset($_GET['save'])){
           if($notifications == 'all' || $notifications == 'folder'){
             $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
             $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
+			$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
             $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
             $message .= "HomePik.com is licensed by Nice Idea Media";
             $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$user."'>Change Email Alert Settings</a></center><br>";
@@ -967,6 +968,7 @@ if(isset($_GET['save'])){
           
           $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
           $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to their folder: " . $name;
+		  $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
           $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
           $message .= "HomePik.com is licensed by Nice Idea Media";
       
