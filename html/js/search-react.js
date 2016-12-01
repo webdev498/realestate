@@ -5541,3 +5541,47 @@ var EditCriteria = React.createClass({
     );
   }
 });
+
+$('body').delegate('.view-bubble-grades','click',function(e){
+  var $dialog =  $("#ajax-box").dialog({
+    width: 260,
+    dialogClass: 'viewGradesPopup',
+    modal: true,
+    close: function(){
+      ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+      var div = document.createElement('div');
+      div.id = 'ajax-box';
+      document.getElementsByTagName('body')[0].appendChild(div);
+      $( this ).remove();
+    },
+    open: function(){
+      $(this).css("display", "block");
+      $(".ui-widget-overlay").bind("click", function(){
+        $("#ajax-box").dialog('close');
+      });
+    }
+  });
+  var closeDialog = function(){
+    $dialog.dialog('close');
+  }.bind(this)
+
+  $("#overlay").show();
+  ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
+});
+  
+var GradeBubbles = React.createClass({
+  closePopup: function(){
+    {this.props.closeDialog()}
+  },
+  render: function(){
+    return(
+      <div id="gradeBubbles">
+        <i id="closeGradeBubblePopup" className="fa fa-times" onClick={this.closePopup} data-toggle='tooltip' title='close'></i>
+        <h3>Grade Bubble Meanings</h3>
+        <h6 className="Text-2-ex-lead" id="u334-12"><img className="viewImgs" src="../images/meets.png"/> = meets your criteria</h6>
+        <h6 className="Text-2-ex-lead" id="u334-14"><img className="viewImgs" src="../images/exceeds.png"/> = exceeds your criteria</h6>
+        <h6 className="Text-2-ex-lead"><img className="viewImgs" src="../images/greatly.png"/> = greatly exceeds your</h6>
+      </div>
+    );
+  }
+});

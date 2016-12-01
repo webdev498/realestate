@@ -47,6 +47,23 @@ else{ $mainPage = ""; }
 	<div id="ajax-box"></div>
 	<div id="ajax-box2"></div>
 <script type="text/babel">
+  var GradeBubbles = React.createClass({
+		closePopup: function(){
+		  {this.props.closeDialog()}
+		},
+		render: function(){
+			return(
+				<div id="gradeBubbles">
+          <i id="closeGradeBubblePopup" className="fa fa-times" onClick={this.closePopup} data-toggle='tooltip' title='close'></i>
+					<h3>Grade Bubble Meanings</h3>
+          <h6 className="Text-2-ex-lead" id="u334-12"><img className="viewImgs" src="/images/meets.png"/> = meets your criteria</h6>
+          <h6 className="Text-2-ex-lead" id="u334-14"><img className="viewImgs" src="/images/exceeds.png"/> = exceeds your criteria</h6>
+          <h6 className="Text-2-ex-lead"><img className="viewImgs" src="/images/greatly.png"/> = greatly exceeds your</h6>
+				</div>
+			);
+		}
+	});
+  
   var EmailFolder = React.createClass({
     getInitialState: function() {
 			return{
@@ -203,6 +220,32 @@ else{ $mainPage = ""; }
 		  change[name] = event.target.value;
 		  this.setState(change);
 		},
+    viewGrades: function(){
+			var $dialog =  $("#ajax-box").dialog({
+				width: 260,
+				dialogClass: 'viewGradesPopup',
+        modal: true,
+				close: function(){
+					ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+					var div = document.createElement('div');
+					div.id = 'ajax-box';
+					document.getElementsByTagName('body')[0].appendChild(div);
+					$( this ).remove();
+				},
+        open: function(){
+          $(this).css("display", "block");
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+			});
+			var closeDialog = function(){
+				$dialog.dialog('close');
+			}.bind(this)
+
+			$("#overlay").show();
+			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
+		},
     emailFolder: function(name){
       var $dialog =  $("#ajax-box").dialog({
 				width: 565,
@@ -296,10 +339,10 @@ else{ $mainPage = ""; }
                   <td style={{textAlign: "center", width: 40 + 'px'}}>{listing.bed}</td>
                   <td style={{textAlign: "center", width: 51 + 'px'}}>{listing.bath}</td>
                   <td style={{width: 80 + 'px'}}>${listing.monthly}</td>
-                  <td style={{textAlign: "center", width: 35 + 'px'}}><img className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
-                  <td style={{textAlign: "center", width: 39 + 'px'}}><img className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
-                  <td style={{textAlign: "center", width: 37 + 'px'}}><img className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
-                  <td style={{textAlign: "center", width: 45 + 'px'}}><img className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
+                  <td style={{textAlign: "center", width: 35 + 'px'}}><img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
+                  <td style={{textAlign: "center", width: 39 + 'px'}}><img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
+                  <td style={{textAlign: "center", width: 37 + 'px'}}><img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
+                  <td style={{textAlign: "center", width: 45 + 'px'}}><img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
                   <td style={{width: 33 + 'px'}}></td>
                   <td style={{width: 290 + 'px'}}>
                     <a style={{cursor: "pointer"}} onClick={this.editComment.bind(this, listing.comments, listing.listing_num, listing.folder)}>{listing.comments} &nbsp;<span id="u16157-13"><i className="fa fa-plus" data-toggle='tooltip' title='edit comment'></i></span></a>
@@ -329,10 +372,10 @@ else{ $mainPage = ""; }
                   <tbody>
                     <tr>
                       <td style={{width: 150 + 'px'}}>${listing.monthly} / month</td>
-                      <td style={{width: 120 + 'px'}}>Location: <img className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
-                      <td style={{width: 120 + 'px'}}>Building: <img className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
-                      <td style={{width: 105 + 'px'}}>View: <img className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
-                      <td style={{width: 120 + 'px'}}>Space: <img className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Location: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Building: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
+                      <td style={{width: 105 + 'px'}}>View: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Space: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
                     </tr>
                   </tbody>
                 </table>
@@ -374,12 +417,12 @@ else{ $mainPage = ""; }
                 <table className="smallTable" style={{marginLeft: 40 + "px"}}>
                   <tbody>
                     <tr>
-                      <td style={{width: 120 + 'px'}}>Location: <img className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
-                      <td style={{width: 120 + 'px'}}>Building: <img className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Location: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.loc} height="16" data-toggle='tooltip' title={listing.locTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Building: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.bld} height="16" data-toggle='tooltip' title={listing.bldTitle}/></td>
                     </tr>
                     <tr>
-                      <td style={{width: 105 + 'px'}}>View: <img className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
-                      <td style={{width: 120 + 'px'}}>Space: <img className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
+                      <td style={{width: 105 + 'px'}}>View: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.vws} height="16" data-toggle='tooltip' title={listing.vwsTitle}/></td>
+                      <td style={{width: 120 + 'px'}}>Space: <img style={{cursor: "pointer"}} onClick={this.viewGrades} className='quality2' src={listing.space} height="16" data-toggle='tooltip' title={listing.spaceTitle}/></td>
                     </tr>
                   </tbody>
                 </table>

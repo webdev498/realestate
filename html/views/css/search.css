@@ -546,6 +546,7 @@ table#list tr:nth-last-child(3) div.need-to-signup-first-div.bubble.speech.save-
 #profile #lm3 .agent-info-list  i{ color:#0085c6; font-family: "__FontAwesome_5"; font-size: 14px; font-weight: 400; line-height: 21px; }
 #profile #lm3 .agent-info-list span { color: #0085c6; font-family: lato,sans-serif; font-size: 17px; font-weight: bold; line-height: 26px; text-decoration: underline; }
 #profile #lm3 .agent-info-list span.agentEmail{ color: #646464 !important; font-weight: 100; margin-left: 15px; text-decoration: none;}
+#profile #lm3 #agentSpacing{ margin-top: 25px; }
 #profile .listingtop3, #profile   .listingmain3 { float:right; margin-left:10px; width:205px;}
 #mkt_desc { color: #646464; font-family: lato, sans-serif; font-size: 17px; letter-spacing: 0em; line-height: 23px; padding: 0px; text-align: justify; }
 #email-txt {padding-bottom: 30px !important;}
@@ -627,10 +628,7 @@ table#list tr:nth-last-child(3) div.need-to-signup-first-div.bubble.speech.save-
 .send-listing-popup-submit { cursor: pointer; }
 
 .ui-dialogue-agent-bio{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: auto !important; margin: -50px 0 0 -125px; max-height: 95%; overflow-y: auto; padding-bottom: 20px; position: fixed !important; width: 610px !important; z-index: 1010; }
-/*.ui-dialogue-agent-bio img{max-width: 483px; max-height: 483px}
-.ui-dialogue-agent-bio-content img{max-width: 483px; max-height: 483px}*/
 .ui-dialogue-agent-bio-content{top: 50% !important;}
-/*.ui-dialogue-agent-bio-img{	width: auto;	height: auto;} */
 .ui-dialogue-agent-bio-img{	width: 100%;}
 .ui-dialogue-agent-bio .ui-resizable-handle{ display: none !important; }
 .ui-dialogue-agent-bio-desc{ color: #646464; font-family: lato,sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; margin: 0; padding: 0; text-align: justify; }
@@ -662,7 +660,6 @@ table#list tr:nth-last-child(3) div.need-to-signup-first-div.bubble.speech.save-
 .guestSavePopup #guestSave{ left: 40% !important; position: fixed !important; top: 30% !important; height: 31%;}
 .guestSavePopup #guestSave .bottomCloser{ color: #939393; cursor: pointer; float: right; font-family: lato,sans-serif; font-size: 18px !important; font-weight: normal; right: 20px; top: unset; }
 .saveListingPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 500px; max-width: 400px; outline: 0px none; position: fixed !important; top: 8% !important; width: 100% !important; z-index: 1003 !important; }
-/* .saveListingPopup{ display: block; height: 0 !important; left: 35% !important; outline: 0px none; position: fixed !important; top: 8% !important; width: 0 !important; /* z-index: 1003 !important;*/ /*} */
 .saveListingPopup .ui-resizable-handle, .guestSavePopup .ui-resizable-handle{ display: none !important; }
 .save-listing-guest{ cursor: pointer; }
 .need-to-signup-first-div.bubble.speech.save-this-listing-popup{ font-weight: normal; left: 35% !important; max-height: 500px; overflow-y: auto; padding: 50px 30px 30px; position: fixed !important; right: 0 !important; top: 8% !important; width: 400px; z-index: 1004; }
@@ -708,7 +705,6 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 .tab-head-div .need-to-signup-first-div.listing-removed-from-tip.tab-remove { background-color: #ececec; border: medium none; color: #d3922c; cursor: pointer; font-family: lato,sans-serif; font-size: 16px; font-weight: 400; left: 195px; margin-left: 0 !important; margin-top: 0 !important; padding: 2px 13px; position: relative; top: -23px; width: auto; }
 .need-to-signup-first-div.listing-removed-from-tip.listing-details-remove { background-color: #ececec; border: medium none; color: #d3922c; cursor: pointer; font-family: lato,sans-serif; font-size: 16px; font-weight: 400; margin-left: 16px; margin-top: 0px !important; padding: 2px 13px; width: auto; }
 
-/* .tab-head-div .need-to-signup-first-div.bubble.speech.save-this-listing-popup { font-weight: normal; left: auto !important; padding: 50px 20px 30px; right: 0 !important; top: 52px !important; width: 250px; } */
 .tab-head-div .need-to-signup-first-div.bubble.speech.save-this-listing-popup::before { left: auto; right: 1px; }
 .tab-head-div .need-to-signup-first-div.bubble.speech.save-this-listing-popup::after { left: auto; right: 0; }
 .tab-head-div .need-to-signup-first-div.bubble.speech.save-this-listing-popup .save-this-listing-popup-comment { float: left; width: 100% !important; }

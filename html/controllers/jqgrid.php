@@ -567,43 +567,43 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   $s .= "<cell><![CDATA[<div id='amenity_icons' title='" . $amenity_names . "'>" . $amenity_icons . "</div>]]></cell>";
 
   if( strpos($loc, "gold") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' class='quality' alt='Best Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' class='quality view-bubble-grades' style='cursor: pointer' alt='Best Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
   } elseif( strpos($loc, "silver") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' class='quality' alt='Better Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' class='quality view-bubble-grades' style='cursor: pointer' alt='Better Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
   } elseif( strpos($loc, "bronze") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' class='quality' alt='Satisfactory Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' class='quality view-bubble-grades' style='cursor: pointer' alt='Satisfactory Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
   } else{
-    $s .= "<cell><![CDATA[<img class='quality' alt='Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img class='quality view-bubble-grades' style='cursor: pointer' alt='Location Match' src='http://homepik.com/" . $loc . "'/>]]></cell>";
   }
 
   if( strpos($bld, "gold") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' alt='Best Building Match' class='quality' src='http://homepik.com/" . $bld . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' alt='Best Building Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $bld . "'/>]]></cell>";
   } elseif( strpos($bld, "silver") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' alt='Better Building Match' class='quality' src='http://homepik.com/" . $bld . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' alt='Better Building Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $bld . "'/>]]></cell>";
   } elseif( strpos($bld, "bronze") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' alt='Satisfactory Building Match' class='quality' src='http://homepik.com/" . $bld . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' alt='Satisfactory Building Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $bld . "'/>]]></cell>";
   } else{
-    $s .= "<cell><![CDATA[<img class='quality' alt='Building Match' src='http://homepik.com/" . $bld . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img class='quality view-bubble-grades' style='cursor: pointer' alt='Building Match' src='http://homepik.com/" . $bld . "'/>]]></cell>";
   }
 
   if( strpos($vws, "gold") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' alt='Best Views Match' class='quality' src='http://homepik.com/" . $vws . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' alt='Best Views Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $vws . "'/>]]></cell>";
   } elseif( strpos($vws, "silver") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' alt='Better Views Match' class='quality' src='http://homepik.com/" . $vws . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' alt='Better Views Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $vws . "'/>]]></cell>";
   } elseif( strpos($vws, "bronze") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' alt='Satisfactory Views Match' class='quality' src='http://homepik.com/" . $vws . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' alt='Satisfactory Views Match' class='quality view-bubble-grades' style='cursor: pointer' src='http://homepik.com/" . $vws . "'/>]]></cell>";
   } else{
-    $s .= "<cell><![CDATA[<img class='quality' alt='Views Match' src='" . $vws . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img class='quality view-bubble-grades' style='cursor: pointer' alt='Views Match' src='" . $vws . "'/>]]></cell>";
   }
 
   if( strpos($spac, "gold") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' class='quality' alt='Best Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Best' class='quality view-bubble-grades' style='cursor: pointer' alt='Best Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
   } elseif( strpos($spac, "silver") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' class='quality' alt='Better Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Better' class='quality view-bubble-grades' style='cursor: pointer' alt='Better Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
   } elseif( strpos($spac, "bronze") !== false ){
-    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' class='quality' alt='Satisfactory Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img data-toggle='tooltip' title='Satisfactory' class='quality view-bubble-grades' style='cursor: pointer' alt='Satisfactory Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
   } else{
-    $s .= "<cell><![CDATA[<img class='quality' alt='Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
+    $s .= "<cell><![CDATA[<img class='quality view-bubble-grades' style='cursor: pointer' alt='Space Match' src='http://homepik.com/" . $spac . "'/>]]></cell>";
   }
 
   $s .= "</row>";

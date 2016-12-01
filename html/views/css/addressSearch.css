@@ -108,7 +108,6 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 #listings li.ui-tabs-selected .ui-icon-close { background-image: url('/images/gray_cross_no_background.png'); }
 #listings li .ui-icon-close { cursor: pointer; position: absolute; right: 10px; top: 0.43em;}
 #listings .icon-heart { color: #c2c2c2; font-size: 15px; margin-top: 3px; position: absolute; right: 24px; top: 6px; }
-/*#listings li:nth-child(2) .icon-heart { color: #c2c2c2; font-size: 15px; margin-top: 3px; position: absolute; right: -212px; top: 6px; }*/
 #listings .fa:hover, .icon-heart:hover { color:RGB(57,151,209); }
 #listings .tab-head-div .bubble li { border: medium none !important; border-radius: 0; font-variant: normal; height: auto !important; margin-bottom: 5px; margin-left: 0 !important; margin-right: 0 !important; margin-top: 5px; top: auto; width: 100% !important; }
 .ui-tabs .ui-tabs-nav li .no-link{ color: #626262 !important; }
@@ -117,10 +116,9 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .ui-tabs .ui-tabs-nav{ border-radius: 6px 6px 0 0; bottom: 0; margin: 0; padding: 0.4em 0.2em 0; position: relative; right: 4px; width: 959px; z-index: 111; -moz-border-radius: 6px 6px 0 0; }
 .ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all { float: left; width: 100%; }
 .tab-save { color: #666666; cursor: pointer; font-size: 0.9em; font-variant: small-caps; font-weight: normal; right: 10px; position: absolute; right: 0px !important;  top: 0px !important; }
-.tab-saved { color: #0085c6 !important; cursor: pointer; font-size: 1.2em; font-variant: small-caps; font-weight: 900; /*position: absolute;*/ top: 0px !important; }
+.tab-saved { color: #0085c6 !important; cursor: pointer; font-size: 1.2em; font-variant: small-caps; font-weight: 900; top: 0px !important; }
 .tab-saved-body { color: #0085c6 !important; }
 .btnicon { height: 16px; margin-left: 12px; margin-right: -7px; position: relative; top: 2px; }
-/* #listings, #new-thead{ display: none; } */
 
 .thead-container { background: white none repeat scroll 0% 0%; float: left; height: 39px; left: 4px; position: relative; max-width: 1200px; width: 100%; z-index: 50; }
 .thead-container.fixedTheadTop { background: white none repeat scroll 0% 0%; float: left; left: initial; position: fixed; max-width: 1180px; top:32px; width: 100%; z-index: 1000; }
@@ -212,7 +210,7 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .compareListingsPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 5% !important; max-height: 97%; max-width: 600px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1005 !important; }
 .compareListingsPopup .ui-resizable-handle{ display: none !important; }
 .compareListingsPopup #compare-listings{ background: #FFFFFF; border: 1px solid #B2B2B2; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 100% !important; left: 5% !important; max-height: 97%; max-width: 1200px; padding: 10px 50px; position: fixed !important; top: 2% !important; width: 90% !important; }
-.fa.fa-times.compare-listings-closer{ color: #b2b2b2 !important; float: right; font-size: 25px !important; margin-right: -35px; }
+.compare-listings-closer{ color: #b2b2b2 !important; float: right; font-size: 25px !important; margin-right: -35px; }
 #folderSection{	min-height: 125px;	margin-top: 103px; }
 .listingSection{ display: none; }
 #pu16157-235{	width: 0.01px;	margin-left: -109px;	margin-top: 20px;}
@@ -256,7 +254,7 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 #u28562-3{	font-size: 16px;	color: #7F7F7F;	font-family: lato, sans-serif;	font-weight: 600;	font-style: italic;	line-height: 22px;}
 
 /*Email Folder Popup*/
-.emailFolderPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 97%; max-width: 400px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1008 !important; }
+.emailFolderPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 97%; max-width: 400px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1010 !important; }
 .ui-dialog.emailFolderPopup .ui-resizable-handle{	display: none !important;}
 .emailFolderPopup #email-listing-folder{ background: #FFFFFF; border: 1px solid #B2B2B2; border-radius: 6px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: auto !important; left: 35%; max-height: 450px; max-width: 400px; position: fixed; top: 17%; width: 100% !important;}
 .emailFolderPopup textarea{ border: 1px solid rgb(100, 100, 100); height: 100px; width: 350px; }
@@ -419,7 +417,7 @@ tr.ui-state-hover { background: none !important; border: none !important; }
 #closePopup2{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 525px;	top: 10px; width: 10px; }
 
 /* Choose/View Buying Formula */
-.ui-dialog.viewBuyingFormula{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); display: block !important; height: 535px !important; left: 30% !important; margin: -50px 0 0 -125px; position: fixed !important; top: 15% !important; width: 795px !important; z-index: 1006 !important; }
+.ui-dialog.viewBuyingFormula{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); display: block !important; height: 535px !important; left: 30% !important; margin: -50px 0 0 -125px; position: fixed !important; top: 15% !important; width: 795px !important; z-index: 1010 !important; }
 .ui-dialog.viewBuyingFormula #ajax-box{ height: 100% !important; max-height: 535px; }
 #searchFormulaSubmit { background: none; border: none; float: right; }
 #searchFormulaSubmit #submit { color: #646464 !important; font-family: 'Lato', sans-serif !important; font-size: 1.1em !important; font-weight: bold !important; padding: 0; }
@@ -484,6 +482,7 @@ tr.ui-state-hover { background: none !important; border: none !important; }
 #profile .listingtop2, #profile  .listingmain2 { float: left; margin-left: 25px; width: 240px; }
 #profile #lm3 { margin-left: 0 !important; width: 265px !important; }
 #profile #lm3 .agent { padding-right: 5px; width: 118px !important; }
+#profile #lm3 #agentSpacing{ margin-top: 25px; 
 #profile .listingtop3, #profile   .listingmain3 { float:right; margin-left:10px; width:205px; }
 #profile .prop h2 { color: #777777; font-family:'Lato', sans-serif; font-size: 23px; font-weight:bold; letter-spacing:0em; margin-bottom:10px; margin: 0; text-decoration:none; text-transform:none; }
 #profile .imagebig img{ background-color:white; height:335px !important; margin-bottom:5px; overflow:hidden; text-align:left; width:100% !important; }

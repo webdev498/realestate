@@ -32,6 +32,7 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 .ui-widget-overlay{ background: #ffffff !important; opacity: 0.8 !important; position: fixed; }
 
 .Subhead-2{	color: #7F7F7F;	font-family: lato, sans-serif;	font-size: 30px;	font-weight: 300;	text-align: center;	padding: 0px;}
+.Text-2-ex-lead{ color: #7F7F7F; font-family: lato, sans-serif; font-size: 16px; font-weight: 300; line-height: 32px; padding: 0px; }
 .Text-1 { color: #7F7F7F; font-family: lato, sans-serif; font-size: 16px; font-weight: 300; line-height: 22px; padding: 0px; }
 .text-popups{ color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding: 0px; }
 
@@ -68,6 +69,12 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 .ui-dialog.clearListingsPopup #title{ text-align: left !important; }
 .ui-dialog.clearListingsPopup #submit{ cursor: pointer; text-align: right !important; }
 .ui-dialog.clearListingsPopup #firstOption{ padding-bottom: 5px; }
+
+.viewGradesPopup{ z-index: 1010 !important; }
+.viewGradesPopup .ui-resizable-handle{ display: none !important; }
+#closeGradeBubblePopup{ color: #B2B2B2;	cursor: pointer; float: right; }
+#gradeBubbles h3{color: #7f7f7f; font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 1; margin-bottom: 20px; padding: 0; text-align: center; }
+#gradeBubbles #u334-12, #gradeBubbles #u334-14{ padding-bottom:6px; }
 
 #u21295 { background: transparent url("/images/buttons_browse_sales_blue_states-browse%20sales%20normal.png") no-repeat left top; background-size: contain; height: 60px; left: 50px; margin-right: -10000px; margin-top: 30px; position: relative; width: 220px; z-index: 72; }
 #u21295:hover { background: transparent url("/images/buttons_browse_sales_blue_states-browse%20sales%20over.png") no-repeat left top; background-size: contain; height: 60px; min-height: 0px; margin: 30px -10000px 0px 0px; width: 220px; }
