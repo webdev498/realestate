@@ -59,6 +59,7 @@ include "../functions.php";
 			elseif (authentication () == 'guest'){
 				mysql_query("DELETE FROM users_folders WHERE name = 'Guest Folder'");
 				mysql_query("DELETE FROM saved_listings WHERE role = 'guest'");
+				mysql_query("DELETE FROM viewed_listings WHERE role = 'guest'");
 				session_unset();
 				session_destroy();
 				session_commit();
