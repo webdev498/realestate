@@ -47,10 +47,15 @@ if(isset($email) && $email != ''){
       }
     }
     
-    $SQL4 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$email."')";
-    $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
-    $row4 = mysql_fetch_array($result4,MYSQL_ASSOC);
-    $row['buyerName'] = $row4['name'];
+	//if (isset($_SESSION['guestID']){
+	//	$row['buyerName'] = 'Guest';
+	//} else {
+	
+		$SQL4 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$email."')";
+		$result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+		$row4 = mysql_fetch_array($result4,MYSQL_ASSOC);
+		$row['buyerName'] = $row4['name'];
+	//}
     
     $folders[] = $row;
   }
