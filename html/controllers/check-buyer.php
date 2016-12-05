@@ -76,6 +76,7 @@ else if(isset($_POST['passReset'])){
   }
 }
 else{
+  $email = $_POST['email'];
   $SQL = "SELECT * FROM `users` WHERE (email = '".$email."')"; 
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
