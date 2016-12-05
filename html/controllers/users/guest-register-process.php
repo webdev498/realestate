@@ -262,7 +262,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							$_SESSION['logged_in'] = $time;
 
 							// Create a default folder to save listings to
-							if(!isset($agent_code)){ $agent_code = ''; }
+							//if(!isset($agent_code)){ $agent_code = ''; }
 							if(isset($_SESSION['guestID'])){
 								$res = mysql_query("SELECT * FROM `users_folders` WHERE user = '".$_SESSION['guestID']."'");
 								$num = mysql_num_rows($res);

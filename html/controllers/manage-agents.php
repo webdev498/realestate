@@ -36,7 +36,10 @@ else{ $mainPage = ""; }
         status: this.props.info['active'],
         admin: this.props.info['admin'],
         bio: this.props.info['bio'],
-        edit: "false"
+        newPass: "",
+        confPass: "",
+        edit: "false",
+        changePassword: "false"
       }
     },    
 	  handleChange: function (name, event) {
@@ -46,6 +49,9 @@ else{ $mainPage = ""; }
     },
     handleEditOptionChange: function(name,event){
       this.setState({edit: "true"});
+    },
+    handleChangePasswordOption: function(name,event){
+      this.setState({changePassword: "true"});
     },
     updatePhone: function(){
 		  var number = this.state.phone;
@@ -82,31 +88,94 @@ else{ $mainPage = ""; }
 				}
 		  }
 		},
-    submitInfo: function(){
-      $.get("ajax.php", {
-        updateAgent: 'true',
-        oldEmail: this.state.oldEmail,
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        title: this.state.title,
-        email: this.state.email,
-        phone: this.state.phone,
-        status: this.state.status,
-        admin: this.state.admin,
-        bio: this.state.bio,
-        success: function(result){
-          console.log(result);
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              this.setState({edit: "false"});
-              this.props.getActiveAgents();
-              this.props.getArchivedAgents();
+    checkPassword: function(){
+      if( this.state.changePassword == "true" && this.state.newPass != "" && this.state.confPass != "" && this.state.newPass.length >= 5 && this.state.confPass.length >= 5 ){
+        if(this.state.newPass == this.state.confPass){ return true; }
+        else{
+          $("#ajax-box").dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto',
+            autoOpen: false,
+            dialogClass: 'ajaxbox errorMessage',
+            buttons : {
+              Ok: function(){
+                $(this).dialog("close");
+              }
+            },
+            close: function() {
+              $( this ).dialog( "destroy" );
+            },
+            open: function(){
+              $(".ui-widget-overlay").bind("click", function(){
+                $("#ajax-box").dialog('close');
+              });
             }
-          }.bind(this));
-        }.bind(this)
-		  });
+          });
+          $('#ajax-box').load('messages.php #passwordsMatch',function(){
+            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          });
+          
+          return false;
+        }
+      }
+      else{
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage',
+          buttons : {
+            Ok: function(){
+              $(this).dialog("close");
+            }
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #passwordRequirement',function(){
+          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+        });
+        
+        return false;
+      }
+    },
+    submitInfo: function(){
+      if(this.checkPassword()){
+        $.get("ajax.php", {
+          updateAgent: 'true',
+          oldEmail: this.state.oldEmail,
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
+          title: this.state.title,
+          email: this.state.email,
+          phone: this.state.phone,
+          status: this.state.status,
+          admin: this.state.admin,
+          bio: this.state.bio,
+          newPass: this.state.newPass,
+          success: function(result){
+            console.log(result);
+            var ajaxStop = 0;
+            $(document).ajaxStop(function() {
+              if(ajaxStop == 0){
+                ajaxStop++;
+                this.setState({edit: "false"});
+                this.setState({changePassword: "false"});
+                this.props.getActiveAgents();
+                this.props.getArchivedAgents();
+              }
+            }.bind(this));
+          }.bind(this)
+        });
+      }
     },
     closePopup: function(){
       $("#overlay").hide();
@@ -179,6 +248,25 @@ else{ $mainPage = ""; }
                   <td className="text-popups">Bio:</td>
                   <td className="text-popups">{this.state.edit == "true" ? <textarea type="text" id="formBio" value={this.state.bio} name="bio" onChange={this.handleChange.bind(this, 'bio')} /> : this.state.bio }</td>
                 </tr>
+                {this.state.changePassword == "true" ?
+                  <tr>
+                    <td className="text-popups">New Password: </td>
+                    <td className="text-popups"><input type="password" className="users input1 required newPassword" name="newPassword" size="25" autocomplete="off" onChange={this.handleChange.bind(this, 'newPass')} /></td>
+                  </tr>
+                : null }
+                {this.state.changePassword == "true" ?
+                  <tr>
+                    <td className="text-popups">Retype Password: </td>
+                    <td className="text-popups"><input type="password" className="users input1 required confirmPassword" name="confirmPassword" autocomplete="off" size="25"onChange={this.handleChange.bind(this, 'confPass')} /></td>
+                  </tr>
+                : null }
+                {this.state.edit == "true" && this.state.changePassword == "false" ?
+                  <tr id="editInformation">
+                    <td className="text-popups" colSpan="2">
+                      <a className="indent" style={{cursor: 'pointer'}} onClick={this.handleChangePasswordOption}>change password</a>
+                    </td>
+                  </tr>
+                : null }  
                 <tr><td></td></tr>
                 {this.state.edit == "true" ?
                   <tr>
@@ -459,7 +547,7 @@ else{ $mainPage = ""; }
     archiveAgents: function(){
       var agents = [];
       
-      $("#updateAgents #activeAgents input[name=deleteAgent]:checked").each(function(){ agents.push($(this).val()) });
+      $("#updateAgents #activeAgentsTable input[name=updateAgent]:checked").each(function(){ agents.push($(this).val()) });
             
       $.get("ajax.php", {
         archiveAgent: 'true',
@@ -479,7 +567,7 @@ else{ $mainPage = ""; }
     activateAgents: function(){
       var agents = [];
       
-      $("#updateAgents #archivedAgents input[name=deleteAgent]:checked").each(function(){ agents.push($(this).val()) });
+      $("#updateAgents #archivedAgentsTable input[name=updateAgent]:checked").each(function(){ agents.push($(this).val()) });
             
       $.get("ajax.php", {
         activateAgent: 'true',
@@ -598,7 +686,7 @@ else{ $mainPage = ""; }
                       <div role="tabpanel" className="tab-pane active" id="activeAgents">
                         {this.state.registered_active_agents.length > 0 ?
                           <div>
-                            <table id="activeAgents">
+                            <table id="activeAgentsTable">
                               <tbody id="displayActiveAgents">
                               </tbody>
                             </table>
@@ -617,7 +705,7 @@ else{ $mainPage = ""; }
                       <div role="tabpanel" className="tab-pane" id="archivedAgents">
                         {this.state.registered_archived_agents.length > 0 ?
                           <div>
-                            <table id="archivedAgents">
+                            <table id="archivedAgentsTable">
                               <tbody id="displayArchivedAgents">
                               </tbody>
                             </table>

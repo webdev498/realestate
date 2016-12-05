@@ -441,6 +441,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       elseif($tplvar['agent2_title'] == "Sales Manager"){ $tplvar['agent2_title'] = "Licensed Real Estate Sales Manager"; }
       elseif($tplvar['agent2_title'] == "Associate Broker"){ $tplvar['agent2_title'] = "Licensed Associate Real Estate Broker"; }
       elseif($tplvar['agent2_title'] == "Salesperson"){ $tplvar['agent2_title'] = "Licensed Real Estate Salesperson"; }
+      
+      if($tplvar['agent_id_2'] == "NB"){ $tplvar['agent2_email'] = "nbinder@homepik.com"; }
 
       // DETERMINE IF IT'S AN IDX LISTING
       $SQL = "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $tplvar['RLS_id'] . "','\"')";

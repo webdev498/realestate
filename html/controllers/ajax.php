@@ -2013,6 +2013,19 @@ if(isset($_GET['updateAgent'])){
       $res7 = mysql_query("UPDATE `viewed_listings` SET `user`='".$_GET['email']."' WHERE (user = '".$oldEmail."')");
     }
   }
+  
+  if(isset($_GET['newPass']) && $_GET['newPass'] != ""){
+    $res = mysql_query("SELECT rtime FROM `registered_agents` WHERE email = '" . $_GET['email'] . "'");
+    $row = mysql_fetch_assoc($res);
+    $registerTime = $row['rtime'];
+    $numRow = mysql_num_rows($res);
+    
+    if($numRow > 0){
+      $newPassword = string_encrypt($_GET['newPass'], $registerTime);
+      $res2 = mysql_query("UPDATE `registered_agents` SET password = '" . $newPassword . "' WHERE email = '" . $_GET['email'] . "'");
+      $row = mysql_fetch_assoc($res2);		
+    }
+  }
 };
 
 // SAVE MESSAGE

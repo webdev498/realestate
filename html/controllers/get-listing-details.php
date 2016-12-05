@@ -57,13 +57,10 @@ if($list_num != ''){
   $result1 = mysql_query($select1) or die(mysql_error() . " " . $select1);
   $row1 = mysql_fetch_array($result1, MYSQL_ASSOC);
   
-  $broker = $row1['name'];
-  $contact = $row['contact'];
-  $contact_email = $row['contact_email'];
-  $contact_phone = $row['contact_phone'];
+  $role = $_SESSION['role'];
   $RLS_id = $row['RLS_id'];
-  $price = $row['price'];
   $zip = $row['zip'];
+  $price = $row['price'];
   $price = number_format($price, 0, '.', ',');
   $loc = $row['loc'];
   $loc = number_format($loc, 0, '.', ',');
@@ -78,7 +75,22 @@ if($list_num != ''){
   $bath = $row['bath'];
   $bath = number_format($bath, 0, '.', ',');
   $address = $row['address'];
-  $photo1 = $row['photo1']; if ($photo1 == ''){$photo1 = 'http://www.homepik.com/images/nopicture3.png';};
+  $contract = $row['contract'];
+  //$contract = str_replace("BEXCL", "Bellmarc", $contract);
+  //$contract = str_replace("OPEN", "the owner (open listing)", $contract);
+  $broker = $row1['name'];
+  $broker = str_replace("Bellmarc Exc", "Bellmarc", $broker);
+  $broker = str_replace("rebny", "", $broker);
+  $broker = ucwords(strtolower($broker));
+  $owner = $row['owner'];
+  $owner = str_replace("Bellmarc Exc", "Bellmarc", $owner);
+  $owner = str_replace("rebny", "", $owner);
+  $owner = ucwords(strtolower($owner));
+  $contact = $row['contact'];
+  $contact_email = $row['contact_email'];
+  $contact_phone = $row['contact_phone'];
+  $photo1 = $row['photo1'];
+  if ($photo1 == ''){$photo1 = 'http://www.homepik.com/images/nopicture3.png';};
   $photo2 = $row['photo2'];
   $photo3 = $row['photo3'];
   $photo4 = $row['photo4'];
@@ -92,28 +104,34 @@ if($list_num != ''){
   $photos = array();
   
   for($i=1; $i<11; $i++){
-    if(strpos(${'photo'.$i}, "JPG")){
-      ${'photo'.$i} = strtolower(${'photo'.$i});
-    }
-    if(strpos(${'photo'.$i}, "GIF")){
-      ${'photo'.$i} = strtolower(${'photo'.$i});
-    }
-    if(strpos(${'photo'.$i}, "PNG")){
-      ${'photo'.$i} = strtolower(${'photo'.$i});
-    }
-    if(${'photo'.$i} != ''){
+    if(strpos(${'photo'.$i}, "JPG")){ ${'photo'.$i} = strtolower(${'photo'.$i}); }
+    if(strpos(${'photo'.$i}, "GIF")){ ${'photo'.$i} = strtolower(${'photo'.$i}); }
+    if(strpos(${'photo'.$i}, "PNG")){ ${'photo'.$i} = strtolower(${'photo'.$i}); }
+    if(${'photo'.$i} != ''){ 
       array_push($photos, ${'photo'.$i});
       $numPhotos = $numPhotos + 1;
     }
   }
   
-  $agent_id_1=$row['agent_id_1'];
-  $agent_id_2=$row['agent_id_2'];
-  $agent_id_3=$row['agent_id_3'];
-  $agent_id_4=$row['agent_id_4'];
   $stristr = stristr($photo1,'http'); if($stristr === false) { $photo1 = 'http://www.bellmarc.com/pictures/building/'.$photo1.'.bmp';} // if it's a bellmarc building photo, add url location
   $stristr = stristr($photo1,'floor'); if($stristr != false) { if($photo2 != ''){ $photo1 = $photo2; $photo2 = $row['photo1'];}; }; // if it's a floor plan, look for a second photo to use instead
+  
   $mkt_desc = $row['mkt_desc'];
+  $start = strpos($mkt_desc, "Please call");
+
+  if($start == 0){ $start = strpos($mkt_desc, "Please contact"); }
+  if($start == 0){ $start = strpos($mkt_desc, "Contact"); }
+  if($start == 0){ $start = strpos($mkt_desc, "contact"); }
+  if($start == 0){ $start = strpos($mkt_desc, "Call"); }
+
+  if($start != false){
+    $contactInfo = substr($mkt_desc, $start);
+    $chunk = substr($contactInfo, 0);
+    $mkt_desc = str_replace($chunk, '', $mkt_desc);
+  }
+
+  $mkt_desc = str_replace("Courtesy of Stribling", "", $mkt_desc);
+  
   $floor = $row['floor'];
   $floor = number_format($floor, 0, '.', ',');
   $bedroom1 = $row['br1'];
@@ -139,16 +157,12 @@ if($list_num != ''){
   $address = str_replace("&", " & ", $address);
   $address = ucwords(strtolower($address));
   $apt = $row['apt'];
-  $contract = $row['contract'];
-  $contract = str_replace("BEXCL", "Bellmarc", $contract);
-  $contract = str_replace("OPEN", "the owner (open listing)", $contract);
   $monthly = ($row['maint'] + $row['taxes']);
   $monthly = number_format($monthly, 0, '.', ',');
   $maint = $row['maint'];
   $maint = number_format($maint, 0, '.', ',');
   $taxes = $row['taxes'];
   $taxes = number_format($taxes, 0, '.', ',');
-  $role = $_SESSION['role'];
   $nbrhood = $row['nbrhood'];
   switch ($nbrhood){
     case "North": $nbrhood = "Far Uptown"; break;
@@ -159,6 +173,10 @@ if($list_num != ''){
     case "Village": $nbrhood = "Greenwich Village"; break;
     case "Lower": $nbrhood = "Downtown"; break;
   };
+  $agent_id_1=$row['agent_id_1'];
+  $agent_id_2=$row['agent_id_2'];
+  $agent_id_3=$row['agent_id_3'];
+  $agent_id_4=$row['agent_id_4'];
   
   // Amenities
   $amenities['virtual']= $row['virtual'];
@@ -188,183 +206,131 @@ if($list_num != ''){
   $amenities['wash_dry']= $row['wash_dry'];
   $amenities['nofee']= $row['nofee'];
   
-  if ($contract != 'BEXCL'){
-    if($role == 'buyer'){
-      $SQL = "SELECT * FROM users WHERE (email = '" . $user . "')";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-      while ($row = mysql_fetch_assoc($result)) {
-        $pAgent = $row['P_agent'];
-        $pAgent2 = $row['P_agent2'];
-      }
-  
-      $agent_id_1 = $pAgent;
-    }
-    
-    $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."')";
+  if($role == 'buyer'){
+    $SQL = "SELECT * FROM users WHERE (email = '" . $user . "')";
     $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
     $row = mysql_fetch_assoc($result);
-    $active = $row['active'];
+    $pAgent = $row['P_agent'];
+    $pAgent2 = $row['P_agent2'];
 
-    if((!isset($active)) || $active == "N"){ $agent_id_1 = ''; }
-    
-    if ($agent_id_1 == '' || $agent_id_1 == null) {
-      switch ($nbrhood) {
-        case 'Far Uptown': $email = 'wmilvaney@cbbellmarc.com';
-          $phone = '212-874-0100';
-          $ext = 'x306';
-          break;
-        case 'Upper East': $email = 'jsilver@bellmarc.com';
-          $phone = '212-517-9100';
-          $ext = 'x212';
-          break;
-        case 'Upper West': $email = 'wmilvaney@cbbellmarc.com';
-          $phone = '212-874-0100';
-          $ext = 'x306';
-          break;
-        case 'Midtown West': $email = 'lstrobing@bellmarc.com';
-          $phone = '212-239-0900';
-          $ext = 'x212';
-          break;
-        case 'Midtown East': $email = 'dannyb@bellmarc.com';
-          $phone = '212-688-8530';
-          $ext = 'x229';
-          break;
-        case 'Greenwich Village': $email = 'rcleary@cbbellmarc.com';
-          $phone = '212-627-3000';
-          $ext = 'x204';
-          break;
-        case 'Downtown': $email = 'rcleary@cbbellmarc.com';
-          $phone = '212-627-3000';
-          $ext = 'x204';
-          break;
-      };
-      $agentNums = array();
-      $agentCount = 0;
-      $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $address . "'); ";
+    $agent_id_1 = $pAgent;
+  }
+  
+  $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."')";
+  $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+  $row = mysql_fetch_assoc($result);
+  $active = $row['active'];
+
+  if((!isset($active)) || $active == "N"){ $agent_id_1 = ''; }
+  
+  if ($agent_id_1 == '' || $agent_id_1 == null) {
+    $agentNums = array();
+    $agentCount = 0;
+    $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $address . "'); ";
+    $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+    $row = mysql_fetch_assoc($result);
+    $buildLocation = $row['location'];
+    $agent_1_v2 = $row['agent_1'];
+    $agent_2_v2 = $row['agent_2'];
+    $agent_3_v2 = $row['agent_3'];
+    $agent_4_v2 = $row['agent_4'];
+
+    if ($agent_1_v2 != ''){
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_1_v2 . "'); ";
       $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-      while ($row = mysql_fetch_assoc($result)) {
-        $buildLocation = $row['location'];
-        $agent_1_v2 = $row['agent_1'];
-        $agent_2_v2 = $row['agent_2'];
-        $agent_3_v2 = $row['agent_3'];
-        $agent_4_v2 = $row['agent_4'];
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
+      
+      if($active == "Y"){
+        $agentNums[$agentCount] = $agent_1_v2;
+        $agentCount++;
       }
-  
-      if ($agent_1_v2 != '')
-      {
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_1_v2 . "'); ";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        $row = mysql_fetch_assoc($result);
-        $active = $row['active'];
-        
-        if($active == "Y"){
-          $agentNums[$agentCount] = $agent_1_v2;
-          $agentCount++;
-        }
+    }
+    elseif ($agent_2_v2 != ''){
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_2_v2 . "'); ";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
+      
+      if($active == "Y"){
+        $agentNums[$agentCount] = $agent_2_v2;
+        $agentCount++;
       }
-      elseif ($agent_2_v2 != '')
-      {
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_2_v2 . "'); ";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        $row = mysql_fetch_assoc($result);
-        $active = $row['active'];
-        
-        if($active == "Y"){
-          $agentNums[$agentCount] = $agent_2_v2;
-          $agentCount++;
-        }
+    }
+    elseif ($agent_3_v2 != ''){
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_3_v2 . "'); ";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
+      
+      if($active == "Y"){
+        $agentNums[$agentCount] = $agent_3_v2;
+        $agentCount++;
       }
-      elseif ($agent_3_v2 != '')
-      {
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_3_v2 . "'); ";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        $row = mysql_fetch_assoc($result);
-        $active = $row['active'];
-        
-        if($active == "Y"){
-          $agentNums[$agentCount] = $agent_3_v2;
-          $agentCount++;
-        }
+    }
+    elseif ($agent_4_v2 != ''){
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_4_v2 . "'); ";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
+      
+      if($active == "Y"){
+        $agentNums[$agentCount] = $agent_4_v2;
+        $agentCount++;
       }
-      elseif ($agent_4_v2 != '')
-      {
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_4_v2 . "'); ";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        $row = mysql_fetch_assoc($result);
-        $active = $row['active'];
-        
-        if($active == "Y"){
-          $agentNums[$agentCount] = $agent_4_v2;
-          $agentCount++;
-        }
-      }
-  
-      if ($agentCount > 0)
-      {
-        shuffle($agentNums);
-        $agent_num = $agentNums[0];
-        if (strlen($agent_num) == 3)
-        {
-          $agent_id_1 = $agent_num;
-        }
-        else
-        {
-          $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')";
-          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-          while ($row = mysql_fetch_assoc($result)) {
-            $office = $row['office'];
-          }
-          if ($office == 'GC')
-          {
-            $office = 'CG';
-          }
-  
-          //Get code and manager id from office where code is office from zip_to_office
-          $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')";
-          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-          while ($row = mysql_fetch_assoc($result)) {
-            $mgr_id = $row['mgr_id'];
-          }
-  
-          if($mgr_id == "JGS"){
-            $mgr_id = "SIN";
-          }
-  
-          $agent_id_1 = $mgr_id;
-        }
-      }
-      else
-      {
-        // Get office from zip_to_office where zip is zip of building
+    }
+
+    if ($agentCount > 0){
+      shuffle($agentNums);
+      $agent_num = $agentNums[0];
+      if (strlen($agent_num) == 3){ $agent_id_1 = $agent_num; }
+      else{
         $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        while ($row = mysql_fetch_assoc($result)) {
-          $office = $row['office'];
-        }
-        if($office == "SS"){
-          $office = "BSS";
-        }
-        if ($office == 'GC'){
-          $office = 'CG';
-        }
-  
+        $row = mysql_fetch_assoc($result);
+        $office = $row['office'];
+        if($office == 'SS'){ $office = 'BSS'; }
+        if($office == 'GC'){ $office = 'CG'; }
+
         //Get code and manager id from office where code is office from zip_to_office
         $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')";
         $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
-        while ($row = mysql_fetch_assoc($result)) {
-          $mgr_id = $row['mgr_id'];
-        }
-        if($mgr_id == "JGS"){
-          $mgr_id = "SIN";
-        }
-  
-        $agent_id_1 = $mgr_id;
+        $row = mysql_fetch_assoc($result);
+        $mgr_id = $row['mgr_id'];
+        
+        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')";
+        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $row = mysql_fetch_assoc($result);
+        $active = $row['active'];
+
+        if($active == "Y"){ $agent_id_1 = $mgr_id; }
+        else{ $agent_id_1 = "NB"; }  
       }
     }
-  }
-    
-  if($agent_id_1 == "SIN" || $agent_id_1 == "NMA" || $agent_id_1 == "SD1" || $agent_id_1 == "DRA" || $agent_id_1 == "SYS" || $agent_id_1 == "DD1" || $agent_id_1 == "DXB"){
-    $agent_id_1 = "NB";
+    else
+    {
+      // Get office from zip_to_office where zip is zip of building
+      $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $office = $row['office'];
+      if($office == "SS"){ $office = "BSS"; }
+      if ($office == 'GC'){ $office = 'CG'; }
+
+      //Get code and manager id from office where code is office from zip_to_office
+      $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $mgr_id = $row['mgr_id'];
+
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $row = mysql_fetch_assoc($result);
+      $active = $row['active'];
+
+      if($active == "Y"){ $agent_id_1 = $mgr_id; }
+      else{ $agent_id_1 = "NB"; }  
+    }
   }
   
   if ($agent_id_1 != '') {
@@ -374,66 +340,22 @@ if($list_num != ''){
     $agent_id = $row['agent_id'];
     $agent_firstname = $row['first_name'];
     $agent_lastname = $row['last_name'];
-    $agent_title = $row['title'];
-    $agent_title = str_replace('Executive', 'Exec.', $agent_title);
     $agent_cellphone = $row['phone'];
     $agent_ext = "";
     $agent_email = $row['email'];
+    $agent_title = $row['title'];
+    $agent_title = str_replace('Executive', 'Exec.', $agent_title);
     $agent_bio = $row['bio'];
-    if($agent_title == "Sales Manager" || $agent_title == "Sales Manager"){
-      $agent_title = "Licensed Real Estate Sales Manager";
-    }
-    elseif($agent_title == "Associate Broker"){
-      $agent_title = "Licensed Associate Real Estate Broker";
-    }
-    elseif($agent_title == "Salesperson"){
-      $agent_title = "Licensed Real Estate Salesperson";
-    }
-  
-    if($agent_id == "SSW"){
-      $agent_cellphone = "646-561-4621";
-    }
-    
-    if($agent_id == "NB"){
-      $agent_email = "nbinder@homepik.com";
-    }
+    if($agent_title == "Sales Director"){ $agent_title = "Licensed Real Estate Sales Director"; }
+    elseif($agent_title == "Sales Manager"){ $agent_title = "Licensed Real Estate Sales Manager"; }
+    elseif($agent_title == "Associate Broker"){ $agent_title = "Licensed Associate Real Estate Broker"; }
+    elseif($agent_title == "Salesperson"){ $agent_title = "Licensed Real Estate Salesperson"; }
+
+    if($agent_id == "NB"){ $agent_email = "nbinder@homepik.com"; }
  
     $agent_photo = "http://www.bellmarc.com/pictures/agent/medium/" . $agent_id . ".jpg";
-    
-    switch ($agent_email) {
-      case 'wmilvaney@cbbellmarc.com';
-        $agent_cellphone = '212-874-0100';
-        $agent_ext = 'x306';
-        break;
-      case 'jsilver@bellmarc.com';
-        $agent_cellphone = '212-517-9100';
-        $agent_ext = 'x212';
-        break;
-      case 'wmilvaney@cbbellmarc.com';
-        $agent_cellphone = '212-874-0100';
-        $agent_ext = 'x306';
-        break;
-      case 'lstrobing@bellmarc.com';
-        $agent_cellphone = '212-239-0900';
-        $agent_ext = 'x212';
-        break;
-      case 'dannyb@bellmarc.com';
-        $agent_cellphone = '212-688-8530';
-        $agent_ext = 'x229';
-        break;
-      case 'rcleary@cbbellmarc.com';
-        $agent_cellphone = '212-627-3000';
-        $agent_ext = 'x204';
-        break;
-      case 'rcleary@cbbellmarc.com';
-        $agent_cellphone = '212-627-3000';
-        $agent_ext = 'x204';
-        break;
-    };
   }
-  $url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-  $parse=parse_url($url, PHP_URL_QUERY);
-  $priceImg = "price.php?id=$list_num&code=$list_num";
+  
   //If the user has a P_agent2, get the info
   if ($pAgent2 != "" && $pAgent2 != null){
     $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$pAgent2."'); ";
@@ -448,57 +370,19 @@ if($list_num != ''){
     $agent2_ext = "";
     $agent2_email = $row['email'];
     $agent2_bio = $row['bio'];
-    if($agent2_title == "Sales Manager" || $agent2_title == "Sales Manager"){
-      $agent2_title = "Licensed Real Estate Sales Manager";
-    }
-    elseif($agent2_title == "Associate Broker"){
-      $agent2_title = "Licensed Associate Real Estate Broker";
-    }
-    elseif($agent2_title == "Salesperson"){
-      $agent2_title = "Licensed Real Estate Salesperson";
-    }
-    if ($agent2_cellphone == '' || $agent2_id == "DRA") {
-      $agent2_cellphone = $phone;
-    }
-    if($agent2_id == "SSW"){
-      $agent2_cellphone = "646-561-4621";
-    }
-    if($agent2_id == "SIN"){
-      $agent2_cellphone = "646-757-5631";
-    }
-    $agent2_photo = "http://www.bellmarc.com/pictures/agent/medium/" . $agent2_id . ".jpg";
+    if($agent_title == "Sales Director"){ $tplvar['agent_title'] = "Licensed Real Estate Sales Director"; }
+    elseif($agent2_title == "Sales Manager"){ $agent2_title = "Licensed Real Estate Sales Manager"; }
+    elseif($agent2_title == "Associate Broker"){ $agent2_title = "Licensed Associate Real Estate Broker"; }
+    elseif($agent2_title == "Salesperson"){ $agent2_title = "Licensed Real Estate Salesperson"; }
+
+    if($agent_id == "NB"){ $agent_email = "nbinder@homepik.com"; }
     
-    switch ($agent2_email) {
-      case 'wmilvaney@cbbellmarc.com';
-        $agent2_cellphone = '212-874-0100';
-        $agent2_ext = 'x306';
-        break;
-      case 'jsilver@bellmarc.com';
-        $agent2_cellphone = '212-517-9100';
-        $agent2_ext = 'x212';
-        break;
-      case 'wmilvaney@cbbellmarc.com';
-        $agent2_cellphone = '212-874-0100';
-        $agent2_ext = 'x306';
-        break;
-      case 'lstrobing@bellmarc.com';
-        $agent2_cellphone = '212-239-0900';
-        $agent2_ext = 'x212';
-        break;
-      case 'dannyb@bellmarc.com';
-        $agent2_cellphone = '212-688-8530';
-        $agent2_ext = 'x229';
-        break;
-      case 'rcleary@cbbellmarc.com';
-        $agent2_cellphone = '212-627-3000';
-        $agent2_ext = 'x204';
-        break;
-      case 'rcleary@cbbellmarc.com';
-        $agent2_cellphone = '212-627-3000';
-        $agent2_ext = 'x204';
-        break;
-    };
+    $agent2_photo = "http://www.bellmarc.com/pictures/agent/medium/" . $agent2_id . ".jpg";
   }
+  
+  $url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+  $parse=parse_url($url, PHP_URL_QUERY);
+  $priceImg = "price.php?id=$list_num&code=$list_num";
   
   $folders = array();
   $SQL = "SELECT name, id, user FROM users_folders WHERE (user = '".$user."'); ";
@@ -531,7 +415,7 @@ if($list_num != ''){
                    "bedroom2"=>$bedroom2, "bedroom3"=>$bedroom3, "bedroom4"=>$bedroom4, "living_room"=>$living_room,
                    "kitchen"=>$kitchen, "dining_room"=>$dining_room, "den"=>$den, "alcove"=>$alcove, "maids_room"=>$maids_room,
                    "apt"=>$apt, "contract"=>$contract, "monthly"=>$monthly, "maint"=>$maint, "taxes"=>$taxes, "nbrhood"=>$nbrhood,
-                   "amenities"=>$amenities, "phone"=>$phone, "email"=>$email, "pAgent"=>$pAgent, "pAgent2"=>$pAgent2,
+                   "amenities"=>$amenities, "pAgent"=>$pAgent, "pAgent2"=>$pAgent2,
                    "agent_firstname"=>$agent_firstname, "agent_lastname"=>$agent_lastname, "agent_id"=>$agent_id,
                    "agent_title"=>$agent_title, "agent_cellphone"=>$agent_cellphone, "agent_ext"=>$agent_ext,
                    "agent_email"=>$agent_email, "agent_bio"=>$agent_bio, "agent_photo"=>$agent_photo,
