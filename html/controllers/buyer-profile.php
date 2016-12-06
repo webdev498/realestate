@@ -1733,7 +1733,8 @@ $i = 1;
 	  },
 	  setPermissions: function(name, code){
       var $dialog =  $("#ajax-box").dialog({
-        width: 390,
+        modal: true,
+		width: 390,
         dialogClass: "setPermissionsPopup",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1837,7 +1838,8 @@ $i = 1;
       this.setState({searchName: name});
       var initial = true;
       var $dialog =  $("#ajax-box3").dialog({
-        width: 1115,
+        modal: true,
+		width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));

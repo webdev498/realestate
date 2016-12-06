@@ -222,6 +222,7 @@ else{ $mainPage = ""; }
 		},
     viewGrades: function(){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 260,
 				dialogClass: 'viewGradesPopup',
         modal: true,
@@ -248,6 +249,7 @@ else{ $mainPage = ""; }
 		},
     emailFolder: function(name){
       var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'emailFolderPopup',
 				close: function(){
@@ -274,6 +276,7 @@ else{ $mainPage = ""; }
     },
     editComment: function(comment, listing, folder){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'editCommentPopup',
 				close: function(){

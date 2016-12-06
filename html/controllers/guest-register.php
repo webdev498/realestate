@@ -100,6 +100,7 @@ else{ $referrer = "registrationPage"; }
 		  event.preventDefault();
 			
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 350,
 				dialogClass: 'agentListPopup',
 				close: function(){

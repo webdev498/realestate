@@ -1121,7 +1121,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  slideshow(index){
       var $dialog =  $("#ajax-box3").dialog({
-        width: 1345,
+        modal: true,
+		width: 1345,
         dialogClass: "slideshow slideshowPopup",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
@@ -1147,7 +1148,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  send: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 585,
+        modal: true,
+		width: 585,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1174,7 +1176,8 @@ if(isset($_GET['newTab'])){ ?>
 	  save: function(){
       if(this.state.role == "agent"){
         var $dialog =  $("#ajax-box").dialog({
-          width: 500,
+          modal: true,
+		  width: 500,
           dialogClass: 'agentSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1200,7 +1203,8 @@ if(isset($_GET['newTab'])){ ?>
       }
       else if(this.state.role == "buyer"){
         var $dialog =  $("#ajax-box").dialog({
-          width: 500,
+          modal: true,
+		  width: 500,
           dialogClass: 'buyerSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1284,7 +1288,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  broker: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 500,
+        modal: true,
+		width: 500,
         dialogClass: 'brokerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1310,7 +1315,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  costEstimator: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 585,
+        modal: true,
+		width: 585,
         dialogClass: 'costEstimatorPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1336,7 +1342,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  agent1Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1362,7 +1369,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  agent2Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1388,7 +1396,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  emailAgent: function(agent){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));

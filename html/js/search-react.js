@@ -234,7 +234,8 @@ window.CriteriaNavBar = React.createClass({
     $.removeCookie("newconstruction");
 
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -388,7 +389,8 @@ window.SearchNavBar = React.createClass({
   },
   editSearch: function(){    
     var $dialog =  $("#ajax-box3").dialog({
-      width: 1115,
+      modal: true,
+	  width: 1115,
       dialogClass: "editFormula",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));

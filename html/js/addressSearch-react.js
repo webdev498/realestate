@@ -231,7 +231,8 @@ window.SearchNavBar = React.createClass({
     $.removeCookie("newconstruction");
 
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));

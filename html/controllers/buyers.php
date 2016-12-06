@@ -1132,7 +1132,8 @@ $num_buyers = mysql_num_rows($result1);
 	  },
 	  EditFormula: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 1115,
+        modal: true,
+		width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));

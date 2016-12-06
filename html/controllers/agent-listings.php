@@ -1186,6 +1186,7 @@ $agent_id = $row['agent_id'];
 		},
     viewGrades: function(){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 260,
 				dialogClass: 'viewGradesPopup',
         modal: true,
@@ -1212,6 +1213,7 @@ $agent_id = $row['agent_id'];
 		},
     emailFolder: function(name){
       var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'emailFolderPopup',
 				close: function(){
@@ -1238,6 +1240,7 @@ $agent_id = $row['agent_id'];
 		},
     emailBuyerFolder: function(name, buyer){
       var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'emailFolderPopup',
 				close: function(){
@@ -1264,7 +1267,8 @@ $agent_id = $row['agent_id'];
 		},
     editBuyerFormula: function(name, buyer){
       var $dialog =  $("#ajax-box").dialog({
-        width: 1115,
+        modal: true,
+		width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1369,6 +1373,7 @@ $agent_id = $row['agent_id'];
     },
     editComment: function(comment, listing, folder){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'editCommentPopup',
 				close: function(){
@@ -1396,6 +1401,7 @@ $agent_id = $row['agent_id'];
 		},
     editBuyerComment: function(comment, listing, folder, buyer){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'editCommentPopup',
 				close: function(){
