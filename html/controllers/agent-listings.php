@@ -1197,7 +1197,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1223,7 +1223,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1250,7 +1250,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1277,7 +1277,7 @@ $agent_id = $row['agent_id'];
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1383,7 +1383,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1411,7 +1411,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();

@@ -2333,7 +2333,7 @@ window.Footer = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $(this).css("display", "block");
+        //$(this).css("display", "block");
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
           $(".ui-widget-overlay").hide();

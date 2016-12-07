@@ -1132,7 +1132,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1159,7 +1159,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1187,7 +1187,7 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            $(this).css("display", "block");
+            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
               $(".ui-widget-overlay").hide();
@@ -1214,7 +1214,7 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            $(this).css("display", "block");
+            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
               $(".ui-widget-overlay").hide();
@@ -1299,7 +1299,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1326,7 +1326,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1353,7 +1353,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1380,7 +1380,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();
@@ -1407,7 +1407,7 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();

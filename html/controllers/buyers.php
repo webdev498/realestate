@@ -1143,7 +1143,7 @@ $num_buyers = mysql_num_rows($result1);
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
             $(".ui-widget-overlay").hide();

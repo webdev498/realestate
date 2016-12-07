@@ -5564,7 +5564,7 @@ $('body').delegate('.view-bubble-grades','click',function(e){
       $( this ).remove();
     },
     open: function(){
-      $(this).css("display", "block");
+     // $(this).css("display", "block");
       $(".ui-widget-overlay").bind("click", function(){
         $("#ajax-box").dialog('close');
       });
