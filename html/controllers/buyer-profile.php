@@ -829,7 +829,7 @@ $i = 1;
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $("#overlay").hide();
+                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -841,7 +841,7 @@ $i = 1;
       }
 	  },
 	  cancel: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  updateData: function(){
@@ -1081,7 +1081,7 @@ $i = 1;
       this.setState({selected_formulas: formulas});
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  setPermissions: function(){
@@ -1094,7 +1094,7 @@ $i = 1;
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }.bind(this));
@@ -1745,9 +1745,9 @@ $i = 1;
         },
         open: function(){
           $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1756,7 +1756,7 @@ $i = 1;
         $dialog.dialog('close');
       }.bind(this);
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<Permissions closeDialog={closeDialog} agent={name} agentID={code}/>, $dialog[0]);
 	  },
 	  removeFormula: function(name, event){
@@ -1850,9 +1850,9 @@ $i = 1;
         },
         open: function(){
           $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1861,7 +1861,7 @@ $i = 1;
         $dialog.dialog('close');
       }.bind(this)
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={name} initial={initial}/>, $dialog[0]);
 	  },
     conductSearch: function(name){

@@ -797,7 +797,7 @@ $num_buyers = mysql_num_rows($result1);
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $("#overlay").hide();
+                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -809,7 +809,7 @@ $num_buyers = mysql_num_rows($result1);
       }
     },
     cancel: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     updateData: function(){
@@ -1144,9 +1144,9 @@ $num_buyers = mysql_num_rows($result1);
         },
         open: function(){
           $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1155,7 +1155,7 @@ $num_buyers = mysql_num_rows($result1);
         $dialog.dialog('close');
       }.bind(this)
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={this.state.buyers_formula_name} buyer={this.state.buyer_selected}/>, $dialog[0]);
     },
     newSearchBuyer: function(){
