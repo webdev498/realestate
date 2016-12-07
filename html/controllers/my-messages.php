@@ -6,30 +6,13 @@ include("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if (!$_SESSION['user']) { print "<script> window.location = '/users/logout.php' </script>"; }
-if ($_SESSION['buyer']){
+if($_SESSION['buyer']){
   $user = $_SESSION['id'];
-  $role = 'user';
   $buyer_email = $_SESSION['email'];
-}
-else{
-  $user = $_SESSION['id'];
-  $role = 'agent';
-  $agent_email = $_SESSION['email'];
-}
-
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
-
-if($role == "user"){
-  $SQL = "SELECT * FROM `users` WHERE (email = '".$buyer_email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-	$agent_code = $row['P_agent'];
-	$agent2_code = $row['P_agent2'];
-  }
-
+	$agent_code = $_SESSION['agent1'];
+	$agent2_code = $_SESSION['agent2'];
+  $role = 'user';
+  
   if($agent_code != ""){
     $SQL = "SELECT r.first_name, r.last_name, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
@@ -48,22 +31,26 @@ if($role == "user"){
     $agent2_email = $row['email'];
   }
 }
-else{
-  $SQL = "SELECT first_name, last_name, email, agent_id FROM `registered_agents` WHERE (email = '".$agent_email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['agent_id'];
-
+elseif($_SESSION['agent']){
+  $user = $_SESSION['id'];
+  $agent_email = $_SESSION['email'];
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
+  
   $SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
   $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
   $num_buyers = mysql_num_rows($result1);
 }
+else{ print "<script> window.location = '/users/logout.php' </script>"; }
+
+if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
+else{ $mainPage = ""; }
+
 $_SESSION['unreadMessages'] = 0;
 ?>
 
   <title>HomePik - My Messages</title>
   <?php include_css("/views/css/my-messages.css");
-  include_css("/views/css/buyer-profile-edit.css");
   include_once("analyticstracking.php") ?>
 </head>
 <body>

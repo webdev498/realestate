@@ -6,56 +6,45 @@ include("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if (!$_SESSION['user']) { print "<script> window.location = '/users/logout.php' </script>"; }
-
-if ($_SESSION['user']){
+if($_SESSION['buyer']){
   $user = $_SESSION['id'];
-  $role = 'user';
   $buyer_email = $_SESSION['email'];
-}
-
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
-
-$SQL = "SELECT * FROM `users` WHERE (email = '".$buyer_email."')";
-$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-  $buyer_first_name = $row['first_name'];
-  $buyer_last_name = $row['last_name'];
-  $buyer_phone = $row['phone'];
-  $agent_code = $row['P_agent'];
-  $agent2_code = $row['P_agent2'];
-}
-
-if($agent_code != ""){
-  $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+  $buyer_first_name = $_SESSION['firstname'];
+  $buyer_last_name = $_SESSION['lastname'];
+  $buyer_phone = $_SESSION['phone'];
+  $agent_code = $_SESSION['agent1'];
+  $agent2_code = $_SESSION['agent2'];
+  $role = 'user';
+  
+  if($agent_code != ""){
+    $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
+    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent_first_name = $row['first_name'];
     $agent_last_name = $row['last_name'];
     $agent_email = $row['email'];
     $agent_cellphone = $row['phone'];
   }
-}
-
-if($agent2_code != ""){
-  $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+  
+  if($agent2_code != ""){
+    $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)";
+    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent2_first_name = $row['first_name'];
     $agent2_last_name = $row['last_name'];
     $agent2_email = $row['email'];
     $agent2_cellphone = $row['phone'];
   }
+  
+  $SQL = "SELECT * FROM `Users_Search` where (email = '".$buyer_email."') ORDER BY `name` ASC";
+  $formula_result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $num_formulas = mysql_num_rows($formula_result);
+  $i = 1;
 }
+else{ print "<script> window.location = '/users/logout.php' </script>"; }
 
-$SQL = "SELECT * FROM `Users_Search` where (email = '".$buyer_email."') ORDER BY `name` ASC";
-$formula_result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-$num_formulas = mysql_num_rows($formula_result);
-$i = 1;
+if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
+else{ $mainPage = ""; }
 ?>
 
   <title>HomePik - My Profile</title>

@@ -11,8 +11,6 @@ if (!$_SESSION['email']){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
-$limit = limit();// If the user has been rate limited because of too many requests, cut them off (VOW RULE)
-if ($limit != 'clear') { limit(); }
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
@@ -20,7 +18,6 @@ else{ $mainPage = ""; }
 
   <title>HomePik - About HomePik</title>
   <?php include_css("/views/css/about-us.css");
-  include_css("/views/css/buyer-profile-edit.css");
   include_once("analyticstracking.php"); ?>
 </head>
 <body>

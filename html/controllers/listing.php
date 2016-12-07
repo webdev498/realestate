@@ -11,38 +11,27 @@ if(isset($_GET['code'])){
   $SQL = "SELECT list_num, time FROM emailed_listings WHERE (code = '".$code."' )";
   $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  if($row['time'] > date('U') - 604800){
-	$list_num = $row['list_num'];
-  }
+  if($row['time'] > date('U') - 604800){ $list_num = $row['list_num']; }
 }
-elseif(isset($_GET['list_numb'])){
-  $list_num = $_GET['list_numb'];
-}
+elseif(isset($_GET['list_numb'])){ $list_num = $_GET['list_numb']; }
 else{
   // Do nothing
 }
 
 if($_SESSION['buyer']){
   $user = $_SESSION['id'];
-  $role = 'buyer';
   $email = $_SESSION['email'];
+  $role = 'buyer';
 }
 elseif($_SESSION['agent']){
   $user = $_SESSION['id'];
-  $role = 'agent';
   $email = $_SESSION['email'];
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
 }
 else{
   $role = 'guest';
 }
-
-if($role == "agent"){
-  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$agent_email."') AND (email != '')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['agent_id'];
-}
-
 ?>
 
   <title>HomePik - Listing Details</title>

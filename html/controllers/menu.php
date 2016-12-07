@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
@@ -8,31 +8,21 @@ $db = mysql_select_db($database, $con) or die(mysql_error());
 $_SESSION['user'] = 'true';
 $_SESSION['viewingBuyer'] = 'false';
 
-if (!$_SESSION['email']){
-  $_SESSION['email'] = 'guest@email.com';
-  $_SESSION['role'] = 'guest';
-  print "<script> window.location = '/users/logout.php' </script>";
-}
-
 if(isset($_SESSION['agent'])){
   $agent_email = $_SESSION['email'];
   $adminOptions = $_SESSION['admin_options'];
   $unreadMessages = $_SESSION['unreadMessages'];
   $role = "agent";
 }
-elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
+elseif($_SESSION['buyer']){
   $unreadMessages = $_SESSION['unreadMessages'];
-  $role = "user";
+  $role = "buyer";
 }
-else{
-  $name = "Guest";
-  $role = "guest";
-}
+else{ print "<script> window.location = '/users/logout.php' </script>"; }
 ?>
 
   <title>HomePik - Main Menu</title>
   <?php include_css("/views/css/menu.css");
-  include_css("/views/css/buyer-profile-edit.css");
   include_once("analyticstracking.php");
   include_once('autoLogout.php'); ?>
 </head>
@@ -614,7 +604,7 @@ else{
             <MenuNavBar />
             <AddressSearch mainPage={""}/>
             {this.state.role == "agent" ? <AgentOptions /> : null}
-          	{this.state.role == "user" ? <BuyerOptions /> :null}
+          	{this.state.role == "buyer" ? <BuyerOptions /> :null}
             <div className="verticalspacer"></div>
           </div>
 

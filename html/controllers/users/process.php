@@ -118,8 +118,13 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														$_SESSION['id'] = $id;
 														$_SESSION['pass'] = $pass;
 														$_SESSION['assigned'] = $row['assigned'];
+														$_SESSION['firstname'] = $row['first_name'];
+														$_SESSION['lastname'] = $row['last_name'];
+														$_SESSION['phone'] = $row['phone'];
 														$_SESSION['email'] = $email;
-														$_SESSION['role'] = $role;														
+														$_SESSION['role'] = $role;	
+														$_SESSION['agent1'] = $row['P_agent'];
+														$_SESSION['agent2'] = $row['P_agent2'];													
 														$_SESSION['user'] = 'true'; // Set 'user' as 'true' in the session. This marks the user as "logged in"
 														$_SESSION['buyer'] = 'true';														
 														

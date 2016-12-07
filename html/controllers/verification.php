@@ -4,9 +4,7 @@ include 'functions.php';
 include ('basicHead.php');
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
-limit(); // Rate limit to prevent scraping
 if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
-if(isset($_GET['agent'])){$assigned=$_GET['agent'];}else{$assigned='';}
 if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
 

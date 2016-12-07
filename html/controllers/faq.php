@@ -8,7 +8,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['viewingBuyer'] = 'false';
 $_SESSION['loadSaved'] = false;
 
-if (!$_SESSION['email']){
+if(!$_SESSION['email']){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
@@ -16,16 +16,12 @@ if (!$_SESSION['email']){
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
 
-$limit = limit(); // If the user has been rate limited because of too many requests, cut them off (VOW RULE)
-if ($limit != 'clear') { limit(); }
-
 if(isset($_GET['section'])){ $section = $_GET['section']; }
 else{ $section = "general"; }
 ?>
 
   <title>HomePik - FAQs</title>
   <?php include_css("/views/css/faqs.css");
-  include_css("/views/css/buyer-profile-edit.css");
   include_once("analyticstracking.php") ?>
 </head>
 <body>

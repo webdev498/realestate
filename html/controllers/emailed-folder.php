@@ -6,32 +6,25 @@ include("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if($_SESSION['buyer']){
+if(isset($_SESSION['buyer'])){
   $user = $_SESSION['id'];
-  $role = 'user';
   $buyer_email = $_SESSION['email'];
-  $folder = "";
+  $role = 'user';
+  $folder = "";  
+  $agent_id = '';
 }
-elseif($_SESSION['agent']){
+elseif(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
-  $role = 'agent';
   $agent_email = $_SESSION['email'];
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
 
   if(isset($_GET['buyer'])){ $buyer_email = $_GET['buyer']; }
   if(isset($_GET['folder'])){ $folder = $_GET['folder']; }
 }
 else{
   $role = 'guest';
-}
-
-if($role == "agent"){
-  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$agent_email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['agent_id'];
-}
-else{
-  $agent_id = "";
+  $agent_id = '';
 }
 
 $sender = $_GET['user'];

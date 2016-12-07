@@ -1,6 +1,5 @@
-<?
+<?php
 session_start();
-
 include_once("dbconfig.php");
 include_once("emailconfig.php");
 include_once("functions.php");
@@ -8,8 +7,6 @@ include_once("functions.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-//if ($logged_in = 'true') {
-
 // EMAIL A LISTING
 if(isset($_GET['emailListing'])){
   $list_num = $_GET['list_num'];
@@ -293,12 +290,17 @@ if(isset($_GET['makePrimary'])){
       $mail->send();
 
       $result = 'assign';
+      
+      $_SESSION['agent1'] = $agentCode;
 
     } else if ($pAgent2 != "") { // Move secondary to primary
 
       $SQL = "UPDATE users SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
       $res = mysql_query($SQL)  or die(mysql_error());
       print $SQL;
+      
+      $_SESSION['agent1'] = $_SESSION['agent2'];
+      $_SESSION['agent2'] = '';
 
       $result = 'remove';
     }
@@ -367,6 +369,9 @@ if(isset($_GET['makePrimary'])){
         // Re-assign formula associated with second agent            
         $SQL4 = "UPDATE `Users_Search` SET name='Folder 1' WHERE (email = '".$user."') AND (agent = '".$pAgent2."')";
         $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        
+        $_SESSION['agent1'] = $_SESSION['agent2'];
+        $_SESSION['agent2'] = '';
       }
       else{ // If user only has the one agent
         $SQL = "UPDATE `users` SET P_agent = '', P_agent_assign_time=0 WHERE email = '".$user."' ";
@@ -383,6 +388,8 @@ if(isset($_GET['makePrimary'])){
         // Remove agent from formula associated with agent            
         $SQL4 = "UPDATE `Users_Search` SET agent='' WHERE (email = '".$user."') AND (agent = '".$pAgent."')";
         $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        
+        $_SESSION['agent1'] = '';
       }
     }
     else if ($pAgent2 == $agentCode) { // Remove the second agent
@@ -434,6 +441,8 @@ if(isset($_GET['makePrimary'])){
       // Delete the agent from the buyer's account
       $SQL = "UPDATE users SET P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
       $res = mysql_query($SQL)  or die(mysql_error());
+      
+      $_SESSION['agent2'] = '';
       
       print $SQL;
 
@@ -1222,8 +1231,6 @@ if(isset($_GET['saveAll'])){
 
 }; // SAVE ALL LISTINGS IN AGENT FOLDER TO BUYER
 
-//};
-
 // MOVE LISTINGS FROM ONE FOLDER TO ANOTHER
 if(isset($_GET['moveListings'])){
   $listings = $_GET['listing_nums'];
@@ -1750,7 +1757,7 @@ if(isset($_GET['AddPrimary'])){
 
   $SQL3 = "UPDATE `users` SET `P_agent` = '".$id."', `P_agent_assign_time`='".date('U')."' WHERE (email = '".$email."')";
   $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
-
+  
   if($notifications == "all" || $notifications == "messages"){
     $message = "Hello " . $firstname . " " . $lastname . ",<br><br>";
     $message .= $fn . " " . $ln . " is now your primary agent.";

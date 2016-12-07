@@ -5,8 +5,7 @@ include("basicHead.php");
 ?>
 
   <title>HomePik - Terms of Service</title>
-  <?php include_css("/views/css/tos.css");
-  include_css("/views/css/buyer-profile-edit.css"); ?>
+  <?php include_css("/views/css/tos.css"); ?>
 </head>
 <body>
   <div id="tos"></div>

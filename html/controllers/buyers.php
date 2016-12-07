@@ -6,12 +6,19 @@ include("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if ($_SESSION['agent']){
+if(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
-  $role = 'agent';
   $agent_email = $_SESSION['email'];
+  $agent_first_name = $_SESSION['firstname'];
+  $agent_last_name = $_SESSION['lastname'];
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
+
+  $SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
+  $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
+  $num_buyers = mysql_num_rows($result1);
 }
-else { print "<script> window.location = '/users/logout.php' </script>"; }
+else{ print "<script> window.location = '/users/logout.php' </script>"; }
 
 if(isset($_GET['buyer'])){
   $starter_buyer = $_GET['buyer'];
@@ -21,17 +28,6 @@ else{ $starter_buyer = ''; }
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
-
-$SQL = "SELECT first_name, last_name, email, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-$row = mysql_fetch_array($result,MYSQL_ASSOC);
-$agent_first_name = $row['first_name'];
-$agent_last_name = $row['last_name'];
-$agent_id = $row['agent_id'];
-
-$SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
-$result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
-$num_buyers = mysql_num_rows($result1);
 ?>
 
   <title>HomePik - Manage Buyers</title>

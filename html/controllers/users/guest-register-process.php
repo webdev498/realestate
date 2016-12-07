@@ -250,10 +250,15 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 
 							//if they have log them in
 							// Set 'user' as 'true' in the session. This marks the user as "logged in"
-							$_SESSION['user'] = 'true';
-							$_SESSION['buyer'] = 'true';
+							$_SESSION['firstname'] = $firstName;
+							$_SESSION['lastname'] = $lastName;
+							$_SESSION['phone'] = $phone;
 							$_SESSION['email'] = $email;
 							$_SESSION['role'] = 'buyer';
+							$_SESSION['agent1'] = $agent_code;
+							$_SESSION['agent2'] = '';
+							$_SESSION['user'] = 'true';
+							$_SESSION['buyer'] = 'true';
 							$_SESSION['justRegisteredSaveFormula'] = 'true';
 
 							//update the online field

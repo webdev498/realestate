@@ -5,22 +5,8 @@ include("functions.php");
 include("basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
-
-limit(); // Rate limit to prevent scraping
-
-if((authentication() == 'agent') OR (authentication() == 'user')){
-  header('Location: menu.php');
-};
-
-if(isset($_GET['agent'])){
-  $assigned=$_GET['agent'];
-}else{
-  $assigned='';
-}
-
-if(isset($_GET['saved']) && $_GET['saved'] == true){
-  $_SESSION['loadSaved'] = true;
-} 
+if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); };
+if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; } 
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,11 +20,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){
 	<div id="registerBackground2"></div>
 	<div id="completeRegister"></div>
 	<div id='ajax-box'></div>
-	
-	<? if(isset($_GET['agentlogout']) && $_GET['agentlogout'] == 'true'){ // we must log the agent out of bellmarc.net, not just homepik
-	  print '<iframe src="http://bellmarc.net/logout" style="display:none;"></iframe>';
-	} ?>
-	
 <script type="text/babel">
 	var Register = React.createClass({
 		getInitialState: function() {

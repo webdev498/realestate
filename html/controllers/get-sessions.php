@@ -4,21 +4,11 @@ include_once("dbconfig.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-if(isset($_POST['getAddress'])){
-  echo json_encode($_SESSION['address']);
-}
-if(isset($_POST['getListing'])){
-  echo json_encode($_SESSION['listing']);
-}
-if(isset($_POST['getLoadSaved'])){
-  echo json_encode($_SESSION['loadSaved']);
-}
-if(isset($_POST['getPreviousPage'])){
-  echo json_encode($_SESSION['previousPage']);
-}
-if(isset($_POST['getEmail'])){
-  echo json_encode($_SESSION['email']);
-}
+if(isset($_POST['getAddress'])){ echo json_encode($_SESSION['address']); }
+if(isset($_POST['getListing'])){ echo json_encode($_SESSION['listing']); }
+if(isset($_POST['getLoadSaved'])){ echo json_encode($_SESSION['loadSaved']); }
+if(isset($_POST['getPreviousPage'])){ echo json_encode($_SESSION['previousPage']); }
+if(isset($_POST['getEmail'])){ echo json_encode($_SESSION['email']); }
 if(isset($_POST['getLastName'])){
   if(isset($_POST['email'])){ $email = $_POST['email']; }
   else{ $email = $_SESSION['email']; }
@@ -30,31 +20,18 @@ if(isset($_POST['getLastName'])){
   echo json_encode($name);
 }
 if(isset($_POST['getAgentLastName'])){
-  $SQL = "SELECT last_name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
-  $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-  $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  $name = $row['last_name'];
-  
-  if(!isset($name)){
-    $_name = explode('@', $_SESSION['email']);
-    $name = $_name[0];
-  }
+  if(isset($_SESSION['lastname'])){ $name = $_SESSION['lastname']; }
+  else{ $_name = explode('@', $_SESSION['email']); $name = $_name[0]; }
   
   echo json_encode($name);
 }
 if(isset($_POST['getInformation'])){
   if($_SESSION['buyer']){
-    $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` where (email = '" . $_SESSION['email'] . "')";
-    $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-    $row = mysql_fetch_array($result, MYSQL_ASSOC);
-    $name = $row['name'];
+    $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $role = "user";
   }
   elseif($_SESSION['agent']){
-    $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
-    $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-    $row = mysql_fetch_array($result, MYSQL_ASSOC);
-    $name = $row['name'];
+    $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $role = "agent";
     
     if(!isset($name)){

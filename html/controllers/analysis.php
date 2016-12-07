@@ -1,36 +1,16 @@
 <?php
-
 session_start();
 include("dbconfig.php");
 include ("functions.php");
 include("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
-if (!$_SESSION['user']) {
-  print "<script> window.location = '/users/logout.php' </script>";
-}
 
-if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
-  print "<script> window.location = '/users/logout.php' </script>";
-}
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
-
-$analytics = $_SESSION['analytics'];
-$analysis = $_SESSION['activity_analysis'];
-$email = $_SESSION['email'];
-$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where email= '".$email."'";
-$res = mysql_query( $sql ) or die("Couldn't execute query. Error 1.".mysql_error());
-while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-  $firstname = $row['first_name'];
-  $lastname = $row['last_name'];
-  $id = $row['agent_id'];
-}
-$name = explode('@', $_SESSION['email']);
-$name = $name[0];
 ?>
-
 
   <title>HomePik - Activity Analysis</title>
 	<script type="text/javascript">
@@ -158,17 +138,15 @@ $name = $name[0];
               $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
-              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
-                  $id = $row['agent_id'];
-                  if (strlen($id) <= 1){
-                    $name = "No Agent";
-                  } else {
-                    $name = $row['last_name'] . ",  " . $row['first_name'];
-                  }
-                  echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
-                  //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
-                }
+              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {                
+								$id = $row['agent_id'];
+								if (strlen($id) <= 1){
+									$name = "No Agent";
+								} else {
+									$name = $row['last_name'] . ",  " . $row['first_name'];
+								}
+								echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
+								//echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";                
               }
                ?>
             </select>
@@ -231,16 +209,14 @@ $name = $name[0];
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
-                  $id = $row['agent_id'];
-                  if (strlen($id) <= 1){
-                    $name = "No Agent";
-                  } else {
-                    $name = $row['last_name'] . ",  " . $row['first_name'];
-                  }
-                  echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
-                  //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
-                }
+								$id = $row['agent_id'];
+								if (strlen($id) <= 1){
+									$name = "No Agent";
+								} else {
+									$name = $row['last_name'] . ",  " . $row['first_name'];
+								}
+								echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
+								//echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";                
               }
                ?>
             </select>

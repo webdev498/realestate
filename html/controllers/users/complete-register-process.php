@@ -126,10 +126,15 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 										$row = mysql_fetch_assoc($res);
 										// Set session data, but don't mark the user as logged in yet.
 										$_SESSION['id'] = $id;
-										$_SESSION['pass'] = $pass;
-										$_SESSION['assigned'] = $row['assigned'];
+										$_SESSION['firstname'] = $firstName;
+										$_SESSION['lastname'] = $lastName;
+										$_SESSION['phone'] = $phone;
 										$_SESSION['email'] = $email;
 										$_SESSION['role'] = "buyer";	
+										$_SESSION['agent1'] = $row['P_agent'];
+										$_SESSION['agent2'] = '';
+										$_SESSION['pass'] = $pass;
+										$_SESSION['assigned'] = $row['assigned'];
 										if ($row['pass_set'] + 15778463 < date('U')) {
 											header('Location: ../users/expired.php');
 										} else {

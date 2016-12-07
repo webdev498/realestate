@@ -5,8 +5,7 @@ include("basicHead.php");
 ?>
 
   <title>HomePik - Privacy Policy</title>
-  <?php include_css("/views/css/privacy.css");
-  include_css("/views/css/buyer-profile-edit.css"); ?>
+  <?php include_css("/views/css/privacy.css"); ?>
 </head>
 <body>
   <div id="privacy"></div>

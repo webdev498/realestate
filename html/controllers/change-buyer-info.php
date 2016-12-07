@@ -9,8 +9,8 @@ mysql_select_db($database) or die("Error connecting to db.");
 
 if ($_SESSION['user']){
   $user = $_SESSION['id'];
-  $role = 'user';
   $email = $_SESSION['email'];
+  $role = 'user';
 }
 
 if($_POST['firstName']){
@@ -19,6 +19,9 @@ if($_POST['firstName']){
   
   $SQL = "UPDATE `users` SET first_name='".$firstName."', last_name='".$lastName."' WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  
+  $_SESSION['firstname'] = $firstName;
+  $_SESSION['lastname'] = $lastName;
 }
 
 if($_POST['phone']){
@@ -26,6 +29,8 @@ if($_POST['phone']){
   
   $SQL = "UPDATE `users` SET phone='".$phone."' WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  
+  $_SESSION['phone'] = $phone;
 }
 
 if($_POST['email']){
@@ -108,6 +113,8 @@ if($_POST['code']){
   $mail->Body = $message;
   $mail->send();
   
+  $_SESSION['agent1'] = $code;
+  
   echo json_encode($row6);
 }
 
@@ -152,6 +159,8 @@ if($_POST['code2']){
   $mail->Body = $message;
   $mail->send();
   
+  $_SESSION['agent2'] = $code;
+  
   echo json_encode($row6);
   
 }
@@ -194,7 +203,9 @@ if($_POST['delete']){
   
       // Remove the agent from the folder
       $SQL6 = "UPDATE `users_folders` SET agent='' WHERE (user = '".$email."') AND (name = '".$name."') AND (agent LIKE '%".$id."%')";
-      $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error()); 
+      $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error());
+      
+      $_SESSION['agent1'] = '';
     }
     else{
       // buyer has a second agent associated with their account
@@ -279,12 +290,17 @@ if($_POST['delete2']){
   $mail->Subject = 'HomePik.com Lost Buyer';
   $mail->Body = $message;
   $mail->send();
+  
+  $_SESSION['agent2'] = ''; 
 }
 
 if($_POST['update']){
   $SQL = "UPDATE users set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assing_time=0 WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  
+  $_SESSION['agent1'] = $_SESSION['agent2'];
+  $_SESSION['agent2'] = '';
 }
 
 if($_POST['updateListings']){

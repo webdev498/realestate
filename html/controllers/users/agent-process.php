@@ -118,6 +118,10 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													// Set session data, but don't mark the user as logged in yet.
 													$_SESSION['id'] = $id;
 													$_SESSION['pass'] = $pass;
+													$_SESSION['agent_id'] = $row['agent_id'];
+													$_SESSION['firstname'] = $row['first_name'];
+													$_SESSION['lastname'] = $row['last_name'];
+													$_SESSION['phone'] = $row['phone'];
 													$_SESSION['email'] = $email;
 													$_SESSION['role'] = 'agent';
 													$_SESSION['agent'] = 'true';

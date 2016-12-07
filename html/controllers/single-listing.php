@@ -8,13 +8,14 @@ mysql_select_db($database) or die("Error connecting to db.");
 
 if ($_SESSION['buyer']){
   $user = $_SESSION['id'];
-  $role = 'buyer';
   $email = $_SESSION['email'];
+  $role = 'buyer';
 }
 else if($_SESSION['agent']){
   $user = $_SESSION['id'];
-  $role = 'agent';
   $email = $_SESSION['email'];
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
 }
 else{
   $email = $_SESSION['guestID'];
@@ -24,20 +25,12 @@ else{
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
 
-if($_SESSION['agent']){
-  $SQL = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['agent_id'];
-}
-
 $list_num = $_GET['list_numb'];
 
 if(isset($_GET['newTab'])){ ?>
   <style>#backBtn{ display: none }</style>
 <? }
 ?>
-
 
   <title>HomePik - Listing Details</title>
   <?php include_css("/views/css/single-listing-detail.css");

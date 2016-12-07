@@ -8,21 +8,16 @@ $db = mysql_select_db($database, $con) or die(mysql_error());
 
 if ($_SESSION['agent']){
   $user = $_SESSION['id'];
-  $role = 'agent';
   $agent_email = $_SESSION['email'];
-} else {
-  print "<script> window.location = '/users/logout.php' </script>";
+  $agent_id = $_SESSION['agent_id'];
+  $role = 'agent';
 }
+else { print "<script> window.location = '/users/logout.php' </script>"; }
 
 $_SESSION['viewingBuyer'] = 'false';
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
-
-$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '".$agent_email."')";
-$res = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
-$row = mysql_fetch_array($res,MYSQL_ASSOC);
-$agent_id = $row['agent_id'];
 ?>
 
   <title>HomePik - Agent Folders</title>

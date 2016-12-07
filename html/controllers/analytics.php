@@ -1,64 +1,16 @@
-<?
+<?php
 session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
-$_SESSION['user'] = 'true';
 $_SESSION['viewingBuyer'] = 'false';
 
-if (!$_SESSION['email']){
-  $_SESSION['email'] = 'guest@email.com';
-  $_SESSION['role'] = 'guest';
-  print "<script> window.location = '/users/logout.php' </script>";
-}
-
-if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
-  print "<script> window.location = '/users/logout.php' </script>";
-}
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
-
-$name = explode('@', $_SESSION['email']);
-$name = $name[0];
-// If the user has been rate limited because of too many requests, cut them off (VOW RULE)
-$limit = limit();
-if ($limit != 'clear') {
-  limit();
-} else {
-	if($name == "guest"){
-		header('Location: /users/logout.php');
-	}
-	if($_SESSION['agent']){
-		$SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
-		$result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		  $name = $row['first_name'] . " " . $row['last_name'];
-		}
-	}
-	elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
-		$SQL = "SELECT first_name, last_name FROM `users` where (email = '" . $_SESSION['email'] . "')";
-		$result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		  $name = $row['first_name'] . " " . $row['last_name'];
-		}
-	}
-	else{
-		$name = "Guest";
-	}
-}
-
-
-	$analytics = $_SESSION['analytics'];
-  $analysis = $_SESSION['activity_analysis'];
-	$auth = authentication();
-	$useragent = useragent();
-	$role = $_SESSION['role'];
-	$email = $_SESSION['email'];
-	$loadSaved = $_SESSION['loadSaved']; $_SESSION['loadSaved'] = false;
-
 ?>
 
   <title>HomePik - Analytics</title>

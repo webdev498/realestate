@@ -8,16 +8,7 @@ $db = mysql_select_db($database, $con) or die(mysql_error());
 $_SESSION['user'] = 'true';
 $_SESSION['viewingBuyer'] = 'false';
 
-if (!$_SESSION['email']){
-  $_SESSION['email'] = 'guest@email.com';
-  $_SESSION['role'] = 'guest';
-  print "<script> window.location = '/users/logout.php' </script>";
-}
-
-if(isset($_SESSION['agent'])){
-  $agent_email = $_SESSION['email'];
-  $role = "agent";
-}
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = 'menu.php' </script>"; }
 ?>
 
   <title>HomePik - Administrator Menu</title>

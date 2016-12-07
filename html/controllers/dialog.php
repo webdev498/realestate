@@ -10,25 +10,18 @@ mysql_select_db($database) or die("Error connecting to db.");
 
 if ($_SESSION['agent']){
   $user = $_SESSION['aid'];
+  $email = $_SESSION['email'];
+  $agent_firstname = $_SESSION['firstname'];
+  $agent_lastname = $_SESSION['lastname'];
+  $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
-  $email = $_SESSION['email'];
-  if(isset($_SESSION['buyerSave'])){
-    $savedBuyer = $_SESSION['buyerSave'];
-  }else{
-    $savedBuyer = "";
-  }
-  
-  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $agent_id = $row['agent_id'];
-  $agent_firstname = $row['first_name'];
-  $agent_lastname = $row['last_name'];
-
-} elseif ($_SESSION['user']){
+  if(isset($_SESSION['buyerSave'])){ $savedBuyer = $_SESSION['buyerSave']; }
+  else{ $savedBuyer = ""; }
+}
+elseif ($_SESSION['user']){
   $user = $_SESSION['id'];
-  $role = 'user';
   $email = $_SESSION['email'];
+  $role = 'user';
 }
  
 /*code to get user folders*/

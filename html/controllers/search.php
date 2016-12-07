@@ -21,45 +21,30 @@ $limit = limit();
 if ($limit != 'clear') { limit(); }
 else {
   if(isset($_SESSION['agent'])){
-    // GET THE LIST_NUM OF ALL SAVED LISTINGS SO WE CAN MARK THEM WITH AS SAVED IN THE LISTING DETAILS
     $saved_listings = array();
-    $SQL = "SELECT agent_id FROM `registered_agents` WHERE email = '".$_SESSION['email']."'";
-    $rs = mysql_query($SQL);
-    $row = mysql_fetch_array($rs);
-    $id = $row['agent_id'];
+    $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
+    $agentID = $_SESSION['agent_id'];
+    $num_searches = 0;
 
-    if(isset($id)){ 
-      $SQL = "SELECT email FROM users WHERE P_agent = '".$id."'";
-      $rs = mysql_query($SQL);
+    // GET THE LIST_NUM OF ALL SAVED LISTINGS SO WE CAN MARK THEM WITH AS SAVED IN THE LISTING DETAILS
+    if(isset($agentID)){ 
+      $rs = mysql_query("SELECT email FROM users WHERE P_agent = '".$agentID."'");
       while ($row = mysql_fetch_array($rs)) {
-        $sql = "(SELECT user, list_num FROM saved_listings WHERE user = '".$row['email']."' AND saved_by='" . $_SESSION['email'] . "')";
-        $rs2 = mysql_query($sql);
+        $rs2 = mysql_query("(SELECT user, list_num FROM saved_listings WHERE user = '".$row['email']."' AND saved_by='" . $_SESSION['email'] . "')");
         while ($row2 = mysql_fetch_array($rs2)) {
           $saved_listings[] = $row2;
         }
       }
     }
-    $sql = "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "')";
-    $rs2 = mysql_query($sql);
+    
+    $rs2 = mysql_query("(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "')");
     while ($row2 = mysql_fetch_array($rs2)) {
       $saved_listings[] = $row2;
     }
     $_SESSION['saved_listings'] = $saved_listings;    
   }
-
-  if(isset($_SESSION['agent'])){
-    $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '" . $_SESSION['email'] . "')";
-    $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-    $row = mysql_fetch_array($result, MYSQL_ASSOC);
-    $name = $row['first_name'] . " " . $row['last_name'];
-    $agentID = $row['agent_id'];
-    $num_searches = 0;
-  }
   elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
-    $SQL = "SELECT first_name, last_name FROM `users` where (email = '" . $_SESSION['email'] . "')";
-    $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
-    $row = mysql_fetch_array($result, MYSQL_ASSOC);
-    $name = $row['first_name'] . " " . $row['last_name'];
+    $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $agentID = "";
 
     $SQL2 = "SELECT COUNT(*) AS count FROM `Users_Search` where (email = '" . $_SESSION['email'] . "')";

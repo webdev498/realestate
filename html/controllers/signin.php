@@ -5,10 +5,7 @@ include("functions.php");
 include("basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
-limit(); // Rate limit to prevent scraping
 if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
-if(isset($_GET['agent'])){ $assigned = $_GET['agent']; }
-else{ $assigned=''; }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
 
@@ -152,7 +149,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                             <td colSpan="2">
                             <input type="hidden" name="formStep" value="login-register" />
                             <input type="hidden" name="role" value="buyer" />
-                            <input type="hidden" name="assigned" value="<?=$assigned?>"/>
                             <button type="submit" name="submit" id="signinSubmit" className="text-popups">Continue <i id="arrow" className="fa fa-chevron-right"></i></button>
                             </td>
                           </tr>
