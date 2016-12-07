@@ -85,6 +85,7 @@ else {
   $tplvar['agentID'] = $agentID;
 	$tplvar['email'] = $_SESSION['email'];  
 	$tplvar['guestID'] = $_SESSION['guestID'];
+	$tplvar['messages'] = $_SESSION['unreadMessages'];
 	$tplvar['loadSaved'] = $_SESSION['loadSaved']; $_SESSION['loadSaved'] = false;
   $templatehead = $smarty->fetch('headReduced.tpl.php', array('tplvar' => $tplvar));
   $templatebody = $smarty->fetch('addressSearch.tpl.php', array('tplvar' => $tplvar));

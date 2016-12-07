@@ -153,7 +153,8 @@ window.CriteriaNavBar = React.createClass({
       role: this.props.role,
       guestID: this.props.guestID,
       agent: "",
-      searchName: ""
+      searchName: "",
+      messages: this.props.messages
     };
   },
   checkGuest: function(){
@@ -367,7 +368,8 @@ window.SearchNavBar = React.createClass({
       role: this.props.role,
       guestID: this.props.guestID,
       agent: "",
-      searchName: ""
+      searchName: "",
+      messages: this.props.messages
     };
   },
   checkGuest: function(){
@@ -2290,10 +2292,10 @@ window.Content = React.createClass({
             <div id='signup-popup'></div>
             <PrimaryAgent/>
           </div>
-          <CriteriaNavBar role={this.props.role} name={this.props.name} email={this.props.email}/>
+          <CriteriaNavBar role={this.props.role} name={this.props.name} email={this.props.email} messages={this.props.messages}/>
           <Tabs email={this.props.email} role={this.props.role} numSearches={this.props.numSearches} justRegSaveForm={this.props.justRegSaveForm} />
           <div className="ui-jqgrid table-header">
-            <SearchNavBar role={this.props.role} name={this.props.name} email={this.props.email}/>
+            <SearchNavBar role={this.props.role} name={this.props.name} email={this.props.email} messages={this.props.messages}/>
             <AddressSearch role={this.props.role} />
             <div className="static-content-search">
               <div className="col-xs-12 col-sm-5 sr_count">

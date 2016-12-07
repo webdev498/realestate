@@ -125,12 +125,19 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														
 														unset($_SESSION['guestID']); //Clear the guest ID saved in session as user is no longer a guest
 
+														// Get un-read message count
+														$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());
+														$row = mysql_fetch_array($result,MYSQL_ASSOC);
+														$_SESSION['unreadMessages'] = $row['messages'];
+														
 														//show message
 														echo "<center class='Text-1 clearfix'>Logging in...</center>";
+														
 														//update the online field
 														$time = date('U');
 														mysql_query("UPDATE users SET online = '" . $time . "' WHERE id = '" . $_SESSION['id'] . "' ");
 														$_SESSION['logged_in'] = $time;
+														
 														//redirect them to the menu page
 														print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";
 				

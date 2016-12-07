@@ -98,6 +98,7 @@ else {
   $tplvar['agentID'] = $agentID;
   $tplvar['numSearches'] = $num_searches;
   $tplvar['justRegSaveForm'] = $justReg;
+	$tplvar['messages'] = $_SESSION['unreadMessages'];
 	$tplvar['loadSaved'] = isset($_SESSION['loadSaved'])? $_SESSION['loadSaved']: false;
 	$templatehead = $smarty->fetch('headReducedOld.tpl.php', array('tplvar' => $tplvar));
 	$templatebody = $smarty->fetch('search.tpl.php', array('tplvar' => $tplvar));

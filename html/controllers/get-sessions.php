@@ -67,7 +67,7 @@ if(isset($_POST['getInformation'])){
     $role = "guest";
   }
   
-  $info = array("name"=>$name, "email"=>$_SESSION['email'], "role"=>$role, "adminOptions"=>$_SESSION['admin']);
+  $info = array("name"=>$name, "email"=>$_SESSION['email'], "role"=>$role, "adminOptions"=>$_SESSION['admin'], "unreadMessages"=>$_SESSION['unreadMessages']);
   
   echo json_encode($info);
 }

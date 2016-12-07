@@ -149,6 +149,8 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #u7137-5{ color: #0085C6; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; font-style: italic; line-height: 25px; }
 #u7137-4,#u7137-6{ font-family: lato, sans-serif; font-size: 18px; font-style: italic; font-weight: 300; line-height: 25px; }
 
+#unreadMessages{ color: red; }
+
 .js body{	visibility: hidden; }
 .js body.initialized {	visibility: visible; }
 #muse_css_mq,.html{ background-color: #FFFFFF; }

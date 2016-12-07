@@ -58,6 +58,7 @@ else{
   $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
   $num_buyers = mysql_num_rows($result1);
 }
+$_SESSION['unreadMessages'] = 0;
 ?>
 
   <title>HomePik - My Messages</title>

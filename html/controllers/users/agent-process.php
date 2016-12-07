@@ -126,6 +126,11 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													//Clear the guest ID saved in session as user is no longer a guest
 													unset($_SESSION['guestID']);
 													
+													// Get un-read message count
+													$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `registered_agents` as r ON m.agent=r.email WHERE (agent = '".$email."') AND (sender != '".$email."') AND (m.time > r.online)") or die("Couldn't execute query.".mysql_error());
+													$row = mysql_fetch_array($result,MYSQL_ASSOC);
+													$_SESSION['unreadMessages'] = $row['messages'];
+													
 													//update the online field
 													mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' ");
 													

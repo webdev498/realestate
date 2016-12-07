@@ -640,9 +640,15 @@ else{ $mainPage = ""; }
             agent: agent,
             id: id,
             success: function(result){
-              if(agent == "agent1"){ this.setState({reassign_agent1: "false"}); }
-              else if(agent == "agent2"){ this.setState({reassign_agent2: "false"}); }
-              this.getBuyerInformation(this.state.selected_user_info.email);
+              var ajaxStop = 0;
+              $(document).ajaxStop(function() {
+                if(ajaxStop == 0){
+                  ajaxStop++;
+                  if(agent == "agent1"){ this.setState({reassign_agent1: "false"}); }
+                  else if(agent == "agent2"){ this.setState({reassign_agent2: "false"}); }
+                  this.getBuyerInformation(this.state.selected_user_info.email);
+                }
+              }.bind(this));   
             }.bind(this)
           });
         }
@@ -705,7 +711,6 @@ else{ $mainPage = ""; }
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.selected_user_info.email} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
     viewBuyerInfo: function(email){
-      console.log(email);
       var $dialog =  $("#ajax-box").dialog({
 				width: 565,
 				dialogClass: 'viewBuyerInfoPopup',

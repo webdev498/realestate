@@ -16,12 +16,12 @@ if (!$_SESSION['email']){
 
 if(isset($_SESSION['agent'])){
   $agent_email = $_SESSION['email'];
-  $analyticsOption = $_SESSION['analytics'];
-  $analysisAgent = $_SESSION['activity_analysis'];
   $adminOptions = $_SESSION['admin_options'];
+  $unreadMessages = $_SESSION['unreadMessages'];
   $role = "agent";
 }
 elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
+  $unreadMessages = $_SESSION['unreadMessages'];
   $role = "user";
 }
 else{
@@ -45,6 +45,11 @@ else{
   <div id='ajax-box3'></div>
 <script type="text/babel">
   var BuyerOptions = React.createClass({
+    getInitialState: function() {
+      return{
+        messages: "<?php echo $unreadMessages ?>",
+      };
+    },
     logout:function(){
       location.assign("/users/logout.php");
     },
@@ -85,7 +90,7 @@ else{
               <div className="museBGSize grpelem" id="u8016"><span className="button-text">MY SAVED LISTINGS</span></div>
             </a>
             <a href="my-messages.php?MP=menu" className="button-links last-button">
-              <div className="museBGSize grpelem" id="u27965"><span className="button-text">MESSAGES</span></div>
+              <div className="museBGSize grpelem" id="u27965"><span className="button-text">MESSAGES {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</span></div>
             </a>
           </div>
         </div>
@@ -514,7 +519,8 @@ else{
     getInitialState: function() {
       return{
         email: "<? echo $agent_email ?>",
-        adminOptions: "<? echo $adminOptions ?>"
+        adminOptions: "<? echo $adminOptions ?>",
+        messages: "<?php echo $unreadMessages ?>"        
       };
     },
     addBuyer: function(){
@@ -582,7 +588,7 @@ else{
               <div className="museBGSize grpelem" id="u28141"><span className="button-text">SAVED LISTINGS</span></div>
             </a>
             <a href="my-messages.php?MP=menu" className="button-links last-button">
-              <div className="museBGSize grpelem" id="u27965"><span className="button-text">MESSAGES</span></div>
+              <div className="museBGSize grpelem" id="u27965"><span className="button-text">MESSAGES {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</span></div>
             </a>
           </div>
           <div id="u8048">

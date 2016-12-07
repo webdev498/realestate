@@ -1701,7 +1701,8 @@ window.NavBar = React.createClass({
       email: "",
       role: "",
       agent: "",
-      searchName: ""
+      searchName: "",
+      messages: ""
     };
   },
   componentDidMount: function(){
@@ -1718,6 +1719,7 @@ window.NavBar = React.createClass({
             this.setState({name: info['name']});
             this.setState({email: info['email']});
             this.setState({role: info['role']});
+            this.setState({messages: info['unreadMessages']});
           }
         }.bind(this));
       }.bind(this),
@@ -1913,7 +1915,7 @@ window.NavBar = React.createClass({
                     {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
                     <li><a href={"buyer-profile.php?MP="+this.props.mainPage} className="my-profile">My Profile</a></li>
                     <li><a href={"saved.php?MP="+this.props.mainPage}>Listing Folders</a></li>
-                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages</a></li>
+                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.state.role == "agent" ?
@@ -1924,7 +1926,7 @@ window.NavBar = React.createClass({
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href={"buyers.php?MP="+this.props.mainPage}>Manage Buyers</a></li>
                     <li><a href={"agent-listings.php?MP="+this.props.mainPage}>Saved Listings</a></li>
-                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages</a></li>
+                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 
@@ -1958,7 +1960,8 @@ window.MenuNavBar = React.createClass({
       email: "",
       role: "",
       agent: "",
-      searchName: ""
+      searchName: "",
+      messages: ""
     };
   },
   componentDidMount: function(){
@@ -1975,6 +1978,7 @@ window.MenuNavBar = React.createClass({
             this.setState({name: info['name']});
             this.setState({email: info['email']});
             this.setState({role: info['role']});
+            this.setState({messages: info['unreadMessages']});
           }
         }.bind(this));
       }.bind(this),
@@ -2158,7 +2162,7 @@ window.MenuNavBar = React.createClass({
                     <li><a href="/search.php#newSearch">New Search</a></li>
                     <li><a href="buyer-profile.php?MP=menu" className="my-profile">My Profile</a></li>
                     <li><a href="saved.php?MP=menu">Listing Folders</a></li>
-                    <li><a href="my-messages.php?MP=menu">Messages</a></li>
+                    <li><a href="my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.state.role == "agent" ?
@@ -2168,7 +2172,7 @@ window.MenuNavBar = React.createClass({
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="buyers.php?MP=menu">Manage Buyers</a></li>
                     <li><a href="agent-listings.php?MP=menu">Saved Listings</a></li>
-                    <li><a href="my-messages.php?MP=menu">Messages</a></li>
+                    <li><a href="my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 

@@ -154,7 +154,8 @@ window.SearchNavBar = React.createClass({
       email: this.props.email,
       role: this.props.role,
       agent: "",
-      searchName: ""
+      searchName: "",
+      messages: this.props.messages
     };
   },
   checkGuest: function(){
@@ -1520,7 +1521,7 @@ window.Content = React.createClass({
           <Tabs email = {this.props.email} role={this.props.role}/>
 
           <div className="ui-jqgrid table-header">
-            <SearchNavBar role={this.props.role} name={this.props.name} email={this.props.email}/>
+            <SearchNavBar role={this.props.role} name={this.props.name} email={this.props.email} messages={this.props.messages}/>
 
             <AddressSearch role={this.props.role} />
 

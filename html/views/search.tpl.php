@@ -21,7 +21,7 @@
       document.getElementById("searchresultsheader")
     );
     ReactDOM.render(
-      <Content role={data.role} name={data.name} email={data.email} useragent={data.useragent} guestID={data.guestID} agentID={data.agentID} numSearches={data.numSearches} justRegSaveForm = {data.justRegSaveForm} />,
+      <Content role={data.role} name={data.name} email={data.email} useragent={data.useragent} guestID={data.guestID} agentID={data.agentID} numSearches={data.numSearches} justRegSaveForm = {data.justRegSaveForm} messages={data.messages} />,
       document.getElementById("wrapper")
     );
     ReactDOM.render(
