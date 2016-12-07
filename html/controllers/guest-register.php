@@ -63,7 +63,7 @@ else{ $referrer = "registrationPage"; }
 		  });
 		},
     closePopup: function(){
-		  $("#overlay").hide();
+		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -100,6 +100,7 @@ else{ $referrer = "registrationPage"; }
 		  event.preventDefault();
 			
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 350,
 				dialogClass: 'agentListPopup',
 				close: function(){
@@ -110,9 +111,9 @@ else{ $referrer = "registrationPage"; }
 					$( this ).remove();
 				},
         open: function(){
-          $("#overlay").bind("click", function(){
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -120,7 +121,7 @@ else{ $referrer = "registrationPage"; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<AgentList closeDialog={closeDialog}/>, $dialog[0]);
 		},
 		render: function(){

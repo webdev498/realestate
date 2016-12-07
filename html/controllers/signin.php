@@ -134,7 +134,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     <img src="/images/button_my_profile.png" style={{float: "right"}}/>
                   </div>
                   <div id="signinBorder">
-                    <form onSubmit={this.validate} action="http://homepik.com/controllers/users/process.php" id="validate" method="post" autoComplete="off">
+                    <form onSubmit={this.validate} action="/controllers/users/process.php" id="validate" method="post" autoComplete="off">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup><col width="250"/><col width="350"/></colgroup>
                         <tbody>

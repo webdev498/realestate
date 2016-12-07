@@ -312,7 +312,7 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
@@ -359,7 +359,7 @@ var AddBuyer = React.createClass({
                       $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
-                    $("#overlay").hide();
+                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                   else{
@@ -389,7 +389,7 @@ var AddBuyer = React.createClass({
                       $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
-                    $("#overlay").hide();
+                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                 }
@@ -423,7 +423,7 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }
@@ -435,7 +435,7 @@ var AddBuyer = React.createClass({
     }
   },
   closePopup: function(){
-    $("#overlay").hide();
+    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -1462,14 +1462,15 @@ var ChooseFormula = React.createClass({
 	  });
 	},
 	closePopup: function(){
-	  $("#overlay").hide();
+	  $(".ui-widget-overlay").hide();
 	  {this.props.closeDialog()}
 	},
   editFormula: function(formula){
     this.setState({formulaBeingEdited: formula});
     var initial = true;
     var $dialog =  $("#ajax-box2").dialog({
-      width: 1115,
+      modal: true,
+	  width: 1115,
       dialogClass: "editFormula",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box2'));
@@ -1479,9 +1480,9 @@ var ChooseFormula = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box2").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1674,7 +1675,7 @@ var ClearListings = React.createClass({
     else if(this.state.clearListings == "true") { location.assign("/users/logout.php?listings=clear"); }
   },
   closePopup: function(){
-    $("#overlay").hide();
+    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}    
   },
   render: function(){
@@ -1741,7 +1742,8 @@ window.NavBar = React.createClass({
   },
   selectFormula: function(){
     var $dialog =  $("#ajax-box").dialog({
-      width: 795,
+      modal: true,
+	  width: 795,
       height: 550,
       dialogClass: 'choseBuyingFormula',
       close: function(){
@@ -1752,9 +1754,9 @@ window.NavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
 	  });
@@ -1762,12 +1764,13 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
 	  }
 
-	  $("#overlay").show();
+	  $(".ui-widget-overlay").show();
 	  ReactDOM.render(<ChooseFormula closeDialog={closeDialog} email={this.state.email}/>, $dialog[0]);
   },
   addBuyer: function(){
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox addBuyerPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1777,9 +1780,9 @@ window.NavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1787,7 +1790,7 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $("#overlay").show();
+    $(".ui-widget-overlay").show();
     ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
   },
   logout: function(){
@@ -1825,7 +1828,8 @@ window.NavBar = React.createClass({
     $.removeCookie("newconstruction");
     
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1835,9 +1839,9 @@ window.NavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1845,7 +1849,7 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $("#overlay").show();
+    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -1989,7 +1993,8 @@ window.MenuNavBar = React.createClass({
   },
   selectFormula: function(){
     var $dialog =  $("#ajax-box").dialog({
-      width: 795,
+      modal: true,
+	  width: 795,
       height: 550,
       dialogClass: 'choseBuyingFormula',
       close: function(){
@@ -2000,9 +2005,9 @@ window.MenuNavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
 	  });
@@ -2010,12 +2015,13 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
 	  }
 
-	  $("#overlay").show();
+	  $(".ui-widget-overlay").show();
 	  ReactDOM.render(<ChooseFormula closeDialog={closeDialog} email={this.state.email}/>, $dialog[0]);
   },
   addBuyer: function(){
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox addBuyerPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2025,9 +2031,9 @@ window.MenuNavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2035,7 +2041,7 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $("#overlay").show();
+    $(".ui-widget-overlay").show();
     ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
   },
   logout: function(){
@@ -2073,7 +2079,8 @@ window.MenuNavBar = React.createClass({
     $.removeCookie("newconstruction");
     
     var $dialog =  $("#ajax-box").dialog({
-      width: 580,
+      modal: true,
+	  width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2083,9 +2090,9 @@ window.MenuNavBar = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $("#overlay").bind("click", function(){
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2093,7 +2100,7 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $("#overlay").show();
+    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -2275,7 +2282,7 @@ window.AddressSearch = React.createClass({
 
 var ComingSoon = React.createClass({
   closePopup: function(){
-    $("#overlay").hide();
+    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -2319,7 +2326,8 @@ window.Footer = React.createClass({
   },
   comingSoon: function(){
     var $dialog =  $("#ajax-box").dialog({
-      width: 250,
+      modal: true,
+	  width: 250,
       dialogClass: "comingSoon",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2329,10 +2337,10 @@ window.Footer = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        $(this).css("display", "block");
-        $("#overlay").bind("click", function(){
+        //$(this).css("display", "block");
+        $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2340,7 +2348,7 @@ window.Footer = React.createClass({
       $dialog.dialog('close');
     }.bind(this)
 
-    $("#overlay").show();
+    $(".ui-widget-overlay").show();
     ReactDOM.render(<ComingSoon closeDialog={closeDialog}/>, $dialog[0]);
   },
   render: function () {

@@ -53,7 +53,7 @@ if(isset($_GET['newTab'])){ ?>
 <script type="text/babel">
   var Broker = React.createClass({
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -114,7 +114,7 @@ if(isset($_GET['newTab'])){ ?>
       else{ return false; }
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  sendListing: function(event){
@@ -134,7 +134,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -154,7 +154,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -177,7 +177,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -197,7 +197,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -220,7 +220,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -240,7 +240,7 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -355,7 +355,7 @@ if(isset($_GET['newTab'])){ ?>
       });
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
@@ -397,7 +397,7 @@ if(isset($_GET['newTab'])){ ?>
             $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             }.bind(this));
@@ -499,7 +499,7 @@ if(isset($_GET['newTab'])){ ?>
       });
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
@@ -550,7 +550,7 @@ if(isset($_GET['newTab'])){ ?>
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $("#overlay").hide();
+                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -588,7 +588,7 @@ if(isset($_GET['newTab'])){ ?>
 
 	var AgentInfo = React.createClass({
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -627,7 +627,7 @@ if(isset($_GET['newTab'])){ ?>
       this.setState(change);
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  sendEmail: function(){
@@ -643,7 +643,7 @@ if(isset($_GET['newTab'])){ ?>
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }.bind(this));
@@ -763,7 +763,7 @@ if(isset($_GET['newTab'])){ ?>
       this.setState({index: index});
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -838,7 +838,7 @@ if(isset($_GET['newTab'])){ ?>
       this.setState({monthlyPay: total});
 	  },
 	  closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -1121,7 +1121,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  slideshow(index){
       var $dialog =  $("#ajax-box3").dialog({
-        width: 1345,
+        modal: true,
+		width: 1345,
         dialogClass: "slideshow slideshowPopup",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
@@ -1131,10 +1132,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1142,12 +1143,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<Slideshow closeDialog={closeDialog} num_photos={this.state.details['numPhotos']} start_photo={index} photos={this.state.details['photos']}/>, $dialog[0]);
 	  },
 	  send: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 585,
+        modal: true,
+		width: 585,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1157,10 +1159,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1168,13 +1170,14 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} selected={'friend'} message={""}/>, $dialog[0]);
 	  },
 	  save: function(){
       if(this.state.role == "agent"){
         var $dialog =  $("#ajax-box").dialog({
-          width: 500,
+          modal: true,
+		  width: 500,
           dialogClass: 'agentSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1184,10 +1187,10 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            $(this).css("display", "block");
-            $("#overlay").bind("click", function(){
+            <!--$(this).css("display", "block");-->
+            $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
             });
           }
         });
@@ -1195,12 +1198,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
         }
 
-        $("#overlay").show();
+        $(".ui-widget-overlay").show();
         ReactDOM.render(<AgentSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else if(this.state.role == "buyer"){
         var $dialog =  $("#ajax-box").dialog({
-          width: 500,
+          modal: true,
+		  width: 500,
           dialogClass: 'buyerSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1210,10 +1214,10 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            $(this).css("display", "block");
-            $("#overlay").bind("click", function(){
+            <!--$(this).css("display", "block");-->
+            $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
             });
           }
         });
@@ -1221,7 +1225,7 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
         }
 
-        $("#overlay").show();
+        $(".ui-widget-overlay").show();
         ReactDOM.render(<BuyerSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else{
@@ -1284,7 +1288,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  broker: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 500,
+        modal: true,
+		width: 500,
         dialogClass: 'brokerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1294,10 +1299,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1305,12 +1310,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<Broker closeDialog={closeDialog} broker={this.state.details['broker']} contract={this.state.details['contract']} contact={this.state.details['contact']} contact_email={this.state.details['contact_email']} contact_phone={this.state.details['contact_phone']} listing_num={this.state.listing}/>, $dialog[0]);
 	  },
 	  costEstimator: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 585,
+        modal: true,
+		width: 585,
         dialogClass: 'costEstimatorPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1320,10 +1326,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1331,12 +1337,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<CostEstimator closeDialog={closeDialog} address={this.state.details['address']} price={this.state.details['price']} maint={this.state.details['maint']} taxes={this.state.details['taxes']}/>, $dialog[0]);
 	  },
 	  agent1Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1346,10 +1353,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1357,12 +1364,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent_firstname']} agent_lastname={this.state.details['agent_lastname']} agent_photo={this.state.agent1_img} agent_bio={this.state.details['agent_bio']}/>, $dialog[0]);
 	  },
 	  agent2Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1372,10 +1380,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1383,12 +1391,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent2_firstname']} agent_lastname={this.state.details['agent2_lastname']} agent_photo={this.state.agent2_img} agent_bio={this.state.details['agent2_bio']}/>, $dialog[0]);
 	  },
 	  emailAgent: function(agent){
       var $dialog =  $("#ajax-box").dialog({
-        width: 610,
+        modal: true,
+		width: 610,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1398,10 +1407,10 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1409,7 +1418,7 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} role={this.state.role} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} selected={agent} message={"Please send me more information on this listing."}/>, $dialog[0]);
 	  },
 	  render: function(){

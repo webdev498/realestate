@@ -788,7 +788,7 @@ $agent_id = $row['agent_id'];
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $("#overlay").hide();
+                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -800,7 +800,7 @@ $agent_id = $row['agent_id'];
       }
     },
     cancel: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     updateData: function(){
@@ -1011,13 +1011,13 @@ $agent_id = $row['agent_id'];
         recipient: this.state.recipient,
         comment: this.state.comment,
         success: function(result){
-          $("#overlay").hide();
+          $(".ui-widget-overlay").hide();
           {this.props.closeDialog()}
         }.bind(this)
       });
 		},
     closePopup: function(){
-		  $("#overlay").hide();
+		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -1064,7 +1064,7 @@ $agent_id = $row['agent_id'];
 					$(document).ajaxStop(function() {
 					  if(ajaxStop == 0){
               ajaxStop++;
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
 					  }
 					}.bind(this));
@@ -1072,7 +1072,7 @@ $agent_id = $row['agent_id'];
 			});
 		},
 		closePopup: function(){
-		  $("#overlay").hide();
+		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -1186,9 +1186,9 @@ $agent_id = $row['agent_id'];
 		},
     viewGrades: function(){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 260,
 				dialogClass: 'viewGradesPopup',
-        modal: true,
 				close: function(){
 					ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
 					var div = document.createElement('div');
@@ -1197,7 +1197,7 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
+          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1207,11 +1207,12 @@ $agent_id = $row['agent_id'];
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 		},
     emailFolder: function(name){
       var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'emailFolderPopup',
 				close: function(){
@@ -1222,10 +1223,10 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1233,11 +1234,12 @@ $agent_id = $row['agent_id'];
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.agent_email} folder={name} agentSentBuyerFolder={"false"}/>, $dialog[0]);
 		},
     emailBuyerFolder: function(name, buyer){
       var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'emailFolderPopup',
 				close: function(){
@@ -1248,10 +1250,10 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1259,12 +1261,13 @@ $agent_id = $row['agent_id'];
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={buyer} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
     editBuyerFormula: function(name, buyer){
       var $dialog =  $("#ajax-box").dialog({
-        width: 1115,
+        modal: true,
+		width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1274,10 +1277,10 @@ $agent_id = $row['agent_id'];
           $( this ).remove();
         },
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1285,7 +1288,7 @@ $agent_id = $row['agent_id'];
         $dialog.dialog('close');
       }.bind(this)
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={name} buyer={buyer}/>, $dialog[0]);
     },
     deleteFolder: function(name, buyer){
@@ -1369,6 +1372,7 @@ $agent_id = $row['agent_id'];
     },
     editComment: function(comment, listing, folder){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'editCommentPopup',
 				close: function(){
@@ -1379,10 +1383,10 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1391,11 +1395,12 @@ $agent_id = $row['agent_id'];
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={this.state.agent_email} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     editBuyerComment: function(comment, listing, folder, buyer){
 			var $dialog =  $("#ajax-box").dialog({
+				modal: true,
 				width: 565,
 				dialogClass: 'editCommentPopup',
 				close: function(){
@@ -1406,10 +1411,10 @@ $agent_id = $row['agent_id'];
 					$( this ).remove();
 				},
         open: function(){
-          $(this).css("display", "block");
-          $("#overlay").bind("click", function(){
+          <!--$(this).css("display", "block");-->
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1418,7 +1423,7 @@ $agent_id = $row['agent_id'];
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$("#overlay").show();
+			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={buyer} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     deleteListing: function(listing, folder){

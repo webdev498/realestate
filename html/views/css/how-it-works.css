@@ -57,9 +57,9 @@
 
 .about-phrase { color: #7F7F7F; font-family: lato, sans-serif; font-size: 30px; font-weight: 300; line-height: 30px; padding: 20px; text-align: center; }
 .video-container { height: 228px; width: 396px; }
-.video-image { margin-left: 185px; }
+.video-image { margin-left: 185px; padding-bottom: 50px !important;}
 .image-container { height: 228px; width: 304px; }
-.pdf-image{ padding-bottom: 50px; }
+.pdf-image{ padding-bottom: 50px !important; }
 .video-image p, .pdf-image p{ margin-bottom: 20px; }
 
 @media (min-width: 992px){ .col-md-3 { width: 26% !important; } }
