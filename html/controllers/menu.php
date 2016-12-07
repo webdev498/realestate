@@ -296,7 +296,7 @@ else{
                 }
               });
 
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             else{
@@ -333,7 +333,7 @@ else{
                   $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                 });
 
-                $("#overlay").hide();
+                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
               // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
@@ -380,7 +380,7 @@ else{
                       $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                     });
 
-                    $("#overlay").hide();
+                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                   else{
@@ -409,7 +409,7 @@ else{
                     $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                   });
 
-                  $("#overlay").hide();
+                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }
@@ -442,7 +442,7 @@ else{
                 $('#ajax-box2').dialog( "option", "title", "Buyer Exists" ).dialog('open');
               });
 
-              $("#overlay").hide();
+              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             }
@@ -454,7 +454,7 @@ else{
       }
     },
     closePopup: function(){
-      $("#overlay").hide();
+      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     render: function(){
@@ -519,7 +519,8 @@ else{
     },
     addBuyer: function(){
       var $dialog =  $("#ajax-box").dialog({
-        width: 585,
+        modal: true,
+		width: 585,
         dialogClass: 'ajaxbox addBuyerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -529,9 +530,9 @@ else{
           $( this ).remove();
         },
         open: function(){
-          $("#overlay").bind("click", function(){
+          $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $("#overlay").hide();
+            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -539,7 +540,7 @@ else{
         $dialog.dialog('close');
       }
 
-      $("#overlay").show();
+      $(".ui-widget-overlay").show();
       ReactDOM.render(<AddBuyer closeDialog={closeDialog}/>, $dialog[0]);
     },
     logout:function(){
