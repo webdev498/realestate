@@ -761,6 +761,11 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 #u16157-7{	color: #404040;	font-family: lato, sans-serif;	font-weight: 300;	font-style: italic;	line-height: 22px;}
 #u28562-3{	font-size: 16px;	color: #7F7F7F;	font-family: lato, sans-serif;	font-weight: 600;	font-style: italic;	line-height: 22px;}
 
+/* Delete Listing Popup */
+.deleteListingPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: auto; max-height: 105px; min-height: 100px; outline: 0px none; position: fixed !important; width: 215px !important; z-index: 1006 !important; }
+#delete-listing{ background: #FFFFFF; border: 1px solid #B2B2B2; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 100px !important; min-height: 100px !important; width: 215px !important; }
+#delete-listing #loadingGIF{ left: 0 !important; margin: auto; margin-top: 25px; position: absolute !important; text-align: center; top: 0 !important; width: 185px; }
+
 /*Email Folder Popup*/
 .emailFolderPopup{ background-color: transparent; border: none !important; box-shadow: none; display: block; height: 100% !important; left: 35% !important; max-height: 97%; max-width: 400px; outline: 0px none; position: fixed !important; top: 2% !important; width: 90% !important; z-index: 1010 !important; }
 .ui-dialog.emailFolderPopup .ui-resizable-handle{	display: none !important;}

@@ -1574,6 +1574,7 @@ window.Content = React.createClass({
           <div id='add-edit-listing-comment'></div>
           <div id='save-listing'></div>
           <div id='load-save-listing'></div>
+          <div id='delete-listing'></div>
           <div id="agentSave" title='Save to Buyer Folder'></div>
           <div id="footer"><div id="disclaimer">This is not a public portal.</div></div>
         </div>

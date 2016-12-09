@@ -1192,7 +1192,6 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1202,7 +1201,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 		},
     emailFolder: function(name){
@@ -1218,10 +1216,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1229,7 +1225,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.agent_email} folder={name} agentSentBuyerFolder={"false"}/>, $dialog[0]);
 		},
     emailBuyerFolder: function(name, buyer){
@@ -1245,10 +1240,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1256,13 +1249,12 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={buyer} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
     editBuyerFormula: function(name, buyer){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 1115,
+        width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1272,10 +1264,8 @@ else{ $mainPage = ""; }
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1283,7 +1273,6 @@ else{ $mainPage = ""; }
         $dialog.dialog('close');
       }.bind(this)
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={name} buyer={buyer}/>, $dialog[0]);
     },
     deleteFolder: function(name, buyer){
@@ -1324,7 +1313,7 @@ else{ $mainPage = ""; }
         }
       });
       $('#ajax-box2').load('messages.php #deleteBuyer',function(){
-        $('#ajax-box2').dialog( "option", "title", "Permanently Delete Buyer" ).dialog('open');
+        $('#ajax-box2').dialog('open');
         $("#deleteBuyer").find("#name").html(name);
       });
 		},
@@ -1347,7 +1336,6 @@ else{ $mainPage = ""; }
       });
     },
     archiveFolder: function(name, buyer){
-      console.log(buyer);
       $.get("/controllers/ajax.php", {
         archiveBuyer: 'true',
         buyer: buyer,
@@ -1378,10 +1366,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1390,7 +1376,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={this.state.agent_email} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     editBuyerComment: function(comment, listing, folder, buyer){
@@ -1406,10 +1391,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1418,10 +1401,28 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={buyer} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     deleteListing: function(listing, folder){
+      $("#ajax-box").dialog({
+        modal: true,
+        height: 'auto',
+        width: 'auto',
+        autoOpen: false,
+        dialogClass: 'ajaxbox loading',
+        close: function() {
+          $( this ).dialog( "destroy" );
+        },
+        open: function(){
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+      });
+      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+        $('#ajax-box').dialog('open');
+      });
+      
 			$.get("/controllers/ajax.php", {
 				clear_one_queued_from_folder: 'true',
 				delete_id: listing,
@@ -1431,12 +1432,33 @@ else{ $mainPage = ""; }
 				$(document).ajaxStop(function() {
 				  if(ajaxStop == 0){
             ajaxStop++;
+            $('#ajax-box').html('Listing has been removed.');
+            setTimeout(function(){ $('#ajax-box').dialog('close'); }, 2000);
             this.getListings("deletion");
 				  }
 				}.bind(this));
 			 }.bind(this));
 		},
     deleteBuyerListing: function(listing, folder, buyer){
+      $("#ajax-box").dialog({
+        modal: true,
+        height: 'auto',
+        width: 'auto',
+        autoOpen: false,
+        dialogClass: 'ajaxbox loading',
+        close: function() {
+          $( this ).dialog( "destroy" );
+        },
+        open: function(){
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+      });
+      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+        $('#ajax-box').dialog('open');
+      });
+      
 			$.get("/controllers/ajax.php", {
 				clear_one_saved_from_folder: 'true',
 				buyer: buyer,
@@ -1447,6 +1469,8 @@ else{ $mainPage = ""; }
 				$(document).ajaxStop(function() {
 				  if(ajaxStop == 0){
             ajaxStop++;
+            $('#ajax-box').html('Listing has been removed.');
+            setTimeout(function(){ $('#ajax-box').dialog('close'); }, 2000);
             this.getBuyerFolders();
 				  }
 				}.bind(this));

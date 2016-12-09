@@ -46,3 +46,4 @@
 <div id="agentAdded" class="text-popups"><p>An agent account for <span id="agentName"></span> has been created and an email has been sent.</p></div>
 <div id="needDate" class="text-popups"><p>You must select at least a month and a year.</p></div>
 <div id="invalidDate" class="text-popups"><p>The date entered is invalid, please check.</p></div>
+<div id="loadingAnimation" class="text-popups"><img src='../images/ajax-loader-large.gif' alt='loading, please wait...' height='50'></div>

@@ -105,6 +105,7 @@ if(isset($email) && $email != ''){
       $price = number_format($price, 0, '.', ',');
       $monthly = (intval($row['maint']) + intval($row['taxes']));
       $monthly = number_format($monthly, 0, '.', ',');
+      $bath = $row['bath'];
       $bath = number_format($bath, 0, '.', ',');
       $loc = $row['loc'];
       $loc = number_format($loc, 0, '.', ',');

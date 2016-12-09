@@ -2929,6 +2929,21 @@ $(document).ready(function(){
   $('body').delegate('.deleteSavedGuestListing','click',function(e){
     var list_num = $(e.target).attr("data-listing");
     var folder = $(e.target).attr("data-folder");
+    
+    $("#delete-listing").append(appendLoaderInBubble());
+    $("#delete-listing").dialog({
+      modal: true,
+      height: '0',
+      width: '0',
+      autoOpen: false,
+      dialogClass: 'deleteListingPopup',
+      open: function(){
+        $(".ui-widget-overlay").bind("click", function(){
+          $("#delete-listing").dialog('close');
+        });
+      }
+    });
+    $("#delete-listing").dialog('open');
 
     $.get("/controllers/ajax.php", {
       clear_one_saved_from_folder: 'true',
@@ -2970,6 +2985,8 @@ $(document).ready(function(){
               $('.heart-list-'+list_num).removeClass('color-blue').attr("title", "save");
               $('.heart-tabHead-'+list_num).removeClass('color-blue').attr("title", "save");
               $('.heart-tabInner-'+list_num).removeClass('color-blue').attr("title", "save");
+              $('#delete-listing').html('Listing has been removed.');
+              setTimeout(function(){ $('#delete-listing').dialog('destroy'); }, 2000);
             },
             error: function(){
               console.log("failed");
@@ -2986,6 +3003,21 @@ $(document).ready(function(){
   $('body').delegate('.deleteSavedBuyerListing','click',function(e){
     var list_num = $(e.target).attr("data-listing");
     var folder = $(e.target).attr("data-folder");
+    
+    $("#delete-listing").append(appendLoaderInBubble());
+    $("#delete-listing").dialog({
+      modal: true,
+      height: '0',
+      width: '0',
+      autoOpen: false,
+      dialogClass: 'deleteListingPopup',
+      open: function(){
+        $(".ui-widget-overlay").bind("click", function(){
+          $("#delete-listing").dialog('close');
+        });
+      }
+    });
+    $("#delete-listing").dialog('open');
 
     $.get("/controllers/ajax.php", {
       clear_one_saved_from_folder: 'true',
@@ -3030,6 +3062,8 @@ $(document).ready(function(){
               $('.heart-list-'+list_num).removeClass('color-blue').attr("title", "save");
               $('.heart-tabHead-'+list_num).removeClass('color-blue').attr("title", "save");
               $('.heart-tabInner-'+list_num).removeClass('color-blue').attr("title", "save");
+              $('#delete-listing').html('Listing has been removed.');
+              setTimeout(function(){ $('#delete-listing').dialog('destroy'); }, 2000);
             },
             error: function(){
               console.log("failed");
@@ -3046,6 +3080,21 @@ $(document).ready(function(){
   $('body').delegate('.deleteSavedAgentListing','click',function(e){
     var list_num = $(e.target).attr("data-listing");
     var folder = $(e.target).attr("data-folder");
+    
+    $("#delete-listing").append(appendLoaderInBubble());
+    $("#delete-listing").dialog({
+      modal: true,
+      height: '0',
+      width: '0',
+      autoOpen: false,
+      dialogClass: 'deleteListingPopup',
+      open: function(){
+        $(".ui-widget-overlay").bind("click", function(){
+          $("#delete-listing").dialog('close');
+        });
+      }
+    });
+    $("#delete-listing").dialog('open');
 
     $.get("/controllers/ajax.php", {
       clear_one_queued_from_folder: 'true',
@@ -3095,6 +3144,8 @@ $(document).ready(function(){
                   $('.heart-list-'+list_num).removeClass('color-blue').attr("title", "save");
                   $('.heart-tabHead-'+list_num).removeClass('color-blue').attr("title", "save");
                   $('.heart-tabInner-'+list_num).removeClass('color-blue').attr("title", "save");
+                  $('#delete-listing').html('Listing has been removed.');
+                  setTimeout(function(){ $('#delete-listing').dialog('destroy'); }, 2000);
                 },
                 error: function(){
                   console.log("failed");
@@ -3119,6 +3170,21 @@ $(document).ready(function(){
     var list_num = $(e.target).attr("data-listing");
     var folder = $(e.target).attr("data-folder");
     var buyer = $(e.target).attr("data-buyer");
+    
+    $("#delete-listing").append(appendLoaderInBubble());
+    $("#delete-listing").dialog({
+      modal: true,
+      height: '0',
+      width: '0',
+      autoOpen: false,
+      dialogClass: 'deleteListingPopup',
+      open: function(){
+        $(".ui-widget-overlay").bind("click", function(){
+          $("#delete-listing").dialog('close');
+        });
+      }
+    });
+    $("#delete-listing").dialog('open');
 
     $.get("/controllers/ajax.php", {
       clear_one_saved_from_folder: 'true',
@@ -3168,6 +3234,8 @@ $(document).ready(function(){
                   $('.heart-list-'+list_num).removeClass('color-blue').attr("title", "save");
                   $('.heart-tabHead-'+list_num).removeClass('color-blue').attr("title", "save");
                   $('.heart-tabInner-'+list_num).removeClass('color-blue').attr("title", "save");
+                  $('#delete-listing').html('Listing has been removed.');
+                  setTimeout(function(){ $('#delete-listing').dialog('destroy'); }, 2000);
                 },
                 error: function(){
                   console.log("failed");
@@ -3273,7 +3341,7 @@ $(document).ready(function(){
         }
       });
     }
-    else if (user == "agent") {
+    else if (user == "agent" || user == "agent-buyer") {
       $(".folder-section.compare-saved-listings-div").remove();
       $("#compare-listings").append(appendLoaderInBubble());
       var ajaxStop = 0;

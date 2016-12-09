@@ -229,7 +229,6 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -239,7 +238,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 		},
     emailFolder: function(name){
@@ -255,10 +253,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -266,7 +262,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} folder={name} role={this.state.role}/>, $dialog[0]);
     },
     editComment: function(comment, listing, folder){
@@ -282,10 +277,8 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -294,10 +287,28 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     deleteListing: function(listing_num, folder){
+      $("#ajax-box").dialog({
+        modal: true,
+        height: 'auto',
+        width: 'auto',
+        autoOpen: false,
+        dialogClass: 'ajaxbox loading',
+        close: function() {
+          $( this ).dialog( "destroy" );
+        },
+        open: function(){
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+      });
+      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+        $('#ajax-box').dialog('open');
+      });
+      
 			$.get("/controllers/ajax.php", {
 				clear_one_saved_from_folder: 'true',
 				buyer: this.state.buyer_email,
@@ -308,6 +319,8 @@ else{ $mainPage = ""; }
 				$(document).ajaxStop(function() {
 				  if(ajaxStop == 0){
             ajaxStop++;
+            $('#ajax-box').html('Listing has been removed.');
+            setTimeout(function(){ $('#ajax-box').dialog('close'); }, 2000);
             this.getListings("deletion");
 				  }
 				}.bind(this));
