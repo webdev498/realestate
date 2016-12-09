@@ -295,7 +295,7 @@ if($_POST['delete2']){
 }
 
 if($_POST['update']){
-  $SQL = "UPDATE users set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assing_time=0 WHERE (email = '".$email."')";
+  $SQL = "UPDATE `users` set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assing_time=0 WHERE (email = '".$email."')";
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   

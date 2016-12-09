@@ -783,7 +783,6 @@ else{ $mainPage = ""; }
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -795,7 +794,6 @@ else{ $mainPage = ""; }
       }
     },
     cancel: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     updateData: function(){
@@ -1006,13 +1004,11 @@ else{ $mainPage = ""; }
         recipient: this.state.recipient,
         comment: this.state.comment,
         success: function(result){
-          $(".ui-widget-overlay").hide();
-          {this.props.closeDialog()}
+           {this.props.closeDialog()}
         }.bind(this)
       });
 		},
     closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -1059,7 +1055,6 @@ else{ $mainPage = ""; }
 					$(document).ajaxStop(function() {
 					  if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
 					  }
 					}.bind(this));
@@ -1067,7 +1062,6 @@ else{ $mainPage = ""; }
 			});
 		},
 		closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){

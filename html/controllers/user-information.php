@@ -64,13 +64,11 @@ else{ $mainPage = ""; }
         recipient: this.state.recipient,
         comment: this.state.comment,
         success: function(result){
-          $(".ui-widget-overlay").hide();
           {this.props.closeDialog()}
         }.bind(this)
       });
 		},
     closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -280,7 +278,6 @@ else{ $mainPage = ""; }
       }.bind(this), 1000)
     },
     closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     render: function(){
@@ -681,7 +678,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 		},
     emailBuyerFolder: function(name){
@@ -700,7 +696,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -708,7 +703,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.selected_user_info.email} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
     viewBuyerInfo: function(email){

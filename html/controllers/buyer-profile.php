@@ -818,7 +818,6 @@ else{ $mainPage = ""; }
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -830,7 +829,6 @@ else{ $mainPage = ""; }
       }
 	  },
 	  cancel: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  updateData: function(){
@@ -1070,7 +1068,6 @@ else{ $mainPage = ""; }
       this.setState({selected_formulas: formulas});
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  setPermissions: function(){
@@ -1083,7 +1080,6 @@ else{ $mainPage = ""; }
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }.bind(this));
