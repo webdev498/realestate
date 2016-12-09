@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
-include("basicHead.php");
+include_once("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
@@ -978,17 +978,17 @@ else{ $mainPage = ""; }
 	var Buyers = React.createClass({
 	  getInitialState: function() {
       return{
-        agent_email: "<? echo $agent_email ?>",
-        agent_id: "<? echo $agent_id ?>",
-        mainPage: "<? echo $mainPage ?>",
+        agent_email: "<?php echo $agent_email ?>",
+        agent_id: "<?php echo $agent_id ?>",
+        mainPage: "<?php echo $mainPage ?>",
         buyers: [],
         buyer_formulas: [],
         num_formulas: "",
-        num_buyers: "<? echo $num_buyers ?>" ,
+        num_buyers: "<?php echo $num_buyers ?>" ,
         buyer_selected: "",
         buyer_selected_name: "",
-        starter_buyer: "<? echo $starter_buyer ?>",
-        starter_buyer_name: "<? echo $starter_buyer_name ?>",
+        starter_buyer: "<?php echo $starter_buyer ?>",
+        starter_buyer_name: "<?php echo $starter_buyer_name ?>",
         buyers_formula_name: "",
         editing: false,
         buyerView: "Active"
@@ -1620,7 +1620,7 @@ else{ $mainPage = ""; }
   );
 
 	ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>

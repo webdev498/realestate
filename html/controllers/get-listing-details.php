@@ -407,7 +407,7 @@ if($list_num != ''){
   $details = array("folders"=>$folders, "broker"=>$broker, "contract"=>$contract, "contact"=>$contact,
                    "contact_email"=>$contact_email, "contact_phone"=>$contact_phone, "RLS_id"=>$RLS_id,
                    "price"=>$price, "loc"=>$loc, "bld"=>$bld, "vws"=>$vws, "space"=>$space, "footage"=>$footage,
-                   "bed"=>$bed, "bath"=>$bath, "address"=>$address,"numPhotos"=>$numPhotos, "photos"=>$photos,
+                   "bed"=>$bed, "bath"=>$bath, "address"=>$address, "zip"=>$zip, "numPhotos"=>$numPhotos, "photos"=>$photos,
                    "photo1"=>$photo1, "photo2"=>$photo2, "photo3"=>$photo3, "photo4"=>$photo4, "photo5"=>$photo5,
                    "photo6"=>$photo6, "photo7"=>$photo7, "photo8"=>$photo8, "photo9"=>$photo9, "photo10"=>$photo10,
                    "numPhotos"=>$numPhotos, "agent_id_1"=>$agent_id_1, "agent_id_2"=>$agent_id_2, "agent_id_3"=>$agent_id_3,

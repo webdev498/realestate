@@ -1,7 +1,6 @@
 <?php
 session_start();
-include("dbconfig.php");
-
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
@@ -13,7 +12,7 @@ else{ $user = $_SESSION['email']; };
 $_SESSION['buyerSave'] = $user;
 $num = 0;
     
-if($_POST['name']){
+if(isset($_POST['name'])){
   $name = $_POST['name'];
   
   $SQL = "SELECT * FROM `users_folders` where (user = '".$user."') AND (name LIKE '".$name."%')";
@@ -22,6 +21,4 @@ if($_POST['name']){
   
   echo json_encode($num);
 }
-
-
 ?>

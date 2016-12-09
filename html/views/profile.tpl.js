@@ -298,6 +298,33 @@ $('#{$tplvar['list_num']}emailListing').click(function(){
   }
   return false;
 });
+
+/* SPV */
+$('#{$tplvar['list_num']}-spv').click(function(){
+
+});
+
+/* StreetEasy */
+$('#{$tplvar['list_num']}-streeteasy').click(function(){
+  var ad = {$tplvar['address']};
+  while(ad.indexOf(" ") != -1){ ad = ad.replace(" ", "+"); }
+  var sea = ad + "+" + {$tplvar['zip']};
+  
+  window.open('https://www.streeteasy.com/nyc/search?search='+sea,'_blank');
+});
+
+/* OLR */
+$('#{$tplvar['list_num']}-olr').click(function(){
+  var olra = {$tplvar['address']};
+  while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
+  
+  window.open('http://public.olr.com/building_results.aspx?address='+olra,'_blank');
+});
+
+/* Listing Wep Page */
+$('#{$tplvar['list_num']}-broker-website').click(function(){
+
+});
      
 /* MY PROFILE DIALOG FOR FIRST AGENT */
 $( "#{$tplvar['list_num']}{$tplvar['agent_id_1']}agentDialog" ).dialog({

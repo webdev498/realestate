@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <!--<meta http-equiv="Content-Language" content="en-us">-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="2015.1.1.343"/>
@@ -22,9 +21,6 @@
     <script type="text/javascript"> touch = false;</script>
     <script src="/js/jquery/jquery-1.10.2.min.js"></script>
     <script src="/js/jquery/jquery-ui-1.11.4.min.js" type="text/javascript" ></script>
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="/js/jquery/jquery.ui.ipad.alt.js" type="text/javascript"></script>-->
     <script src="/static/js/bundle/app.js">
 
     <script>

@@ -37,7 +37,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$code = $_REQUEST['code'];
 					$firstName = trim($_REQUEST['firstName']);
 					$lastName = trim($_REQUEST['lastName']);
 					$phone = $_REQUEST['phone'];

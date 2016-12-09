@@ -1,13 +1,10 @@
 <?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['viewingBuyer'] = 'false';
 $_SESSION['loadSaved'] = false;
-if (!$_SESSION['email']){
+if(!isset($_SESSION['email'])){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
@@ -30,7 +27,7 @@ else{ $mainPage = ""; }
 	var Contact = React.createClass({
 		getInitialState: function() {
       return{
-        mainPage: "<? echo $mainPage ?>"
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
       };
     },
 		render: function() {
@@ -126,7 +123,7 @@ else{ $mainPage = ""; }
 	);
 
 	ReactDOM.render(
-		<Footer mainPage={"<? echo $mainPage ?>"} />,
+		<Footer mainPage={"<?php echo $mainPage ?>"} />,
 		document.getElementById("footer")
 	);
 </script>

@@ -1,18 +1,18 @@
 <?php
 session_start();
-include('functions.php');
-include('basicHead.php');
-include("dbconfig.php");
+include_once('functions.php');
+include_once('basicHead.php');
+include_once("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
-if($_SESSION['buyer']){
+if(isset($_SESSION['buyer'])){
   $user = $_SESSION['id'];
   $buyer_email = $_SESSION['email'];
   $role = 'user';
   $folder = "";
   $agent_id = "";
 }
-elseif($_SESSION['agent']){
+elseif(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
@@ -62,7 +62,7 @@ else{ $mainPage = ""; }
   var EmailFolder = React.createClass({
     getInitialState: function() {
 			return{
-				email: "<? echo $buyer_email ?>",
+				email: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
 				folder: this.props.folder,
         guestName: "",
         recipient: "",
@@ -83,13 +83,11 @@ else{ $mainPage = ""; }
         recipient: this.state.recipient,
         comment: this.state.comment,
         success: function(result){
-          $(".ui-widget-overlay").hide();
           {this.props.closeDialog()}
         }.bind(this)
       });
 		},
     closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -122,7 +120,7 @@ else{ $mainPage = ""; }
 	var EditComment = React.createClass({
 		getInitialState: function() {
 			return{
-				agent: "<? echo $buyer_email ?>",
+				agent: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
 				listing: this.props.listing,
 				comment: this.props.comment
 			};
@@ -143,7 +141,6 @@ else{ $mainPage = ""; }
 					$(document).ajaxStop(function() {
 					  if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
 					  }
 					}.bind(this));
@@ -151,7 +148,6 @@ else{ $mainPage = ""; }
 			});
 		},
 		closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -173,12 +169,12 @@ else{ $mainPage = ""; }
   var BuyerListings = React.createClass({
 		getInitialState: function() {
 			return{
-        role: "<? echo $role ?>",
-				buyer_email: "<? echo $buyer_email ?>",
-				agent_id: "<? echo $agent_id ?>",
-        mainPage: "<? echo $mainPage ?>",
+        role: "<?php echo (isset($role) ? $role : "") ?>",
+				buyer_email: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
+				agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
 				folders: [],
-				openFolder: "<? echo $folder ?>"
+				openFolder: "<?php echo (isset($folder) ? $folder : "") ?>"
       };
 		},
 		componentDidMount: function(){
@@ -305,7 +301,7 @@ else{ $mainPage = ""; }
           });
         }
       });
-      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+      $('#ajax-box').load('messages.php #loadingAnimation',function(){
         $('#ajax-box').dialog('open');
       });
       
@@ -562,7 +558,7 @@ else{ $mainPage = ""; }
 	);
 
 	ReactDOM.render(
-		<Footer mainPage={"<? echo $mainPage ?>"} />,
+		<Footer mainPage={"<?php echo $mainPage ?>"} />,
 		document.getElementById("footer")
 	);
 </script>

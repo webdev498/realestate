@@ -1,9 +1,7 @@
 <?php
-
 session_start();
-include("dbconfig.php");
-include 'functions.php';
-
+include_once("dbconfig.php");
+include_once('functions.php');
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 

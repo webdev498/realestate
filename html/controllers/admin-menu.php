@@ -1,11 +1,7 @@
-<?
+<?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db($database, $con) or die(mysql_error());
-$_SESSION['user'] = 'true';
 $_SESSION['viewingBuyer'] = 'false';
 
 if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = 'menu.php' </script>"; }
@@ -24,7 +20,6 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> win
   <div id='ajax-box2'></div>
   <div id='ajax-box3'></div>
 <script type="text/babel">
-
   var Menu = React.createClass({
     render: function () {
       return (

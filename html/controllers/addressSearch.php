@@ -2,7 +2,7 @@
 session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 // LOAD SMARTY TEMPLATE ENGINE
 include_once('../classes/smarty/SmartyBC.class.php');
 $smarty = new SmartyBC();
@@ -11,7 +11,7 @@ $smarty->setCompileDir('../views/compiled');
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['user'] = 'true';
-if (!$_SESSION['email']){
+if(!isset($_SESSION['email'])){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
@@ -19,7 +19,7 @@ $name = explode('@', $_SESSION['email']);
 $name = $name[0];
 // If the user has been rate limited because of too many requests, cut them off (VOW RULE)
 $limit = limit();
-if ($limit != 'clear') { limit(); }
+if($limit != 'clear'){ limit(); }
 else {
   if(isset($_SESSION['agent'])){
     $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
@@ -41,7 +41,7 @@ else {
   
     $_SESSION['saved_listings'] = $saved_listings;
   }
-  elseif($_SESSION['buyer']){
+  elseif(isset($_SESSION['buyer'])){
     $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $agentID = "";
   }

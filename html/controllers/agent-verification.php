@@ -1,11 +1,8 @@
 <?php
 session_start();
-include("dbconfig.php");
-include 'functions.php';
-include ('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
-if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
+include_once('functions.php');
+include_once('basicHead.php');
+if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
 
@@ -17,12 +14,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
   <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 </head>
 <body class="varification_page">
-  <? if(!isset($_GET['x'])){ ?>
-    <div id="verificationBackground1"></div>
-  <? }
-  if(isset($_GET['x'])){ ?>
-    <div id="verificationBackground2"></div>
-  <? } ?>
+  <div id="verificationBackground2"></div>
   <div id="verification"></div>
   <div id='ajax-box'></div>
 <script type="text/babel">
@@ -57,13 +49,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -71,7 +59,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -83,13 +71,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -97,7 +81,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -109,13 +93,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -123,7 +103,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -139,11 +119,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             <div className="row">
               <div className="col-md-2 col-sm-2"></div>
               <div className="col-md-7 col-sm-10 col-xs-11">
-                <? if(!isset($_GET['x'])){ ?>
-                  <div id="verificationArea" className='short'>
-                <? }else{ ?>
-                  <div id="verificationArea" className='long'>
-                <? } ?>
+                <div id="verificationArea" className='long'>
                   <div id="verificationTop">
                     <span id="verificationHeader" className="text-popups">Agent Verification</span>
                   </div>
@@ -154,13 +130,11 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           <col width="250"/><col width="350"/>
                         </colgroup>
                         <tbody>
-                          <? if(isset($_GET['x'])){ ?>
-                            <tr>
+                          <tr>
                             <td className="text-popups" colSpan="2">
                               <div style={{textAlign: "justify"}}>The password you entered did not match the one on file for the email entered. Return to agent login <a href='/controllers/agent-signin.php'>here</a> or enter the information below to verify who you are.<br/><br/></div>
                             </td>
-                            </tr>
-                          <? } ?>
+                          </tr>
                           <tr>
                             <td className="text-popups">First Name:</td>
                             <td className="text-popups"><input type="text" id="formFirstName" className="grade_desc input1" name="firstName" autoFocus onChange={this.handleChange.bind(this, 'firstname')} />{this.state.firstname != "" ? null : <strong id="firstnameMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }<br/></td>
@@ -182,13 +156,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           </tr>
                           <tr>
                             <td colSpan="2">
-                              <? if(!isset($_GET['x'])){ ?>
-                                <input type="hidden" name="formStep" value="verification1" />
-                              <? }
-                              if(isset($_GET['x'])){ ?>
-                                <input type="hidden" name="formStep" value="verification2" />
-                              <? } ?>
-                              <input type="hidden" name="code" value="<?=$password?>" /><br />
+                              <input type="hidden" name="formStep" value="verification2" />
                               <a href="agent-signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button>
                             </td>

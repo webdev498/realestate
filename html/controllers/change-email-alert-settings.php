@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 ?>
 
   <title>HomePik - Change Email Alert Settings</title>
@@ -21,7 +21,7 @@ include("basicHead.php");
   var ChangeSettings = React.createClass({
     getInitialState: function() {
       return{
-        email: "<? echo $_GET['user'] ?>"
+        email: "<?php echo (isset($_GET['user']) ? $_GET['user'] : "") ?>"
       };
 	  },
     setNotify: function(){

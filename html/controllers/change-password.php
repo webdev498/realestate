@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
@@ -27,7 +27,7 @@ else{ $mainPage = ""; }
         oldPass: "",
         newPass: "",
         conPass: "",
-        mainPage: "<? echo $mainPage ?>"
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
       };
 	  },
 	  handleChange: function (name, event) {
@@ -48,13 +48,9 @@ else{ $mainPage = ""; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -62,7 +58,7 @@ else{ $mainPage = ""; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -74,13 +70,9 @@ else{ $mainPage = ""; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -88,7 +80,7 @@ else{ $mainPage = ""; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -100,13 +92,9 @@ else{ $mainPage = ""; }
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -114,7 +102,7 @@ else{ $mainPage = ""; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #passwordsMatch',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -177,7 +165,7 @@ else{ $mainPage = ""; }
   )
 
   ReactDOM.render(
-	  <Footer mainPage={"<? echo $mainPage ?>"} />,
+	  <Footer mainPage={"<?php echo $mainPage ?>"} />,
 	  document.getElementById("footer")
 	);
 </script>

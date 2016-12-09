@@ -1,29 +1,25 @@
 <?php
 session_start();
-include("dbconfig.php");
+include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_GET['code'])){
   $code= $_GET['code'];
-  $SQL = "SELECT list_num, time FROM emailed_listings WHERE (code = '".$code."' )";
-  $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
+  $result = mysql_query( "SELECT list_num, time FROM emailed_listings WHERE (code = '".$code."' )" ) or die(mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   if($row['time'] > date('U') - 604800){ $list_num = $row['list_num']; }
 }
 elseif(isset($_GET['list_numb'])){ $list_num = $_GET['list_numb']; }
-else{
-  // Do nothing
-}
 
-if($_SESSION['buyer']){
+if(isset($_SESSION['buyer'])){
   $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $role = 'buyer';
 }
-elseif($_SESSION['agent']){
+elseif(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
@@ -73,7 +69,7 @@ else{
 	var Send = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
         listing: this.props.listing_num,
         name: "",
         email: "",
@@ -222,25 +218,19 @@ else{
 	var AgentSaveOld = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
-        agent_id: "<? echo $agent_id ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $_agent_id : "") ?>",
         listing: this.props.listing_num,
         buyers:[],
-        buyer: "<? echo $email ?>",
+        buyer: "<?php echo (isset($email) ? $email : "") ?>",
         folders: this.props.folders,
         selected: [],
         comment: "",
-        newFolder: false,
-        makeFolder: false,
         folder: ""
       };
 	  },
 	  componentDidMount: function(){
       this.getBuyers();
-	  },
-	  addFolder: function(event){
-      this.setState({newFolder: true});
-      this.checkFolder();
 	  },
 	  nameFolder: function (event) {
       this.setState({folder: event.target.value});
@@ -252,14 +242,11 @@ else{
       var folders = this.state.selected;
       if((event.target.checked == true) && (folders.indexOf(name) == -1)){
         folders.push(name);
-        if(this.state.folder == name){ this.setState({makeFolder: true}); }
       }
       else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
         var i = folders.indexOf(name);
         if(i != -1) { folders.splice(i, 1); }
-        if(this.state.folder == name){ this.setState({makeFolder: false}); }
       }
-      else{ /* Do nothing */ }
       this.setState({selected: folders});
 	  },
 	  getBuyers: function(){
@@ -291,66 +278,6 @@ else{
         }.bind(this)
       });
 	  },
-	  checkFolder: function(){
-      if(this.state.user == this.state.buyer){
-        $.ajax({
-          type: "POST",
-          url: "/controllers/get-sessions.php",
-          data: {"getAgentLastName":"true"},
-          success: function(data){
-            var buyer = JSON.parse(data);
-            var d = new Date();
-            var month = d.getMonth()+1;
-            var day = d.getDate();
-            var date = ((''+month).length < 2 ? '0' : '') + month + '/' + ((''+day).length < 2 ? '0' : '') + day  + '/' + d.getFullYear();
-            var name = buyer + " " + date;
-
-            $.ajax({
-              type: "POST",
-              url: "/controllers/check-folders.php",
-              data: {"name":name},
-              success: function(data){
-                var numNames = JSON.parse(data);
-                if (numNames > 0) {
-                  numNames = numNames + 1;
-                  name = name + " (" + numNames + ")"
-                }
-                this.setState({folder: name});
-              }.bind(this)
-            });
-          }.bind(this)
-        });
-      }
-      else{
-        $.ajax({
-          type: "POST",
-          url: "get-sessions.php",
-          data: {"getLastName":"true", "email": this.state.buyer},
-          success: function(data){
-            var buyer = JSON.parse(data);
-            var d = new Date();
-            var month = d.getMonth()+1;
-            var day = d.getDate();
-            var date = ((''+month).length < 2 ? '0' : '') + month + '/' + ((''+day).length < 2 ? '0' : '') + day  + '/' + d.getFullYear();
-            var name = buyer + " " + date;
-
-            $.ajax({
-              type: "POST",
-              url: "check-folders.php",
-              data: {"name":name, "email": this.state.buyer},
-              success: function(data){
-                var numNames = JSON.parse(data);
-                if (numNames > 0) {
-                  numNames = numNames + 1;
-                  name = name + " (" + numNames + ")"
-                }
-                this.setState({folder: name});
-              }.bind(this)
-            });
-          }.bind(this)
-        });
-      }
-	  },
 	  closePopup: function(){
       {this.props.closeDialog()}
 	  },
@@ -377,34 +304,11 @@ else{
           }
         });
         $('#ajax-box2').load('messages.php #saveListing',function(){
-          $('#ajax-box2').dialog( "option", "title", "Save Listing" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
-
-        if(this.state.makeFolder == true && this.state.user == this.state.buyer){
-          $.get("/controllers/ajax.php", {
-            makeFolder: 'true',
-            name: this.state.folder,
-            success: function(result){
-              console.log("Folder saved");
-            }
-          });
-        }
-
-        if(this.state.makeFolder == true && this.state.user != this.state.buyer){
-          $.get("/controllers/ajax.php", {
-            makeFolder: 'true',
-            email: this.state.buyer,
-            name: this.state.folder,
-            agent: this.state.agent_id,
-            success: function(result){
-              console.log("Folder saved");
-            }
-          });
-        }
-
-        $.get("/controllers/ajax.php", {
+        $.get("ajax.php", {
           save: 'true',
           list_num: this.state.listing,
           buyer: this.state.buyer,
@@ -451,8 +355,6 @@ else{
           <h4 className="text-popups" id="u1330-5">Save this listing to (check as many as apply):</h4>
           <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
           {this.state.folders.length > 0 ? <div>{folders}</div> : <span>No available folders</span>}
-          {this.state.newFolder ? <h4 className="text-popups" id="u1330-10"><span id="u1330-7"><input type="checkbox" name="folders" value={this.state.folder} onChange={this.handleChange.bind(this, this.state.folder)}/></span><span id="u1330-8"> </span><span id="u1330-9">&nbsp; <input name="newFolder" value={this.state.folder} onChange={this.nameFolder} style={{border: 1 + 'px solid #646464'}}/></span></h4> : null }
-          {/* <h4 className="text-popups" id="u1330-18" style={{cursor: "pointer"}} onClick={this.addFolder}><a>+&nbsp;&nbsp;&nbsp; Add a new folder</a></h4> */}
           <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
           <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
           <h4 className="text-popups" id="u1330-5" style={{paddingBottom: 10 + 'px'}}>Add a comment:</h4>
@@ -467,8 +369,8 @@ else{
   var AgentSave = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
-        agent_id: "<? echo $agent_id ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
         listing: this.props.listing_num,
         buyers:[],
         folders: this.props.folders,
@@ -494,7 +396,6 @@ else{
         if(i != -1) { folders.splice(i, 1); }
         if(this.state.folder == name){ this.setState({makeFolder: false}); }
       }
-      else{ /* Do nothing */ }
       this.setState({selected: folders});
 	  },
 	  getBuyers: function(){
@@ -534,11 +435,11 @@ else{
           }
         });
         $('#ajax-box2').load('messages.php #saveListingAgent',function(){
-          $('#ajax-box2').dialog( "option", "title", "Save Listing" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
-        $.get("/controllers/ajax.php", {
+        $.get("ajax.php", {
           agentSave: 'true',
           list_num: this.state.listing,
           comments: this.state.comment,
@@ -587,19 +488,13 @@ else{
 	var BuyerSave = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
         listing: this.props.listing_num,
         selected: [],
         comment: "",
-        newFolder: false,
-        makeFolder: false,
         folder: ""
       };
 	  },
-	  addFolder: function(event){
-      this.setState({newFolder: true});
-      this.checkFolder();
-    },
 	  nameFolder: function (event) {
       this.setState({folder: event.target.value});
 	  },
@@ -610,44 +505,12 @@ else{
       var folders = this.state.selected;
       if((event.target.checked == true) && (folders.indexOf(name) == -1)){
         folders.push(name);
-        if(this.state.folder == name){ this.setState({makeFolder: true}); }
       }
       else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
         var i = folders.indexOf(name);
         if(i != -1) { folders.splice(i, 1); }
-        if(this.state.folder == name){ this.setState({makeFolder: false}); }
       }
-      else{ /* Do nothing */ }
       this.setState({selected: folders});
-	  },
-	  checkFolder: function(){
-      $.ajax({
-        type: "POST",
-        url: "/controllers/get-sessions.php",
-        data: {"getLastName":"true"},
-        success: function(data){
-          var buyer = JSON.parse(data);
-          var d = new Date();
-          var month = d.getMonth()+1;
-          var day = d.getDate();
-          var date = ((''+month).length < 2 ? '0' : '') + month + '/' + ((''+day).length < 2 ? '0' : '') + day  + '/' + d.getFullYear();
-          var name = buyer + " " + date;
-
-          $.ajax({
-            type: "POST",
-            url: "/controllers/check-folders.php",
-            data: {"name":name},
-            success: function(data){
-              var numNames = JSON.parse(data);
-              if (numNames > 0) {
-                numNames = numNames + 1;
-                name = name + " (" + numNames + ")"
-              }
-              this.setState({folder: name});
-            }.bind(this)
-          });
-        }.bind(this)
-      });
 	  },
 	  closePopup: function(){
       {this.props.closeDialog()}
@@ -675,21 +538,11 @@ else{
           }
         });
         $('#ajax-box2').load('messages.php #saveListing',function(){
-          $('#ajax-box2').dialog( "option", "title", "Save Listing" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
-        if(this.state.makeFolder == true){
-          $.get("/controllers/ajax.php", {
-            makeFolder: 'true',
-            name: this.state.folder,
-            success: function(result){
-              console.log("Folder saved");
-            }
-          });
-        }
-
-        $.get("/controllers/ajax.php", {
+        $.get("ajax.php", {
           save: 'true',
           list_num: this.state.listing,
           comments: this.state.comment,
@@ -722,8 +575,6 @@ else{
           <h4 className="text-popups" id="u1330-5">Save this listing to (check as many as apply):</h4>
           <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
           {folders}
-          {this.state.newFolder ? <h4 className="text-popups" id="u1330-10"><span id="u1330-7"><input type="checkbox" name="folders" value={this.state.folder} onChange={this.handleChange.bind(this, this.state.folder)}/></span><span id="u1330-8"> </span><span id="u1330-9">&nbsp; <input name="newFolder" value={this.state.folder} onChange={this.nameFolder} style={{border: 1 + 'px solid #646464'}}/></span></h4> : null }
-          {/* <h4 className="text-popups" id="u1330-18" style={{cursor: "pointer"}} onClick={this.addFolder}><a>+&nbsp;&nbsp;&nbsp; Add a new folder</a></h4> */}
           <h4 className="text-popups" id="u1330-3">&nbsp;</h4>
           <h4 className="text-popups" id="u1330-5" style={{paddingBottom: 10 + 'px'}}>Add a comment:</h4>
           <textarea value={this.comment} style={{border: 1 + 'px solid #646464', width: 350 + 'px', height: 100 + 'px'}} onChange={this.addComment}></textarea>
@@ -761,7 +612,7 @@ else{
 	var EmailAgent = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
         listing: this.props.listing_num,
         name: "",
         email: "",
@@ -967,38 +818,18 @@ else{
       var term = this.state.term;
       var payment = this.state.payment;
 
-      while (price.indexOf(",") != -1){
-        price = price.replace(",","");
-      }
-
-      while (monthly.indexOf(",") != -1){
-        monthly = monthly.replace(",","");
-      }
-
-      while (taxes.indexOf(",") != -1){
-        taxes = taxes.replace(",","");
-      }
-
-      while (interest.indexOf(",") != -1){
-        interest = interest.replace(",","");
-      }
-
-      while (term.indexOf(",") != -1){
-        term = term.replace(",","");
-      }
-
-      while (payment.indexOf(",") != -1){
-        payment = payment.replace(",","");
-      }
+      while (price.indexOf(",") != -1){ price = price.replace(",",""); }
+      while (monthly.indexOf(",") != -1){ monthly = monthly.replace(",",""); }
+      while (taxes.indexOf(",") != -1){ taxes = taxes.replace(",",""); }
+      while (interest.indexOf(",") != -1){ interest = interest.replace(",",""); }
+      while (term.indexOf(",") != -1){ term = term.replace(",",""); }
+      while (payment.indexOf(",") != -1){ payment = payment.replace(",",""); }
 
       // Price * ( Cash Down Percentage / 100 )
       var cashDown = (price * (payment / 100));
       cashDown = cashDown.toFixed(2);
       var cd = cashDown.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       this.setState({cashDown: cd});
-
-      // ( (Price + Monthly + Tax + Interest) - Cash Down Payment ) / Years
-      //var total = (((parseInt(price) + parseInt(monthly) + parseInt(taxes) + (price * (interest /100))) - cashDown ) / (term * 12));
 
       // ( ( (Price + Interest) - Cash Down Payment ) / Years ) + Monthly + Tax
       var total = (((parseInt(price) + (price * (interest /100))) - cashDown ) / (term * 12)) + parseInt(monthly) + parseInt(taxes);
@@ -1034,7 +865,6 @@ else{
               <h4 className="text-popups" id="u17925-37">Cash down payment in cash <span style={{float: "right"}}>${this.state.cashDown}</span></h4>
               <h4 className="text-popups" id="u17925-38">&nbsp;</h4>
               <h4 className="text-popups" id="u17925-40">Your estimated monthly cost <span style={{float: "right"}}>${this.state.monthlyPay}</span></h4>
-              {/* <h4 className="text-popups">(XX% financing based on cash down)</h4> */}
               <h4 className="text-popups" id="u17925-43">&nbsp;</h4>
               <h4 className="text-popups" id="u17925-45"><a><span id="u17925-44" style={{cursor: "pointer"}} onClick={this.closePopup}>Close</span></a></h4>
             </div>
@@ -1071,9 +901,9 @@ else{
 	var Listing = React.createClass({
 	  getInitialState: function() {
       return{
-        role: "<? echo $role ?>",
-        email: "<? echo $email ?>",
-        listing: "<? echo $list_num ?>",
+        role: "<?php echo (isset($role) ? $role : "") ?>",
+        email: "<?php echo (isset($email) ? $email : "") ?>",
+        listing: "<?php echo (isset($list_num) ? $list_num : "") ?>",
         agent1_img: "",
         agent2_img: "",
         image: "",
@@ -1285,6 +1115,7 @@ else{
       var $dialog =  $("#ajax-box3").dialog({
         width: 1345,
         dialogClass: "slideshow slideshowPopup",
+        modal: true,
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
           var div = document.createElement('div');
@@ -1293,7 +1124,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
           });
@@ -1308,7 +1138,7 @@ else{
 	  send: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 585,
+        width: 585,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1318,7 +1148,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1334,7 +1163,7 @@ else{
       if(this.state.role == "agent"){
         var $dialog =  $("#ajax-box").dialog({
           modal: true,
-		  width: 500,
+          width: 500,
           dialogClass: 'agentSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1344,7 +1173,6 @@ else{
             $( this ).remove();
           },
           open: function(){
-            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
@@ -1359,7 +1187,7 @@ else{
       else if(this.state.role == "buyer"){
         var $dialog =  $("#ajax-box").dialog({
           modal: true,
-		  width: 500,
+          width: 500,
           dialogClass: 'buyerSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1369,14 +1197,13 @@ else{
             $( this ).remove();
           },
           open: function(){
-            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
         var closeDialog = function(){
-        $dialog.dialog('close');
+          $dialog.dialog('close');
         }
 
         ReactDOM.render(<BuyerSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
@@ -1391,7 +1218,7 @@ else{
 	  broker: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 500,
+        width: 500,
         dialogClass: 'brokerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1401,7 +1228,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1416,7 +1242,7 @@ else{
 	  costEstimator: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 585,
+        width: 585,
         dialogClass: 'costEstimatorPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1426,7 +1252,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1441,7 +1266,7 @@ else{
 	  agent1Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1451,7 +1276,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1466,7 +1290,7 @@ else{
 	  agent2Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1476,7 +1300,6 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1491,7 +1314,7 @@ else{
 	  emailAgent: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1501,10 +1324,9 @@ else{
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            });
+          });
         }
       });
       var closeDialog = function(){

@@ -1,8 +1,8 @@
-<?
+<?php
 session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
@@ -183,8 +183,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
           }.bind(this),
@@ -239,8 +239,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
           }.bind(this),
@@ -343,7 +343,7 @@ else{ $mainPage = ""; }
   var UserInformation = React.createClass({
     getInitialState: function() {
       return{
-        mainPage: "<? echo $mainPage ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
         users: [],
         user_type: "",
         selected_user: "",
@@ -557,8 +557,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
           }.bind(this),
@@ -613,8 +613,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('../controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
           }.bind(this),
@@ -668,7 +668,6 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -693,7 +692,6 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -718,7 +716,6 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -769,7 +766,7 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #needDate',function(){
+        $('#ajax-box').load('messages.php #needDate',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -816,7 +813,7 @@ else{ $mainPage = ""; }
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidDate',function(){
+          $('#ajax-box').load('messages.php #invalidDate',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -1211,7 +1208,7 @@ else{ $mainPage = ""; }
   )
 
   ReactDOM.render(
-	  <Footer mainPage={"<? echo $mainPage ?>"} />,
+	  <Footer mainPage={"<?php echo $mainPage ?>"} />,
 	  document.getElementById("footer")
 	);
 </script>

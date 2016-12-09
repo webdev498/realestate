@@ -1,17 +1,17 @@
 <?php
 session_start();
-include("dbconfig.php");
-include_once('functions.php');
-include("basicHead.php");
+include_once("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if ($_SESSION['buyer']){
+if(isset($_SESSION['buyer'])){
   $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $role = 'buyer';
 }
-else if($_SESSION['agent']){
+else if(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
@@ -29,7 +29,7 @@ $list_num = $_GET['list_numb'];
 
 if(isset($_GET['newTab'])){ ?>
   <style>#backBtn{ display: none }</style>
-<? }
+<?php }
 ?>
 
   <title>HomePik - Listing Details</title>
@@ -46,7 +46,6 @@ if(isset($_GET['newTab'])){ ?>
 <script type="text/babel">
   var Broker = React.createClass({
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -65,7 +64,6 @@ if(isset($_GET['newTab'])){ ?>
           <p className="Text-3--2-kern" style={{textAlign: "left"}}>Listing Number: {this.props.listing_num}</p>
           <p className="Text-3--2-kern">&nbsp;</p>
           <p className="Text-3--2-kern" style={{cursor: "pointer", fontWeight: "bold", textAlign: "right"}} onClick={this.closePopup}>Close</p>          
-          
         </div>
       );
 	  },
@@ -74,8 +72,8 @@ if(isset($_GET['newTab'])){ ?>
 	var Send = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
-        role: "<? echo $role ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
+        role: "<?php echo (isset($role) ? $role : "" )?>",
         listing: this.props.listing_num,
         name: "",
         guestEmail: "",
@@ -100,15 +98,10 @@ if(isset($_GET['newTab'])){ ?>
       if(name == "friend"){ this.setState({friend: !this.state.friend}); }
       else if(name == "agent"){ this.setState({agent: !this.state.agent}); }
       else if(name == "agent2"){ this.setState({agent2: !this.state.agent2}); }
-      else{ /* Do nothing */ }
 	  },
 	  checkAgent2: function(){
       if(this.props.agent2_email != "" && this.props.agent2_email != null){ return true; }
       else{ return false; }
-	  },
-	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
-      {this.props.closeDialog()}
 	  },
 	  sendListing: function(event){
       event.preventDefault();
@@ -127,7 +120,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -147,7 +139,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -170,7 +161,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -190,7 +180,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -213,7 +202,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -233,7 +221,6 @@ if(isset($_GET['newTab'])){ ?>
               $(document).ajaxStop(function() {
                 if(ajaxStop == 0){
                   ajaxStop++;
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }.bind(this));
@@ -241,6 +228,9 @@ if(isset($_GET['newTab'])){ ?>
           });
         }
       }
+	  },
+	  closePopup: function(){
+      {this.props.closeDialog()}
 	  },
 	  render: function(){
       return(
@@ -306,8 +296,8 @@ if(isset($_GET['newTab'])){ ?>
   var AgentSave = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
-        agent_id: "<? echo $agent_id ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
         listing: this.props.listing_num,
         buyers:[],
         folders: this.props.folders,
@@ -324,16 +314,11 @@ if(isset($_GET['newTab'])){ ?>
 	  },
 	  handleChange: function(name, event){
       var folders = this.state.selected;
-      if((event.target.checked == true) && (folders.indexOf(name) == -1)){
-        folders.push(name);
-        if(this.state.folder == name){ this.setState({makeFolder: true}); }
-      }
+      if((event.target.checked == true) && (folders.indexOf(name) == -1)){ folders.push(name); }
       else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
         var i = folders.indexOf(name);
         if(i != -1) { folders.splice(i, 1); }
-        if(this.state.folder == name){ this.setState({makeFolder: false}); }
       }
-      else{ /* Do nothing */ }
       this.setState({selected: folders});
 	  },
 	  getBuyers: function(){
@@ -347,10 +332,6 @@ if(isset($_GET['newTab'])){ ?>
         }.bind(this)
       });
 	  },
-	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
-      {this.props.closeDialog()}
-	  },
 	  saveListing: function(){
       if(this.state.selected < 1){
         $("#ajax-box2").dialog({
@@ -360,13 +341,9 @@ if(isset($_GET['newTab'])){ ?>
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons: {
-            Ok: function(){
-              $(this).dialog("destroy");
-            }
+            Ok: function(){ $(this).dialog("destroy"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box2").dialog('close');
@@ -374,7 +351,7 @@ if(isset($_GET['newTab'])){ ?>
           }
         });
         $('#ajax-box2').load('messages.php #saveListingAgent',function(){
-          $('#ajax-box2').dialog( "option", "title", "Save Listing" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -390,13 +367,15 @@ if(isset($_GET['newTab'])){ ?>
             $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             }.bind(this));
           }.bind(this)
         });
       }
+	  },
+	  closePopup: function(){
+      {this.props.closeDialog()}
 	  },
 	  render: function(){
       var buyers = this.state.buyers.map(function(buyer){
@@ -429,71 +408,24 @@ if(isset($_GET['newTab'])){ ?>
 	var BuyerSave = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
         listing: this.props.listing_num,
         selected: [],
         comment: "",
-        newFolder: false,
-        makeFolder: false,
         folder: ""
       };
-	  },
-	  addFolder: function(event){
-      this.setState({newFolder: true});
-      this.checkFolder();
-	  },
-	  nameFolder: function (event) {
-      this.setState({folder: event.target.value});
 	  },
 	  addComment: function(event){
       this.setState({comment: event.target.value});
 	  },
 	  handleChange: function(name, event){
       var folders = this.state.selected;
-      if((event.target.checked == true) && (folders.indexOf(name) == -1)){
-        folders.push(name);
-        if(this.state.folder == name){ this.setState({makeFolder: true}); }
-      }
+      if((event.target.checked == true) && (folders.indexOf(name) == -1)){ folders.push(name); }
       else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
         var i = folders.indexOf(name);
-        if(i != -1) { folders.splice(i, 1); }
-        if(this.state.folder == name){ this.setState({makeFolder: false}); }
+        if(i != -1){ folders.splice(i, 1); }
       }
-      else{ /* Do nothing */ }
       this.setState({selected: folders});
-	  },
-	  checkFolder: function(){
-      $.ajax({
-        type: "POST",
-        url: "/controllers/get-sessions.php",
-        data: {"getLastName":"true"},
-        success: function(data){
-          var buyer = JSON.parse(data);
-          var d = new Date();
-          var month = d.getMonth()+1;
-          var day = d.getDate();
-          var date = ((''+month).length < 2 ? '0' : '') + month + '/' + ((''+day).length < 2 ? '0' : '') + day  + '/' + d.getFullYear();
-          var name = buyer + " " + date;
-
-          $.ajax({
-            type: "POST",
-            url: "/controllers/check-folders.php",
-            data: {"name":name},
-            success: function(data){
-              var numNames = JSON.parse(data);
-              if (numNames > 0) {
-                numNames = numNames + 1;
-                name = name + " (" + numNames + ")"
-              }
-              this.setState({folder: name});
-            }.bind(this)
-          });
-        }.bind(this)
-      });
-	  },
-	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
-      {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
       if(this.state.selected < 1){
@@ -504,13 +436,9 @@ if(isset($_GET['newTab'])){ ?>
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons: {
-            Ok: function(){
-              $(this).dialog("destroy");
-            }
+            Ok: function(){ $(this).dialog("destroy"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box2").dialog('close');
@@ -518,20 +446,10 @@ if(isset($_GET['newTab'])){ ?>
           }
         });
         $('#ajax-box2').load('messages.php #saveListing',function(){
-          $('#ajax-box2').dialog( "option", "title", "Save Listing" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
-        if(this.state.makeFolder == true){
-          $.get("/controllers/ajax.php", {
-            makeFolder: 'true',
-            name: this.state.folder,
-            success: function(result){
-              console.log("Folder saved");
-            }
-          });
-        }
-
         $.get("/controllers/ajax.php", {
           save: 'true',
           list_num: this.state.listing,
@@ -543,13 +461,15 @@ if(isset($_GET['newTab'])){ ?>
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
           }.bind(this)
         });
       }
+	  },
+	  closePopup: function(){
+      {this.props.closeDialog()}
 	  },
 	  render: function(){
       var folders = this.props.folders.map(function(folder){
@@ -567,8 +487,6 @@ if(isset($_GET['newTab'])){ ?>
           <h4 className="text-popups" id="u1330-5">Save this listing to (check as many as apply):</h4>
           <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
           {folders}
-          {this.state.newFolder ? <h4 className="text-popups" id="u1330-10"><span id="u1330-7"><input type="checkbox" name="folders" value={this.state.folder} onChange={this.handleChange.bind(this, this.state.folder)}/></span><span id="u1330-8"> </span><span id="u1330-9">&nbsp; <input name="newFolder" value={this.state.folder} onChange={this.nameFolder} style={{border: 1 + 'px solid #646464'}}/></span></h4> : null }
-          {/* <h4 className="text-popups" id="u1330-18" style={{cursor: "pointer"}} onClick={this.addFolder}><a>+&nbsp;&nbsp;&nbsp; Add a new folder</a></h4> */}
           <h4 className="text-popups" id="u1330-3">&nbsp;</h4>
           <h4 className="text-popups" id="u1330-5" style={{paddingBottom: 10 + 'px'}}>Add a comment:</h4>
           <textarea value={this.comment} style={{border: 1 + 'px solid #646464', width: 350 + 'px', height: 100 + 'px'}} onChange={this.addComment}></textarea>
@@ -581,7 +499,6 @@ if(isset($_GET['newTab'])){ ?>
 
 	var AgentInfo = React.createClass({
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -607,7 +524,7 @@ if(isset($_GET['newTab'])){ ?>
 	var EmailAgent = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $email ?>",
+        user: "<?php echo (isset($email) ? $email : "") ?>",
         listing: this.props.listing_num,
         name: "",
         email: "",
@@ -618,10 +535,6 @@ if(isset($_GET['newTab'])){ ?>
       var change = {};
       change[name] = event.target.value;
       this.setState(change);
-	  },
-	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
-      {this.props.closeDialog()}
 	  },
 	  sendEmail: function(){
       $.get("/controllers/ajax.php", {
@@ -636,12 +549,14 @@ if(isset($_GET['newTab'])){ ?>
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }.bind(this));
         }.bind(this)
       });
+	  },
+	  closePopup: function(){
+      {this.props.closeDialog()}
 	  },
 	  render: function(){
       return(
@@ -735,12 +650,8 @@ if(isset($_GET['newTab'])){ ?>
 	  },
     componentDidMount: function(){
       $("body").keydown(function(e) {
-        if (e.keyCode == 37) {
-          this.previous();
-        }
-        else if (e.keyCode == 39) {
-          this.next();
-        }
+        if (e.keyCode == 37) { this.previous(); }
+        else if (e.keyCode == 39) { this.next(); }
       }.bind(this));
     },
 	  next: function(){
@@ -756,7 +667,6 @@ if(isset($_GET['newTab'])){ ?>
       this.setState({index: index});
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -822,16 +732,12 @@ if(isset($_GET['newTab'])){ ?>
       var cd = cashDown.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       this.setState({cashDown: cd});
 
-      // ( (Price + Monthly + Tax + Interest) - Cash Down Payment ) / Years
-      //var total = (((parseInt(price) + parseInt(monthly) + parseInt(taxes) + (price * (interest /100))) - cashDown ) / (term * 12));
-
       // ( ( (Price + Interest) - Cash Down Payment ) / Years ) + Monthly + Tax
       var total = (((parseInt(price) + (price * (interest /100))) - cashDown ) / (term * 12)) + parseInt(monthly) + parseInt(taxes);
       total = total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       this.setState({monthlyPay: total});
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -860,7 +766,6 @@ if(isset($_GET['newTab'])){ ?>
               <h4 className="text-popups" id="u17925-37">Cash down payment in cash <span style={{float: "right"}}>${this.state.cashDown}</span></h4>
               <h4 className="text-popups" id="u17925-38">&nbsp;</h4>
               <h4 className="text-popups" id="u17925-40">Your estimated monthly cost <span style={{float: "right"}}>${this.state.monthlyPay}</span></h4>
-              {/* <h4 className="text-popups">(XX% financing based on cash down)</h4> */}
               <h4 className="text-popups" id="u17925-43">&nbsp;</h4>
               <h4 className="text-popups" id="u17925-45"><a><span id="u17925-44" style={{cursor: "pointer"}} onClick={this.closePopup}>Close</span></a></h4>
             </div>
@@ -897,14 +802,16 @@ if(isset($_GET['newTab'])){ ?>
 	var Listing = React.createClass({
 	  getInitialState: function() {
       return{
-        role: "<? echo $role ?>",
-        email: "<? echo $email ?>",
-        mainPage: "<? echo $mainPage ?>",
-        listing: "<? echo $list_num ?>",
+        role: "<?php echo (isset($role) ? $role : "") ?>",
+        email: "<?php echo (isset($email) ? $email : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
+        listing: "<?php echo (isset($list_num) ? $list_num : "") ?>",
         agent1_img: "",
         agent2_img: "",
         image: "",
-        details: []
+        details: [],
+        streetEasyAddress: "",
+        OLRAddress: "",
       };
 	  },
 	  componentWillMount: function(){
@@ -925,6 +832,7 @@ if(isset($_GET['newTab'])){ ?>
               this.setState({photo: details['photo1']});
               this.setState({agent1_img: details['agent_photo']});
               this.setState({agent2_img: details['agent2_photo']});
+              this.setSearchAddresses(details['address'], details['zip']);
               this.checkAmenities();
             }
           }.bind(this));
@@ -934,6 +842,16 @@ if(isset($_GET['newTab'])){ ?>
         }
       });
 	  },
+    setSearchAddresses: function(address, zip){
+      var ad = address;
+      while(ad.indexOf(" ") != -1){ ad = ad.replace(" ", "+"); }
+      var sea = ad + "+" + zip;
+      this.setState({streetEasyAddress: sea});
+      
+      var olra = address;
+      while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
+      this.setState({OLRAddress: olra});
+    },
 	  checkAmenities: function(){
       var amenities = "<tbody><col width='150'/><col width='150'/><tr>";
       var count = 0;
@@ -1071,7 +989,7 @@ if(isset($_GET['newTab'])){ ?>
 
       $("#amenities").html(amenities);
 	  },
-      imageHover: function(image){
+    imageHover: function(image){
       this.setState({photo: image});
 	  },
 	  checkAgent1: function(id){
@@ -1115,7 +1033,7 @@ if(isset($_GET['newTab'])){ ?>
 	  slideshow(index){
       var $dialog =  $("#ajax-box3").dialog({
         modal: true,
-		width: 1345,
+        width: 1345,
         dialogClass: "slideshow slideshowPopup",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
@@ -1125,10 +1043,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1136,13 +1052,12 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Slideshow closeDialog={closeDialog} num_photos={this.state.details['numPhotos']} start_photo={index} photos={this.state.details['photos']}/>, $dialog[0]);
 	  },
 	  send: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 585,
+        width: 585,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1152,10 +1067,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1163,14 +1076,13 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} selected={'friend'} message={""}/>, $dialog[0]);
 	  },
 	  save: function(){
       if(this.state.role == "agent"){
         var $dialog =  $("#ajax-box").dialog({
           modal: true,
-		  width: 500,
+          width: 500,
           dialogClass: 'agentSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1180,24 +1092,21 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $(".ui-widget-overlay").hide();
             });
           }
         });
         var closeDialog = function(){
-        $dialog.dialog('close');
+          $dialog.dialog('close');
         }
 
-        $(".ui-widget-overlay").show();
         ReactDOM.render(<AgentSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else if(this.state.role == "buyer"){
         var $dialog =  $("#ajax-box").dialog({
           modal: true,
-		  width: 500,
+          width: 500,
           dialogClass: 'buyerSavePopup',
           close: function(){
             ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1207,18 +1116,15 @@ if(isset($_GET['newTab'])){ ?>
             $( this ).remove();
           },
           open: function(){
-            <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $(".ui-widget-overlay").hide();
             });
           }
         });
         var closeDialog = function(){
-        $dialog.dialog('close');
+          $dialog.dialog('close');
         }
 
-        $(".ui-widget-overlay").show();
         ReactDOM.render(<BuyerSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else{
@@ -1226,6 +1132,7 @@ if(isset($_GET['newTab'])){ ?>
           saveGuestListing: 'true', //Call the PHP function
           list_num: this.state.listing,
           success: function(result){
+            console.log("Listing is saved!");
             $('.fa-heart').addClass('blue');
             $("#ajax-box").dialog({
               modal: true,
@@ -1234,13 +1141,9 @@ if(isset($_GET['newTab'])){ ?>
               autoOpen: false,
               dialogClass: 'ajaxbox guestSavePopup',
               buttons : {
-                Ok: function(){
-                  $(this).dialog("close");
-                }
+                Ok: function(){ $(this).dialog("close"); }
               },
-              close: function() {
-                $( this ).dialog( "destroy" );
-              },
+              close: function() { $( this ).dialog( "destroy" ); },
               open: function(){
                 $(".ui-widget-overlay").bind("click", function(){
                   $("#ajax-box").dialog('close');
@@ -1248,9 +1151,8 @@ if(isset($_GET['newTab'])){ ?>
               }
             });
             $('#ajax-box').load('/controllers/messages.php #guestSave',function(){
-              $('#ajax-box').dialog( "option", "title", "Guest Save" ).dialog('open');
+              $('#ajax-box').dialog('open');
             });
-            console.log("Listing is saved!");
           }
         });        
       }
@@ -1282,7 +1184,7 @@ if(isset($_GET['newTab'])){ ?>
 	  broker: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 500,
+        width: 500,
         dialogClass: 'brokerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1292,10 +1194,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1303,13 +1203,12 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Broker closeDialog={closeDialog} broker={this.state.details['broker']} contract={this.state.details['contract']} contact={this.state.details['contact']} contact_email={this.state.details['contact_email']} contact_phone={this.state.details['contact_phone']} listing_num={this.state.listing}/>, $dialog[0]);
 	  },
 	  costEstimator: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 585,
+        width: 585,
         dialogClass: 'costEstimatorPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1319,10 +1218,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1330,13 +1227,12 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<CostEstimator closeDialog={closeDialog} address={this.state.details['address']} price={this.state.details['price']} maint={this.state.details['maint']} taxes={this.state.details['taxes']}/>, $dialog[0]);
 	  },
 	  agent1Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1346,10 +1242,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1357,13 +1251,12 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent_firstname']} agent_lastname={this.state.details['agent_lastname']} agent_photo={this.state.agent1_img} agent_bio={this.state.details['agent_bio']}/>, $dialog[0]);
 	  },
 	  agent2Bio: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'agentBioPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1373,10 +1266,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1384,13 +1275,12 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent2_firstname']} agent_lastname={this.state.details['agent2_lastname']} agent_photo={this.state.agent2_img} agent_bio={this.state.details['agent2_bio']}/>, $dialog[0]);
 	  },
 	  emailAgent: function(agent){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 610,
+        width: 610,
         dialogClass: 'sendPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1400,10 +1290,8 @@ if(isset($_GET['newTab'])){ ?>
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1411,7 +1299,6 @@ if(isset($_GET['newTab'])){ ?>
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} role={this.state.role} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} selected={agent} message={"Please send me more information on this listing."}/>, $dialog[0]);
 	  },
 	  render: function(){
@@ -1616,6 +1503,28 @@ if(isset($_GET['newTab'])){ ?>
                         <img className="position_content" id="u8789b_img" alt="No Image" onError={this.agentImgError.bind(this, "agent2")} src={this.state.agent2_img} width="120" height="119"/>
                       </div>
                     : null }
+                    {this.state.role == "agent" ? <br style={{lineHeight: 23}}/> : null }
+                    {this.state.role == "agent" ?
+                      <div id="u8788-28">
+                        <h2 className="Subhead-4 contactHeader" id="u8788-2">HomePik Office</h2>
+                        {/* <p className="Text-3--2-kern" id="u8788-16">
+                          <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
+                          <span id="u8788-15"><a target="_blank" style={{cursor: "pointer"}}><span>Selection Portfolio Valuation</span></a></span>
+                        </p> */}
+                        <p className="Text-3--2-kern" id="u8788-16">
+                          <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
+                          <span id="u8788-15"><a target="_blank" href={"https://www.streeteasy.com/nyc/search?search=" + this.state.searchAddress} style={{cursor: "pointer"}}><span>Streeteasy Listing</span></a></span>
+                        </p>
+                        <p className="Text-3--2-kern" id="u8788-16">
+                          <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
+                          <span id="u8788-15"><a target="_blank" href={"http://public.olr.com/building_results.aspx?address=" + this.state.details['address']} style={{cursor: "pointer"}}><span>Online Residential Listing</span></a></span>
+                        </p>
+                        {/* <p className="Text-3--2-kern" id="u8788-16">
+                          <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
+                          <span id="u8788-15"><a target="_blank" style={{cursor: "pointer"}}><span>Listing Web Page</span></a></span>
+                        </p> */}
+                      </div>
+                    : null }
                     </div>
                   </div>
               </div>
@@ -1659,7 +1568,7 @@ if(isset($_GET['newTab'])){ ?>
   );
 
 	ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>

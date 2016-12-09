@@ -1,11 +1,8 @@
 <?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
-include("basicHead.php");
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
-if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
+include_once("functions.php");
+include_once("basicHead.php");
+if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
 
@@ -35,9 +32,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
       };
     },
 	  componentDidMount: function(){
-      if (navigator.userAgent.indexOf('Mac OS X') != -1 && navigator.userAgent.indexOf('Firefox') != -1) {
-        $("#formQuestion").addClass("macFF");
-      }
+      if (navigator.userAgent.indexOf('Mac OS X') != -1 && navigator.userAgent.indexOf('Firefox') != -1) { $("#formQuestion").addClass("macFF"); }
 	  },
     handleChange: function (name, event) {
       var change = {};
@@ -53,13 +48,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
+            Ok: function(){ $(this).dialog("close"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function(){ $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
@@ -67,7 +58,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
       }
       else{
@@ -76,7 +67,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           url: "check-agent.php",
           data: {"fullValidation": "true", "email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname, "id": this.state.id},
           success: function(status){
-          
             if(status == "exists"){
               this.setState({step: 2});
               $(".step2Rows").show();
@@ -89,13 +79,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                 autoOpen: false,
                 dialogClass: 'ajaxbox errorMessage',
                 buttons : {
-                  Ok: function(){
-                    $(this).dialog("close");
-                  }
+                  Ok: function(){ $(this).dialog("close"); }
                 },
-                close: function() {
-                  $( this ).dialog( "destroy" );
-                },
+                close: function(){ $( this ).dialog( "destroy" ); },
                 open: function(){
                   $(".ui-widget-overlay").bind("click", function(){
                     $("#ajax-box").dialog('close');
@@ -103,7 +89,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                 }
               });
               $('#ajax-box').load('/controllers/messages.php #invalidInput',function(){
-                $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+                $('#ajax-box').dialog('open');
               });
             }
           }.bind(this)
@@ -123,13 +109,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
+              Ok: function(){ $(this).dialog("close"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function() { $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
@@ -137,7 +119,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -149,13 +131,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
+              Ok: function(){ $(this).dialog("close"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function(){ $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
@@ -163,7 +141,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -175,13 +153,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
+              Ok: function(){ $(this).dialog("close"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function(){ $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
@@ -189,7 +163,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -201,13 +175,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
+              Ok: function(){ $(this).dialog("close"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function() { $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
@@ -215,7 +185,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('messages.php #passwordRequirement',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -227,13 +197,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
+              Ok: function(){ $(this).dialog("close"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function() { $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
@@ -241,7 +207,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('messages.php #passwordsMatch',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }

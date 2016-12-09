@@ -1,10 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
 include("functions.php");
 include("basicHead.php");
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
 if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
@@ -20,7 +17,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
   var Signin = React.createClass({
     getInitialState: function() {
       return{
-        email: "<? echo $_GET['e']?>",
+        email: "<?php echo (isset($_GET['e']) ? $_GET['e'] : "") ?>",
         pass: "",
       };
     },
@@ -56,7 +53,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -83,7 +80,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -110,7 +107,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }

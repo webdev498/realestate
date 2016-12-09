@@ -98,8 +98,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
-            $('#ajax-box').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+          $('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+            $('#ajax-box').dialog('open');
           });
         }
       }
@@ -126,8 +126,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+        $('#ajax-box').load('messages.php #registerRquirements',function(){
+          $('#ajax-box').dialog('open');
         });
       }
       else{
@@ -181,8 +181,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                   });
                 }
               });
-              $('#ajax-box').load('/controllers/messages.php #invalidInput',function(){
-                $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+              $('#ajax-box').load('messages.php #invalidInput',function(){
+                $('#ajax-box').dialog('open');
               });
             }
           }.bind(this)
@@ -216,8 +216,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').load('messages.php #registerRquirements',function(){
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -242,8 +242,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').load('messages.php #invalidName',function(){
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -268,8 +268,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -305,8 +305,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     });
                   }
                 });
-                $('#ajax-box').load('/controllers/messages.php #invalidInput',function(){
-                  $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+                $('#ajax-box').load('messages.php #invalidInput',function(){
+                  $('#ajax-box').dialog('open');
                 });
               }
             }.bind(this)
@@ -352,7 +352,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             }
           });
           $('#ajax-box').load('messages.php #passwordsMatch',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
         }
       }
@@ -378,7 +378,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
       }
     },
@@ -445,8 +445,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #registerRquirements',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -471,8 +471,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #invalidName',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -497,8 +497,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -523,8 +523,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #passwordRequirement',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -595,7 +595,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                         <tr>
                           <td colSpan="2">                            
                             <input type="hidden" name="formStep" value="verification1" />
-                            <input type="hidden" name="code" value="<?php echo $password?>" /><br />
                             <a href="javascript:history.back()"><button id="backBtn" className="text-popups"><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                             {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                             {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups" onClick={this.validate}>Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }                            
@@ -708,7 +707,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                             <tr>
                               <td colSpan="2">
                                 <input type="hidden" name="formStep" value="editBuyerInfo" />
-                                <input type="hidden" name="code" value="<?php echo $password?>" /><br />
                                 <input type="hidden" name="oldEmail" value={this.state.oldemail} />
                                 <button type="submit" name="submit" id="editBuyerInformationSubmit" className="text-popups" onClick={this.verify}>Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
                               </td>

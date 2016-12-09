@@ -1,10 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
-include("basicHead.php");
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
+include_once("functions.php");
+include_once("basicHead.php");
 
 if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); };
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
@@ -99,7 +96,6 @@ else{ $referrer = "registrationPage"; }
         open: function(){
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -107,7 +103,6 @@ else{ $referrer = "registrationPage"; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<AgentList closeDialog={closeDialog}/>, $dialog[0]);
 		},
 		render: function(){
@@ -138,14 +133,14 @@ else{ $referrer = "registrationPage"; }
 	var Register = React.createClass({
 		getInitialState: function() {
 		  return{
-				firstname: "<? echo $_GET['f']?>",
-				lastname: "<? echo $_GET['l']?>",
-				email: "<? echo $_GET['e']?>",
+				firstname: "<?php echo (isset($_GET['f']) ? $_GET['f'] : "") ?>",
+				lastname: "<?php echo (isset($_GET['l']) ? $_GET['l'] : "") ?>",
+				email: "<?php echo (isset($_GET['e']) ? $_GET['e'] : "") ?>",
 				pass: "",
-				phone: "<? echo $_GET['p']?>",
+				phone: "<?php echo (isset($_GET['p']) ? $_GET['p'] : "") ?>",
 				secQues: "default",
 				secAns: "",
-				agent: "<? echo $_GET['a']?>"
+				agent: "<?php echo (isset($_GET['a']) ? $_GET['a'] : "") ?>"
 		  };
 		},
 		componentDidMount: function() {
@@ -171,16 +166,13 @@ else{ $referrer = "registrationPage"; }
 		  }
 		},
 		checkInput: function(){
-		  if( this.state.firstname != "" &&  this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){
-				return true;
-		  } else{
-				return false
-		  }
+		  if( this.state.firstname != "" &&  this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
+			else{ return false }
 		},
 		getAgents: function(){
 		  $.ajax({
 				type: "POST",
-				url: "http://homepik.com/controllers/get-agents.php",
+				url: "get-agents.php",
 				data: {"agent": "true", "new": "true"},
 				success: function(data){
 					var info = JSON.parse(data);
@@ -204,7 +196,7 @@ else{ $referrer = "registrationPage"; }
 
 				$.ajax({
 					type: "POST",
-					url: "http://homepik.com/controllers/check-agent.php",
+					url: "check-agent.php",
 					data: {"getID":"true", "firstname": firstname, "lastname": lastname},
 					success: function(data){
 						var id = JSON.parse(data);
@@ -242,8 +234,8 @@ else{ $referrer = "registrationPage"; }
             });
           }
 					});
-					$('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
-						$('#ajax-box').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+						$('#ajax-box').dialog('open');
 					});
 				}
 		  }
@@ -278,8 +270,8 @@ else{ $referrer = "registrationPage"; }
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #registerRquirements',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -304,8 +296,8 @@ else{ $referrer = "registrationPage"; }
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #invalidName',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -330,8 +322,8 @@ else{ $referrer = "registrationPage"; }
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -356,8 +348,8 @@ else{ $referrer = "registrationPage"; }
             });
           }
 				});
-				$('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
-					$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+				$('#ajax-box').load('messages.php #passwordRequirement',function(){
+					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
@@ -383,8 +375,8 @@ else{ $referrer = "registrationPage"; }
 							});
 						}
 					});
-					$('#ajax-box').load('/controllers/messages.php #registerDisclosure',function(){
-						$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+					$('#ajax-box').load('messages.php #registerDisclosure',function(){
+						$('#ajax-box').dialog('open');
 					});
 					e.preventDefault();
 				}
@@ -410,8 +402,8 @@ else{ $referrer = "registrationPage"; }
 							});
 						}
 					});
-					$('#ajax-box').load('/controllers/messages.php #noRegistration',function(){
-						$('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+					$('#ajax-box').load('messages.php #noRegistration',function(){
+						$('#ajax-box').dialog('open');
 					});
 					e.preventDefault();
 				}
@@ -587,8 +579,7 @@ else{ $referrer = "registrationPage"; }
 														<tr>
 															<td colSpan="2"  align="center">
 																<input type="hidden" name="formStep" value="guest-register" />
-																<input type="hidden" name="referrer" value="<?=$referrer?>" />
-																<input type="hidden" name="code" value="<?=$password?>" /><br />
+																<input type="hidden" name="referrer" value="<?php echo $referrer?>" />
 																<button type="submit" name="submit" id="registrationSubmit" className="text-popups">Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
 															</td>
 														</tr>
@@ -596,7 +587,6 @@ else{ $referrer = "registrationPage"; }
 												</table>
 											</form>
 										</div>
-										{/* <div id="moreInfoBox"><span>More below &darr;</span></div> */}
 									</div>
 								</div>
 							</div>

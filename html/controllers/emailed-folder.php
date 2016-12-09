@@ -1,8 +1,8 @@
 <?php
 session_start();
-include('functions.php');
-include('basicHead.php');
-include("dbconfig.php");
+include_once('functions.php');
+include_once('basicHead.php');
+include_once("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
@@ -62,12 +62,12 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
 	var UserListings = React.createClass({
 		getInitialState: function() {
 			return{
-				user_email: "<? echo $user_email ?>",
-        sender: "<? echo $sender ?>",
-				agent_id: "<? echo $agent_id ?>",
+				user_email: "<?php echo $user_email ?>",
+        sender: "<?php echo $sender ?>",
+				agent_id: "<?php echo $agent_id ?>",
 				lastUpdate: "",
 				folders: [],
-				openFolder: "<? echo $folder ?>",
+				openFolder: "<?php echo $folder ?>",
         documentWidth: ""
 			};
 		},

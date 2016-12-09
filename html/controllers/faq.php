@@ -1,14 +1,11 @@
 <?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['viewingBuyer'] = 'false';
 $_SESSION['loadSaved'] = false;
 
-if(!$_SESSION['email']){
+if(!isset($_SESSION['email'])){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
@@ -43,27 +40,12 @@ else{ $section = "general"; }
       };
     },
     handleClick: function(question){
-      if(question == "Q1"){
-        this.setState({Q1: !this.state.Q1});
-      }
-      else if(question == "Q2"){
-        this.setState({Q2: !this.state.Q2});
-      }
-      else if(question == "Q3"){
-        this.setState({Q3: !this.state.Q3});
-      }
-      else if(question == "Q4"){
-        this.setState({Q4: !this.state.Q4});
-      }
-      else if(question == "Q5"){
-        this.setState({Q5: !this.state.Q5});
-      }
-      else if(question == "Q6"){
-        this.setState({Q6: !this.state.Q6});
-      }
-      else{
-        // Do nothing
-      }
+      if(question == "Q1"){ this.setState({Q1: !this.state.Q1}); }
+      else if(question == "Q2"){ this.setState({Q2: !this.state.Q2}); }
+      else if(question == "Q3"){ this.setState({Q3: !this.state.Q3}); }
+      else if(question == "Q4"){ this.setState({Q4: !this.state.Q4}); }
+      else if(question == "Q5"){ this.setState({Q5: !this.state.Q5}); }
+      else if(question == "Q6"){ this.setState({Q6: !this.state.Q6}); }
     },
     render: function(){
       return(
@@ -102,27 +84,12 @@ else{ $section = "general"; }
       };
     },
     handleClick: function(question){
-      if(question == "Q1"){
-        this.setState({Q1: !this.state.Q1});
-      }
-      else if(question == "Q2"){
-        this.setState({Q2: !this.state.Q2});
-      }
-      else if(question == "Q3"){
-        this.setState({Q3: !this.state.Q3});
-      }
-      else if(question == "Q4"){
-        this.setState({Q4: !this.state.Q4});
-      }
-      else if(question == "Q5"){
-        this.setState({Q5: !this.state.Q5});
-      }
-      else if(question == "Q6"){
-        this.setState({Q6: !this.state.Q6});
-      }
-      else{
-        // Do nothing
-      }
+      if(question == "Q1"){ this.setState({Q1: !this.state.Q1}); }
+      else if(question == "Q2"){ this.setState({Q2: !this.state.Q2}); }
+      else if(question == "Q3"){ this.setState({Q3: !this.state.Q3}); }
+      else if(question == "Q4"){ this.setState({Q4: !this.state.Q4}); }
+      else if(question == "Q5"){ this.setState({Q5: !this.state.Q5}); }
+      else if(question == "Q6"){ this.setState({Q6: !this.state.Q6}); }
     },
     render: function(){
       return(
@@ -160,24 +127,11 @@ else{ $section = "general"; }
       };
     },
     handleClick: function(question){
-      if(question == "Q1"){
-        this.setState({Q1: !this.state.Q1});
-      }
-      else if(question == "Q2"){
-        this.setState({Q2: !this.state.Q2});
-      }
-      else if(question == "Q3"){
-        this.setState({Q3: !this.state.Q3});
-      }
-      else if(question == "Q4"){
-        this.setState({Q4: !this.state.Q4});
-      }
-      else if(question == "Q5"){
-        this.setState({Q5: !this.state.Q5});
-      }
-      else{
-        // Do nothing
-      }
+      if(question == "Q1"){ this.setState({Q1: !this.state.Q1}); }
+      else if(question == "Q2"){ this.setState({Q2: !this.state.Q2}); }
+      else if(question == "Q3"){ this.setState({Q3: !this.state.Q3}); }
+      else if(question == "Q4"){ this.setState({Q4: !this.state.Q4}); }
+      else if(question == "Q5"){ this.setState({Q5: !this.state.Q5}); }
     },
     render: function(){
       return(
@@ -212,24 +166,11 @@ else{ $section = "general"; }
       };
     },
     handleClick: function(question){
-      if(question == "Q1"){
-        this.setState({Q1: !this.state.Q1});
-      }
-      else if(question == "Q2"){
-        this.setState({Q2: !this.state.Q2});
-      }
-      else if(question == "Q3"){
-        this.setState({Q3: !this.state.Q3});
-      }
-      else if(question == "Q4"){
-        this.setState({Q4: !this.state.Q4});
-      }
-      else if(question == "Q5"){
-        this.setState({Q5: !this.state.Q5});
-      }
-      else{
-        // Do nothing
-      }
+      if(question == "Q1"){ this.setState({Q1: !this.state.Q1}); }
+      else if(question == "Q2"){this.setState({Q2: !this.state.Q2}); }
+      else if(question == "Q3"){ this.setState({Q3: !this.state.Q3}); }
+      else if(question == "Q4"){ this.setState({Q4: !this.state.Q4}); }
+      else if(question == "Q5"){ this.setState({Q5: !this.state.Q5}); }
     },
     render: function(){
       return(
@@ -270,27 +211,12 @@ else{ $section = "general"; }
       };
     },
     handleClick: function(question){
-      if(question == "Q1"){
-        this.setState({Q1: !this.state.Q1});
-      }
-      else if(question == "Q2"){
-        this.setState({Q2: !this.state.Q2});
-      }
-      else if(question == "Q3"){
-        this.setState({Q3: !this.state.Q3});
-      }
-      else if(question == "Q4"){
-        this.setState({Q4: !this.state.Q4});
-      }
-      else if(question == "Q5"){
-        this.setState({Q5: !this.state.Q5});
-      }
-      else if(question == "Q6"){
-        this.setState({Q6: !this.state.Q6});
-      }
-      else{
-        // Do nothing
-      }
+      if(question == "Q1"){ this.setState({Q1: !this.state.Q1}); }
+      else if(question == "Q2"){ this.setState({Q2: !this.state.Q2}); }
+      else if(question == "Q3"){ this.setState({Q3: !this.state.Q3}); }
+      else if(question == "Q4"){ this.setState({Q4: !this.state.Q4}); }
+      else if(question == "Q5"){ this.setState({Q5: !this.state.Q5}); }
+      else if(question == "Q6"){ this.setState({Q6: !this.state.Q6}); }
     },
     render: function(){
       return(
@@ -311,8 +237,8 @@ else{ $section = "general"; }
   var FAQ = React.createClass({
     getInitialState: function() {
       return{
-        section: "<? echo $section ?>",
-        mainPage: "<? echo $mainPage ?>"
+        section: "<?php echo (isset($section) ? $section : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
       };
     },
     handleClick: function(name, event){
@@ -371,7 +297,7 @@ else{ $section = "general"; }
   );
 
 	ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>

@@ -1,10 +1,7 @@
 <?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['viewingBuyer'] = 'false';
 
 if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
@@ -28,7 +25,7 @@ else{ $mainPage = ""; }
 var Analytics = React.createClass({	
 	getInitialState: function() {
 		return{
-			mainPage: "<? echo $mainPage ?>"
+			mainPage: "<?php echo $mainPage ?>"
 		};
 	},
   render: function() {
@@ -126,7 +123,7 @@ ReactDOM.render(
 );	
 	
 ReactDOM.render(
-  <Footer mainPage={"<? echo $mainPage ?>"} />,
+  <Footer mainPage={"<?php echo $mainPage ?>"} />,
   document.getElementById("footer")
 );
 </script>

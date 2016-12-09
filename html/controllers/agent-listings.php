@@ -1,12 +1,12 @@
 <?php
 session_start();
-include('functions.php');
-include('basicHead.php');
-include("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
+include_once("dbconfig.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db($database, $con) or die(mysql_error());
 
-if ($_SESSION['agent']){
+if(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
@@ -351,13 +351,9 @@ else{ $mainPage = ""; }
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons: {
-              Ok: function(){
-                $(this).dialog("destroy");
-              }
+              Ok: function(){ $(this).dialog("destroy"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function() { $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box2").dialog('close');
@@ -365,7 +361,7 @@ else{ $mainPage = ""; }
             }
           });
           $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+            $('#ajax-box2').dialog('open');
           });
 
           if(price < 100000){
@@ -413,13 +409,9 @@ else{ $mainPage = ""; }
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons: {
-              Ok: function(){
-                $(this).dialog("destroy");
-              }
+              Ok: function(){ $(this).dialog("destroy"); }
             },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
+            close: function(){ $( this ).dialog( "destroy" ); },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box2").dialog('close');
@@ -427,7 +419,7 @@ else{ $mainPage = ""; }
             }
           });
           $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+            $('#ajax-box2').dialog('open');
           });
 
           if(price > 99000000){
@@ -460,7 +452,6 @@ else{ $mainPage = ""; }
       else if(name == "prewar"){ this.setState({prewar: !this.state.prewar}); }
       else if(name == "timeshare"){ this.setState({timeshare: !this.state.timeshare}); }
       else if(name == "newconstruction"){ this.setState({newconstruction: !this.state.newconstruction}); }
-      else{ /* Do nothing */ }
     },
     handleNeighborhoodChange: function(name, event){
       if(name == "n_all"){
@@ -501,14 +492,12 @@ else{ $mainPage = ""; }
         this.setState({n_d: !this.state.n_d});
         this.setState({n_all: false});
       }
-      else{ /* Do nothing */ }
     },
     handlePropertyChange: function(name, event){
       if(name == "coop"){ this.setState({coop: !this.state.coop}); }
       else if(name == "condo"){ this.setState({condo: !this.state.condo}); }
       else if(name == "house"){ this.setState({house: !this.state.house}); }
       else if(name == "condop"){ this.setState({condop: !this.state.condop}); }
-      else{ /* Do nothing */ }
     },
     bedroomText: function(){
       if(this.state.bedrooms == 0){ return(<span>Studio</span>); }
@@ -548,7 +537,6 @@ else{ $mainPage = ""; }
       else if(this.state.minPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.minPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.minPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
     },
     maxPriceText: function(){
       if(this.state.maxPrice == 100000){ return(<span>100K</span>); }
@@ -583,7 +571,6 @@ else{ $mainPage = ""; }
       else if(this.state.maxPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.maxPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.maxPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
     },
     locationText: function(){
       if(this.state.location == 1){ return(<div><p id="y25213-6">All locations</p><p id="y25213-7">&nbsp;</p></div>); }
@@ -596,7 +583,6 @@ else{ $mainPage = ""; }
       else if(this.state.location == 8){ return(<div><p id="y25213-6">Residential area / near local park or river</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 9){ return(<div><p id="y25213-6">Residential area cose to major park</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 10){ return(<div><p id="y25213-6">Internationally renown / near major park</p><p id="y25213-7">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     buildingText: function(){
       if(this.state.building == 1){ return(<div><p id="y25213-14">All buildings</p><p id="y25213-15">&nbsp;</p></div>); }
@@ -609,7 +595,6 @@ else{ $mainPage = ""; }
       else if(this.state.building == 8){ return(<div><p id="y25213-14">Full service building with amenities</p><p id="y25213-15">&nbsp;</p></div>); }
       else if(this.state.building == 9){ return(<div><p id="y25213-14">Locally renowned building or new construction with full services</p></div>); }
       else if(this.state.building == 10){ return(<div><p id="y25213-14">International renown</p><p id="y25213-15">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     viewText: function(){
       if(this.state.views == 1){ return(<div><p id="y25213-22">All properties</p><p id="y25213-23">&nbsp;</p></div>); }
@@ -622,21 +607,18 @@ else{ $mainPage = ""; }
       else if(this.state.views == 8){ return(<div><p id="y25213-22">Cityscape views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 9){ return(<div><p id="y25213-22">Cityscape and river or park views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 10){ return(<div><p id="y25213-22">Cityscape and Central Park views</p><p id="y25213-23">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     bedroomAreaText: function(){
       if(this.state.bedroomArea == 1){ return(<div><p id="y25213-30">Any bedroom size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
       else if(this.state.bedroomArea == 2){ return(<div><p id="y25213-30">A medium master bedroom or larger: at least 13 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 3){ return(<div><p id="y25213-30">A large master bedroom or larger: at least 16 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 4){ return(<div><p id="y25213-30">An extra-large master bedroom: at least 19 ft by 11 ft</p></div>); }
-      else{ /* Do nothing */ }
     },
     livingAreaText: function(){
       if(this.state.livingArea == 1){ return(<div><p id="y25213-38">Any living room size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
       else if(this.state.livingArea == 2){ return(<div><p id="y25213-38">A medium-sized living room or larger: at least 18 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 3){ return(<div><p id="y25213-38">A large-sized living room or larger: at least 22 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 4){ return(<div><p id="y25213-38">A extra-large living room or larger: at least 27 ft by 12 ft</p></div>); }
-      else{ /* Do nothing */ }
     },
     minPriceInput: function(){
       var val = this.state.minPrice;
@@ -687,9 +669,6 @@ else{ $mainPage = ""; }
           }
         }.bind(this)
       });
-    },
-    closeDialog: function(){
-      $dialog.dialog('close');
     },
     saveChanges: function(){
       var email = this.state.buyer_email;
@@ -748,13 +727,9 @@ else{ $mainPage = ""; }
           autoOpen: false,
           dialogClass: 'ajaxbox priceRangePopup',
           buttons: {
-            Ok: function(){
-              $(this).dialog("destroy");
-            }
+            Ok: function(){ $(this).dialog("destroy"); }
           },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
+          close: function() { $( this ).dialog( "destroy" ); },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box2").dialog('close');
@@ -762,7 +737,7 @@ else{ $mainPage = ""; }
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
-          $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -793,14 +768,17 @@ else{ $mainPage = ""; }
         });
       }
     },
-    cancel: function(){
-      {this.props.closeDialog()}
-    },
     updateData: function(){
       if(this.props.searchName != this.state.name){
         this.setState({name: this.props.searchName});
         this.getCriteria();
       }
+    },
+    cancel: function(){
+      {this.props.closeDialog()}
+    },
+    closeDialog: function(){
+      $dialog.dialog('close');
     },
     render: function(){
       return(
@@ -1083,9 +1061,9 @@ else{ $mainPage = ""; }
   var AgentListings = React.createClass({
 		getInitialState: function() {
 			return{
-				agent_email: "<? echo $agent_email ?>",
-				agent_id: "<? echo $agent_id ?>",
-        mainPage: "<? echo $mainPage ?>",
+				agent_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
+				agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
 				lastUpdate: "",
 				folders: [],
         buyerFolders: [],
@@ -1293,13 +1271,9 @@ else{ $mainPage = ""; }
               }.bind(this)
             });
           }.bind(this),
-          No: function() {
-            $( this ).dialog( "destroy" );
-          }
+          No: function() { $( this ).dialog( "destroy" ); }
         },
-        close: function() {
-          $( this ).dialog( "destroy" );
-        },
+        close: function(){ $( this ).dialog( "destroy" ); },
         open: function(){
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box2").dialog('close');
@@ -1404,16 +1378,14 @@ else{ $mainPage = ""; }
         width: 'auto',
         autoOpen: false,
         dialogClass: 'ajaxbox loading',
-        close: function() {
-          $( this ).dialog( "destroy" );
-        },
+        close: function() { $( this ).dialog( "destroy" ); },
         open: function(){
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
         }
       });
-      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+      $('#ajax-box').load('/controllers/messages.php #loadingAnimation',function(){
         $('#ajax-box').dialog('open');
       });
       
@@ -1440,16 +1412,14 @@ else{ $mainPage = ""; }
         width: 'auto',
         autoOpen: false,
         dialogClass: 'ajaxbox loading',
-        close: function() {
-          $( this ).dialog( "destroy" );
-        },
+        close: function() { $( this ).dialog( "destroy" ); },
         open: function(){
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
         }
       });
-      $('#ajax-box').load('../controllers/messages.php #loadingAnimation',function(){
+      $('#ajax-box').load('/controllers/messages.php #loadingAnimation',function(){
         $('#ajax-box').dialog('open');
       });
       
@@ -1932,7 +1902,7 @@ else{ $mainPage = ""; }
 	);
 
 	ReactDOM.render(
-		<Footer mainPage={"<? echo $mainPage ?>"} />,
+		<Footer mainPage={"<?php echo $mainPage ?>"} />,
 		document.getElementById("footer")
 	);
 </script>

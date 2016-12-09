@@ -21,26 +21,17 @@ function useragent() {
 // Averages function for search
 function relative_to_average($grade,$average, $color){
 	if ($color == 'gold'){
-		if ($grade == 0) {
-	    $grade = 'images/nodata.png';
-	  } elseif ($grade > $average) {
-		  $grade = 'images/gold2.png';
-		} elseif ($grade == $average) {
-		  $grade = 'images/silver2.png';
-		} elseif ($grade < $average) {
-		  $grade = 'images/bronze2.png';
-		}
+		if ($grade == 0) { $grade = 'images/nodata.png'; }
+		elseif ($grade > $average) { $grade = 'images/gold2.png'; }
+		elseif ($grade == $average) { $grade = 'images/silver2.png'; }
+		elseif ($grade < $average) { $grade = 'images/bronze2.png'; }
 	  return $grade;
-	} else {
-		if ($grade == 0) {
-		  $grade = 'images/nodata.png';
-		} elseif ($grade > $average) {
-	  	$grade = 'images/gold.png';
-		} elseif ($grade == $average) {
-	  	$grade = 'images/silver.png';
-		} elseif ($grade < $average) {
-	  	$grade = 'images/bronze.png';
-		}
+	}
+	else {
+		if ($grade == 0) { $grade = 'images/nodata.png'; }
+		elseif ($grade > $average) { $grade = 'images/gold.png'; }
+		elseif ($grade == $average) { $grade = 'images/silver.png'; }
+		elseif ($grade < $average) { $grade = 'images/bronze.png'; }
 		return $grade;
 	}
 };
@@ -149,24 +140,17 @@ function urlmtime($url) {
    $parsed_url = parse_url($url);
    $path = $parsed_url['path'];
 
-   if ($path[0] == "/") {
-       $filename = $_SERVER['DOCUMENT_ROOT'] . "/" . $path;
-   } else {
-       $filename = $path;
-   }
+   if ($path[0] == "/") { $filename = $_SERVER['DOCUMENT_ROOT'] . "/" . $path; }
+	 else { $filename = $path; }
 
-   if (!file_exists($filename)) {
-       // If not a file then use the current time
-       $lastModified = date('YmdHis');
-   } else {
-       $lastModified = date('YmdHis', filemtime($filename));
+   if(!file_exists($filename)) {
+		// If not a file then use the current time
+    $lastModified = date('YmdHis');
    }
+	 else { $lastModified = date('YmdHis', filemtime($filename)); }
 
-   if (strpos($url, '?') === false) {
-       $url .= '?ts=' . $lastModified;
-   } else {
-       $url .= '&ts=' . $lastModified;
-   }
+   if (strpos($url, '?') === false) { $url .= '?ts=' . $lastModified; }
+	 else { $url .= '&ts=' . $lastModified; }
 
    return $url;
 }

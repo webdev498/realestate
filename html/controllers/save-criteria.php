@@ -1,20 +1,17 @@
 <?php
 session_start();
-include("dbconfig.php");
-
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if ($_SESSION['user']){
+if(isset($_SESSION['user'])){
   $user = $_SESSION['id'];
-  $role = 'user';
   $email = $_SESSION['email'];
+  $role = 'user';
 }
 
-if(isset($_POST['email'])){
-  $email = $_POST['email'];
-}
+if(isset($_POST['email'])){ $email = $_POST['email']; }
 
 $oldName = $_POST['oldname'];
 
@@ -22,7 +19,6 @@ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$email."') AND (name = '"
 $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result,MYSQL_ASSOC);
 $num_rows = mysql_num_rows($result);
-
 
 if($num_rows >= 1){
   $neighborhoods = array();

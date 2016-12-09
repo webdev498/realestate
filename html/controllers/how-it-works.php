@@ -1,8 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-include('basicHead.php');
+include_once('functions.php');
+include_once('basicHead.php');
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
@@ -165,7 +164,7 @@ else{ $mainPage = ""; }
 	);
 
 	ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>

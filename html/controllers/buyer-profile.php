@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
-include("basicHead.php");
+include_once("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
@@ -66,7 +66,7 @@ else{ $mainPage = ""; }
 	var EditSearch = React.createClass({
 	  getInitialState: function() {
       return{
-        buyer_email: "<? echo $buyer_email ?>",
+        buyer_email: "<?php echo $buyer_email ?>",
         searchName: this.props.searchName,
         name: "",
         bedrooms: "0",
@@ -1001,7 +1001,7 @@ else{ $mainPage = ""; }
 	var Permissions = React.createClass({
 	  getInitialState: function(){
       return{
-        user: "<? echo $buyer_email ?>",
+        user: "<?php echo $buyer_email ?>",
         folders: [],
         formulas: [],
         selected_folders: [],
@@ -1122,19 +1122,19 @@ else{ $mainPage = ""; }
 	var Profile = React.createClass({
 	  getInitialState: function() {
       return{
-        buyer_name: "<? echo $buyer_first_name . " " . $buyer_last_name ?>",
-        buyer_email: "<? echo $buyer_email ?>",
+        buyer_name: "<?php echo $buyer_first_name . " " . $buyer_last_name ?>",
+        buyer_email: "<?php echo $buyer_email ?>",
         buyer_old_email: "",
-        buyer_phone: "<? echo $buyer_phone ?>",
-        agent1: "<? echo $agent_code ?>",
-        agent2: "<? echo $agent2_code ?>",
-        agent1_name: "<? echo $agent_first_name . " " . $agent_last_name ?>",
-        agent1_email: "<? echo $agent_email ?>",
-        agent1_phone: "<? echo $agent_cellphone ?>",
-        agent2_name: "<? echo $agent2_first_name . " " . $agent2_last_name ?>",
-        agent2_email: "<? echo $agent2_email ?>",
-        agent2_phone: "<? echo $agent2_cellphone ?>",
-        mainPage: "<? echo $mainPage ?>",
+        buyer_phone: "<?php echo $buyer_phone ?>",
+        agent1: "<?php echo $agent_code ?>",
+        agent2: "<?php echo $agent2_code ?>",
+        agent1_name: "<?php echo $agent_first_name . " " . $agent_last_name ?>",
+        agent1_email: "<?php echo $agent_email ?>",
+        agent1_phone: "<?php echo $agent_cellphone ?>",
+        agent2_name: "<?php echo $agent2_first_name . " " . $agent2_last_name ?>",
+        agent2_email: "<?php echo $agent2_email ?>",
+        agent2_phone: "<?php echo $agent2_cellphone ?>",
+        mainPage: "<?php echo $mainPage ?>",
         searchName: "",
         searchAddress: "",
         addingAgent1: "",
@@ -2147,7 +2147,7 @@ else{ $mainPage = ""; }
 	);
 
 	ReactDOM.render(
-	  <Footer mainPage={"<? echo $mainPage ?>"} />,
+	  <Footer mainPage={"<?php echo $mainPage ?>"} />,
 	  document.getElementById("footer")
 	);
 </script>

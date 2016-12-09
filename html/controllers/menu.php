@@ -1,20 +1,15 @@
 <?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db($database, $con) or die(mysql_error());
-$_SESSION['user'] = 'true';
 $_SESSION['viewingBuyer'] = 'false';
 
 if(isset($_SESSION['agent'])){
   $agent_email = $_SESSION['email'];
-  $adminOptions = $_SESSION['admin_options'];
   $unreadMessages = $_SESSION['unreadMessages'];
   $role = "agent";
 }
-elseif($_SESSION['buyer']){
+elseif(isset($_SESSION['buyer'])){
   $unreadMessages = $_SESSION['unreadMessages'];
   $role = "buyer";
 }
@@ -37,7 +32,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
   var BuyerOptions = React.createClass({
     getInitialState: function() {
       return{
-        messages: "<?php echo $unreadMessages ?>",
+        messages: "<?php echo (isset($unreadMessages) ? $unreadMessages : "") ?>",
       };
     },
     logout:function(){
@@ -91,7 +86,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
   var AddBuyer = React.createClass({
     getInitialState: function() {
       return{
-        agent_email: "<? echo $agent_email ?>",
+        agent_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
         firstname: "",
         lastname: "",
         email: "",
@@ -148,7 +143,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
               });
             }
           });
-          $('#ajax-box2').load('/controllers/messages.php #invalidBuyerPhone',function(){
+          $('#ajax-box2').load('messages.php #invalidBuyerPhone',function(){
             $('#ajax-box2').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
           });
         }
@@ -188,7 +183,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           }
         });
         $('#ajax-box2').load('messages.php #addBuyerInfo',function(){
-          $('#ajax-box2').dialog( "option", "title", "Buyer Information" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       // CHECK IF THE EMAIL IS VALID IF NOT DISPLAY ERROR POPUP
@@ -214,7 +209,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #invalidBuyerEmail',function(){
-          $('#ajax-box2').dialog( "option", "title", "Invalid Email" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       // CHECK IF THE EMAIIL IS A BELLMARC EMAIL IF SO DISPLAY ERROR POPUP
@@ -240,7 +235,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #addBuyerEmail',function(){
-          $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -249,7 +244,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           url: "check-buyer.php",
           data: {"email": email},
           success: function(data){
-            console.log("success");
             var info = jQuery.parseJSON(data);
 
             // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
@@ -286,12 +280,11 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     }
                   });
                   $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
-                    $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
+                    $('#ajax-box2').dialog('open');
                   });
                 }
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             else{
@@ -325,10 +318,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                   }
                 });
                 $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary',function(){
-                  $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                  $('#ajax-box2').dialog('open');
                 });
 
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
               // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
@@ -372,10 +364,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                       }
                     });
                     $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary2',function(){
-                      $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                      $('#ajax-box2').dialog('open');
                     });
 
-                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                   else{
@@ -401,10 +392,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     }
                    });
                   $('#ajax-box2').load('/controllers/messages.php #alreadyAgent',function(){
-                    $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                    $('#ajax-box2').dialog('open');
                   });
 
-                  $(".ui-widget-overlay").hide();
                   {this.props.closeDialog()}
                 }
               }
@@ -434,10 +424,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                 }
               });
               $('#ajax-box2').load('/controllers/messages.php #addBuyerExists',function(){
-                $('#ajax-box2').dialog( "option", "title", "Buyer Exists" ).dialog('open');
+                $('#ajax-box2').dialog('open');
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             }
@@ -449,7 +438,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
       }
     },
     closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     render: function(){
@@ -508,15 +496,13 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
   var AgentOptions = React.createClass({
     getInitialState: function() {
       return{
-        email: "<? echo $agent_email ?>",
-        adminOptions: "<? echo $adminOptions ?>",
-        messages: "<?php echo $unreadMessages ?>"        
+        messages: "<?php echo (isset($unreadMessages) ? $unreadMessages : "") ?>"        
       };
     },
     addBuyer: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 585,
+        width: 585,
         dialogClass: 'ajaxbox addBuyerPopup',
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -528,7 +514,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
         open: function(){
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -536,7 +521,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<AddBuyer closeDialog={closeDialog}/>, $dialog[0]);
     },
     logout:function(){
@@ -593,7 +577,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
   var Menu = React.createClass({
     getInitialState: function() {
       return{
-        role: "<? echo $role ?>",
+        role: "<?php echo (isset($role) ? $role : "") ?>",
       };
     },
     render: function () {

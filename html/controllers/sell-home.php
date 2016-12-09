@@ -1,6 +1,5 @@
 <?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
 include_once('basicHead.php');
 
@@ -22,7 +21,7 @@ else{ $mainPage = ""; }
   var SellHome = React.createClass({
     getInitialState: function() {
       return{
-        mainPage: "<? echo $mainPage ?>"
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
       };
     },
     render: function() {
@@ -154,7 +153,7 @@ else{ $mainPage = ""; }
   );
 
   ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>

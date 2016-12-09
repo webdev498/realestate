@@ -111,7 +111,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 												if ($num == 0) {
 													//if not display error message
 													print "<center class='Text-1 clearfix'>Re-directing...</center>";
-													print "<script> window.location = 'http://homepik.com/controllers/agent-verification.php?x=1' </script>";
+													print "<script> window.location = 'http://homepik.com/controllers/agent-verification.php' </script>";
 												} else {
 													//split all fields fom the correct row into an associative array
 													$row = mysql_fetch_assoc($res);

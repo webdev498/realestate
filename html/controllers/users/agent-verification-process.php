@@ -39,7 +39,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 					$formStep = $_REQUEST['formStep'];
 
 					if($formStep == 'verification1'){
-						$code = $_REQUEST['code'];
 						$firstName = strtolower($_REQUEST['firstName']);
 					  $lastName = strtolower($_REQUEST['lastName']);
 						$email = $_REQUEST['email'];
@@ -94,7 +93,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 					}
 
 					if($formStep == 'verification2'){
-					  $code = $_REQUEST['code'];
   					$firstName = strtolower($_REQUEST['firstName']);
   					$lastName = strtolower($_REQUEST['lastName']);
   					$email = $_REQUEST['email'];

@@ -1,9 +1,8 @@
 <?php
 session_start();
-include('functions.php');
-include('emailconfig.php');
-include("dbconfig.php");
-
+include_once('functions.php');
+include_once('emailconfig.php');
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");

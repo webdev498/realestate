@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 ?>
 
   <title>HomePik - Privacy Policy</title>

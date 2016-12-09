@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("dbconfig.php");
-include ("functions.php");
-include("basicHead.php");
+include_once("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
@@ -137,16 +137,11 @@ else{ $mainPage = ""; }
               <?php
               $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
               $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {                
 								$id = $row['agent_id'];
-								if (strlen($id) <= 1){
-									$name = "No Agent";
-								} else {
-									$name = $row['last_name'] . ",  " . $row['first_name'];
-								}
+								if (strlen($id) <= 1){ $name = "No Agent"; }
+								else { $name = $row['last_name'] . ",  " . $row['first_name']; }
 								echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
-								//echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";                
               }
                ?>
             </select>
@@ -196,29 +191,19 @@ else{ $mainPage = ""; }
   				  <button class="form-control" type="submit" name="report-submit" style="background-color: #0085C6; color: #FFFFFF;">Monthly Report</button>
   				</fieldset>
 				</div>
-			  <!--<div class="col-md-2 col-md-offset-3">
-          <fieldset class="form-group">
-					       <input class="form-control" type="text" id="agentCode" name="agentCode" placeholder="--Agent Code--" value="<?php if (isset($_POST['agentCode'])) echo $_POST['agentCode']; ?>"/>
-          </fieldset>
-				</div>-->
         <div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3">
           <fieldset class="form-group">
             <select class="form-control" id="agentCode" name="agentCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
-              $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
-              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-								$id = $row['agent_id'];
-								if (strlen($id) <= 1){
-									$name = "No Agent";
-								} else {
-									$name = $row['last_name'] . ",  " . $row['first_name'];
+								$SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
+								$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+								while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+									$id = $row['agent_id'];
+									if (strlen($id) <= 1){ $name = "No Agent"; }
+									else{ $name = $row['last_name'] . ",  " . $row['first_name']; }
+									echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
 								}
-								echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
-								//echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";                
-              }
-               ?>
+              ?>
             </select>
           </fieldset>
         </div>
@@ -286,17 +271,17 @@ else{ $mainPage = ""; }
   );
 
   ReactDOM.render(
-    <NavBar mainPage={"<? echo $mainPage ?>"} />,
+    <NavBar mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("navbar")
   );
 
   ReactDOM.render(
-    <AddressSearch mainPage={"<? echo $mainPage ?>"} />,
+    <AddressSearch mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("address-search")
   );
 
   ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 
@@ -304,97 +289,67 @@ else{ $mainPage = ""; }
 
 <?php
 // listings MONTHLY REPORTS
-if (isset($_POST['report-submit'])) {
-
-  ?>
+if (isset($_POST['report-submit'])) { ?>
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
   $( '#listYearlyArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentMonth' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentYear' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentCode' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentYearlyArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   $( '#agentYearlyCode' ).each( function () {
-      if ( $( this ).children().length > 0 ) {
-          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
-      }
+      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
   } );
   </script>
 
   <?php
-
-
 	$listMonth = $_POST['listMonth'];
 	$listYear = $_POST['listYear'];
 	$listArea = $_POST['listArea'];
 
-  if (($listMonth == "blank") || ($listYear == "blank") || ($listYearArea == "blank"))
-		{
-			//DO NOT SUBMIT
-			//Show pop up instead
-			echo "<script type='text/javascript'>alert('Please fill out all fields!')</script>";
+  if (($listMonth == "blank") || ($listYear == "blank") || ($listYearArea == "blank")){
+		//DO NOT SUBMIT
+		//Show pop up instead
+		echo "<script type='text/javascript'>alert('Please fill out all fields!')</script>";
+	}
+	else{
+		if (($listMonth == '04') || ($listMonth == '06') || ($listMonth == '09') || ($listMonth == '11')) { $listDay = '30'; }
+		elseif ($listMonth == '02'){ $listDay = '28'; }
+		else { $listDay = '31'; }
+
+		if ($listMonth == '01') {
+			$chartLabelYear = $listYear - 1;
+			$chartLabelDay = '31';
+			$chartLabelMonth = '12';
+			$chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
+		} else {
+			$chartLabelYear = $listYear;
+			$chartLabelMonth = $listMonth - 1;
+				if(($chartLabelMonth == '04') || ($chartLabelMonth == '06') || ($chartLabelMonth == '09') || ($chartLabelMonth == '11')) { $chartLabelDay = '30'; }
+				elseif ($chartLabelMonth == '02'){ $chartLabelDay = '28'; }
+				else { $chartLabelDay = '31'; }
+			$chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
 		}
-	else
-		{
 
-      if (($listMonth == '04') || ($listMonth == '06') || ($listMonth == '09') || ($listMonth == '11')) {
-        $listDay = '30';
-      } elseif ($listMonth == '02'){
-        $listDay = '28';
-      } else {
-        $listDay = '31';
-      }
-
-      if ($listMonth == '01') {
-        $chartLabelYear = $listYear - 1;
-        $chartLabelDay = '31';
-        $chartLabelMonth = '12';
-        $chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
-      } else {
-        $chartLabelYear = $listYear;
-        $chartLabelMonth = $listMonth - 1;
-          if (($chartLabelMonth == '04') || ($chartLabelMonth == '06') || ($chartLabelMonth == '09') || ($chartLabelMonth == '11')) {
-            $chartLabelDay = '30';
-          } elseif ($chartLabelMonth == '02'){
-            $chartLabelDay = '28';
-          } else {
-            $chartLabelDay = '31';
-          }
-        $chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
-      }
-
-      $listBegDay = '01';
-      //$listEndDay = '28';
-  		$listMonthName = date('F', mktime(0, 0, 0, $listMonth, 10));
-    	$listBegDate = $listYear . '-' . $listMonth . '-' . $listBegDay;
-      $listEndDate = $listYear . '-' . $listMonth . '-' . $listDay;
-      $chartLabelStart = $listMonth . '/' . $listBegDay . '/' . $listYear;
-      $chartLabelEnd = $listMonth . '/' . $listDay . '/' . $listYear;
+		$listBegDay = '01';
+		$listMonthName = date('F', mktime(0, 0, 0, $listMonth, 10));
+		$listBegDate = $listYear . '-' . $listMonth . '-' . $listBegDay;
+		$listEndDate = $listYear . '-' . $listMonth . '-' . $listDay;
+		$chartLabelStart = $listMonth . '/' . $listBegDay . '/' . $listYear;
+		$chartLabelEnd = $listMonth . '/' . $listDay . '/' . $listYear;
 
 
 		//Query for number of beds by month

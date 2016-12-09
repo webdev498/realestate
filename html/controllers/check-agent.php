@@ -1,13 +1,11 @@
 <?php
 session_start();
-include('functions.php');
-include("dbconfig.php");
-
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if($_POST['code']){
+if(isset($_POST['code'])){
   $code = $_POST['code'];
   
   $SQL = "SELECT agent_id FROM `registered_agents` where (agent_id = '".$code."')";
@@ -58,7 +56,7 @@ if(isset($_POST['reassignCheck'])){
   echo json_encode($status);
 }
 
-if($_POST['name']){
+if(isset($_POST['name'])){
   $firstName = $_POST['firstname'];
   $lastName = $_POST['lastname'];
   
@@ -87,7 +85,7 @@ if($_POST['name']){
   echo json_encode($info);
 }
 
-if($_POST['getID']){
+if(isset($_POST['getID'])){
   $firstName = $_POST['firstname'];
   $lastName = $_POST['lastname'];
   
@@ -99,7 +97,7 @@ if($_POST['getID']){
   echo json_encode($id);
 }
 
-if($_POST['getEmail']){
+if(isset($_POST['getEmail'])){
   $id = $_POST['id'];
   
   $SQL = "SELECT email FROM `registered_agents` where (agent_id = '".$id."')";

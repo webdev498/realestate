@@ -1,8 +1,7 @@
-<?
+<?php
 session_start();
-include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
@@ -113,7 +112,7 @@ else{ $mainPage = ""; }
             }
           });
           $('#ajax-box').load('messages.php #passwordsMatch',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           
           return false;
@@ -141,7 +140,7 @@ else{ $mainPage = ""; }
           }
         });
         $('#ajax-box').load('messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         
         return false;
@@ -178,7 +177,6 @@ else{ $mainPage = ""; }
       }
     },
     closePopup: function(){
-      $("#overlay").hide();
       {this.props.closeDialog()}
     },
     render: function(){
@@ -296,7 +294,7 @@ else{ $mainPage = ""; }
   var ManageAgents = React.createClass({
     getInitialState: function() {
       return{
-        mainPage: "<? echo $mainPage ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
         registered_agents: [],
         registered_active_agents: [],
         registered_archived_agents: [],
@@ -382,6 +380,7 @@ else{ $mainPage = ""; }
           var $dialog =  $("#ajax-box").dialog({
             width: 560,
             dialogClass: 'ajaxbox editAgentInfoPopup',
+            modal: true,
             close: function(){
               ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
               var div = document.createElement('div');
@@ -390,9 +389,8 @@ else{ $mainPage = ""; }
               $( this ).remove();
             },
             open: function(){
-              $("#overlay").bind("click", function(){
+              $(".ui-widget-overlay").bind("click", function(){
                 $("#ajax-box").dialog('close');
-                $("#overlay").hide();
               });
             }
           });
@@ -400,7 +398,6 @@ else{ $mainPage = ""; }
             $dialog.dialog('close');
           }
     
-          $("#overlay").show();
           ReactDOM.render(<EditAgentInfo closeDialog={closeDialog} info={info} getActiveAgents={this.getActiveAgents} getArchivedAgents={this.getArchivedAgents}/>, $dialog[0]);
         }.bind(this),
         error: function(){
@@ -498,7 +495,7 @@ else{ $mainPage = ""; }
             }
           });
           $('#ajax-box2').load('messages.php #agentAdded',function(){
-            $('#ajax-box2').dialog( "option", "title", "Agent Added" ).dialog('open');
+            $('#ajax-box2').dialog('open');
           });
           
           this.setState({addAgent_email: ""});
@@ -738,7 +735,7 @@ else{ $mainPage = ""; }
   )
 
   ReactDOM.render(
-	  <Footer mainPage={"<? echo $mainPage ?>"} />,
+	  <Footer mainPage={"<?php echo $mainPage ?>"} />,
 	  document.getElementById("footer")
 	);
 </script>

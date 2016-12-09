@@ -1,12 +1,12 @@
 <?php
 session_start();
-include("dbconfig.php");
+include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if($_SESSION['buyer']){
+if(isset($_SESSION['buyer'])){
   $user = $_SESSION['id'];
   $buyer_email = $_SESSION['email'];
 	$agent_code = $_SESSION['agent1'];
@@ -14,8 +14,7 @@ if($_SESSION['buyer']){
   $role = 'user';
   
   if($agent_code != ""){
-    $SQL = "SELECT r.first_name, r.last_name, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT r.first_name, r.last_name, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent_first_name = $row['first_name'];
     $agent_last_name = $row['last_name'];
@@ -23,22 +22,20 @@ if($_SESSION['buyer']){
   }
 
   if($agent2_code != ""){
-    $SQL = "SELECT r.first_name, r.last_name, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT r.first_name, r.last_name, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent2_first_name = $row['first_name'];
     $agent2_last_name = $row['last_name'];
     $agent2_email = $row['email'];
   }
 }
-elseif($_SESSION['agent']){
+elseif(isset($_SESSION['agent'])){
   $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
   
-  $SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
-  $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
+  $result1 = mysql_query( "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
   $num_buyers = mysql_num_rows($result1);
 }
 else{ print "<script> window.location = '/users/logout.php' </script>"; }
@@ -63,11 +60,11 @@ $_SESSION['unreadMessages'] = 0;
   var BuyerMessages = React.createClass({
     getInitialState: function() {
       return{
-        buyer_email: "<? echo $buyer_email ?>",
-        agent1_name: "<? echo $agent_first_name . " " . $agent_last_name ?>",
-        agent1_email: "<? echo $agent_email ?>",
-        agent2_name: "<? echo $agent2_first_name . " " . $agent2_last_name ?>",
-        agent2_email: "<? echo $agent2_email ?>",
+        buyer_email: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
+        agent1_name: "<?php echo (isset($agent_first_name) ? $agent_first_name : "") . " " . (isset($agent_last_name) ? $agent_last_name : "") ?>",
+        agent1_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
+        agent2_name: "<?php echo (isset($agent2_first_name) ? $agent2_first_name : "") . " " . (isset($agent2_last_name) ? $agent2_last_name : "") ?>",
+        agent2_email: "<?php echo (isset($agent2_email) ? $agent2_email : "") ?>",
         agent1_selected: true,
         agent2_selected: false,
         message: "",
@@ -94,12 +91,8 @@ $_SESSION['unreadMessages'] = 0;
         this.setState({agent2_selected: true});
         this.getConversation('agent2');
       }
-      else{
-       // Do nothing
-      }
     },
 	  getConversation: function(agent){
-      console.log("Getting Conversation");
       var agent_email;
   
       if(typeof agent !== 'undefined' && agent == 'agent1'){ agent_email = this.state.agent1_email; }
@@ -152,7 +145,6 @@ $_SESSION['unreadMessages'] = 0;
         sender: this.state.buyer_email,
         message: this.state.message,
         success: function(result){
-          console.log("Message saved");
           var ajaxStop = 0;
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
@@ -226,10 +218,10 @@ $_SESSION['unreadMessages'] = 0;
 	var AgentMessages = React.createClass({
     getInitialState: function() {
       return{
-        agent_email: "<? echo $agent_email ?>",
-        agent_id: "<? echo $agent_id ?>",
+        agent_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
         buyers: [],
-        num_buyers: "<? echo $num_buyers ?>" ,
+        num_buyers: "<?php echo (isset($num_buyers) ? $num_buyers : "") ?>" ,
         buyer_selected: "",
         message: "",
         conversation: ""
@@ -275,7 +267,6 @@ $_SESSION['unreadMessages'] = 0;
       });
 	  },
 	  getConversation: function(email){
-      console.log("Getting Messages");
       var buyer_email;
       if(typeof email === 'undefined'){ buyer_email = this.state.buyer_selected; }
       else{ buyer_email = email; }
@@ -317,7 +308,6 @@ $_SESSION['unreadMessages'] = 0;
         sender: this.state.agent_email,
         message: this.state.message,
         success: function(result){
-          console.log("Message saved");
           var ajaxStop = 0;
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
@@ -380,8 +370,8 @@ $_SESSION['unreadMessages'] = 0;
 	var Messages = React.createClass({
 	  getInitialState: function() {
       return{
-        role: "<? echo $role ?>",
-        mainPage: "<? echo $mainPage ?>"
+        role: "<?php echo (isset($role) ? $role : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
       };
 	  },
 	  render: function(){
@@ -405,7 +395,7 @@ $_SESSION['unreadMessages'] = 0;
   );
 
 	ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 

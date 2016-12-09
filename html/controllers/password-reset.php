@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 ?>
 
   <title>HomePik - Reset Password</title>
@@ -56,7 +56,7 @@ include("basicHead.php");
           }
         });
         $('#ajax-box').load('messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -82,7 +82,7 @@ include("basicHead.php");
           }
         });
         $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -108,7 +108,7 @@ include("basicHead.php");
           }
         });
         $('#ajax-box').load('messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }
@@ -134,7 +134,7 @@ include("basicHead.php");
           }
         });
         $('#ajax-box').load('messages.php #passwordsMatch',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         e.preventDefault();
       }

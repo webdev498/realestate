@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("functions.php");
-include("dbconfig.php");
+include_once("functions.php");
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
@@ -86,7 +86,6 @@ if ((authentication() == 'guest')){
   $homepik_listing_count = get_listing_count($location_grade,$neighborhoods,$prop_type,$building_grade,$amens,$views_grade,$min_floor,$bedrooms,$bedroom_area,$living_area,$living_area,$min_price,$max_price,$select,$from,$where);
   $all_listing_count['homepik_listingcount'] = $homepik_listing_count;
 
-//echo "<pre>"; print_r($all_listing_count);die('if');
   echo json_encode($all_listing_count);
 
 } else{
@@ -98,8 +97,6 @@ if ((authentication() == 'guest')){
   $all_listing_count['public_listingcount'] = $homepik_listing_count;
   $all_listing_count['homepik_listingcount'] = '';
 
-//echo "<pre>"; print_r($all_listing_count);die('else');
-
    echo json_encode($all_listing_count);
 };
 
@@ -107,8 +104,7 @@ if ((authentication() == 'guest')){
 
 function get_listing_count($location_grade,$neighborhoods,$prop_type,$building_grade,$amens,$views_grade,$min_floor,$bedrooms,$bedroom_area,$living_area,$living_area,$min_price,$max_price,$select='',$from,$where)
 {
-
-     // location
+  // location
   $where .= " (vow_data.loc >= " . $location_grade . ")";
 
   if ($neighborhoods != 'null') {
@@ -167,13 +163,10 @@ function get_listing_count($location_grade,$neighborhoods,$prop_type,$building_g
     $where .= " AND (Building_file.newcon = '1')";
   }
 
-
   // calculate the number of rows for the query. We need this for paging the result
   $result = mysql_query("SELECT COUNT(*) AS count " . $from . $where);
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
   $count = $row['count'];
-  return $count;
- 
+  return $count; 
 }
-
 ?>

@@ -1,9 +1,7 @@
-<? session_start();
-include("dbconfig.php");
-include 'functions.php';
-include ('basicHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
+<?php
+session_start();
+include_once('functions.php');
+include_once('basicHead.php');
 if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
@@ -77,7 +75,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             }
           });
           $('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
-            $('#ajax-box').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
         }
       }
@@ -105,7 +103,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           }
         });
         $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-          $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
       }
       else{
@@ -153,7 +151,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                 }
               });
               $('#ajax-box').load('/controllers/messages.php #invalidInput',function(){
-                $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+                $('#ajax-box').dialog('open');
               });
             }
           }.bind(this)
@@ -188,7 +186,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             }
           });
           $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -214,7 +212,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             }
           });
           $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -240,7 +238,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             }
           });
           $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
-            $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
+            $('#ajax-box').dialog('open');
           });
           e.preventDefault();
         }
@@ -326,7 +324,6 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           <tr>
                             <td colSpan="2">
                               <input type="hidden" name="formStep" value="verification2" />
-                              <input type="hidden" name="code" value="<?php echo $password?>" /><br />
                               <a href="signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                               {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }

@@ -1,10 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-include('indexHead.php');
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
+include_once('functions.php');
+include_once('indexHead.php');
 if ((authentication() == 'agent') OR ( authentication() == 'user')) { print "<script> window.location = 'menu.php' </script>";}
 if (authentication() == 'guest') {
 	print"

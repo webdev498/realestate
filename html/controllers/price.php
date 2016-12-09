@@ -1,9 +1,9 @@
-<?
+<?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
+include_once("dbconfig.php");
+include_once("functions.php");
 
-if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentication() == 'guest') OR (authentication() == 'anonymous')){
+if((authentication() == 'agent') OR (authentication() == 'user') OR (authentication() == 'guest') OR (authentication() == 'anonymous')){
   if(!isset($_GET['id'])) {
     exit();
   }
