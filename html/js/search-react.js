@@ -125,7 +125,6 @@ var ClearListings = React.createClass({
     else if(this.state.clearListings == "true") { location.assign("/users/logout.php?listings=clear"); }
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}    
   },
   render: function(){
@@ -248,7 +247,6 @@ window.CriteriaNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -256,7 +254,6 @@ window.CriteriaNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -404,7 +401,6 @@ window.SearchNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay2").bind("click", function(){
           $("#ajax-box3").dialog('close');
-          $(".ui-widget-overlay2").hide();
         });
       }
     });
@@ -412,8 +408,7 @@ window.SearchNavBar = React.createClass({
       $dialog.dialog('close');      
       $(".ui-widget-overlay2").hide(); 
     }.bind(this)    
-    
-    $(".ui-widget-overlay2").show();    
+       
     ReactDOM.render(<EditCriteria closeDialog={closeDialog} initial={true}/>, $dialog[0]);
   },
   addBuyer: function (){
@@ -491,7 +486,6 @@ window.SearchNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -499,7 +493,6 @@ window.SearchNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -2223,7 +2216,6 @@ window.Content = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2231,7 +2223,6 @@ window.Content = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   gobackToSearch: function (){
@@ -2438,7 +2429,6 @@ var AgentList = React.createClass({
     });
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -2488,7 +2478,6 @@ var PrimaryAgent = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#agent-list").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2496,7 +2485,6 @@ var PrimaryAgent = React.createClass({
       $dialog.dialog('close');
     }.bind(this)
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<AgentList closeDialog={closeDialog}/>, $dialog[0]);
   },
   render: function(){
@@ -2768,7 +2756,6 @@ var Register = React.createClass({
           buttons : {
             Ok: function(){
               $("#ajax-box").dialog("close");
-              $(".ui-widget-overlay").hide();
             }
           },
           open: function(){
@@ -2790,7 +2777,6 @@ var Register = React.createClass({
     $("#primaryAgent").show();
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     $("#primAgentPopupOverlay").hide();
     $("#primaryAgent").hide();
     {this.props.closeDialog()}
@@ -3011,7 +2997,6 @@ $('body').delegate('.regOrNotSubmit', 'click', function (e){
           $("#signup-popup").dialog('close');
           $("#primAgentPopupOverlay").hide();
           $("#primaryAgent").hide();
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -3019,7 +3004,6 @@ $('body').delegate('.regOrNotSubmit', 'click', function (e){
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<Register closeDialog={closeDialog}/>, $dialog[0]);
   } else{
     $("#reg-or-not-popup").dialog('close');
@@ -3042,7 +3026,6 @@ $('body').delegate('.need-to-signup-first-div-link', 'click', function (e){
     $dialog.dialog('close');
   }
 
-  $(".ui-widget-overlay").show();
   ReactDOM.render(<Register closeDialog={closeDialog}/>, $dialog[0]);
 
 });
@@ -3287,7 +3270,6 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
@@ -3333,7 +3315,6 @@ var AddBuyer = React.createClass({
                       $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                     });
 
-                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                   else{
@@ -3362,7 +3343,6 @@ var AddBuyer = React.createClass({
                       $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                     });
 
-                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                 }
@@ -3395,7 +3375,6 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').dialog( "option", "title", "Buyer Exists" ).dialog('open');
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }
@@ -3407,7 +3386,6 @@ var AddBuyer = React.createClass({
     }
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -3483,7 +3461,6 @@ $('body').delegate('.view-edit-buyer-formula','click',function(e){
     $dialog.dialog('close');
   }
 
-  $(".ui-widget-overlay").show();
   ReactDOM.render(<ViewFormulas closeDialog={closeDialog} email={email}/>, $dialog[0]);
 });
   
@@ -3530,7 +3507,6 @@ var ViewFormulas = React.createClass({
     else{ return false; }
 	},
 	closePopup: function(){
-	  $(".ui-widget-overlay").hide();
 	  {this.props.closeDialog()}
 	},
   EditFormula: function(name){
@@ -3550,7 +3526,6 @@ var ViewFormulas = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box3").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -4413,7 +4388,6 @@ var EditSearch = React.createClass({
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }.bind(this));
@@ -4425,7 +4399,6 @@ var EditSearch = React.createClass({
     }
   },
   cancel: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   updateData: function(){
@@ -5385,12 +5358,10 @@ var EditCriteria = React.createClass({
       else{ $.cookie("newconstruction", "false"); $("#newconstruction").attr("src", "images/amenities/newconstruction.png").removeClass("selected"); }
 
       jqgridReload();      
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     }
   },
   cancel: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -5576,7 +5547,6 @@ $('body').delegate('.view-bubble-grades','click',function(e){
     $dialog.dialog('close');
   }.bind(this)
 
-  $(".ui-widget-overlay").show();
   ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 });
   

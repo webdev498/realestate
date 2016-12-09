@@ -47,7 +47,6 @@ else{
 <script type="text/babel">
 	var Broker = React.createClass({
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -100,7 +99,6 @@ else{
       else{ return false; }
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  sendListing: function(event){
@@ -119,7 +117,6 @@ else{
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -140,7 +137,6 @@ else{
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -161,7 +157,6 @@ else{
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -357,7 +352,6 @@ else{
       }
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
@@ -421,7 +415,6 @@ else{
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -516,7 +509,6 @@ else{
       });
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
@@ -557,7 +549,6 @@ else{
             $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             }.bind(this));
@@ -659,7 +650,6 @@ else{
       });
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  saveListing: function(){
@@ -709,7 +699,6 @@ else{
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -747,7 +736,6 @@ else{
 
 	var AgentInfo = React.createClass({
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -786,7 +774,6 @@ else{
       this.setState(change);
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  sendEmail: function(){
@@ -802,8 +789,7 @@ else{
           $(document).ajaxStop(function() {
             if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
-              {this.props.closeDialog()}
+               {this.props.closeDialog()}
             }
           }.bind(this));
         }.bind(this)
@@ -923,7 +909,6 @@ else{
       this.setState({index: index});
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -1021,7 +1006,6 @@ else{
       this.setState({monthlyPay: total});
 	  },
 	  closePopup: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
 	  },
 	  render: function(){
@@ -1312,7 +1296,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1320,7 +1303,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Slideshow closeDialog={closeDialog} num_photos={this.state.details['numPhotos']} start_photo={index} photos={this.state.details['photos']}/>, $dialog[0]);
       },
 	  send: function(){
@@ -1339,7 +1321,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1347,7 +1328,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} message={""}/>, $dialog[0]);
 	  },
 	  save: function(){
@@ -1367,7 +1347,6 @@ else{
             <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $(".ui-widget-overlay").hide();
             });
           }
         });
@@ -1375,7 +1354,6 @@ else{
         $dialog.dialog('close');
         }
 
-        $(".ui-widget-overlay").show();
         ReactDOM.render(<AgentSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else if(this.state.role == "buyer"){
@@ -1394,7 +1372,6 @@ else{
             <!--$(this).css("display", "block");-->
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
-              $(".ui-widget-overlay").hide();
             });
           }
         });
@@ -1402,7 +1379,6 @@ else{
         $dialog.dialog('close');
         }
 
-        $(".ui-widget-overlay").show();
         ReactDOM.render(<BuyerSave closeDialog={closeDialog} listing_num={this.state.listing} folders={this.state.details['folders']}/>, $dialog[0]);
       }
       else{
@@ -1428,7 +1404,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1436,7 +1411,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Broker closeDialog={closeDialog} broker={this.state.details['broker']} contract={this.state.details['contract']} contact={this.state.details['contact']} contact_email={this.state.details['contact_email']} contact_phone={this.state.details['contact_phone']} listing_num={this.state.listing}/>, $dialog[0]);
 	  },
 	  costEstimator: function(){
@@ -1455,7 +1429,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1463,7 +1436,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<CostEstimator closeDialog={closeDialog} address={this.state.details['address']} price={this.state.details['price']} maint={this.state.details['maint']} taxes={this.state.details['taxes']}/>, $dialog[0]);
 	  },
 	  agent1Bio: function(){
@@ -1482,7 +1454,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1490,7 +1461,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent_firstname']} agent_lastname={this.state.details['agent_lastname']} agent_photo={this.state.agent1_img} agent_bio={this.state.details['agent_bio']}/>, $dialog[0]);
 	  },
 	  agent2Bio: function(){
@@ -1509,7 +1479,6 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1517,7 +1486,6 @@ else{
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<AgentInfo closeDialog={closeDialog} agent_firstname={this.state.details['agent2_firstname']} agent_lastname={this.state.details['agent2_lastname']} agent_photo={this.state.agent2_img} agent_bio={this.state.details['agent2_bio']}/>, $dialog[0]);
 	  },
 	  emailAgent: function(){
@@ -1536,15 +1504,13 @@ else{
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
-          });
+            });
         }
       });
       var closeDialog = function(){
         $dialog.dialog('close');
       }
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<Send closeDialog={closeDialog} role={this.state.role} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} message={"Please send me more information on this listing."}/>, $dialog[0]);
 	  },
 	  render: function(){

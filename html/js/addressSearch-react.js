@@ -245,7 +245,6 @@ window.SearchNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -253,7 +252,6 @@ window.SearchNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -1714,7 +1712,6 @@ var PrimaryAgent = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#agent-list").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1722,7 +1719,6 @@ var PrimaryAgent = React.createClass({
       $dialog.dialog('close');
     }.bind(this)
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<AgentList closeDialog={closeDialog}/>, $dialog[0]);
   },
   render: function(){
@@ -2201,7 +2197,6 @@ $('body').delegate('.regOrNotSubmit', 'click', function (e){
           $("#signup-popup").dialog('close');
           $("#primAgentPopupOverlay").hide();
           $("#primaryAgent").hide();
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2209,7 +2204,6 @@ $('body').delegate('.regOrNotSubmit', 'click', function (e){
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<Register closeDialog={closeDialog}/>, $dialog[0]);
   } else{
     $("#reg-or-not-popup").dialog('close');
@@ -2231,7 +2225,6 @@ $('body').delegate('.need-to-signup-first-div-link', 'click', function (e){
     $dialog.dialog('close');
   }
 
-  $(".ui-widget-overlay").show();
   ReactDOM.render(<Register closeDialog={closeDialog}/>, $dialog[0]);
 
 });
@@ -2260,7 +2253,6 @@ $('body').delegate('.view-edit-buyer-formula','click',function(e){
     $dialog.dialog('close');
   }
 
-  $(".ui-widget-overlay").show();
   ReactDOM.render(<ViewFormulas closeDialog={closeDialog} email={email}/>, $dialog[0]);
 });
   
@@ -3368,7 +3360,7 @@ $('body').delegate('.view-bubble-grades','click',function(e){
     $dialog.dialog('close');
   }.bind(this)
 
-  $(".ui-widget-overlay").show();
+
   ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 });
   

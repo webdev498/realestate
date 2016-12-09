@@ -783,7 +783,6 @@ else{ $mainPage = ""; }
             $(document).ajaxStop(function() {
               if(ajaxStop == 0){
                 ajaxStop++;
-                $(".ui-widget-overlay").hide();
                 {this.props.closeDialog()}
               }
             }.bind(this));
@@ -795,7 +794,6 @@ else{ $mainPage = ""; }
       }
     },
     cancel: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     updateData: function(){
@@ -1006,13 +1004,11 @@ else{ $mainPage = ""; }
         recipient: this.state.recipient,
         comment: this.state.comment,
         success: function(result){
-          $(".ui-widget-overlay").hide();
-          {this.props.closeDialog()}
+           {this.props.closeDialog()}
         }.bind(this)
       });
 		},
     closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -1059,7 +1055,6 @@ else{ $mainPage = ""; }
 					$(document).ajaxStop(function() {
 					  if(ajaxStop == 0){
               ajaxStop++;
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
 					  }
 					}.bind(this));
@@ -1067,7 +1062,6 @@ else{ $mainPage = ""; }
 			});
 		},
 		closePopup: function(){
-		  $(".ui-widget-overlay").hide();
 		  {this.props.closeDialog()}
 		},
 		render: function(){
@@ -1192,7 +1186,7 @@ else{ $mainPage = ""; }
 					$( this ).remove();
 				},
         open: function(){
-          <!--$(this).css("display", "block");-->
+		
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
           });
@@ -1202,7 +1196,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<GradeBubbles closeDialog={closeDialog}/>, $dialog[0]);
 		},
     emailFolder: function(name){
@@ -1221,7 +1214,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1229,7 +1221,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={this.state.agent_email} folder={name} agentSentBuyerFolder={"false"}/>, $dialog[0]);
 		},
     emailBuyerFolder: function(name, buyer){
@@ -1248,7 +1239,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1256,7 +1246,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EmailFolder closeDialog={closeDialog} user={buyer} folder={name} agentSentBuyerFolder={"true"}/>, $dialog[0]);
 		},
     editBuyerFormula: function(name, buyer){
@@ -1275,7 +1264,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1283,7 +1271,6 @@ else{ $mainPage = ""; }
         $dialog.dialog('close');
       }.bind(this)
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={name} buyer={buyer}/>, $dialog[0]);
     },
     deleteFolder: function(name, buyer){
@@ -1381,7 +1368,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1390,7 +1376,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={this.state.agent_email} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     editBuyerComment: function(comment, listing, folder, buyer){
@@ -1409,7 +1394,6 @@ else{ $mainPage = ""; }
           <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
 			});
@@ -1418,7 +1402,6 @@ else{ $mainPage = ""; }
 				$dialog.dialog('close');
 			}.bind(this)
 
-			$(".ui-widget-overlay").show();
 			ReactDOM.render(<EditComment closeDialog={closeDialog} user={buyer} comment={comment} listing={listing} folder={folder}/>, $dialog[0]);
 		},
     deleteListing: function(listing, folder){
