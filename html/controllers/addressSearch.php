@@ -3,7 +3,7 @@ session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
 include_once("basicHead.php");
-include_once("analyticstracking.php");
+
 // LOAD SMARTY TEMPLATE ENGINE
 include_once('../classes/smarty/SmartyBC.class.php');
 $smarty = new SmartyBC();
@@ -84,6 +84,7 @@ else {
 	print $templatebody;
 };
 ?>
-<?php include_once('autoLogout.php'); ?>
+<?php include_once('autoLogout.php'); 
+include_once("analyticstracking.php");?>
 </body>
 </html>
