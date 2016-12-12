@@ -7,7 +7,8 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 ?>
 
   <title>HomePik - Buyer Login</title>
-  <?php include_css("/views/css/signin.css"); ?>
+  <?php include_css("/views/css/signin.css"); 
+		include_once("analyticstracking.php");?>
 </head>
 <body>
   <div id="signinBackground"></div>

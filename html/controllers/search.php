@@ -3,6 +3,7 @@ session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
 include("basicHead.php");
+include_once("analyticstracking.php");
 include_once('../classes/smarty/Smarty.class.php'); // LOAD SMARTY TEMPLATE ENGINE
 $smarty = new Smarty();
 $smarty->setTemplateDir('../views');
