@@ -13,9 +13,9 @@ else{ $mainPage = ""; }
 ?>
 
   <title>HomePik - Activity Analysis</title>
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
     if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "jquery.watch.js", "jquery.musepolyfill.bgsize.js", "buyer-options.css"], "outOfDate":[]};
-	</script>
+	</script>-->
   <?php include_css("/views/css/analysis.css"); ?>
 </head>
 <body>

@@ -19,7 +19,7 @@ else{ $mainPage = ""; }
   <div id="overlay"></div>
   <div id="ajax-box"></div>
   <div id="ajax-box2"></div>
-<script src="/js/jquery.watch.js?3866665977" type="text/javascript"></script>
+<!--<script src="/js/jquery.watch.js?3866665977" type="text/javascript"></script>-->
 <script type="text/babel">
 /* Page Content */
 var Analytics = React.createClass({	
