@@ -6,53 +6,43 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if (isset($_POST['report-submit'])) {
-    $month = $_POST['month'];
-    echo $month;
+  $month = $_POST['month'];
+  echo $month;
 }
 
-//$sql = "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0 AND MONTHNAME(list_date) = $month";
-echo $sql;
-$sql = "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error()."Line 1");
+$result = mysql_query( "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0" ) or die("Couldn't execute query.".mysql_error()."Line 1");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $studioCount = $row['studioCount'];
 
-//$sql = "SELECT COUNT(*) AS br1Count FROM `vow_data` WHERE bed = 1 AND MONTH(list_date) = $month";
-$sql = "SELECT COUNT(*) AS br1Count FROM `vow_data` WHERE bed = 1";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS br1Count FROM `vow_data` WHERE bed = 1" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br1Count = $row['br1Count'];
 
-//$sql = "SELECT COUNT(*) AS br2Count FROM `vow_data` WHERE bed = 2 AND MONTH(list_date) = $month";
-$sql = "SELECT COUNT(*) AS br2Count FROM `vow_data` WHERE bed = 2";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error()."Line 3");
+$result = mysql_query( "SELECT COUNT(*) AS br2Count FROM `vow_data` WHERE bed = 2" ) or die("Couldn't execute query.".mysql_error()."Line 3");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br2Count = $row['br2Count'];
 
-//$sql = "SELECT COUNT(*) AS br3Count FROM `vow_data` WHERE bed = 3 AND MONTH(list_date) = $month";
-$sql = "SELECT COUNT(*) AS br3Count FROM `vow_data` WHERE bed = 3";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS br3Count FROM `vow_data` WHERE bed = 3" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br3Count = $row['br3Count'];
 
 //Queries for number of listings by contract -- using this to test array result 
-$sql = "SELECT COUNT(*) AS listCount, contract FROM `vow_data` GROUP BY contract";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS listCount, contract FROM `vow_data` GROUP BY contract" ) or die("Couldn't execute query.".mysql_error());
 
 $chartData = array(
-    'cols' => array(
-         array('type' => 'string', 'label' => 'Contract'),
-         array('type' => 'number', 'label' => 'Number')
-    )
+  'cols' => array(
+    array('type' => 'string', 'label' => 'Contract'),
+    array('type' => 'number', 'label' => 'Number')
+  )
 );
 
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $chartData['rows'][] = array(
-        'c' => array (
-             array('v' => $row['contract']),
-             array('v' => $row['listCount'])
-         )
-    );
+  $chartData['rows'][] = array(
+    'c' => array (
+      array('v' => $row['contract']),
+      array('v' => $row['listCount'])
+    )
+  );
 }
 
 $json = json_encode($chartData);

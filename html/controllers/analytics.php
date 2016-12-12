@@ -5,9 +5,7 @@ include_once('basicHead.php');
 $_SESSION['viewingBuyer'] = 'false';
 
 if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
-
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Analytics</title>
@@ -19,13 +17,12 @@ else{ $mainPage = ""; }
   <div id="overlay"></div>
   <div id="ajax-box"></div>
   <div id="ajax-box2"></div>
-<!--<script src="/js/jquery.watch.js?3866665977" type="text/javascript"></script>-->
 <script type="text/babel">
 /* Page Content */
 var Analytics = React.createClass({	
 	getInitialState: function() {
 		return{
-			mainPage: "<?php echo $mainPage ?>"
+			mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
 		};
 	},
   render: function() {

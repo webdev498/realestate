@@ -1,55 +1,25 @@
 <?php
-
 // JQGRID2.PHP IS ALWAYS REQUESTED BY THE JQGRID2 FUNCTION SEARCH.JS
-
 session_start();
-include('functions.php');
-include("dbconfig.php");
+include_once('functions.php');
+include_once("dbconfig.php");
 
 $user_email = $_SESSION['email'];
-// OLD SEARCH
-
 $saved = $_REQUEST['saved'];
-
-if ($saved != 'true') {
-
-  // Get the requested page of search results (e.g. page 1, page 2, page 3, etc). By default grid sets this to 1.
-  $page = $_REQUEST['page'];
-
-  // UNCOMMENT THIS WHEN TURNING INTO A VOW IN ORDER TO PASS REBNY APPROVAL -- LIMIT to 240 results in compliance with VOW rules. 240 results fits on 8 pages, so we won't let the user view any further pages.
-  /*REBNY RULE
-  if ($page > 8) {
-    $page = 8;
-  };
-  REBNY RULE*/
-
-  // get how many rows we want to have into the grid - rowNum parameter in the grid
-  $limit = $_REQUEST['rows'];
-
-  // get index row - i.e. user click to sort by price, location, views, or space. At first time sortname parameter (price) -
-  // after that the index from colModel
-  $sidx = $_REQUEST['sidx'];
+if($saved != 'true') {
+  $page = $_REQUEST['page']; // Get the requested page of search results (e.g. page 1, page 2, page 3, etc). By default grid sets this to 1.
+  $limit = $_REQUEST['rows']; // get how many rows we want to have into the grid - rowNum parameter in the grid
+  $sidx = $_REQUEST['sidx']; // get index row - i.e. user click to sort by price, location, views, or space. At first time sortname parameter (price) - after that the index from colModel
 
   // is sorting order ascending or descending
-  if ($sidx == 'price') {
-		$sord = $_REQUEST['sord'];
-  } else {
-    $sord = 'desc';
-  }
+  if ($sidx == 'price'){ $sord = $_REQUEST['sord']; }
+  else{ $sord = 'desc'; }
 
   $sord = $_REQUEST['sord'];
 
-  if(isset($_GET['address'])){
-    $address = $_GET['address'];
-  }
-  else{
-    $address = $_REQUEST['address'];
-  }
-
+  $address = (isset($_GET['address']) ? $_GET['address'] : $_REQUEST['address']);
   $address = explode(" ", $address);
-  foreach($address as &$a){
-    $a = $a . "%";
-  }
+  foreach($address as &$a){ $a = $a . "%"; }
   $address[0] = "%" . $address[0];
   $address = join(" ", $address);
   $where = "(address LIKE '".$address."') AND (address NOT LIKE '%.0%')";
@@ -59,11 +29,8 @@ $amens = $_REQUEST['amenities'];
 if($amens != 'null'){
   foreach ($amens as $value){
 	  if($value != "newconstruction" && $value != "timeshare"){
-			if($value != 'outdoor'){
-				  $where .= " AND (" . $value . " = '.T.' OR " . $value . " > 0 )";
-			} else {
-				  $where .= " AND (outdoor = '.T.' OR outdoor > 0 OR roofd = '.T.' OR roofd > 0 OR garden = '.T.' OR garden > 0 OR terrace = '.T.' OR terrace > 0 OR balcony = '.T.' OR balcony > 0)";
-			}
+			if($value != 'outdoor'){ $where .= " AND (" . $value . " = '.T.' OR " . $value . " > 0 )"; }
+      else { $where .= " AND (outdoor = '.T.' OR outdoor > 0 OR roofd = '.T.' OR roofd > 0 OR garden = '.T.' OR garden > 0 OR terrace = '.T.' OR terrace > 0 OR balcony = '.T.' OR balcony > 0)"; }
 	  }
 	  else{
       if($value == 'newconstruction'){ $newconstruction = 'true'; }
@@ -79,9 +46,7 @@ if($newconstruction == 'true'){
   $from = "FROM `vow_data` LEFT JOIN `Building_file` ON vow_data.address = Building_file.location ";
   $where .= " AND (Building_file.newcon = '1')";
 }
-else{
-	  $from = "FROM `vow_data`";
-}
+else{ $from = "FROM `vow_data`"; }
 
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
@@ -113,11 +78,8 @@ if (!$sidx)
   $sidx = 1;
 
 // calculate the total pages for the query
-if ($count > 0 && $limit > 0) {
-  $total_pages = ceil($count / $limit);
-} else {
-  $total_pages = 0;
-}
+if ($count > 0 && $limit > 0){ $total_pages = ceil($count / $limit); }
+else { $total_pages = 0; }
 
 // if for some reason the requested page is greater than the total
 // set the requested page to total page
@@ -153,28 +115,25 @@ $row = mysql_fetch_array($result2, MYSQL_ASSOC);
 $avg_space = $row['avg_space'];
 
 // SEARCH RESULTLS: the actual query for the grid data
-$SQL = "SELECT vow_data.* " . $from . " WHERE $where ORDER BY $sidx $sord LIMIT $start , $limit";
-$result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
+$result = mysql_query( "SELECT vow_data.* " . $from . " WHERE $where ORDER BY $sidx $sord LIMIT $start , $limit" ) or die("Couldn't execute query." . mysql_error());
 
 /*get viewed listings for user*/
 $viewedListingsByMe = array();
 if( $_SESSION['role'] !='guest' ){
-
   $cc1 = mysql_query("SELECT distinct list_num FROM `viewed_listings` WHERE user='".$_SESSION['email']."'");
   while ($cc2 = mysql_fetch_array($cc1, MYSQL_ASSOC)){
-
-     array_push($viewedListingsByMe, $cc2['list_num']);
+    array_push($viewedListingsByMe, $cc2['list_num']);
   }
 }
+
 /*get saved listings for user*/
 $savedListingsByMe = array();
 
 if($_SESSION['agent']){ $cc1 = mysql_query("SELECT distinct list_num FROM `queued_listings` WHERE user='".$_SESSION['email']."'"); }
 else if ($_SESSION['guestID']){ $cc1 = mysql_query("SELECT distinct list_num FROM `saved_listings` WHERE user='".$_SESSION['guestID']."'"); }
 else{ $cc1 = mysql_query("SELECT distinct list_num FROM `saved_listings` WHERE user='".$_SESSION['email']."'"); }
-
 while ($cc2 = mysql_fetch_array($cc1, MYSQL_ASSOC)){
-   array_push($savedListingsByMe, $cc2['list_num']);
+  array_push($savedListingsByMe, $cc2['list_num']);
 }
 // we should set the appropriate header information. Do not forget this.
 header("Content-type: text/xml;charset=utf-8");
@@ -209,46 +168,23 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   $bath = number_format($bath, 0, '.', ',');
   $address = $row['address'];
 
-  if($address == "7.00000000"){
-    continue;
-  }
+  if($address == "7.00000000"){ continue; }
 
   $photo1 = $row['photo1'];
-  if ($photo1 == '') {
-    $photo1 = 'http://www.homepik.com/images/nopicture3.png';
-  }
+  if ($photo1 == ''){ $photo1 = 'http://www.homepik.com/images/nopicture3.png'; }
   $photo2 = $row['photo2'];
 
   // if it's a bellmarc building photo, add url location
   $stristr = stristr($photo1, 'http');
-  if ($stristr === false) {
-    $photo1 = 'http://www.bellmarc.com/pictures/building/' . $photo1 . '.bmp';
-  }
+  if($stristr === false){ $photo1 = 'http://www.bellmarc.com/pictures/building/' . $photo1 . '.bmp'; }
   // if the first photos is a floor plan, look for a second photo to use instead
   $stristr = stristr($photo1, 'floor');
-  if ($stristr != false) {
-    if ($photo2 != '') {
-      $photo1 = $photo2;
-    };
-  };
+  if ($stristr != false){ if ($photo2 != ''){ $photo1 = $photo2; }; };
   $stristr = stristr($photo1, 'plan');
-  if ($stristr != false) {
-    if ($photo2 != '') {
-      $photo1 = $photo2;
-    };
-  };
-
-  if(strpos($photo1, "JPG")){
-    $photo1 = strtolower($photo1);
-  }
-
-  if(strpos($photo1, "GIF")){
-    $photo1 = strtolower($photo1);
-  }
-
-  if(strpos($photo1, "PNG")){
-    $photo1 = strtolower($photo1);
-  }
+  if ($stristr != false){ if ($photo2 != ''){ $photo1 = $photo2; }; };
+  if(strpos($photo1, "JPG")){ $photo1 = strtolower($photo1); }
+  if(strpos($photo1, "GIF")){ $photo1 = strtolower($photo1); }
+  if(strpos($photo1, "PNG")){ $photo1 = strtolower($photo1); }
 
   $onerror = 'http://homepik.com/images/nopicture3.png';
   $floor = $row['floor']; // what floor is it on?

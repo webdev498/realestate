@@ -7,12 +7,10 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_SESSION['buyer'])){
-  $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $role = 'buyer';
 }
 else if(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -22,8 +20,7 @@ else{
   $role = 'guest';
 }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 
 $list_num = $_GET['list_numb'];
 

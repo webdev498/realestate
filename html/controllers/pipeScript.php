@@ -1,7 +1,7 @@
  #!/usr/bin/php -q
 <?php
-  include("dbconfig.php");
-  include("emailconfig.php");
+  include_once("dbconfig.php");
+  include_once("emailconfig.php");
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 

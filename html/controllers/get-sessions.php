@@ -12,8 +12,7 @@ if(isset($_POST['getEmail'])){ echo json_encode($_SESSION['email']); }
 if(isset($_POST['getLastName'])){
   if(isset($_POST['email'])){ $email = $_POST['email']; }
   else{ $email = $_SESSION['email']; }
-  $SQL = "SELECT last_name FROM `users` where (email = '" . $email . "')";
-  $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
+  $result = mysql_query( "SELECT last_name FROM `users` where (email = '" . $email . "')" ) or die("Couldn't execute query." . mysql_error());
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
   $name = $row['last_name'];
   
@@ -26,11 +25,11 @@ if(isset($_POST['getAgentLastName'])){
   echo json_encode($name);
 }
 if(isset($_POST['getInformation'])){
-  if($_SESSION['buyer']){
+  if(isset($_SESSION['buyer'])){
     $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $role = "user";
   }
-  elseif($_SESSION['agent']){
+  elseif(isset($_SESSION['agent'])){
     $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $role = "agent";
     
@@ -44,13 +43,13 @@ if(isset($_POST['getInformation'])){
     $role = "guest";
   }
   
-  $info = array("name"=>$name, "email"=>$_SESSION['email'], "role"=>$role, "adminOptions"=>$_SESSION['admin'], "unreadMessages"=>$_SESSION['unreadMessages']);
+  $info = array("name"=>$name, "email"=>$_SESSION['email'], "role"=>$role, "adminOptions"=>(isset($_SESSION['admin']) ? $_SESSION['admin'] : ""), "unreadMessages"=>(isset($_SESSION['unreadMessages']) ? $_SESSION['unreadMessages'] : 0));
   
   echo json_encode($info);
 }
 if(isset($_POST['getRole'])){
-  if($_SESSION['buyer']){ $role = "user"; }
-  elseif($_SESSION['agent']){ $role = "agent"; }
+  if(isset($_SESSION['buyer'])){ $role = "user"; }
+  elseif(isset($_SESSION['agent'])){ $role = "agent"; }
   else{ $role = "guest"; }
   
   echo json_encode($role);

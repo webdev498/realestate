@@ -3,8 +3,7 @@ session_start();
 include_once('functions.php');
 include_once('basicHead.php');
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
 ?>
 
   <title>HomePik - Sell Your Home</title>
@@ -19,11 +18,6 @@ else{ $mainPage = ""; }
   <div id="ajax-box2"></div>
 <script type="text/babel">
   var SellHome = React.createClass({
-    getInitialState: function() {
-      return{
-        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>"
-      };
-    },
     render: function() {
       return (
         <div className="clearfix borderbox" id="page">

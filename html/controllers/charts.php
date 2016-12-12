@@ -7,40 +7,31 @@ mysql_select_db($database) or die("Error connecting to db.");
 
 $month = $_POST['month'];
 
-//$sql = "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0 AND MONTH(list_date) = $month";
-$sql = "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS studioCount FROM `vow_data` WHERE bed = 0" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $studioCount = $row['studioCount'];
 
-$sql = "SELECT COUNT(*) AS br1Count FROM `vow_data` WHERE bed = 1";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS br1Count FROM `vow_data` WHERE bed = 1" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br1Count = $row['br1Count'];
 
-$sql = "SELECT COUNT(*) AS br2Count FROM `vow_data` WHERE bed = 2";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS br2Count FROM `vow_data` WHERE bed = 2" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br2Count = $row['br2Count'];
 
-$sql = "SELECT COUNT(*) AS br3Count FROM `vow_data` WHERE bed = 3";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS br3Count FROM `vow_data` WHERE bed = 3" ) or die("Couldn't execute query.".mysql_error());
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $br3Count = $row['br3Count'];
 
 //Queries for number of listings by contract -- using this to test array result 
-$sql = "SELECT COUNT(*) AS listCount, contract FROM `vow_data` GROUP BY contract";
-$result = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
+$result = mysql_query( "SELECT COUNT(*) AS listCount, contract FROM `vow_data` GROUP BY contract" ) or die("Couldn't execute query.".mysql_error());
 //$row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 $chart = array(array("Number", "Contract"));
-foreach($results as $result)
- {
+foreach($results as $result){
   $chart[] = array($result['listCount'], ($result['contract']));
- }
+}
 $chart = json_encode($chart, JSON_NUMERIC_CHECK);
-
-
 ?>
 <html>
   <head>

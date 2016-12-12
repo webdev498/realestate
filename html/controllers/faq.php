@@ -10,11 +10,8 @@ if(!isset($_SESSION['email'])){
   $_SESSION['role'] = 'guest';
 }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
-
-if(isset($_GET['section'])){ $section = $_GET['section']; }
-else{ $section = "general"; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
+$section = (isset($_GET['section']) ? $_GET['section'] : "general");
 ?>
 
   <title>HomePik - FAQs</title>

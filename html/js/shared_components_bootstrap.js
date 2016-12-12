@@ -19,10 +19,7 @@ window.Header = React.createClass({
             this.setState({role: role});
           }
         }.bind(this));
-		  }.bind(this),
-		  error: function() {
-        console.log("failed");
-		  }
+		  }.bind(this)
 		});
   },
   logout: function(){
@@ -59,7 +56,7 @@ window.Header = React.createClass({
     $.removeCookie("wheelchair");
     $.removeCookie("newconstruction");
 
-    location.assign("/users/logout.php");
+    location.assign("/controllers/users/logout.php");
   },
   render: function () {
     return (
@@ -131,7 +128,7 @@ var AddBuyer = React.createClass({
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #invalidBuyerPhone',function(){
-          $('#ajax-box2').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+          $('#ajax-box2').dialog('open');
           $('#ajax-box2').parent().attr('rel', 'purple');
         });
       }
@@ -169,8 +166,8 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('messages.php #addBuyerInfo',function(){
-        $('#ajax-box2').dialog( "option", "title", "Buyer Information" ).dialog('open');
+      $('#ajax-box2').load('/controllers/messages.php #addBuyerInfo',function(){
+        $('#ajax-box2').dialog('open');
         $('#ajax-box2').parent().attr('rel', 'purple');
       });
     }
@@ -197,7 +194,7 @@ var AddBuyer = React.createClass({
         }
       });
       $('#ajax-box2').load('/controllers/messages.php #invalidBuyerEmail',function(){
-        $('#ajax-box2').dialog( "option", "title", "Invalid Email" ).dialog('open');
+        $('#ajax-box2').dialog('open');
         $('#ajax-box2').parent().attr('rel', 'purple');
       });
     }
@@ -224,13 +221,13 @@ var AddBuyer = React.createClass({
         }
       });
       $('#ajax-box2').load('/controllers/messages.php #addBuyerEmail',function(){
-        $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
+        $('#ajax-box2').dialog('open');
       });
     }
     else{
       $.ajax({
         type: "POST",
-        url: "check-buyer.php",
+        url: "/controllers/check-buyer.php",
         data: {"email": email},
         success: function(data){
           console.log("success");
@@ -270,7 +267,7 @@ var AddBuyer = React.createClass({
                   }
                 });
                 $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
-                  $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
+                  $('#ajax-box2').dialog('open');
                 });
               }
             });
@@ -308,11 +305,10 @@ var AddBuyer = React.createClass({
                 }
               });
               $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                $('#ajax-box2').dialog('open');
                 $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
             // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
@@ -320,7 +316,7 @@ var AddBuyer = React.createClass({
             else if((info.P_agent != '' && info.P_agent != null) && (info.P_agent2 == '' || info.P_agent2 == null)){
               $.ajax({
                 type: "POST",
-                url: "check-agent.php",
+                url: "/controllers/check-agent.php",
                 data: {"getEmail":"true", "id":info.P_agent},
                 success: function(data){
                   var aEmail = JSON.parse(data);
@@ -355,11 +351,10 @@ var AddBuyer = React.createClass({
                       }
                     });
                     $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary2',function(){
-                      $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                      $('#ajax-box2').dialog('open');
                       $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
-                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                   else{
@@ -385,11 +380,10 @@ var AddBuyer = React.createClass({
                       }
                     });
                     $('#ajax-box2').load('/controllers/messages.php #alreadyAgent',function(){
-                      $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
+                      $('#ajax-box2').dialog('open');
                       $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
-                    $(".ui-widget-overlay").hide();
                     {this.props.closeDialog()}
                   }
                 }
@@ -419,23 +413,18 @@ var AddBuyer = React.createClass({
                 }
               });
               $('#ajax-box2').load('/controllers/messages.php #addBuyerExists',function(){
-                $('#ajax-box2').dialog( "option", "title", "Buyer Exists" ).dialog('open');
+                $('#ajax-box2').dialog('open');
                 $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
-              $(".ui-widget-overlay").hide();
               {this.props.closeDialog()}
             }
           }
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
     }
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -693,7 +682,7 @@ var EditSearch = React.createClass({
 
     $.ajax({
       type: "POST",
-      url: "get-search-criteria2.php",
+      url: "/controllers/get-search-criteria2.php",
       data: {"email": this.state.buyer_email, "name": this.props.searchName},
       success: function(data){
         var criteria = JSON.parse(data);
@@ -821,7 +810,7 @@ var EditSearch = React.createClass({
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-          $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
         
         if(price < 100000){
@@ -883,7 +872,7 @@ var EditSearch = React.createClass({
           }
         });
         $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-          $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').dialog('open');
         });
         
         if(price > 99000000){
@@ -916,7 +905,6 @@ var EditSearch = React.createClass({
     else if(name == "prewar"){ this.setState({prewar: !this.state.prewar}); }
     else if(name == "timeshare"){ this.setState({timeshare: !this.state.timeshare}); }
     else if(name == "newconstruction"){ this.setState({newconstruction: !this.state.newconstruction}); }
-    else{ /* Do nothing */ }
   },
   handleNeighborhoodChange: function(name, event){
     if(name == "n_all"){
@@ -957,16 +945,12 @@ var EditSearch = React.createClass({
       this.setState({n_d: !this.state.n_d});
       this.setState({n_all: false});
     }
-    else{
-      // Do nothing
-    }
   },
   handlePropertyChange: function(name, event){
     if(name == "coop"){ this.setState({coop: !this.state.coop}); }
     else if(name == "condo"){ this.setState({condo: !this.state.condo}); }
     else if(name == "house"){ this.setState({house: !this.state.house}); }
     else if(name == "condop"){ this.setState({condop: !this.state.condop}); }
-    else{ /* Do nothing */ }
   },
   bedroomText: function(){
     if(this.state.bedrooms == 0){ return(<span>Studio</span>); }
@@ -1006,7 +990,6 @@ var EditSearch = React.createClass({
     else if(this.state.minPrice == 25000000){ return(<span>25M</span>); }
     else if(this.state.minPrice == 50000000){ return(<span>50M</span>); }
     else if(this.state.minPrice == 99000000){ return(<span>99M</span>); }
-    else{ /* Do nothing */ }
   },
   maxPriceText: function(){
     if(this.state.maxPrice == 100000){ return(<span>100K</span>); }
@@ -1041,7 +1024,6 @@ var EditSearch = React.createClass({
     else if(this.state.maxPrice == 25000000){ return(<span>25M</span>); }
     else if(this.state.maxPrice == 50000000){ return(<span>50M</span>); }
     else if(this.state.maxPrice == 99000000){ return(<span>99M</span>); }
-    else{ /* Do nothing */ }
   },
   locationText: function(){
     if(this.state.location == 1){ return(<div><p id="y25213-6">All locations</p><p id="y25213-7">&nbsp;</p></div>); }
@@ -1054,7 +1036,6 @@ var EditSearch = React.createClass({
     else if(this.state.location == 8){ return(<div><p id="y25213-6">Residential area/ near local park or river</p><p id="y25213-7">&nbsp;</p></div>); }
     else if(this.state.location == 9){ return(<div><p id="y25213-6">Residential area cose to major park</p><p id="y25213-7">&nbsp;</p></div>); }
     else if(this.state.location == 10){ return(<div><p id="y25213-6">Internationally renown/ near major park</p><p id="y25213-7">&nbsp;</p></div>); }
-    else{ /* Do nothing */ }
   },
   buildingText: function(){
     if(this.state.building == 1){ return(<div><p id="y25213-14">All buildings</p><p id="y25213-15">&nbsp;</p></div>); }
@@ -1067,7 +1048,6 @@ var EditSearch = React.createClass({
     else if(this.state.building == 8){ return(<div><p id="y25213-14">Full service building with amenities</p><p id="y25213-15">&nbsp;</p></div>); }
     else if(this.state.building == 9){ return(<div><p id="y25213-14">Local renown or new construction with full services</p></div>); }
     else if(this.state.building == 10){ return(<div><p id="y25213-14">International renown</p><p id="y25213-15">&nbsp;</p></div>); }
-    else{ /* Do nothing */ }
   },
   viewText: function(){
     if(this.state.views == 1){ return(<div><p id="y25213-22">All properties</p><p id="y25213-23">&nbsp;</p></div>); }
@@ -1080,21 +1060,18 @@ var EditSearch = React.createClass({
     else if(this.state.views == 8){ return(<div><p id="y25213-22">Cityscape views</p><p id="y25213-23">&nbsp;</p></div>); }
     else if(this.state.views == 9){ return(<div><p id="y25213-22">Cityscape and river or park views</p><p id="y25213-23">&nbsp;</p></div>); }
     else if(this.state.views == 10){ return(<div><p id="y25213-22">Cityscape and Central Park views</p><p id="y25213-23">&nbsp;</p></div>); }
-    else{ /* Do nothing */ }
   },
   bedroomAreaText: function(){
     if(this.state.bedroomArea == 1){ return(<div><p id="y25213-30">Any bedroom size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
     else if(this.state.bedroomArea == 2){ return(<div><p id="y25213-30">A medium-sized master bedroom or larger: at least 13 ft by 11 ft</p></div>); }
     else if(this.state.bedroomArea == 3){ return(<div><p id="y25213-30">A large-sized master bedroom or larger: at least 16 ft by 11 ft</p></div>); }
     else if(this.state.bedroomArea == 4){ return(<div><p id="y25213-30">An extra-large master bedroom or larger: at least 19 ft by 11 ft</p></div>); }
-    else{ /* Do nothing */ }
   },
   livingAreaText: function(){
     if(this.state.livingArea == 1){ return(<div><p id="y25213-38">Any living room size is okay</p><p id="y25213-23">&nbsp;</p></div>); }
     else if(this.state.livingArea == 2){ return(<div><p id="y25213-38">A medium-sized living room or larger: at least 18 ft by 12 ft</p></div>); }
     else if(this.state.livingArea == 3){ return(<div><p id="y25213-38">A large-sized living room or larger: at least 22 ft by 12 ft</p></div>); }
     else if(this.state.livingArea == 4){ return(<div><p id="y25213-38">A extra-large living room or larger: at least 27 ft by 12 ft</p></div>); }
-    else{ /* Do nothing */ }
   },
   minPriceInput: function(){
     var val = this.state.minPrice;
@@ -1220,13 +1197,13 @@ var EditSearch = React.createClass({
         }
       });
       $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
-        $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+        $('#ajax-box2').dialog('open');
       });
     }
     else{
       $.ajax({
         type: "POST",
-        url: "save-criteria.php",
+        url: "/controllers/save-criteria.php",
         data: {"email":email, "oldname":oldName, "name":searchName, "location":location_grade, "building":building_grade, "view":views_grade, "floor":min_floor, "bedrooms":bedrooms, "min_price":min_price, "max_price":max_price, "living_area":living_area, "bedroom_area":bedroom_area, "neighborhoods" : neighborhoods, "prop_type":prop_type, "amenities":amen},
         success: function(data){
           $.get("/controllers/ajax.php", {
@@ -1244,10 +1221,7 @@ var EditSearch = React.createClass({
               {this.props.closeDialog()}
             }
           }.bind(this));
-        }.bind(this),
-        error: function() {
-          console.log("failed");
-        }
+        }.bind(this)
       });
     }
   },
@@ -1455,14 +1429,10 @@ var ChooseFormula = React.createClass({
             }
           }
         }.bind(this));
-      }.bind(this),
-      error: function(){
-        console.log("failed");
-      }
+      }.bind(this)
 	  });
 	},
 	closePopup: function(){
-	  $(".ui-widget-overlay").hide();
 	  {this.props.closeDialog()}
 	},
   editFormula: function(formula){
@@ -1470,7 +1440,7 @@ var ChooseFormula = React.createClass({
     var initial = true;
     var $dialog =  $("#ajax-box2").dialog({
       modal: true,
-	  width: 1115,
+      width: 1115,
       dialogClass: "editFormula",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box2'));
@@ -1482,7 +1452,6 @@ var ChooseFormula = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box2").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1502,8 +1471,6 @@ var ChooseFormula = React.createClass({
       url: "/controllers/check-criteria.php",
       data: {"email": buyer, "name": searchName},
       success: function(data){
-        console.log("success");
-
         var num = data[data.length -1];
 
         if(num == 0){
@@ -1528,7 +1495,7 @@ var ChooseFormula = React.createClass({
             }
           });
           $('#ajax-box2').load('/controllers/messages.php #no-formula',function(){
-            $('#ajax-box2').dialog( "option", "title", "No Formula" ).attr('rel','yourbuyers').dialog('open');
+            $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
           });
         }
         else{
@@ -1558,9 +1525,6 @@ var ChooseFormula = React.createClass({
             }
           });          
         }
-      },
-      error: function(){
-        console.log("failed");
       }
 	  });
 	},
@@ -1675,7 +1639,6 @@ var ClearListings = React.createClass({
     else if(this.state.clearListings == "true") { location.assign("/users/logout.php?listings=clear"); }
   },
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}    
   },
   render: function(){
@@ -1756,7 +1719,6 @@ window.NavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
 	  });
@@ -1764,13 +1726,12 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
 	  }
 
-	  $(".ui-widget-overlay").show();
 	  ReactDOM.render(<ChooseFormula closeDialog={closeDialog} email={this.state.email}/>, $dialog[0]);
   },
   addBuyer: function(){
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+      width: 580,
       dialogClass: 'ajaxbox addBuyerPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1782,7 +1743,6 @@ window.NavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1790,7 +1750,6 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
   },
   logout: function(){
@@ -1829,7 +1788,7 @@ window.NavBar = React.createClass({
     
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+      width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1841,7 +1800,6 @@ window.NavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -1849,7 +1807,6 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -1917,9 +1874,9 @@ window.NavBar = React.createClass({
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
                     {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
-                    <li><a href={"buyer-profile.php?MP="+this.props.mainPage} className="my-profile">My Profile</a></li>
-                    <li><a href={"saved.php?MP="+this.props.mainPage}>Listing Folders</a></li>
-                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
+                    <li><a href={"/controllers/buyer-profile.php?MP="+this.props.mainPage} className="my-profile">My Profile</a></li>
+                    <li><a href={"/controllers/saved.php?MP="+this.props.mainPage}>Listing Folders</a></li>
+                    <li><a href={"/controllers/my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.state.role == "agent" ?
@@ -1928,9 +1885,9 @@ window.NavBar = React.createClass({
                     <li><a href="/search.php#newSearch">New Search</a></li>
                     {this.props.mainPage == "results" ? <li id="editCriteriaOption"><a style={{cursor: "pointer"}} onClick={this.editSearch}>Edit Search Criteria</a></li> : null}
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
-                    <li><a href={"buyers.php?MP="+this.props.mainPage}>Manage Buyers</a></li>
-                    <li><a href={"agent-listings.php?MP="+this.props.mainPage}>Saved Listings</a></li>
-                    <li><a href={"my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
+                    <li><a href={"/controllers/buyers.php?MP="+this.props.mainPage}>Manage Buyers</a></li>
+                    <li><a href={"/controllers/agent-listings.php?MP="+this.props.mainPage}>Saved Listings</a></li>
+                    <li><a href={"/controllers/my-messages.php?MP="+this.props.mainPage}>Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 
@@ -1985,16 +1942,13 @@ window.MenuNavBar = React.createClass({
             this.setState({messages: info['unreadMessages']});
           }
         }.bind(this));
-      }.bind(this),
-		  error: function() {
-        console.log("failed");
-		  }
+      }.bind(this)
 		});
   },
   selectFormula: function(){
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 795,
+      width: 795,
       height: 550,
       dialogClass: 'choseBuyingFormula',
       close: function(){
@@ -2007,7 +1961,6 @@ window.MenuNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
 	  });
@@ -2015,13 +1968,12 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
 	  }
 
-	  $(".ui-widget-overlay").show();
 	  ReactDOM.render(<ChooseFormula closeDialog={closeDialog} email={this.state.email}/>, $dialog[0]);
   },
   addBuyer: function(){
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+      width: 580,
       dialogClass: 'ajaxbox addBuyerPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2033,7 +1985,6 @@ window.MenuNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2041,7 +1992,6 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
   },
   logout: function(){
@@ -2080,7 +2030,7 @@ window.MenuNavBar = React.createClass({
     
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+      width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2092,7 +2042,6 @@ window.MenuNavBar = React.createClass({
       open: function(){
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2100,7 +2049,6 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ClearListings closeDialog={closeDialog}/>, $dialog[0]);
   },
   guestlogout: function(){
@@ -2167,9 +2115,9 @@ window.MenuNavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
-                    <li><a href="buyer-profile.php?MP=menu" className="my-profile">My Profile</a></li>
-                    <li><a href="saved.php?MP=menu">Listing Folders</a></li>
-                    <li><a href="my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
+                    <li><a href="/controllers/buyer-profile.php?MP=menu" className="my-profile">My Profile</a></li>
+                    <li><a href="/controllers/saved.php?MP=menu">Listing Folders</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.state.role == "agent" ?
@@ -2177,9 +2125,9 @@ window.MenuNavBar = React.createClass({
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
-                    <li><a href="buyers.php?MP=menu">Manage Buyers</a></li>
-                    <li><a href="agent-listings.php?MP=menu">Saved Listings</a></li>
-                    <li><a href="my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
+                    <li><a href="/controllers/buyers.php?MP=menu">Manage Buyers</a></li>
+                    <li><a href="/controllers/agent-listings.php?MP=menu">Saved Listings</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=menu">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 
@@ -2282,7 +2230,6 @@ window.AddressSearch = React.createClass({
 
 var ComingSoon = React.createClass({
   closePopup: function(){
-    $(".ui-widget-overlay").hide();
     {this.props.closeDialog()}
   },
   render: function(){
@@ -2318,16 +2265,13 @@ window.Footer = React.createClass({
         var info = JSON.parse(data);
         this.setState({role: info['role']});
         this.setState({admin: info['adminOptions']});
-      }.bind(this),
-		  error: function() {
-        console.log("failed");
-		  }
+      }.bind(this)
 		});
   },
   comingSoon: function(){
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 250,
+      width: 250,
       dialogClass: "comingSoon",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2337,10 +2281,8 @@ window.Footer = React.createClass({
         $( this ).remove();
       },
       open: function(){
-        //$(this).css("display", "block");
         $(".ui-widget-overlay").bind("click", function(){
           $("#ajax-box").dialog('close');
-          $(".ui-widget-overlay").hide();
         });
       }
     });
@@ -2348,7 +2290,6 @@ window.Footer = React.createClass({
       $dialog.dialog('close');
     }.bind(this)
 
-    $(".ui-widget-overlay").show();
     ReactDOM.render(<ComingSoon closeDialog={closeDialog}/>, $dialog[0]);
   },
   render: function () {
@@ -2370,10 +2311,10 @@ window.Footer = React.createClass({
             <div className="collapse navbar-collapse footer-navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
                 <li id="copyright">Copyright 2016 Nice Idea Media, Inc and HomePik.com</li>
-                <li><a href={"about.php?MP="+this.props.mainPage}><span id="u15181-2">|</span>About HomePik</a></li>
-                <li><a href={"contactus.php?MP="+this.props.mainPage}><span id="u15181-6">|</span>Contact Us</a></li>
+                <li><a href={"/controllers/about.php?MP="+this.props.mainPage}><span id="u15181-2">|</span>About HomePik</a></li>
+                <li><a href={"/controllers/contactus.php?MP="+this.props.mainPage}><span id="u15181-6">|</span>Contact Us</a></li>
                 <li><a style={{cursor:"pointer"}} onClick={this.comingSoon}><span id="u15181-8">|</span>Site Map</a></li>
-                <li><a href={"faq.php?MP="+this.props.mainPage}><span id="u15181-10">|</span>FAQs</a></li>
+                <li><a href={"/controllers/faq.php?MP="+this.props.mainPage}><span id="u15181-10">|</span>FAQs</a></li>
                 <li><a style={{cursor:"pointer"}} onClick={this.comingSoon}><span id="u15181-12">|</span>Blog</a></li>
               </ul>
 

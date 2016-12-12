@@ -7,15 +7,13 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_first_name = $_SESSION['firstname'];
   $agent_last_name = $_SESSION['lastname'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
 
-  $SQL1 = "SELECT `first_name`, `last_name`, `email` FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC";
-  $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
+  $result1 = mysql_query( "SELECT * FROM `users` WHERE ((`P_agent` = '".$agent_id."') AND ((`P_agent` != '') AND (`P_agent` != 'null'))) OR ((`P_agent2` = '".$agent_id."') AND ((`P_agent2` != '') AND (`P_agent2` != 'null'))) ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
   $num_buyers = mysql_num_rows($result1);
 }
 else{ print "<script> window.location = '/users/logout.php' </script>"; }
@@ -26,8 +24,7 @@ if(isset($_GET['buyer'])){
 }
 else{ $starter_buyer = ''; }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Manage Buyers</title>
@@ -305,10 +302,7 @@ else{ $mainPage = ""; }
             $("#living_grade").slider('value',criteria.living_area);
             $("#living_grade").slider('refresh');
           }
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
     },
     handleChange: function (name, event) {
@@ -374,8 +368,8 @@ else{ $mainPage = ""; }
               });
             }
           });
-          $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+            $('#ajax-box2').dialog('open');
           });
 
           if(price < 100000){
@@ -436,8 +430,8 @@ else{ $mainPage = ""; }
               });
             }
           });
-          $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+            $('#ajax-box2').dialog('open');
           });
 
           if(price > 99000000){
@@ -470,7 +464,6 @@ else{ $mainPage = ""; }
       else if(name == "prewar"){ this.setState({prewar: !this.state.prewar}); }
       else if(name == "timeshare"){ this.setState({timeshare: !this.state.timeshare}); }
       else if(name == "newconstruction"){ this.setState({newconstruction: !this.state.newconstruction}); }
-      else{ /* Do nothing */ }
     },
     handleNeighborhoodChange: function(name, event){
       if(name == "n_all"){
@@ -511,14 +504,12 @@ else{ $mainPage = ""; }
         this.setState({n_d: !this.state.n_d});
         this.setState({n_all: false});
       }
-      else{ /* Do nothing */ }
     },
     handlePropertyChange: function(name, event){
       if(name == "coop"){ this.setState({coop: !this.state.coop}); }
       else if(name == "condo"){ this.setState({condo: !this.state.condo}); }
       else if(name == "house"){ this.setState({house: !this.state.house}); }
       else if(name == "condop"){ this.setState({condop: !this.state.condop}); }
-      else{ /* Do nothing */ }
     },
     bedroomText: function(){
       if(this.state.bedrooms == 0){ return(<span>Studio</span>); }
@@ -558,7 +549,6 @@ else{ $mainPage = ""; }
       else if(this.state.minPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.minPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.minPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
     },
     maxPriceText: function(){
       if(this.state.maxPrice == 100000){ return(<span>100K</span>); }
@@ -593,7 +583,6 @@ else{ $mainPage = ""; }
       else if(this.state.maxPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.maxPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.maxPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
     },
     locationText: function(){
       if(this.state.location == 1){ return(<div><p id="y25213-6">All locations</p><p id="y25213-7">&nbsp;</p></div>); }
@@ -606,7 +595,6 @@ else{ $mainPage = ""; }
       else if(this.state.location == 8){ return(<div><p id="y25213-6">Residential area / near local park or river</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 9){ return(<div><p id="y25213-6">Residential area cose to major park</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 10){ return(<div><p id="y25213-6">Internationally renown / near major park</p><p id="y25213-7">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     buildingText: function(){
       if(this.state.building == 1){ return(<div><p id="y25213-14">All buildings</p><p id="y25213-15">&nbsp;</p></div>); }
@@ -619,7 +607,6 @@ else{ $mainPage = ""; }
       else if(this.state.building == 8){ return(<div><p id="y25213-14">Full service building with amenities</p><p id="y25213-15">&nbsp;</p></div>); }
       else if(this.state.building == 9){ return(<div><p id="y25213-14">Locally renowned building or new construction with full services</p></div>); }
       else if(this.state.building == 10){ return(<div><p id="y25213-14">International renown</p><p id="y25213-15">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     viewText: function(){
       if(this.state.views == 1){ return(<div><p id="y25213-22">All properties</p><p id="y25213-23">&nbsp;</p></div>); }
@@ -632,21 +619,18 @@ else{ $mainPage = ""; }
       else if(this.state.views == 8){ return(<div><p id="y25213-22">Cityscape views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 9){ return(<div><p id="y25213-22">Cityscape and river or park views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 10){ return(<div><p id="y25213-22">Cityscape and Central Park views</p><p id="y25213-23">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
     },
     bedroomAreaText: function(){
       if(this.state.bedroomArea == 1){ return(<div><p id="y25213-30">Any bedroom size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
       else if(this.state.bedroomArea == 2){ return(<div><p id="y25213-30">A medium master bedroom or larger: at least 13 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 3){ return(<div><p id="y25213-30">A large master bedroom or larger: at least 16 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 4){ return(<div><p id="y25213-30">An extra-large master bedroom: at least 19 ft by 11 ft</p></div>); }
-      else{ /* Do nothing */ }
     },
     livingAreaText: function(){
       if(this.state.livingArea == 1){ return(<div><p id="y25213-38">Any living room size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
       else if(this.state.livingArea == 2){ return(<div><p id="y25213-38">A medium-sized living room or larger: at least 18 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 3){ return(<div><p id="y25213-38">A large-sized living room or larger: at least 22 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 4){ return(<div><p id="y25213-38">A extra-large living room or larger: at least 27 ft by 12 ft</p></div>); }
-      else{ /* Do nothing */ }
     },
     minPriceInput: function(){
       var val = this.state.minPrice;
@@ -771,8 +755,8 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
-          $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+        $('#ajax-box2').load('messages.php #priceRange',function(){
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -781,7 +765,7 @@ else{ $mainPage = ""; }
           url: "save-criteria.php",
           data: {"email":email, "oldname":oldName, "name":searchName, "location":location_grade, "building":building_grade, "view":views_grade, "floor":min_floor, "bedrooms":bedrooms, "min_price":min_price, "max_price":max_price, "living_area":living_area, "bedroom_area":bedroom_area, "neighborhoods" : neighborhoods, "prop_type":prop_type, "amenities":amen},
           success: function(data){
-            $.get("/controllers/ajax.php", {
+            $.get("ajax.php", {
               editFormulaEmail: 'true', //Call the PHP function
               email: email,
               success: function(result){
@@ -797,15 +781,11 @@ else{ $mainPage = ""; }
                 {this.props.closeDialog()}
               }
             }.bind(this));
-          }.bind(this),
-          error: function() {
-            console.log("failed");
-          }
+          }.bind(this)
         });
       }
     },
     cancel: function(){
-      $(".ui-widget-overlay").hide();
       {this.props.closeDialog()}
     },
     updateData: function(){
@@ -978,17 +958,17 @@ else{ $mainPage = ""; }
 	var Buyers = React.createClass({
 	  getInitialState: function() {
       return{
-        agent_email: "<?php echo $agent_email ?>",
-        agent_id: "<?php echo $agent_id ?>",
-        mainPage: "<?php echo $mainPage ?>",
+        agent_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
         buyers: [],
         buyer_formulas: [],
         num_formulas: "",
-        num_buyers: "<?php echo $num_buyers ?>" ,
+        num_buyers: "<?php echo (isset($num_buyers) ? $num_buyers : "") ?>" ,
         buyer_selected: "",
         buyer_selected_name: "",
-        starter_buyer: "<?php echo $starter_buyer ?>",
-        starter_buyer_name: "<?php echo $starter_buyer_name ?>",
+        starter_buyer: "<?php echo (isset($starter_buyer) ? $starter_buyer : "") ?>",
+        starter_buyer_name: "<?php echo (isset($starter_buyer_name) ? $starter_buyer_name : "") ?>",
         buyers_formula_name: "",
         editing: false,
         buyerView: "Active"
@@ -1009,7 +989,6 @@ else{ $mainPage = ""; }
         this.setState({buyerView: 'Active'});
         this.getBuyers();
       }
-      else{ /* Do nothing */ }
 	  },
     handleChange: function (name, event) {
       var change = {};
@@ -1061,10 +1040,7 @@ else{ $mainPage = ""; }
               }
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  getArchivedBuyers: function(){
@@ -1087,10 +1063,7 @@ else{ $mainPage = ""; }
               }
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  getBuyerFormulas: function(email){
@@ -1112,10 +1085,7 @@ else{ $mainPage = ""; }
               $("#noFormulas").show();
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  checkFormula: function(id){
@@ -1129,7 +1099,7 @@ else{ $mainPage = ""; }
 	  EditFormula: function(){
       var $dialog =  $("#ajax-box").dialog({
         modal: true,
-		width: 1115,
+        width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -1139,10 +1109,8 @@ else{ $mainPage = ""; }
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1151,7 +1119,6 @@ else{ $mainPage = ""; }
         $dialog.dialog('close');
       }.bind(this)
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={this.state.buyers_formula_name} buyer={this.state.buyer_selected}/>, $dialog[0]);
     },
     newSearchBuyer: function(){
@@ -1201,7 +1168,7 @@ else{ $mainPage = ""; }
                 }
               });
               $('#ajax-box2').load('messages.php #no-formula',function(){
-                $('#ajax-box2').dialog( "option", "title", "No Formula" ).attr('rel','yourbuyers').dialog('open');
+                $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
               });
             }
             else{
@@ -1215,9 +1182,6 @@ else{ $mainPage = ""; }
                 }
               });
             }
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }
@@ -1250,14 +1214,14 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #no-formula',function(){
-                $('#ajax-box2').dialog( "option", "title", "No Formula" ).attr('rel','yourbuyers').dialog('open');
+              $('#ajax-box2').load('messages.php #no-formula',function(){
+                $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
                 $('#ajax-box2').parent().css('display', 'block');
                 $('#ajax-box2').css('height', '70px');
               });
             }
             else{
-              $.get("/controllers/ajax.php", {
+              $.get("ajax.php", {
                 saveBuyer: 'true', //Call the PHP function
                 email: buyer, //Put variables into AJAX variables
                 success: function(result){
@@ -1279,9 +1243,6 @@ else{ $mainPage = ""; }
                 }
               });
             }
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }
@@ -1310,13 +1271,8 @@ else{ $mainPage = ""; }
                   if(ajaxStop == 0){
                     ajaxStop++;
                     $("#ajax-box2").dialog( "destroy" );
-                    if(this.state.buyerView == "Active"){
-                      this.getBuyers();
-                    }
-                    else if(this.state.buyerView == "Archived"){
-                      this.getArchivedBuyers();
-                    }
-                    else{ /* Do nothing */ }
+                    if(this.state.buyerView == "Active"){ this.getBuyers(); }
+                    else if(this.state.buyerView == "Archived"){ this.getArchivedBuyers(); }
                   }
                 }.bind(this));
               }.bind(this)
@@ -1336,12 +1292,12 @@ else{ $mainPage = ""; }
         }
       });
       $('#ajax-box2').load('messages.php #deleteBuyer',function(){
-        $('#ajax-box2').dialog( "option", "title", "Permanently Delete Buyer" ).dialog('open');
+        $('#ajax-box2').dialog('open');
         $("#deleteBuyer").find("#name").html(name);
       });
     },
 	  activateBuyer: function(email, event){
-      $.get("/controllers/ajax.php", {
+      $.get("ajax.php", {
         activateBuyer: 'true',
         buyer: email,
         success: function(result){
@@ -1352,10 +1308,7 @@ else{ $mainPage = ""; }
               this.getArchivedBuyers();
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  archiveBuyer: function(email, event){
@@ -1372,10 +1325,7 @@ else{ $mainPage = ""; }
               this.getBuyers();
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  render: function(){

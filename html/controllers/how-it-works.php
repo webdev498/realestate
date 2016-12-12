@@ -3,8 +3,7 @@ session_start();
 include_once('functions.php');
 include_once('basicHead.php');
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
 	<title>HomePik - How it works</title>

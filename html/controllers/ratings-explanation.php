@@ -2,6 +2,8 @@
   session_start();
   include_once('functions.php');
   include_once('basicHead.php');
+  
+  $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Ratings Explanation</title>
@@ -100,7 +102,7 @@
   );
 
   ReactDOM.render(
-    <Footer/>,
+    <Footer mainPage={"<?php echo $mainPage ?>"}/>,
     document.getElementById("footer")
   );
 </script>

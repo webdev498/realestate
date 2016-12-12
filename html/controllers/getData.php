@@ -1,29 +1,12 @@
 <!DOCTYPE html>
 <?php
-
 session_start();
-include("dbconfig.php");
-include ("functions.php");
-include("head2.php");
-
+include_once("dbconfig.php");
+include_once("functions.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if (!$_SESSION['user']) {
-  header('location: /users/logout.php');
-}
-
-$email = $_SESSION['email'];
-
-$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where (email = '".$email."')";
-$res = mysql_query( $sql ) or die("Couldn't execute query.".mysql_error());
-$row = mysql_fetch_array($res,MYSQL_ASSOC);
-$firstname = $row['first_name'];
-$lastname = $row['last_name'];
-$id = $row['agent_id'];
-
-$name = explode('@', $_SESSION['email']);
-$name = $name[0];
+if (!isset($_SESSION['user'])) { header('location: /users/logout.php'); }
     
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">

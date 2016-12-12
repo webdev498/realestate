@@ -2,7 +2,7 @@
 session_start();
 include("functions.php");
 include("basicHead.php");
-if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
+if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>
 

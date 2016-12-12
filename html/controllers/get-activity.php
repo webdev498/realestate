@@ -1,14 +1,12 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-
+include_once("dbconfig.php");
+include_once('functions.php');
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
 date_default_timezone_set('America/New_York');
-
 $activity = array();
 
 if(isset($_POST['user']) && $_POST['user'] == "agent"){

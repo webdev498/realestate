@@ -1,12 +1,11 @@
 <?php
 session_start();
-include("dbconfig.php");
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if($_SESSION['buyer'] || $_SESSION['agent']){ $user = $_SESSION['email']; }
-else{ $user = $_SESSION['guestID']; }
+$user = (isset($_SESSION['buyer']) || isset($_SESSION['agent']) ? $_SESSION['email'] : $_SESSION['guestID'] );
 $list_num = $_POST['listing'];
 
 if($list_num != ''){
@@ -15,7 +14,6 @@ if($list_num != ''){
   $select .= ", virtual, burnst, fireplace, garage, pool, roofd, garden, den, din, laundry, ac, security, doorman, wheelchair, elevator, healthclub, utilities, pets, furnished, prewar, loft, terrace, balcony, outdoor, wash_dry, nofee, agent_id_1, agent_id_2, agent_id_3, agent_id_4, contract";
   $select .= ", contact, contact_email, contact_phone, RLS_id";
   $from = "vow_data";
-  //$where = "(list_numb = '" . $list_num . "') AND (status = 'AVAIL') ";
   $where = "(list_numb = '" . $list_num . "') ";
   $SQL = "SELECT " . $select . " FROM " . $from . " WHERE " . $where . " ";
   $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
@@ -51,9 +49,7 @@ if($list_num != ''){
   FROM  (SELECT  list_numb,contact_email, broker, owner, contract, SUBSTRING_INDEX(contact_email,'@',-1) AS email  FROM  `vow_data` as T1 )
   
   AS T2) as T3  where  list_numb = '" . $list_num . "' ";
-  
-  //AS T2) as T3  where  list_numb = '" . $list_num . "'  AND status = 'AVAIL' ";
-    
+      
   $result1 = mysql_query($select1) or die(mysql_error() . " " . $select1);
   $row1 = mysql_fetch_array($result1, MYSQL_ASSOC);
   
@@ -76,8 +72,6 @@ if($list_num != ''){
   $bath = number_format($bath, 0, '.', ',');
   $address = $row['address'];
   $contract = $row['contract'];
-  //$contract = str_replace("BEXCL", "Bellmarc", $contract);
-  //$contract = str_replace("OPEN", "the owner (open listing)", $contract);
   $broker = $row1['name'];
   $broker = str_replace("Bellmarc Exc", "Bellmarc", $broker);
   $broker = str_replace("rebny", "", $broker);
@@ -207,8 +201,7 @@ if($list_num != ''){
   $amenities['nofee']= $row['nofee'];
   
   if($role == 'buyer'){
-    $SQL = "SELECT * FROM users WHERE (email = '" . $user . "')";
-    $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+    $result = mysql_query( "SELECT * FROM users WHERE (email = '" . $user . "')" ) or die(mysql_error() . " " . $SQL);
     $row = mysql_fetch_assoc($result);
     $pAgent = $row['P_agent'];
     $pAgent2 = $row['P_agent2'];
@@ -216,8 +209,7 @@ if($list_num != ''){
     $agent_id_1 = $pAgent;
   }
   
-  $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."')";
-  $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+  $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."')" ) or die(mysql_error() . " " . $SQL);
   $row = mysql_fetch_assoc($result);
   $active = $row['active'];
 
@@ -226,8 +218,7 @@ if($list_num != ''){
   if ($agent_id_1 == '' || $agent_id_1 == null) {
     $agentNums = array();
     $agentCount = 0;
-    $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $address . "'); ";
-    $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+    $result = mysql_query( "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $address . "'); " ) or die(mysql_error() . " " . $SQL);
     $row = mysql_fetch_assoc($result);
     $buildLocation = $row['location'];
     $agent_1_v2 = $row['agent_1'];
@@ -236,8 +227,7 @@ if($list_num != ''){
     $agent_4_v2 = $row['agent_4'];
 
     if ($agent_1_v2 != ''){
-      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_1_v2 . "'); ";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_1_v2 . "'); " ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
       
@@ -247,8 +237,7 @@ if($list_num != ''){
       }
     }
     elseif ($agent_2_v2 != ''){
-      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_2_v2 . "'); ";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_2_v2 . "'); " ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
       
@@ -258,8 +247,7 @@ if($list_num != ''){
       }
     }
     elseif ($agent_3_v2 != ''){
-      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_3_v2 . "'); ";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_3_v2 . "'); " ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
       
@@ -269,8 +257,7 @@ if($list_num != ''){
       }
     }
     elseif ($agent_4_v2 != ''){
-      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_4_v2 . "'); ";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $agent_4_v2 . "'); " ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
       
@@ -285,21 +272,18 @@ if($list_num != ''){
       $agent_num = $agentNums[0];
       if (strlen($agent_num) == 3){ $agent_id_1 = $agent_num; }
       else{
-        $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $result = mysql_query( "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')" ) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
         $office = $row['office'];
         if($office == 'SS'){ $office = 'BSS'; }
         if($office == 'GC'){ $office = 'CG'; }
 
         //Get code and manager id from office where code is office from zip_to_office
-        $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $result = mysql_query( "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')" ) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
         $mgr_id = $row['mgr_id'];
         
-        $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')";
-        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')" ) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
         $active = $row['active'];
 
@@ -310,21 +294,18 @@ if($list_num != ''){
     else
     {
       // Get office from zip_to_office where zip is zip of building
-      $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT office FROM zip_to_office WHERE (zip = '" . $zip . "')" ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $office = $row['office'];
       if($office == "SS"){ $office = "BSS"; }
       if ($office == 'GC'){ $office = 'CG'; }
 
       //Get code and manager id from office where code is office from zip_to_office
-      $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT code, mgr_id FROM office WHERE (code = '" . $office . "')" ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $mgr_id = $row['mgr_id'];
 
-      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')";
-      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$mgr_id."')" ) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
 
@@ -333,9 +314,8 @@ if($list_num != ''){
     }
   }
   
-  if ($agent_id_1 != '') {
-    $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."'); ";
-    $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
+  if($agent_id_1 != '') {
+    $result = mysql_query( "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$agent_id_1."'); " ) or die(mysql_error()." ".$SQL);
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent_id = $row['agent_id'];
     $agent_firstname = $row['first_name'];
@@ -357,9 +337,8 @@ if($list_num != ''){
   }
   
   //If the user has a P_agent2, get the info
-  if ($pAgent2 != "" && $pAgent2 != null){
-    $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$pAgent2."'); ";
-    $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
+  if(isset($pAgent2) && $pAgent2 != "" && $pAgent2 != null){
+    $result = mysql_query( "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$pAgent2."'); " ) or die(mysql_error()." ".$SQL);
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent2_id = $row['id'];  
     $agent2_firstname = $row['first_name'];
@@ -385,22 +364,19 @@ if($list_num != ''){
   $priceImg = "price.php?id=$list_num&code=$list_num";
   
   $folders = array();
-  $SQL = "SELECT name, id, user FROM users_folders WHERE (user = '".$user."'); ";
-  $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
+  $result = mysql_query( "SELECT name, id, user FROM users_folders WHERE (user = '".$user."'); " ) or die(mysql_error()." ".$SQL);
   while ($row = mysql_fetch_assoc($result)) {
     $folder = array("id"=>$row['id'], "name"=>$row['name']);
     array_push($folders, $folder);
   }
   
   // DETERMINE IF IT'S AN IDX LISTING
-  $SQL = "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $RLS_id . "','\"')";
-  $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+  $result = mysql_query( "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $RLS_id . "','\"')" ) or die(mysql_error() . " " . $SQL);
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
   $rlsMatch = $row['RLS_id'];
   
   //CHECK IF LISTING IS ALREADY SAVED
-  $SQL = "SELECT * FROM saved_listings WHERE user = '".$user."' AND list_num = '" . $list_num . "'";
-  $result = mysql_query($SQL) or die(mysql_error()." ".$SQL);
+  $result = mysql_query( "SELECT * FROM saved_listings WHERE user = '".$user."' AND list_num = '" . $list_num . "'" ) or die(mysql_error()." ".$SQL);
   $num = mysql_num_rows($result);
   if($num > 0){ $saved = true; } else{ $saved = false; }
   

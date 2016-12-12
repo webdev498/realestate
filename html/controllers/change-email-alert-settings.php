@@ -2,6 +2,7 @@
 session_start();
 include_once('functions.php');
 include_once("basicHead.php");
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
 ?>
 
   <title>HomePik - Change Email Alert Settings</title>
@@ -88,7 +89,7 @@ include_once("basicHead.php");
   )
 
   ReactDOM.render(
-	  <Footer />,
+	  <Footer mainPage={"<?php echo $mainPage ?>"} />,
 	  document.getElementById("footer")
 	);
 </script>

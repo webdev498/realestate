@@ -7,7 +7,6 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_SESSION['buyer'])){
-  $user = $_SESSION['id'];
   $buyer_email = $_SESSION['email'];
 	$agent_code = $_SESSION['agent1'];
 	$agent2_code = $_SESSION['agent2'];
@@ -30,7 +29,6 @@ if(isset($_SESSION['buyer'])){
   }
 }
 elseif(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -40,9 +38,7 @@ elseif(isset($_SESSION['agent'])){
 }
 else{ print "<script> window.location = '/users/logout.php' </script>"; }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
-
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 $_SESSION['unreadMessages'] = 0;
 ?>
 

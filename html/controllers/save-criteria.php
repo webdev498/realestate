@@ -6,7 +6,6 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_SESSION['user'])){
-  $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $role = 'user';
 }

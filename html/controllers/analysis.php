@@ -7,15 +7,10 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
-
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Activity Analysis</title>
-	<!--<script type="text/javascript">
-    if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "jquery.watch.js", "jquery.musepolyfill.bgsize.js", "buyer-options.css"], "outOfDate":[]};
-	</script>-->
   <?php include_css("/views/css/analysis.css"); ?>
 </head>
 <body>
@@ -135,8 +130,7 @@ else{ $mainPage = ""; }
           <fieldset class="form-group">
             <select class="form-control" id="agentYearlyCode" name="agentYearlyCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
-              $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+              $result = mysql_query( "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
               while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {                
 								$id = $row['agent_id'];
 								if (strlen($id) <= 1){ $name = "No Agent"; }
@@ -195,8 +189,7 @@ else{ $mainPage = ""; }
           <fieldset class="form-group">
             <select class="form-control" id="agentCode" name="agentCode" placeholder="-- Select Agent --" value="blank">
               <?php
-								$SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
-								$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+								$result = mysql_query( "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
 								while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 									$id = $row['agent_id'];
 									if (strlen($id) <= 1){ $name = "No Agent"; }
@@ -293,26 +286,26 @@ if (isset($_POST['report-submit'])) { ?>
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
   $( '#listYearlyArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+		if( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentMonth' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentYear' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentCode' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentYearlyArea' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   $( '#agentYearlyCode' ).each( function () {
-      if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  } );
+    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
+  });
   </script>
 
   <?php

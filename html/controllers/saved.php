@@ -6,14 +6,12 @@ include_once("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 if(isset($_SESSION['buyer'])){
-  $user = $_SESSION['id'];
   $buyer_email = $_SESSION['email'];
   $role = 'user';
   $folder = "";
   $agent_id = "";
 }
 elseif(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -21,15 +19,12 @@ elseif(isset($_SESSION['agent'])){
   if(isset($_GET['folder'])){ $folder = $_GET['folder']; }
 }
 else{
-  $user = $_SESSION['guestID'];
   $buyer_email = $_SESSION['guestID'];
   $role = 'guest';
   $agent_id = "";
 }
 
-
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
   <title>HomePik - Listing Folders</title>
   <?php include_css("/views/css/buyer-listing-folders.css");

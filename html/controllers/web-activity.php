@@ -6,7 +6,7 @@ if(!isset($_SESSION['agent'])){ header('location: /users/logout.php'); }
 else{
 	$email = $_SESSION['email'];
 	$firstname = $_SESSION['firstname'];
-	$lastname = $_SESSIONrow['lastname'];
+	$lastname = $_SESSION['lastname'];
 	$id = $_SESSION['agent_id'];
 }
 ?>

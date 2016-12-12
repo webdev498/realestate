@@ -7,7 +7,6 @@ $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db($database, $con) or die(mysql_error());
 
 if(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -16,8 +15,7 @@ else { print "<script> window.location = '/users/logout.php' </script>"; }
 
 $_SESSION['viewingBuyer'] = 'false';
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Agent Folders</title>

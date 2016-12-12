@@ -9,8 +9,7 @@ if(!isset($_SESSION['email'])){
   $_SESSION['role'] = 'guest';
 }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - About HomePik</title>

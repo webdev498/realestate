@@ -5,8 +5,7 @@ include_once("basicHead.php");
 
 if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); };
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
-if(isset($_GET['r'])){ $referrer = $_GET['r']; }
-else{ $referrer = "registrationPage"; }
+$referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 ?>
 
 	<title>HomePik - Buyer Registration</title>

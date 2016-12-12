@@ -1,35 +1,20 @@
 <?php
 session_start();
-include("dbconfig.php");
-
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-$buyer_email = $_POST['buyer'];
-
-if(isset($_POST['agentID'])){
- $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_POST['agentID']."%') ORDER BY name ASC"; 
-}
-else if($_SESSION['agent']){
-  $SQL1 = "SELECT agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-  $rs1 = mysql_query($SQL1);
-  $row1 = mysql_fetch_array($rs1);
-  $agentID = $row1['agent_id'];
-  
-  $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$agentID."%') ORDER BY name ASC"; 
-}
-else{
-  $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') ORDER BY name ASC";
-}
-
-$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
+$buyer_email = $_POST['buyer'];  
 $formulas = array();
 $id = 1;
 
+if(isset($_POST['agentID'])){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_POST['agentID']."%') ORDER BY name ASC"; }
+else if($_SESSION['agent']){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_SESSION['agent_id']."%') ORDER BY name ASC"; }
+else{ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') ORDER BY name ASC"; }
+
+$result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-  
   $name = $row['name'];
   $agents = $row['agent'];
   $loc_grade = $row['location-grade'];
@@ -47,21 +32,18 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
   
   if($agents != ''){
     if(strpos($agents, ',') === false){
-      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents."')";
-      $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+      $result2 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents."')" ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $agents = $row2['name'];
     }
     else{
       $agents = explode(",", $agents);
       
-      $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')";
-      $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+      $result2 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')" ) or die("Couldn't execute query.".mysql_error());
       $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
       $agent1 = $row2['name'];
       
-      $SQL3 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')";
-      $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+      $result3 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')" ) or die("Couldn't execute query.".mysql_error());
       $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
       $agent2 = $row3['name'];
       

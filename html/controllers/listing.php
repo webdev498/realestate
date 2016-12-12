@@ -15,12 +15,10 @@ if(isset($_GET['code'])){
 elseif(isset($_GET['list_numb'])){ $list_num = $_GET['list_numb']; }
 
 if(isset($_SESSION['buyer'])){
-  $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $role = 'buyer';
 }
 elseif(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -28,6 +26,7 @@ elseif(isset($_SESSION['agent'])){
 else{
   $role = 'guest';
 }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
 ?>
 
   <title>HomePik - Listing Details</title>
@@ -1573,7 +1572,7 @@ else{
   );
 
 	ReactDOM.render(
-    <Footer />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 

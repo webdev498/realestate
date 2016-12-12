@@ -1,8 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-
+include_once("dbconfig.php");
+include_once('functions.php');
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
@@ -12,10 +11,8 @@ $folder = $_POST['folder'];
 $id = 1;
 $results = array();
 if(strpos($email, "@bellmarc.com") !== false){
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') AND (name = '".$folder."')" ;
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
   $folders = array();
+  $result = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$email."') AND (name = '".$folder."')" ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     $row['last_update'] = date( "m/d/y", $row['last_update']);
     $folders[] = $row;
@@ -24,16 +21,13 @@ if(strpos($email, "@bellmarc.com") !== false){
   $last_update = 0;
   foreach ($folders as $folder) {
     $folder['listings'] = array();
-
-    $SQL = "SELECT queued_listings.list_num, queued_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
     $grade_total['loc'] = 0;
     $grade_total['bld'] = 0;
     $grade_total['vws'] = 0;
     $grade_total['vroom_sqf'] = 0;
     $result_total = 0;
 
+    $result = mysql_query( "SELECT queued_listings.list_num, queued_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $grade['loc'] = $row['loc'];
       $grade['bld'] = $row['bld'];
@@ -55,8 +49,7 @@ if(strpos($email, "@bellmarc.com") !== false){
         $value = number_format($value, 0, '.', ',');
     };
 
-    $SQL = "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $date = date( "m/d/y", $row['time']);
       if($date > $last_update){$last_update = $date;}
@@ -65,6 +58,7 @@ if(strpos($email, "@bellmarc.com") !== false){
       $price = number_format($price, 0, '.', ',');
       $monthly = (intval($row['maint']) + intval($row['taxes']));
       $monthly = number_format($monthly, 0, '.', ',');
+      $bath = $row['bath'];
       $bath = number_format($bath, 0, '.', ',');
       $loc = $row['loc'];
       $loc = number_format($loc, 0, '.', ',');
@@ -94,7 +88,6 @@ if(strpos($email, "@bellmarc.com") !== false){
       elseif($status == "TOM"){$status = "Temporarily Off Market";}
       elseif($status == "SOLD"){$status = "Sold";}
       elseif($status == "RENTD" || $status == "RENTE" || $status == "RENTED"){$status = "Rented";}
-      else{ /* Do nothing*/ }
       if($comments == ''){$comments = "No comments";}
       $listing = array("id"=>$id, "last_update"=>$last_update, "listing_num"=>$row['list_num'], "comments"=>$comments,
                        "folder"=>$row['folder'],"date"=>$date, "price"=>$price, "address"=>$address, "apt"=>$row['apt'],
@@ -112,30 +105,25 @@ if(strpos($email, "@bellmarc.com") !== false){
   }
 }
 else{
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') AND (name = '".$folder."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
   $folders = array();
+  $result = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$email."') AND (name = '".$folder."')" ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     $row['last_update'] = date( "m/d/y", $row['last_update']);
     if($row['agent'] == ""){ $row['agent'] = "No Agent"; }
     else{
       if(strpos($row['agent'], ',') === false){
-        $SQL2 = "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$row['agent']."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$row['agent']."')" ) or die("Couldn't execute query.".mysql_error());
         $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
         $row['agent'] = $row2['name'];
       }
       else{
         $agents = explode(",", $row['agent']);
         
-        $SQL2 = "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')" ) or die("Couldn't execute query.".mysql_error());
         $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
         $agent1 = $row2['name'];
         
-        $SQL3 = "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')";
-        $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+        $result3 = mysql_query( "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')" ) or die("Couldn't execute query.".mysql_error());
         $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
         $agent2 = $row3['name'];
         
@@ -148,16 +136,13 @@ else{
   $last_update = 0;
   foreach ($folders as $folder) {
     $folder['listings'] = array();
-    
-    $SQL = "SELECT saved_listings.list_num, saved_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
     $grade_total['loc'] = 0;
     $grade_total['bld'] = 0;
     $grade_total['vws'] = 0;
     $grade_total['vroom_sqf'] = 0;
     $result_total = 0;
-  
+    
+    $result = mysql_query( "SELECT saved_listings.list_num, saved_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $grade['loc'] = $row['loc'];
       $grade['bld'] = $row['bld'];
@@ -179,8 +164,7 @@ else{
         $value = number_format($value, 0, '.', ',');
     };
 
-    $SQL = "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
 
       $date = date( "m/d/y", $row['time']);
@@ -190,6 +174,7 @@ else{
       $price = number_format($price, 0, '.', ',');
       $monthly = (intval($row['maint']) + intval($row['taxes']));
       $monthly = number_format($monthly, 0, '.', ',');
+      $bath = $row['bath'];
       $bath = number_format($bath, 0, '.', ',');
       $loc = $row['loc'];
       $loc = number_format($loc, 0, '.', ',');
@@ -220,7 +205,6 @@ else{
       elseif($status == "TOM"){$status = "Temporarily Off Market";}
       elseif($status == "SOLD"){$status = "Sold";}
       elseif($status == "RENTD" || $status == "RENTE" || $status == "RENTED"){$status = "Rented";}
-      else{ /* Do nothing*/ }
       $listing = array("id"=>$id, "last_update"=>$last_update, "listing_num"=>$row['list_num'], "comments"=>$comments,
                        "folder"=>$row['folder'], "date"=>$date, "price"=>$price, "address"=>$address, "apt"=>$row['apt'],
                        "lr"=>$row['lr'], "br"=>$row['br1'], "bed"=>$row['bed'], "bath"=>$bath, "monthly"=>$monthly,
@@ -231,17 +215,14 @@ else{
       $id = $id + 1;
     }
     
-    $SQL = "SELECT * FROM `users` WHERE (email = '".$email."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    
+    $result = mysql_query( "SELECT * FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $agent_code = $row['P_agent'];
       $agent2_code = $row['P_agent2'];
     }
     
     if($agent_code != "" && $agent_code != null){
-      $SQL = "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent_code."')";
-      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+      $result = mysql_query( "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent_code."')" ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent1'] = $row['name'];
     }
@@ -250,8 +231,7 @@ else{
     }
     
     if($agent2_code != "" && $agent2_code != null){
-      $SQL = "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent2_code."')";
-      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+      $result = mysql_query( "SELECT CONCAT(first_name, ' ',last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent2_code."')" ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent2'] = $row['name'];
     }    

@@ -2,7 +2,7 @@
 session_start();
 include_once("dbconfig.php");
 include_once('functions.php');
-include("basicHead.php");
+include_once("basicHead.php");
 include_once('../classes/smarty/Smarty.class.php'); // LOAD SMARTY TEMPLATE ENGINE
 $smarty = new Smarty();
 $smarty->setTemplateDir('../views');
@@ -10,7 +10,7 @@ $smarty->setCompileDir('../views/compiled');
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 $_SESSION['user'] = 'true';
-if (!isset($_SESSION['email'])){
+if(!isset($_SESSION['email'])){
   $_SESSION['email'] = 'guest@email.com';
   $_SESSION['role'] = 'guest';
 }
@@ -18,7 +18,7 @@ $name = explode('@', $_SESSION['email']);
 $name = $name[0];
 // If the user has been rate limited because of too many requests, cut them off (VOW RULE)
 $limit = limit();
-if ($limit != 'clear') { limit(); }
+if($limit != 'clear') { limit(); }
 else {
   if(isset($_SESSION['agent'])){
     $saved_listings = array();
@@ -43,12 +43,11 @@ else {
     }
     $_SESSION['saved_listings'] = $saved_listings;    
   }
-  elseif($_SESSION['user'] && $_SESSION['email'] != "guest@email.com"){
+  elseif(isset($_SESSION['buyer'])){
     $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $agentID = "";
 
-    $SQL2 = "SELECT COUNT(*) AS count FROM `Users_Search` where (email = '" . $_SESSION['email'] . "')";
-    $result2 = mysql_query($SQL2) or die("Couldn't execute query." . mysql_error());
+    $result2 = mysql_query( "SELECT COUNT(*) AS count FROM `Users_Search` where (email = '" . $_SESSION['email'] . "')" ) or die("Couldn't execute query." . mysql_error());
     $row2 = mysql_fetch_array($result2, MYSQL_ASSOC);
     $num_searches = $row2['count'];
     

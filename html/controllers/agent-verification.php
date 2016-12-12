@@ -102,7 +102,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();

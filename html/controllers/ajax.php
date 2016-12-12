@@ -3,7 +3,6 @@ session_start();
 include_once("dbconfig.php");
 include_once("emailconfig.php");
 include_once("functions.php");
-
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
   
@@ -23,15 +22,9 @@ if(isset($_GET['emailListing'])){
   $res = mysql_query("INSERT INTO emailed_listings(`from`,`list_num`, `to`, `code`, `time`) VALUES  ('".$from."','".$list_num."','".$to."','".$code."','".$time."')")  or die(mysql_error());
 
   if(isset($_SESSION['agent'])){
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$from."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    $row = mysql_fetch_array($res,MYSQL_ASSOC);
-    $firstname = $row['first_name'];
-    $lastname = $row['last_name'];
-
     $message = "Hello,";
     $message .= "<br><br>";
-    $message .= $firstname . " " . $lastname;
+    $message .= $_SESSION['firstname'] . " " . $_SESSION['lastname'];
     $message .= " has sent you a listing from HomePik.com. You will find it below:";
     $message .= "<br><br>";
     $message .= 'Link: <a href="http://www.homepik.com/controllers/listing.php?code='. $code .'">http://www.homepik.com/controllers/listing.php?code='. $code .'</a>';
@@ -46,33 +39,24 @@ if(isset($_GET['emailListing'])){
     $mail->Body = $message;
     $mail->send();
   }
-  else if(isset($_SESSION['user']) && ($_SESSION['email'] != "guest@email.com")){
-    $SQL = "SELECT first_name, last_name, notifications FROM `users` WHERE email = '".$from."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    $row = mysql_fetch_array($res,MYSQL_ASSOC);
-    $firstname = $row['first_name'];
-    $lastname = $row['last_name'];
-    $notifications = $row['notifications'];
-
-    if($notifications == 'all' || $notifications == "folder"){
-      $message = "Hello,";
-      $message .= "<br><br>";
-      $message .= $firstname . " " . $lastname;
-      $message .= " has sent you a listing from HomePik.com. You will find it below:";
-      $message .= "<br><br>";
-      $message .= 'Link: <a href="http://www.homepik.com/controllers/listing.php?code='. $code .'">http://www.homepik.com/controllers/listing.php?code='. $code .'</a>';
-      $message .= "<br><br>";
-      $message .= "Comments: ";
-      $message .= $comments;
-      $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$to."'>Change Email Alert Settings</a></center><br>";
-      $message .= "<br><br><br><br>&copy; Nice Idea Media All Rights Reserved<br>";
-      $message .= "HomePik.com is licensed by Nice Idea Media";
-      
-      $mail->addAddress($to);
-      $mail->Subject = 'New Listing from HomePik';
-      $mail->Body = $message;
-      $mail->send();
-    }
+  else if(isset($_SESSION['buyer'])){
+    $message = "Hello,";
+    $message .= "<br><br>";
+    $message .= $_SESSION['firstname'] . " " . $_SESSION['lastname'];
+    $message .= " has sent you a listing from HomePik.com. You will find it below:";
+    $message .= "<br><br>";
+    $message .= 'Link: <a href="http://www.homepik.com/controllers/listing.php?code='. $code .'">http://www.homepik.com/controllers/listing.php?code='. $code .'</a>';
+    $message .= "<br><br>";
+    $message .= "Comments: ";
+    $message .= $comments;
+    $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$to."'>Change Email Alert Settings</a></center><br>";
+    $message .= "<br><br><br><br>&copy; Nice Idea Media All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->addAddress($to);
+    $mail->Subject = 'New Listing from HomePik';
+    $mail->Body = $message;
+    $mail->send();    
   }
   else{
     $message = "Hello,";
@@ -109,29 +93,22 @@ if(isset($_GET['contact'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if(isset($_SESSION['user']) && $from != "guest@email.com"){
+  if(isset($_SESSION['buyer'])){
     $res = mysql_query("INSERT INTO contacted(`user`,`list_num`, `contacted`, `time`) VALUES  ('".$from."','".$list_num."','".$to."','".$time."')")  or die(mysql_error());
 
-    $SQL = "SELECT first_name, last_name FROM `users` WHERE email = '".$from."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $firstname = $row['first_name'];
-      $lastname = $row['last_name'];
-    }
+    $firstname = $_SESSION['firstname'];
+    $lastname = $_SESSION['lastname'];
 
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $first_name = $row['first_name'];
-      $last_name = $row['last_name'];
-    }
+    $res = mysql_query( "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'" ) or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
 
-    $SQL = "SELECT * FROM `vow_data` WHERE list_numb = '".$list_num."'";
+    $SQL = "SELECT address, apt FROM `vow_data` WHERE list_numb = '".$list_num."'";
     $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $address = $row['address'];
-      $apt = $row['apt'];
-    }
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $address = $row['address'];
+    $apt = $row['apt'];
 
     $message = "Hello " . $first_name . " " . $last_name . ",";
     $message .= "<br><br>";
@@ -154,19 +131,15 @@ if(isset($_GET['contact'])){
   else{
     $res = mysql_query("INSERT INTO contacted(`user`,`list_num`, `contacted`, `time`) VALUES  ('".$from."','".$list_num."','".$to."','".$time."')")  or die(mysql_error());
 
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $first_name = $row['first_name'];
-      $last_name = $row['last_name'];
-    }
+    $res = mysql_query( "SELECT first_name, last_name FROM `registered_agents` WHERE email = '".$to."'" ) or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
 
-   $SQL = "SELECT * FROM `vow_data` WHERE list_numb = '".$list_num."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $address = $row['address'];
-      $apt = $row['apt'];
-    }
+    $res = mysql_query( "SELECT address, apt FROM `vow_data` WHERE list_numb = '".$list_num."'" ) or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $address = $row['address'];
+    $apt = $row['apt'];
 
     $message = "Hello " . $first_name . " " . $last_name . ",";
     $message .= "<br><br>";
@@ -198,14 +171,12 @@ if(isset($_GET['emailChart'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agentEmail."')";
-  $res = mysql_query($SQL) or die(mysql_error());
-  while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-    $firstname = $row['first_name'];
-    $lastname = $row['last_name'];
-  }
+  $res = mysql_query( "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agentEmail."')" ) or die(mysql_error());
+  $row = mysql_fetch_array($res,MYSQL_ASSOC);
+  $firstname = $row['first_name'];
+  $lastname = $row['last_name'];
 
-  if($_SESSION['email']==$to){
+  if($_SESSION['email'] == $to){
     $message = "Hello ".$to.",";
     $message .= "<br><br>";
     $message .= "Here are your listings from HomePik.com. You will find them below:";
@@ -250,29 +221,24 @@ if(isset($_GET['makePrimary'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT first_name, last_name, email FROM `registered_agents` WHERE agent_id = '".$agentCode."'";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "SELECT first_name, last_name, email FROM `registered_agents` WHERE agent_id = '".$agentCode."'" )  or die(mysql_error());
   $row = mysql_fetch_assoc($res);
   $agentEmail = $row['email'];
   $agentFirstName = $row['first_name'];
   $agentLastName = $row['last_name'];
 
-  $SQL = "SELECT * FROM users WHERE email = '".$user."'";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "SELECT * FROM users WHERE email = '".$user."'" )  or die(mysql_error());
   $row = mysql_fetch_assoc($res);
   $buyerFirstName = $row['first_name'];
   $buyerLastName = $row['last_name'];
   $pAgent = $row['P_agent'];
   $pAgent2 = $row['P_agent2'];
 
-  if ($pAgent == ""){ //Add agent
-    if ($pAgent2 == "") { // No secondary - assign as primary
+  if($pAgent == ""){ //Add agent
+    if($pAgent2 == "") { // No secondary - assign as primary
 
-      $SQL = "UPDATE users SET P_agent = '".$agentCode."', P_agent_assign_time='".date('U')."' WHERE email = '".$user."'";
-      $res = mysql_query($SQL)  or die(mysql_error());
-      
-      $SQL = "UPDATE users_folders SET agent = '".$agentCode."' WHERE (user = '".$user."')";
-      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+      $res = mysql_query( "UPDATE users SET P_agent = '".$agentCode."', P_agent_assign_time='".date('U')."' WHERE email = '".$user."'" ) or die(mysql_error());
+      $result = mysql_query( "UPDATE users_folders SET agent = '".$agentCode."' WHERE (user = '".$user."')" ) or die("Couldn't execute query.".mysql_error());
 
       $message = "Hello ".$agentFirstName." ". $agentLastName .", <br><br>";
       $message .= "A new buyer has made you their primary agent. Their information is below:
@@ -289,19 +255,13 @@ if(isset($_GET['makePrimary'])){
       $mail->Body = $message;
       $mail->send();
 
-      $result = 'assign';
-      
       $_SESSION['agent1'] = $agentCode;
-
+      $result = 'assign';      
     } else if ($pAgent2 != "") { // Move secondary to primary
-
-      $SQL = "UPDATE users SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
-      $res = mysql_query($SQL)  or die(mysql_error());
-      print $SQL;
+      $res = mysql_query( "UPDATE users SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'" ) or die(mysql_error());
       
       $_SESSION['agent1'] = $_SESSION['agent2'];
       $_SESSION['agent2'] = '';
-
       $result = 'remove';
     }
   }
@@ -311,83 +271,68 @@ if(isset($_GET['makePrimary'])){
       // Remove agent from the account
       if($pAgent2 != ""){ // If user has a second agent
         // Delete listings in the folder associated with the agent
-        $SQL2 = "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = 'Folder 1')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = 'Folder 1')" ) or die("Couldn't execute query.".mysql_error());
         
         // Delete formula associated with agent
-        $SQL4 = "SELECT name, agent FROM `Users_Search` WHERE (email = '".$user."') AND (agent LIKE '%".$pAgent."%')";
-        $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        $result4 = mysql_query( "SELECT name, agent FROM `Users_Search` WHERE (email = '".$user."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error());
         while($row4 = mysql_fetch_array($result4,MYSQL_ASSOC)){
           $name = $row4['name'];
           $agents = $row4['agent'];
         
           if($agents == $pAgent){
-            $SQL5 = "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')";
-            $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
+            $result5 = mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error());
           }
           else{
             $agents = str_replace($pAgent, '', $agents);
             $agents = str_replace(',', '', $agents);
             
-            $SQL5 = "UPDATE `Users_Search` SET agent='".$agents."' WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')";
-            $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
+            $result5 = mysql_query( "UPDATE `Users_Search` SET agent='".$agents."' WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error());
           }
         }
         
         // Delete folder associated with agent
-        $SQL6 = "SELECT name, agent FROM `users_folders` WHERE (user = '".$user."') AND (agent LIKE '%".$pAgent."%')";
-        $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error());
+        $result6 = mysql_query( "SELECT name, agent FROM `users_folders` WHERE (user = '".$user."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error());
         while($row6 = mysql_fetch_array($result6,MYSQL_ASSOC)){
           $name = $row6['name'];
           $agents = $row6['agent'];
         
           if($agents == $pAgent){
-            $SQL7 = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')";
-            $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error()); 
+            $result7 = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error()); 
           }
           else{
             $agents = str_replace($pAgent, '', $agents);
             $agents = str_replace(',', '', $agents);
             
-            $SQL7 = "UPDATE `users_folders` SET agent='".$agents."' WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')";
-            $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error());
+            $result7 = mysql_query( "UPDATE `users_folders` SET agent='".$agents."' WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent."%')" ) or die("Couldn't execute query.".mysql_error());
           }
         }
       
         // Re-assign second agent as first if exists
-        $SQL = "UPDATE `users` SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
-        $res = mysql_query($SQL)  or die(mysql_error());
+        $res = mysql_query( "UPDATE `users` SET P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'" ) or die(mysql_error());
         
         // Re-assign folder associated with second agent
-        $SQL2 = "UPDATE `saved_listings` SET folder='Folder 1' WHERE (user = '".$user."') AND (folder = 'Folder 2')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "UPDATE `saved_listings` SET folder='Folder 1' WHERE (user = '".$user."') AND (folder = 'Folder 2')" ) or die("Couldn't execute query.".mysql_error());
         
         // Re-assign folder associated with second agent
-        $SQL3 = "UPDATE `users_folders` SET name='Folder 1' WHERE (user = '".$user."') AND (agent = '".$pAgent2."') AND (name = 'Folder 2')";
-        $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+        $result3 = mysql_query( "UPDATE `users_folders` SET name='Folder 1' WHERE (user = '".$user."') AND (agent = '".$pAgent2."') AND (name = 'Folder 2')" ) or die("Couldn't execute query.".mysql_error());
         
-        // Re-assign formula associated with second agent            
-        $SQL4 = "UPDATE `Users_Search` SET name='Folder 1' WHERE (email = '".$user."') AND (agent = '".$pAgent2."')";
-        $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        // Re-assign formula associated with second agent
+        $result4 = mysql_query( "UPDATE `Users_Search` SET name='Folder 1' WHERE (email = '".$user."') AND (agent = '".$pAgent2."')" ) or die("Couldn't execute query.".mysql_error());
         
         $_SESSION['agent1'] = $_SESSION['agent2'];
         $_SESSION['agent2'] = '';
       }
       else{ // If user only has the one agent
-        $SQL = "UPDATE `users` SET P_agent = '', P_agent_assign_time=0 WHERE email = '".$user."' ";
-        $res = mysql_query($SQL)  or die(mysql_error());
+        $res = mysql_query( "UPDATE `users` SET P_agent = '', P_agent_assign_time=0 WHERE email = '".$user."' " ) or die(mysql_error());
         
         // Remove agent from folder associated with agent
-        $SQL2 = "UPDATE `saved_listings` SET agent='' WHERE (user = '".$user."') AND (folder = 'Folder 1')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "UPDATE `saved_listings` SET agent='' WHERE (user = '".$user."') AND (folder = 'Folder 1')" ) or die("Couldn't execute query.".mysql_error());
         
         // Remove agent from folder associated with agent
-        $SQL3 = "UPDATE `users_folders` SET agent='' WHERE (user = '".$user."') AND (agent = '".$pAgent."') AND (name = 'Folder 1')";
-        $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+        $result3 = mysql_query( "UPDATE `users_folders` SET agent='' WHERE (user = '".$user."') AND (agent = '".$pAgent."') AND (name = 'Folder 1')" ) or die("Couldn't execute query.".mysql_error());
         
-        // Remove agent from formula associated with agent            
-        $SQL4 = "UPDATE `Users_Search` SET agent='' WHERE (email = '".$user."') AND (agent = '".$pAgent."')";
-        $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        // Remove agent from formula associated with agent
+        $result4 = mysql_query( "UPDATE `Users_Search` SET agent='' WHERE (email = '".$user."') AND (agent = '".$pAgent."')" ) or die("Couldn't execute query.".mysql_error());
         
         $_SESSION['agent1'] = '';
       }
@@ -395,59 +340,47 @@ if(isset($_GET['makePrimary'])){
     else if ($pAgent2 == $agentCode) { // Remove the second agent
       
       // Delete all listings in the folder associated with the second agent
-      $SQL3 = "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = 'Folder 2')";
-      $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+      $result3 = mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = 'Folder 2')" ) or die("Couldn't execute query.".mysql_error());
       
       // Delete the formual associated with the folder and second agent
-      $SQL4 = "SELECT name, agent FROM `Users_Search` WHERE (email = '".$user."') AND (agent LIKE '%".$pAgent2."%')";
-      $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+      $result4 = mysql_query( "SELECT name, agent FROM `Users_Search` WHERE (email = '".$user."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error());
       while($row4 = mysql_fetch_array($result4,MYSQL_ASSOC)){
         $name = $row4['name'];
         $agents = $row4['agent'];
       
         if($agents == $pAgent2){
-          $SQL5 = "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')";
-          $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
+          $result5 = mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error());
         }
         else{
           $agents = str_replace($pAgent2, '', $agents);
           $agents = str_replace(',', '', $agents);
           
-          $SQL5 = "UPDATE `Users_Search` SET agent='".$agents."' WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')";
-          $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
+          $result5 = mysql_query( "UPDATE `Users_Search` SET agent='".$agents."' WHERE (email = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error());
         }
       }
       
       // Delete the folder associated with the second agent
-      $SQL6 = "SELECT name, agent FROM `users_folders` WHERE (user = '".$user."') AND (agent LIKE '%".$pAgent2."%')";
-      $result6 = mysql_query( $SQL6 ) or die("Couldn't execute query.".mysql_error());
+      $result6 = mysql_query( "SELECT name, agent FROM `users_folders` WHERE (user = '".$user."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error());
       while($row6 = mysql_fetch_array($result6,MYSQL_ASSOC)){
         $name = $row6['name'];
         $agents = $row6['agent'];
       
         if($agents == $pAgent2){
-          $SQL7 = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')";
-          $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error()); 
+          $result7 = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error()); 
         }
         else{
           $agents = str_replace($pAgent2, '', $agents);
           $agents = str_replace(',', '', $agents);
           
-          $SQL7 = "UPDATE `users_folders` SET agent='".$agents."' WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')";
-          $result7 = mysql_query( $SQL7 ) or die("Couldn't execute query.".mysql_error());
+          $result7 = mysql_query( "UPDATE `users_folders` SET agent='".$agents."' WHERE (user = '".$user."') AND (name = '".$name."') AND (agent LIKE '%".$pAgent2."%')" ) or die("Couldn't execute query.".mysql_error());
         }
       }
       
       // Delete the agent from the buyer's account
-      $SQL = "UPDATE users SET P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'";
-      $res = mysql_query($SQL)  or die(mysql_error());
+      $res = mysql_query( "UPDATE users SET P_agent2 = '', P_agent2_assign_time=0 WHERE email = '".$user."'" ) or die(mysql_error());
       
       $_SESSION['agent2'] = '';
-      
-      print $SQL;
-
       $result = 'remove';
-
     }
 
     $message = "Hello ". $agentFirstName . " " . $agentLastName . ", <br><br>";
@@ -469,7 +402,6 @@ if(isset($_GET['makePrimary'])){
 // EMAIL SAVED LISTINGS
 
 if(isset($_GET['email_saved'])){
-
   $email = (!empty($_GET['email']) ? $_GET['email'] : null);
   $to = (!empty($_GET['toEmail']) ? $_GET['toEmail'] : null);
   $comments = (!empty($_GET['comments']) ? $_GET['comments'] : null);
@@ -479,12 +411,10 @@ if(isset($_GET['email_saved'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$email."')";
-  $res = mysql_query($SQL) or die(mysql_error());
-  while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $firstname = $row['first_name'];
-      $lastname = $row['last_name'];
-  }
+  $res = mysql_query( "SELECT first_name, last_name FROM `users` WHERE (email = '".$email."')" ) or die(mysql_error());
+  $row = mysql_fetch_array($res,MYSQL_ASSOC);
+  $firstname = $row['first_name'];
+  $lastname = $row['last_name'];
 
   if ($_SESSION['email'] == $email){ // went through buyer side
     $message = "Hello,";
@@ -504,12 +434,10 @@ if(isset($_GET['email_saved'])){
     $mail->Body = $message;    
     $mail->send();
   } else { // went through agent side
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agent."')";
-    $res = mysql_query($SQL) or die(mysql_error());
-    while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-      $firstname = $row['first_name'];
-      $lastname = $row['last_name'];
-    }
+    $res = mysql_query( "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$agent."')" ) or die(mysql_error());
+    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $firstname = $row['first_name'];
+    $lastname = $row['last_name'];
   
     $message = "Hello,";
     $message .= "<br><br>";
@@ -539,20 +467,11 @@ if(isset($_GET['addComment'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if(strpos($user, "@bellmarc.com") !== false){
-    $SQL = "UPDATE queued_listings SET comments = '".$comments."' WHERE list_num = '".$listing."' AND user = '".$user."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-  }
-  else{
-    $SQL = "UPDATE saved_listings SET comments = '".$comments."' WHERE list_num = '".$listing."' AND user = '".$user."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-  }
+  if(strpos($user, "@bellmarc.com") !== false){ $SQL = "UPDATE queued_listings SET comments = '".$comments."' WHERE list_num = '".$listing."' AND user = '".$user."'"; }
+  else{ $SQL = "UPDATE saved_listings SET comments = '".$comments."' WHERE list_num = '".$listing."' AND user = '".$user."'"; }
+  $res = mysql_query($SQL) or die(mysql_error());
 
-  if (isset($_GET['folder'])) {
-    $time = date('U');
-    $SQL = "UPDATE users_folders SET last_update='".$time."' WHERE name='".$_GET['folder']."' AND user = '".$user."'";
-    $res = mysql_query($SQL)  or die(mysql_error());
-  }
+  if(isset($_GET['folder'])){ $res = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE name='".$_GET['folder']."' AND user = '".$user."'" )  or die(mysql_error()); }
 }; // ADD A COMMENT END
 
 //REMOVE A COMMENT
@@ -564,55 +483,40 @@ if(isset($_GET['deleteComment'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if($_SESSION['agent']){
-    $SQL = "UPDATE queued_listings SET comments = '' WHERE list_num = '".$listing."' AND user = '".$user."'";
-    $res = mysql_query($SQL) or die(mysql_error());
-  }
-
-  $SQL = "UPDATE saved_listings SET comments = '' WHERE list_num = '".$listing."' AND user = '".$user."' AND agent = '".$agent."'";
+  if(isset($_SESSION['agent'])){ $SQL = "UPDATE queued_listings SET comments = '' WHERE list_num = '".$listing."' AND user = '".$user."'"; }
+  else{ $SQL = "UPDATE saved_listings SET comments = '' WHERE list_num = '".$listing."' AND user = '".$user."' AND agent = '".$agent."'"; }
   $res = mysql_query($SQL) or die(mysql_error());
-
 }; // REMOVE A COMMENT END
 
 
 // QUEUE A LISTING
 if(isset($_GET['queue'])){
-  $list_num = $_GET['list_num'];
-
-  if(!$_GET['buyer']){
+  if(!isset($_GET['buyer'])){ 
     $user = $_SESSION['email'];
 
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
+    if(isset($_SESSION['agent'])){ $role = 'agent'; }
+    elseif(isset($_SESSION['buyer'])){ $role = 'user'; }
   } else {
     $user = $_GET['buyer'];
     $role = 'user';
   }
+  $list_num = $_GET['list_num'];
   $from = $_SESSION['email'];
   $time = date('U');
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   // CHECK FOR DUPLICATE SAVES
-  $sql = "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "' AND list_num='". $list_num . "')";
-  $rs = mysql_query($sql);
+  $rs = mysql_query( "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "' AND list_num='". $list_num . "')" );
   $num_rows = mysql_num_rows($rs);
-  if ($num_rows <= 0)
-  {
-    $res = mysql_query("INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$_GET['comments']."','".$role."','".$time."')")  or die(mysql_error());
-  }
+  if($num_rows <= 0){ $res = mysql_query("INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$_GET['comments']."','".$role."','".$time."')")  or die(mysql_error()); }
   // GET THE LIST_NUM OF ALL SAVED LISTINGS (BOTH SAVED TO USERS AND OPEN LISTINGS) SO WE CAN MARK THEM WITH A SAVED ICON IN SEARCH RESULTS
-  $sql = "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "') UNION (SELECT user, list_num FROM saved_listings WHERE saved_by='" . $_SESSION['email'] . "')";
-  $rs = mysql_query($sql);
+  $rs = mysql_query( "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "') UNION (SELECT user, list_num FROM saved_listings WHERE saved_by='" . $_SESSION['email'] . "')" );
   $arr_rows = array();
-  while ($row = mysql_fetch_array($rs)) {
+  while($row = mysql_fetch_array($rs)) {
    $saved_listings[] = $row;
   }
   $_SESSION['saved_listings'] = $saved_listings;
-
 }; // QUEUE END
 
 // MAKE NEW SAVED FOLDER
@@ -627,18 +531,12 @@ if(isset($_GET['makeFolder'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$folder."')";
-  $rs = mysql_query($SQL);
-    $num_rows = mysql_num_rows($rs);
-
-  if($num_rows <= 0){
-    $SQL = "INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$user."','".$folder."','".$agent."','".$time."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
-  }
-
+  $rs = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$folder."')" );
+  $num_rows = mysql_num_rows($rs);
+  if($num_rows <= 0){ $res = mysql_query( "INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$user."','".$folder."','".$agent."','".$time."')" ) or die(mysql_error()); }
 }// END MAKE NEW SAVED FOLDER
 
-// EMAIL A LISTING
+// CHECK A LISTING
 if(isset($_GET['checkListings'])){
   $listNum = $_GET['list_num'];
   $user = $_SESSION['email'];  
@@ -656,57 +554,38 @@ if(isset($_GET['updateFolder'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$oldFolderName."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$oldFolderName."')" ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
   $agent = $row['agent'];
   
-  $SQL = "UPDATE `saved_listings` SET `folder`='".$newFolderName."' WHERE (`user`='".$user."') AND (`folder`='".$oldFolderName."')";
-  $rs = mysql_query($SQL);
+  $rs = mysql_query( "UPDATE `saved_listings` SET `folder`='".$newFolderName."' WHERE (`user`='".$user."') AND (`folder`='".$oldFolderName."')" ) or die(mysql_error());
 
-  $SQL = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$oldFolderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$oldFolderName."')" ) or die(mysql_error());
 
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$newFolderName."')";
-  $rs = mysql_query($SQL);
+  $rs = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$newFolderName."')" ) or die(mysql_error());
   $num_rows = mysql_num_rows($rs);
-
-  if($num_rows <= 0){
-    $SQL = "INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$user."','".$newFolderName."','".$agent."','".$time."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
-  }
+  if($num_rows <= 0){ $res = mysql_query( "INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$user."','".$newFolderName."','".$agent."','".$time."')" ) or die(mysql_error()); }
     
   if(isset($agents)){
-    if($agents == "no-change"){
-      // Do nothing
-    }
-    else{
+    if($agents != "no-change"){
       if($agents == "none"){
-        $SQL = "UPDATE `users_folders` SET `agent`='' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')";
-        $rs = mysql_query($SQL);
+        $rs = mysql_query( "UPDATE `users_folders` SET `agent`='' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')" );
       }
       else{
-        $SQL = "SELECT * FROM `users` WHERE (email = '".$user."')";
-        $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+        $result = mysql_query( "SELECT * FROM `users` WHERE (email = '".$user."')" ) or die("Couldn't execute query.".mysql_error());
         $row = mysql_fetch_array($result,MYSQL_ASSOC);
         $agent1 = $row['P_agent'];
         $agent2 = $row['P_agent2'];
         
         if($agents == "agent1"){
-          $SQL = "UPDATE `users_folders` SET `agent`='".$agent1."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')";
-          $rs = mysql_query($SQL);
+          $rs = mysql_query( "UPDATE `users_folders` SET `agent`='".$agent1."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')" );
         }
         elseif($agents == "agent2"){
-          $SQL = "UPDATE `users_folders` SET `agent`='".$agent2."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')";
-          $rs = mysql_query($SQL);
+          $rs = mysql_query( "UPDATE `users_folders` SET `agent`='".$agent2."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')" );
         }
         elseif($agents == "both"){
           $a = $agent1 . "," . $agent2;
-          $SQL = "UPDATE `users_folders` SET `agent`='".$a."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')";
-          $rs = mysql_query($SQL);
-        }
-        else{
-          // Do nothing
+          $rs = mysql_query( "UPDATE `users_folders` SET `agent`='".$a."' WHERE (`user`='".$user."') AND (`name`='".$newFolderName."')" );
         }
       }
     }
@@ -726,20 +605,14 @@ if(isset($_GET['updateAgentFolder'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "UPDATE `queued_listings` SET `folder`='".$newFolderName."' WHERE (`user`='".$user."') AND (`folder`='".$oldFolderName."')";
-  $rs = mysql_query($SQL);
+  $rs = mysql_query( "UPDATE `queued_listings` SET `folder`='".$newFolderName."' WHERE (`user`='".$user."') AND (`folder`='".$oldFolderName."')" );
 
-  $SQL = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$oldFolderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$oldFolderName."')" )  or die(mysql_error());
 
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$newFolderName."')";
-  $rs = mysql_query($SQL);
+  $rs = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$newFolderName."')" );
   $num_rows = mysql_num_rows($rs);
 
-  if($num_rows <= 0){
-    $SQL = "INSERT INTO users_folders(`user`,`name`,`last_update`) VALUES  ('".$user."','".$newFolderName."','".$time."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
-}
+  if($num_rows <= 0){ $res = mysql_query( "INSERT INTO users_folders(`user`,`name`,`last_update`) VALUES  ('".$user."','".$newFolderName."','".$time."')" )  or die(mysql_error()); }
 }// END UPDATE SAVED FOLDER
 
 // DELETE BUYER'S SAVED FOLDER
@@ -751,14 +624,9 @@ if(isset($_GET['deleteFolder'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = '".$folderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
-
-  $SQL = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$folderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
-  
-  $SQL = "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$folderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (folder = '".$folderName."')" ) or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$folderName."')" ) or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$user."') AND (name = '".$folderName."')" ) or die(mysql_error());
 }// END DELETE BUYER FOLDER
 
 // DELETE AGENT'S SAVED FOLDER
@@ -769,11 +637,8 @@ if(isset($_GET['deleteAgentFolder'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "DELETE FROM `queued_listings` WHERE (user = '".$user."') AND (folder = '".$folderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
-
-  $SQL = "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$folderName."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `queued_listings` WHERE (user = '".$user."') AND (folder = '".$folderName."')" ) or die(mysql_error());
+  $res = mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$user."') AND (name = '".$folderName."')" ) or die(mysql_error());
 }// END DELETE BUYER FOLDER
 
 // EMAIL FOLDER
@@ -784,35 +649,20 @@ if(isset($_GET['emailFolder'])){
   $recipient = $_GET['recipient'];
   $folder = $_GET['folder'];
   $comment = $_GET['comment'];	
+  $sender_firstname = $_SESSION['firstname'];
+  $sender_lastname = $_SESSION['lastname'];
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-  if($_SESSION['agent']){
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $sender_firstname = $row['first_name'];
-    $sender_lastname = $row['last_name'];
-  }
-  else{
-    $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$sender."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $sender_firstname = $row['first_name'];
-    $sender_lastname = $row['last_name']; 
-  }
-  
   if(strpos($recipient, "@bellmarc.com") !== false){
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$recipient."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$recipient."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $recipient_firstname = $row['first_name'];
     $recipient_lastname = $row['last_name'];
   }
   else{
-    $SQL = "SELECT first_name, last_name FROM `users` WHERE (email = '".$recipient."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT first_name, last_name FROM `users` WHERE (email = '".$recipient."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $recipient_firstname = $row['first_name'];
     $recipient_lastname = $row['last_name']; 
@@ -822,12 +672,12 @@ if(isset($_GET['emailFolder'])){
   else{ $message = "Hello " . $recipient . ","; }
   
   if($agentSentBuyerFolder == "true"){ $message .= "<br><br>" . $sender_firstname . " " . $sender_lastname . " has sent you their buyer's folder, <b>$folder</b>, from HomePik.com"; }
-  else if($_SESSION['buyer'] || $_SESSION['agent']){ $message .= "<br><br>" . $sender_firstname . " " . $sender_lastname . " has sent you their folder, <b>$folder</b>, from HomePik.com"; }
+  else if(isset($_SESSION['buyer']) || isset($_SESSION['agent'])){ $message .= "<br><br>" . $sender_firstname . " " . $sender_lastname . " has sent you their folder, <b>$folder</b>, from HomePik.com"; }
   else{ $message .= "<br><br>" . $guestName . " has sent you their folder, <b>$folder</b>, from HomePik.com"; }
   
   if(isset($comment) && $comment != ""){ $message .= " with the following message: " . $comment; }
   
-  if($_SESSION['buyer'] || $_SESSION['agent']){ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."'>here</a> to view their folder. If the link doesn't work enter this into the URL: <a style='text-decoration:none !important; text-decoration:none;'>www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."</a>"; }
+  if(isset($_SESSION['buyer']) || isset($_SESSION['agent'])){ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."'>here</a> to view their folder. If the link doesn't work enter this into the URL: <a style='text-decoration:none !important; text-decoration:none;'>www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."</a>"; }
   else{ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."&name=".$guestName."'>here</a> to view their folder. If the link doesn't work enter this into the URL: <a style='text-decoration:none !important; text-decoration:none;'>www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."&name=".$guestName."</a>"; }
   
   $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
@@ -849,19 +699,14 @@ if(isset($_GET['saveGuestListing'])){
   $time = date('U');
   
   $result = 0;
-  $sql = "SELECT * FROM saved_listings WHERE user = '" . $guestID . "' AND list_num = '" . $list_num . "' AND folder = 'Guest Folder'";
-  $rs = mysql_query($sql);
+  $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $guestID . "' AND list_num = '" . $list_num . "' AND folder = 'Guest Folder'" );
   $num = mysql_num_rows($rs);
-
+  
   if ($num < 1){
-    $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`, `role`, `folder`, `time`) VALUES  ('".$_SESSION['guestID']."','".$list_num."','".$from."','".$role."','Guest Folder','".$time."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
+    $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`, `role`, `folder`, `time`) VALUES  ('".$_SESSION['guestID']."','".$list_num."','".$from."','".$role."','Guest Folder','".$time."')" )  or die(mysql_error());
     $result = "Your listing has been saved!";
   }
-  else
-  {
-    $result = "You have already saved this listing!";
-  }
+  else{ $result = "You have already saved this listing!"; }
   print $result;
   return $result;
 };
@@ -870,56 +715,44 @@ if(isset($_GET['saveGuestListing'])){
 if(isset($_GET['save'])){
   $list_num = $_GET['list_num'];
   $comments = $_GET['comments'];
+  $from = $_SESSION['email'];
+  $time = date('U');
 
   if(isset($_GET['buyer'])){ $user = $_GET['buyer']; }
   else { $user = $_SESSION['email']; }
   
-  if($_SESSION['agent']){ $role = 'agent'; }
-  elseif($_SESSION['user']){ $role = 'user'; }
-  else{ $role = 'guest'; }
-  
-  $from = $_SESSION['email'];
-  $time = date('U');
+  if(isset($_SESSION['agent'])){ $role = 'agent'; }
+  elseif(isset($_SESSION['buyer'])){ $role = 'user'; }
+  else{ $role = 'guest'; }  
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if($_SESSION['agent']){
+  if(isset($_SESSION['agent'])){
     $folders = $_GET['folders'];
     
     if(strpos($user, "@bellmarc.com") !== false){
       foreach($folders as $name){
-        $sql = "SELECT * FROM queued_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'";
-        $rs = mysql_query($sql);
+        $rs = mysql_query( "SELECT * FROM queued_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'" );
         $num = mysql_num_rows($rs);
       
-        if ($num < 1){
-          $SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')";
-          $res = mysql_query($SQL)  or die(mysql_error());
-        }
+        if ($num < 1){ $res = mysql_query( "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')" ) or die(mysql_error()); }
         
-        $SQL2 = "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'";
-        $res2 = mysql_query($SQL2)  or die(mysql_error());
+        $res2 = mysql_query( "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'" ) or die(mysql_error());
       }
     }
     else{
       foreach($folders as $name){
-        $sql = "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'";
-        $rs = mysql_query($sql);
+        $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'" );
         $num = mysql_num_rows($rs);
       
         if ($num < 1){
-          $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')";
-          $res = mysql_query($SQL)  or die(mysql_error());
+          $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')" ) or die(mysql_error());
           
-          $SQL3 = "SELECT first_name, last_name FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-          $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
-          $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-          $agent_firstname = $row3['first_name'];
-          $agent_lastname = $row3['last_name'];
+          $agent_firstname = $_SESSION['firstname'];
+          $agent_lastname = $_SESSION['lastname'];
           
-          $SQL = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$user."')";
-          $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+          $result = mysql_query( "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$user."')" ) or die("Couldn't execute query.".mysql_error());
           $row = mysql_fetch_array($result,MYSQL_ASSOC);
           $buyer_firstname = $row['first_name'];
           $buyer_lastname = $row['last_name'];
@@ -928,7 +761,7 @@ if(isset($_GET['save'])){
           if($notifications == 'all' || $notifications == 'folder'){
             $message = "Hello " . $buyer_firstname . " " . $buyer_lastname . ",";
             $message .= "<br><br>" . $agent_firstname . " " . $agent_lastname . " has saved a new listing to your folder: " . $folder;
-			$message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+            $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
             $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
             $message .= "HomePik.com is licensed by Nice Idea Media";
             $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$user."'>Change Email Alert Settings</a></center><br>";
@@ -939,8 +772,7 @@ if(isset($_GET['save'])){
           }
         }
         
-        $SQL2 = "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'";
-        $res2 = mysql_query($SQL2)  or die(mysql_error());
+        $res2 = mysql_query( "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'" ) or die(mysql_error());
       }
     }
   }
@@ -948,36 +780,31 @@ if(isset($_GET['save'])){
     $folders = $_GET['folders'];
     
     foreach($folders as $name){
-      $sql = "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'";
-      $rs = mysql_query($sql);
+      $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND folder = '".$name."'" );
       $num = mysql_num_rows($rs);
     
       if ($num < 1){
-        $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')";
-        $res = mysql_query($SQL)  or die(mysql_error());
+        $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$name."','".$time."')" ) or die(mysql_error());
         
-        $SQL = "SELECT agent FROM `users_folders` WHERE (user = '".$user."') AND (name = '" . $name . "')";
-        $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
+        $result = mysql_query( "SELECT agent FROM `users_folders` WHERE (user = '".$user."') AND (name = '" . $name . "')" ) or die("Couldn't execute query." . mysql_error());
         $row = mysql_fetch_array($result, MYSQL_ASSOC);
         $folderAgent = $row['agent'];
         
-        if($folderAgent != ""){      
-          $SQL3 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$folderAgent."')";
-          $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+        if($folderAgent != ""){
+          $result3 = mysql_query( "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$folderAgent."')" ) or die("Couldn't execute query.".mysql_error());
           $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
           $agent_firstname = $row3['first_name'];
           $agent_lastname = $row3['last_name'];
           $agent_email = $row3['email'];
           
-          $SQL5 = "SELECT first_name, last_name FROM `users` WHERE (email = '".$user."')";
-          $res5 = mysql_query($SQL5) or die("Couldn't execute query." . mysql_error());
+          $res5 = mysql_query( "SELECT first_name, last_name FROM `users` WHERE (email = '".$user."')" ) or die("Couldn't execute query." . mysql_error());
           $row5 = mysql_fetch_array($res5, MYSQL_ASSOC);
           $buyer_firstname = $row5['first_name'];
           $buyer_lastname = $row5['last_name'];
           
           $message = "Hello " . $agent_firstname . " " . $agent_lastname . ",";
           $message .= "<br><br>" . $buyer_firstname . " " . $buyer_lastname . " has saved a new listing to their folder: " . $name;
-		  $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
+          $message .= "<br><br>Listing Link: http://homepik.com/controllers/single-listing.php?". $list_num;
           $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
           $message .= "HomePik.com is licensed by Nice Idea Media";
       
@@ -988,13 +815,11 @@ if(isset($_GET['save'])){
         }
       }
       
-      $SQL2 = "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'";
-      $res2 = mysql_query($SQL2)  or die(mysql_error());
+      $res2 = mysql_query( "UPDATE	users_folders SET last_update='".$time."' where name='". $name ."' AND user = '".$user."'" ) or die(mysql_error());
     }
   }
   
   print "Success";
-
 }; // SAVE A LISTING END
 
 // SAVE A LISTING
@@ -1009,43 +834,30 @@ if(isset($_GET['agentSave'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if($_SESSION['agent']){
-	 $SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$_SESSION['email']."')";
-     $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $agent_firstname = $row['first_name'];
-      $agent_lastname = $row['last_name'];
-    }
+  if(isset($_SESSION['agent'])){
+    $agent_firstname = $_SESSION['firstname'];
+    $agent_lastname = $_SESSION['lastname'];
+     
     foreach($buyers as $buyer){	  
       if(strpos($buyer, "@bellmarc.com") !== false){
-        $sql = "SELECT * FROM queued_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "'";
-        $rs = mysql_query($sql);
+        $rs = mysql_query( "SELECT * FROM queued_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "'" );
         $num = mysql_num_rows($rs);
       
-        if ($num < 1){
-          $SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$buyer."','".$list_num."','".$from."','".$comments."','agent','','".$time."')";
-          $res = mysql_query($SQL)  or die(mysql_error());
-        }
+        if ($num < 1){ $res = mysql_query( "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$buyer."','".$list_num."','".$from."','".$comments."','agent','','".$time."')" ) or die(mysql_error()); }
       }
       else{
-        $SQL1 = "SELECT name FROM `users_folders` WHERE (user = '".$buyer."') AND (agent = '".$agent_id."')";
-        $result1 = mysql_query( $SQL1 ) or die("Couldn't execute query.".mysql_error());
+        $result1 = mysql_query( "SELECT name FROM `users_folders` WHERE (user = '".$buyer."') AND (agent = '".$agent_id."')" ) or die("Couldn't execute query.".mysql_error());
         $row1 = mysql_fetch_array($result1,MYSQL_ASSOC);
         $folder = $row1['name'];
           
-        $sql = "SELECT * FROM saved_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "' AND folder = '".$folder."'";
-        $rs = mysql_query($sql);
+        $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $buyer . "' AND list_num = '" . $list_num . "' AND folder = '".$folder."'" );
         $num = mysql_num_rows($rs);
       
         if ($num < 1){
-          $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$buyer."','".$list_num."','".$from."','".$comments."','agent','".$folder."','".$time."')";
-          $res = mysql_query($SQL)  or die(mysql_error());
+          $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `folder`, `time`) VALUES  ('".$buyer."','".$list_num."','".$from."','".$comments."','agent','".$folder."','".$time."')" ) or die(mysql_error());
+          $res2 = mysql_query( "UPDATE	users_folders SET last_update='".$time."' WHERE (user ='". $buyer ."') AND (name='". $folder ."')" ) or die(mysql_error());
           
-          $SQL2 = "UPDATE	users_folders SET last_update='".$time."' WHERE (user ='". $buyer ."') AND (name='". $folder ."')";
-          $res2 = mysql_query($SQL2)  or die(mysql_error());
-          
-          $SQL = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$buyer."')";
-          $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+          $result = mysql_query( "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$buyer."')" ) or die("Couldn't execute query.".mysql_error());
           $row = mysql_fetch_array($result,MYSQL_ASSOC);
           $buyer_firstname = $row['first_name'];
           $buyer_lastname = $row['last_name'];
@@ -1069,62 +881,46 @@ if(isset($_GET['agentSave'])){
     }
   }
   print "Success";
-
 }; // SAVE A LISTING END
 
 if(isset($_GET['saveAndEmail'])){
-  $list_num = $_GET['list_num'];
-  $comments = $_GET['comments'];
-
-  if(!$_GET['buyer']){
+  if(!isset($_GET['buyer'])){
     $user = $_SESSION['email'];
 
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
-  } else {
+    if(isset($_SESSION['agent'])){ $role = 'agent'; }
+    elseif(isset($_SESSION['buyer'])){ $role = 'user'; }
+  }
+  else {
     $list_num = $_GET['list_num'];
     $comments = $_GET['comments'];
     $user = $_GET['buyer'];
     $role = 'user';
   }
+  $list_num = $_GET['list_num'];
+  $comments = $_GET['comments'];
   $from = $_SESSION['email'];
   $time = date('U');
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  if($_SESSION['agent']){
-    $SQL = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$_SESSION['email']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $firstname = $row['first_name'];
-      $lastname = $row['last_name'];
-    }
+  if(isset($_SESSION['agent'])){
+    $firstname = $_SESSION['firstname'];
+    $lastname = $_SESSION['lastname'];
 
-    $SQL = "SELECT first_name, last_name, notifications FROM `users` where (email = '".$user."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-      $first_name = $row['first_name'];
-      $last_name = $row['last_name'];
-      $notifications = $row['notifications'];
-    }
+    $result = mysql_query( "SELECT first_name, last_name, notifications FROM `users` where (email = '".$user."')" ) or die("Couldn't execute query.".mysql_error());
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
+    $notifications = $row['notifications'];
 
     if(strpos($user, "@bellmarc.com") === false){
-      $sql = "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND agent = '".$_SESSION['email']."'";
-      $rs = mysql_query($sql);
+      $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "' AND agent = '".$_SESSION['email']."'" );
       $num = mysql_num_rows($rs);
 
-      if ($num >= 1)
-      {
-        $_SESSION['buyerSave'] = $user;
-      }
-      else
-      {
-        $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$_SESSION['email']."','".$time."')";
-        $res = mysql_query($SQL)  or die(mysql_error());
+      if ($num >= 1){ $_SESSION['buyerSave'] = $user; }
+      else{
+        $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$_SESSION['email']."','".$time."')" ) or die(mysql_error());
 
         $_SESSION['buyerSave'] = $user;
 
@@ -1149,15 +945,10 @@ if(isset($_GET['saveAndEmail'])){
     }
 
     if(strpos($user, "@bellmarc.com") !== false){
-
-      $sql1 = "SELECT * FROM queued_listings WHERE user = '" . $from . "' AND list_num = '" . $list_num . "'";
-      $rs1 = mysql_query($sql1);
+      $rs1 = mysql_query( "SELECT * FROM queued_listings WHERE user = '" . $from . "' AND list_num = '" . $list_num . "'" );
       $num1 = mysql_num_rows($rs1);
 
-      if($num1 == 0){
-        $SQL = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$from."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')";
-        $res = mysql_query($SQL)  or die(mysql_error());
-      }
+      if($num1 == 0){ $res = mysql_query( "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$from."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')" ) or die(mysql_error()); }
 
       $message = "Hello $firstname $lastname, <br><br>";
       $message .= "You added a listing to your folder. You will find the listing below: <br><br>";
@@ -1176,14 +967,10 @@ if(isset($_GET['saveAndEmail'])){
 
   }
   else{
-    $sql = "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "'";
-    $rs = mysql_query($sql);
+    $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $user . "' AND list_num = '" . $list_num . "'" );
     $num = mysql_num_rows($rs);
 
-    if ($num == 0){
-      $SQL = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')";
-      $res = mysql_query($SQL)  or die(mysql_error());
-    }
+    if ($num == 0){ $res = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `time`) VALUES  ('".$user."','".$list_num."','".$from."','".$comments."','".$role."','".$time."')" ) or die(mysql_error()); }
   }
 
   print "Success";
@@ -1199,27 +986,16 @@ if(isset($_GET['saveAll'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM queued_listings WHERE user = '" . $agent . "'";
-  $result = mysql_query($SQL) or die(mysql_error());
-
-  while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-
-    $SQL3 = "SELECT * FROM saved_listings WHERE user = '" . $buyer . "' AND list_num = '" . $row['list_num'] . "'";
-    $rs = mysql_query($SQL3);
+  $result = mysql_query( "SELECT * FROM queued_listings WHERE user = '" . $agent . "'" ) or die(mysql_error());
+  while($row = mysql_fetch_array($result,MYSQL_ASSOC)){
+    $rs = mysql_query( "SELECT * FROM saved_listings WHERE user = '" . $buyer . "' AND list_num = '" . $row['list_num'] . "'" );
     $num = mysql_num_rows($rs);
 
-    if ($num == 0){
-      $SQL2 = "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$buyer."','".$row['list_num']."','".$agent."','".$row['comments']."','agent','".$agent."','".$time."')";
-      $res2 = mysql_query($SQL2) or die(mysql_error());
-    }
+    if ($num == 0){ $res2 = mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$buyer."','".$row['list_num']."','".$agent."','".$row['comments']."','agent','".$agent."','".$time."')" ) or die(mysql_error()); }
   }
 
-  $SQL4 = "SELECT first_name, last_name FROM `registered_agents` where (email = '".$agent."')";
-  $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
-  while($row = mysql_fetch_array($result4,MYSQL_ASSOC)) {
-    $firstname = $row['first_name'];
-    $lastname = $row['last_name'];
-  }
+  $firstname = $_SESSION['firstname'];
+  $lastname = $_SESSION['lastname'];
   
   $message .= $firstname . " " . $lastname . " has added listings to your folder.";
   $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$buyer."'>Change Email Alert Settings</a></center><br>";
@@ -1228,7 +1004,6 @@ if(isset($_GET['saveAll'])){
   $mail->Subject = 'New HomePik Listing';
   $mail->Body = $message;  
   $mail->send();
-
 }; // SAVE ALL LISTINGS IN AGENT FOLDER TO BUYER
 
 // MOVE LISTINGS FROM ONE FOLDER TO ANOTHER
@@ -1244,25 +1019,19 @@ if(isset($_GET['moveListings'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
   foreach($listings as $listing){
-    $SQL = "SELECT * FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$listing."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT * FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$listing."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $saved_by = $row['saved_by'];
     $comments = $row['comments'];
     $role = $row['role'];
     
-    $SQL3 = "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folderEditing."')";
-    $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+    $result3 = mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folderEditing."')" ) or die("Couldn't execute query.".mysql_error());
     
     foreach($folders as $folder){
-      $SQL4 = "SELECT * FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folder."')";
-      $rs = mysql_query($SQL4);
+      $rs = mysql_query( "SELECT * FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folder."')" );
       $num = mysql_num_rows($rs);
       
-      if($num < 1){
-        $SQL2 = "INSERT INTO saved_listings(`user`, `list_num`, `saved_by`, `comments`, `folder`, `role`, `time`) VALUES ('".$user."','".$listing."','".$saved_by."','".$comments."','".$folder."','".$role."','".$time."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query. ".mysql_error());
-      }
+      if($num < 1){ $result2 = mysql_query( "INSERT INTO saved_listings(`user`, `list_num`, `saved_by`, `comments`, `folder`, `role`, `time`) VALUES ('".$user."','".$listing."','".$saved_by."','".$comments."','".$folder."','".$role."','".$time."')" ) or die("Couldn't execute query. ".mysql_error()); }
     }	
 
   }
@@ -1281,98 +1050,28 @@ if(isset($_GET['moveAgentListings'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
   foreach($listings as $listing){
-    $SQL = "SELECT * FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$listing."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT * FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$listing."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $saved_by = $row['saved_by'];
     $comments = $row['comments'];
     $role = $row['role'];
     
-    $SQL3 = "DELETE FROM `queued_listings` WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folderEditing."')";
-    $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+    $result3 = mysql_query( "DELETE FROM `queued_listings` WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folderEditing."')" ) or die("Couldn't execute query.".mysql_error());
     
     foreach($folders as $folder){
-      $SQL4 = "SELECT * FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folder."')";
-      $rs = mysql_query($SQL4);
+      $rs = mysql_query( "SELECT * FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$listing."') AND (folder = '".$folder."')" );
       $num = mysql_num_rows($rs);
       
-      if($num < 1){
-        $SQL2 = "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `folder`, `role`, `time`) VALUES  ('".$user."','".$listing."','".$saved_by."','".$comments."','".$folder."','".$role."','".$time."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-      }
+      if($num < 1){ $result2 = mysql_query( "INSERT INTO queued_listings(`user`,`list_num`,`saved_by`,`comments`, `folder`, `role`, `time`) VALUES  ('".$user."','".$listing."','".$saved_by."','".$comments."','".$folder."','".$role."','".$time."')" ) or die("Couldn't execute query.".mysql_error()); }
     }
   }
 };
 // END OF MOVE LISTINGS
 
-// SET FORMULA AND FOLDER PERMISSIONS FOR AN AGENT
-if(isset($_GET['setPermissions'])){
-  $formulas = $_GET['formulas'];
-  $folders = $_GET['folders'];
-  $agentID = $_GET['agent_id'];
-  $user = $_SESSION['email'];
-  $time = date('U');
-
-  $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-  $db = mysql_select_db('sp', $con) or die(mysql_error());
-  
-  foreach($formulas as $formula){
-    $SQL = "SELECT * FROM Users_Search WHERE (email = '".$user."') AND (name = '".$formula."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $agent = $row['agent'];
-    if($agent == ""){
-      $agent = $agentID;
-    }
-    else{
-      $agent = $agent . ',' . $agentID;
-    }
-    
-    $SQL2 = "UPDATE Users_Search SET `agent`='".$agent."' WHERE  (email = '".$user."') AND (name = '".$formula."')";
-    $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
-  }
-      
-  foreach($folders as $folder){
-    $SQL3 = "SELECT * FROM users_folders WHERE (user = '".$user."') AND (name = '".$folder."')";
-    $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
-    $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
-    $agent = $row3['agent'];
-    
-    if($agent == ""){
-      $agent = $agentID;
-    }
-    else{
-      $agent = $agent . ',' . $agentID;
-    }
-    
-    $SQL4 = "UPDATE users_folders SET `agent`='".$agent."' WHERE  (user = '".$user."') AND (name = '".$folder."')";
-    $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
-  }	
-
-};
-// END OF SET PERMISSIONS
-
-// GET THE LIST_NUM OF ALL SAVED LISTINGS (BOTH SAVED TO USERS AND OPEN LISTINGS) SO WE CAN MARK THEM WITH A SAVED ICON IN SEARCH RESULTS
-$sql = "(SELECT user, list_num FROM queued_listings WHERE saved_by='" . $_SESSION['email'] . "') UNION (SELECT user, list_num FROM saved_listings WHERE saved_by='" . $_SESSION['email'] . "')";
-$rs = mysql_query($sql);
-$arr_rows = array();
-if(!empty($rs)){
-
-
-    while ($row = mysql_fetch_array($rs)) {
-    $saved_listings[] = $row;
-    }
-}else{
-  $saved_listings = array();
-}
-$_SESSION['saved_listings'] = $saved_listings;
-// SAVE END
-
 // SEARCH - SAVE LOCATION
 if(isset($_GET['saveLocation'])){
-  $location = $_GET['locationGrade'];
-  $_SESSION['LOCATION'] = $location;
-}; // CONTACT END
+  $_SESSION['LOCATION'] = $_GET['locationGrade'];
+}; // END SEARCH - SAVE LOCATION
 
 // SAVE THE PREVIOUS PAGE
 if(isset($_GET['setPreviousPage'])){
@@ -1381,7 +1080,7 @@ if(isset($_GET['setPreviousPage'])){
 
 // GET THE PREVIOUS PAGE
 if(isset($_GET['getPreviousPage'])){
-  echo $_SESSION['previousPage'];
+  echo (isset($_SESSION['previousPage']) ? $_SESSION['previousPage'] : "");
 }; // PREVIOUS PAGE END
 
 // FOLDER BUYER SAVED TO LAST
@@ -1465,68 +1164,34 @@ if(isset($_GET["removeStoredOpenListing"])){
 
 // CLEAR SAVED LISTINGs
 if(isset($_GET['clear_saved'])){
-  if(!$_GET['buyer']){
-    $user = $_SESSION['email'];
-
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
-  } else {
-    $user = $_GET['buyer'];
-    $role = 'user';
-  }
+  if(!isset($_GET['buyer'])){ $user = $_SESSION['email']; }
+  else { $user = $_GET['buyer']; }
   $agent = $_GET['agent'];
   $from = $_SESSION['email'];
   $time = date('U');
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM saved_listings WHERE (user = '".$user."') and ((agent = '".$agent."') OR (agent = ''))";
-  $res = mysql_query($SQL)  or die(mysql_error());
-  print $SQL;
+  $res = mysql_query( "DELETE FROM saved_listings WHERE (user = '".$user."') and ((agent = '".$agent."') OR (agent = ''))" ) or die(mysql_error());
 }; // SAVE END
 
 // CLEAR ONE LISTING FROM OPEN WORK
 if(isset($_GET['clear_one_queued'])){
-  if(!$_GET['buyer']){
-    $user = $_SESSION['email'];
-
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
-  } else {
-    $user = $_GET['buyer'];
-    $role = 'user';
-  }
+  if(!isset($_GET['buyer'])){ $user = $_SESSION['email']; }
+  else{ $user = $_GET['buyer']; }
   $from = $_SESSION['email'];
   $time = date('U');
   $delete_id = $_GET['delete_id'];
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
-  print $SQL;
+  $res = mysql_query( "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."')" ) or die(mysql_error());
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM BUYER FOLDER
 if(isset($_GET['clear_one_saved'])){
-  if(!$_GET['buyer']){
-    $user = $_SESSION['email'];
-
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
-  } else {
-    $user = $_GET['buyer'];
-    $role = 'user';
-  }
+  if(!isset($_GET['buyer'])){ $user = $_SESSION['email']; }
+  else{ $user = $_GET['buyer']; }
   $agent = $_GET['agent'];
   $from = $_SESSION['email'];
   $time = date('U');
@@ -1534,34 +1199,25 @@ if(isset($_GET['clear_one_saved'])){
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') and ((agent = '".$agent."') OR (agent = ''))";
-  $res = mysql_query($SQL)  or die(mysql_error());
-  print $SQL;
+  $res = mysql_query( "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') and ((agent = '".$agent."') OR (agent = ''))" ) or die(mysql_error());
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM BUYER FOLDER
 if(isset($_GET['clear_one_saved_from_folder'])){
-
   $user = $_GET['buyer'];
   $delete_id = $_GET['delete_id'];
   $folder = $_GET['folder'];
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')" ) or die(mysql_error());
 
-  if ($res == true) {
-    $time = date('U');
-    $SQL = "UPDATE users_folders SET last_update='".$time."' WHERE name='".$folder."' AND user = '".$user."'";
-    $res = mysql_query($SQL)  or die(mysql_error());
-  }
+  if($res == true){ $res = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE name='".$folder."' AND user = '".$user."'" ) or die(mysql_error()); }
   print $res;
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM BUYER FOLDERS
 if(isset($_GET['clear_one_saved_from_folders'])){
-
   $email = $_GET['buyer'];
   $role = $_GET['role'];
   $list_num = $_GET['delete_id'];
@@ -1570,31 +1226,26 @@ if(isset($_GET['clear_one_saved_from_folders'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL1 = "SELECT folder FROM saved_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')";
-  $result1 = mysql_query($SQL1)  or die(mysql_error());
+  $result1 = mysql_query( "SELECT folder FROM saved_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')" ) or die(mysql_error());
   while($row1 = mysql_fetch_array($result1,MYSQL_ASSOC)){
     array_push($folders, $row1['folder']);
   }
   
-  $SQL2 = "DELETE FROM saved_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')";
-  $result2 = mysql_query($SQL2)  or die(mysql_error());
+  $result2 = mysql_query( "DELETE FROM saved_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')" ) or die(mysql_error());
 
   if ($result2 == true) {
     foreach($folders as $folder){
       if($role == "buyer"){
-        $SQL3 = "SELECT agent FROM users_folders WHERE (user='".$email."') AND (name='".$folder."')";
-        $result3 = mysql_query($SQL3)  or die(mysql_error());
+        $result3 = mysql_query( "SELECT agent FROM users_folders WHERE (user='".$email."') AND (name='".$folder."')" )  or die(mysql_error());
         $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
         $agent_id = $row3['agent'];
         
-        $SQL4 = "SELECT first_name, last_name FROM `users` WHERE (email = '".$email."')";
-        $result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+        $result4 = mysql_query( "SELECT first_name, last_name FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
         $row4 = mysql_fetch_array($result4,MYSQL_ASSOC);
         $buyer_firstname = $row4['first_name'];
         $buyer_lastname = $row4['last_name'];
         
-        $SQL5 = "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$agent_id."')";
-        $result5 = mysql_query( $SQL5 ) or die("Couldn't execute query.".mysql_error());
+        $result5 = mysql_query( "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$agent_id."')" ) or die("Couldn't execute query.".mysql_error());
         $row5 = mysql_fetch_array($result5,MYSQL_ASSOC);
         $agent_firstname = $row5['first_name'];
         $agent_lastname = $row5['last_name'];
@@ -1611,15 +1262,13 @@ if(isset($_GET['clear_one_saved_from_folders'])){
         $mail->send();
       }
       
-      $SQL6 = "UPDATE users_folders SET last_update='".date('U')."' WHERE (user='".$email."') AND (name='".$folder."')";
-      $result6 = mysql_query($SQL6)  or die(mysql_error());
+      $result6 = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE (user='".$email."') AND (name='".$folder."')" ) or die(mysql_error());
     }
   }	  
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM BUYER FOLDER
 if(isset($_GET['clear_multiple_saved_from_folder'])){
-
   $user = $_GET['buyer'];
   $delete_ids = $_GET['delete_ids'];
   $folder = $_GET['folder'];
@@ -1628,39 +1277,27 @@ if(isset($_GET['clear_multiple_saved_from_folder'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
   foreach($delete_ids as $delete_id){
-    $SQL = "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
+    $res = mysql_query( "DELETE FROM saved_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')" ) or die(mysql_error());
     
-    if ($res == true) {
-      $time = date('U');
-      $SQL = "UPDATE users_folders SET last_update='".$time."' WHERE (user = '".$user."') AND (name='".$folder."')";
-      $res = mysql_query($SQL)  or die(mysql_error());
-    }
+    if ($res == true){ $res = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE (user = '".$user."') AND (name='".$folder."')" ) or die(mysql_error()); }
   }
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM AGENT FOLDER
 if(isset($_GET['clear_one_queued_from_folder'])){
-
   $user = $_SESSION['email'];
   $delete_id = $_GET['delete_id'];
   $folder = $_GET['folder'];
   
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')" ) or die(mysql_error());
     
-  if ($res == true) {
-    $time = date('U');
-    $SQL = "UPDATE users_folders SET last_update='".$time."' WHERE name='".$folder."' AND user = '".$user."'";
-    $res = mysql_query($SQL)  or die(mysql_error());
-  }
+  if ($res == true){ $res = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE name='".$folder."' AND user = '".$user."'" ) or die(mysql_error()); }
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM AGENT FOLDERS
 if(isset($_GET['clear_one_queued_from_folders'])){
-
   $email = $_GET['agent'];
   $list_num = $_GET['delete_id'];
   $folders = array();
@@ -1668,27 +1305,22 @@ if(isset($_GET['clear_one_queued_from_folders'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-	
-  $SQL1 = "SELECT folder FROM queued_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')";
-  $result1 = mysql_query($SQL1)  or die(mysql_error());
+  $result1 = mysql_query( "SELECT folder FROM queued_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')" ) or die(mysql_error());
   while($row1 = mysql_fetch_array($result1,MYSQL_ASSOC)){
     array_push($folders, $row1['folder']);
   }
   
-  $SQL2 = "DELETE FROM queued_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')";
-  $result2 = mysql_query($SQL2)  or die(mysql_error());
+  $result2 = mysql_query( "DELETE FROM queued_listings WHERE (user = '".$email."') AND (list_num = '".$list_num."')" ) or die(mysql_error());
     
   if ($result2 == true) {
     foreach($folders as $folder){
-      $SQL3 = "UPDATE users_folders SET last_update='".date('U')."' WHERE (user='".$email."') AND (name='".$folder."')";
-      $result3 = mysql_query($SQL3)  or die(mysql_error());
+      $result3 = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE (user='".$email."') AND (name='".$folder."')" ) or die(mysql_error());
     }
   }
 }; // DELETE END
 
 // CLEAR ONE LISTING FROM BUYER FOLDER
 if(isset($_GET['clear_multiple_queued_from_folder'])){
-
   $user = $_SESSION['email'];
   $delete_ids = $_GET['delete_ids'];
   $folder = $_GET['folder'];
@@ -1697,66 +1329,43 @@ if(isset($_GET['clear_multiple_queued_from_folder'])){
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
   foreach($delete_ids as $delete_id){
-    $SQL = "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')";
-    $res = mysql_query($SQL)  or die(mysql_error());
+    $res = mysql_query( "DELETE FROM queued_listings WHERE (user = '".$user."') AND (list_num = '".$delete_id."') AND  (folder = '".$folder."')" ) or die(mysql_error());
     
-    if ($res == true) {
-      $time = date('U');
-      $SQL = "UPDATE users_folders SET last_update='".$time."' WHERE (user = '".$user."') AND (name='".$folder."')";
-      $res = mysql_query($SQL)  or die(mysql_error());
-    }
+    if ($res == true){ $res = mysql_query( "UPDATE users_folders SET last_update='".date('U')."' WHERE (user = '".$user."') AND (name='".$folder."')" ) or die(mysql_error()); }
   }
 }; // DELETE END
-
 
 //CLEAR QUEUED LISTING
 if(isset($_GET['clear_queued'])){
   $list_num = $_GET['list_num'];
 
-  if(!$_GET['buyer']){
-    $user = $_SESSION['email'];
-
-    if ($_SESSION['agent']){
-      $role = 'agent';
-    } elseif ($_SESSION['user']){
-      $role = 'user';
-    }
-  } else {
-    $user = $_GET['buyer'];
-    $role = 'user';
-  }
+  if(!isset($_GET['buyer'])){ $user = $_SESSION['email']; }
+  else { $user = $_GET['buyer']; }
   $from = $_SESSION['email'];
   $time = date('U');
 
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
-  $SQL = "DELETE FROM queued_listings WHERE (user = '".$user."')";
-  $res = mysql_query($SQL)  or die(mysql_error());
+  $res = mysql_query( "DELETE FROM queued_listings WHERE (user = '".$user."')" ) or die(mysql_error());
   print $SQL;
 }; //CLEAR QUEUED LISTING END
 
 // ADD AGENT AS PRIMARY
 if(isset($_GET['AddPrimary'])){
   $email = $_GET['email'];
+  $fn = $_SESSION['firstname'];
+  $ln = $_SESSION['lastname'];
+  $id = $_SESSION['agent_id'];
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $fn = $row['first_name'];
-  $ln = $row['last_name'];
-  $id = $row['agent_id'];
-
-  $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
-  $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+  $result2 = mysql_query( "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
   $firstname = $row2['first_name'];
   $lastname = $row2['last_name'];
   $notifications = $row['notifications'];
 
-  $SQL3 = "UPDATE `users` SET `P_agent` = '".$id."', `P_agent_assign_time`='".date('U')."' WHERE (email = '".$email."')";
-  $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+  $result3 = mysql_query( "UPDATE `users` SET `P_agent` = '".$id."', `P_agent_assign_time`='".date('U')."' WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   
   if($notifications == "all" || $notifications == "messages"){
     $message = "Hello " . $firstname . " " . $lastname . ",<br><br>";
@@ -1775,25 +1384,19 @@ if(isset($_GET['AddPrimary'])){
 // ADD AGENT AS PRIMARY
 if(isset($_GET['AddPrimary2'])){
   $email = $_GET['email'];
+  $fn = $_SESSION['firstname'];
+  $ln = $_SESSION['lastname'];
+  $id = $_SESSION['agent_id'];
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $fn = $row['first_name'];
-  $ln = $row['last_name'];
-  $id = $row['agent_id'];
-
-  $SQL2 = "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')";
-  $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+  $result2 = mysql_query( "SELECT first_name, last_name, notifications FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
   $firstname = $row2['first_name'];
   $lastname = $row2['last_name'];
   $notifications = $row['notifications'];
 
-  $SQL3 = "UPDATE `users` SET `P_agent2` = '".$id."', `P_agent2_assign_time`='".date('U')."' WHERE (email = '".$email."')";
-  $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+  $result3 = mysql_query( "UPDATE `users` SET `P_agent2` = '".$id."', `P_agent2_assign_time`='".date('U')."' WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
 
   if($notifications == 'all' || $notifications == "messages"){
     $message = "Hello " . $firstname . " " . $lastname . ",<br><br>";
@@ -1816,18 +1419,13 @@ if(isset($_GET['addBuyer'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM `users` WHERE (email = '".$_GET['email']."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT * FROM `users` WHERE (email = '".$_GET['email']."')" ) or die("Couldn't execute query.".mysql_error());
   $num = mysql_num_rows($result);
 
   if($num == 0){
-
-    $SQL = "SELECT first_name, last_name, agent_id FROM `registered_agents` WHERE (email = '".$_SESSION['email']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $fn = $row['first_name'];
-    $ln = $row['last_name'];
-    $id = $row['agent_id'];
+    $fn = $_SESSION['firstname'];
+    $ln = $_SESSION['lastname'];
+    $id = $_SESSION['agent_id'];
 
     $to = $_GET['firstname'] . " " . $_GET['lastname'] . " <" . $_GET['email'] . ">";
     $email = $_GET['email'];
@@ -1965,8 +1563,7 @@ if(isset($_GET['addAgent'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$email."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT * FROM `registered_agents` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   $num = mysql_num_rows($result);
 
   if($num == 0){
@@ -1987,13 +1584,10 @@ if(isset($_GET['addAgent'])){
     $mail->Body = $message;
     $mail->send();
     
-    $SQL = "SELECT * FROM `users_folders` WHERE (user = '".$email."') AND (name = 'Agent Folder')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT * FROM `users_folders` WHERE (user = '".$email."') AND (name = 'Agent Folder')" ) or die("Couldn't execute query.".mysql_error());
     $num = mysql_num_rows($result);
   
-    if($num == 0){
-      mysql_query("INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$email."','Agent Folder','','".date('U')."')");
-    }
+    if($num == 0){ mysql_query("INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$email."','Agent Folder','','".date('U')."')"); }
   }
 };
 
@@ -2004,8 +1598,7 @@ if(isset($_GET['updateAgent'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
 
-  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$oldEmail."')";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT * FROM `registered_agents` WHERE (email = '".$oldEmail."')" ) or die("Couldn't execute query.".mysql_error());
   $num = mysql_num_rows($result);
   
   if($num > 0){
@@ -2049,8 +1642,7 @@ if(isset($_GET['saveMessage'])){
 }; // SAVE MESSAGE END
 
 if(isset($_GET['saveBuyer'])){
-  $email = $_GET['email'];
-  $_SESSION['buyerSave'] = $email;
+  $_SESSION['buyerSave'] = $_GET['email'];
 };
 
 // ARCHIVE BUYER
@@ -2077,8 +1669,8 @@ if(isset($_GET['savedViewed']) && $_GET['savedViewed']== 'true'){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
   
-  if ($_SESSION['agent']){ $res =  mysql_query("UPDATE saved_listings SET aviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
-  elseif ($_SESSION['user']){ $res =  mysql_query("UPDATE saved_listings SET bviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
+  if(isset($_SESSION['agent'])){ $res =  mysql_query("UPDATE saved_listings SET aviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
+  elseif(isset($_SESSION['buyer'])){ $res =  mysql_query("UPDATE saved_listings SET bviewed ='".$_SESSION['email']."' WHERE (id = '".$_GET['dataId']."')")  or die(mysql_error()); }
 }; //MARK SAVED LISTINGS AS VIEWED END
 
 // ACTIVATE BUYER
@@ -2089,9 +1681,8 @@ if(isset($_GET['activateBuyer'])){
 }; // ACTIVATE BUYER END
 
 // LIST BUYERS
-if (isset($_GET['listBuyers']) &&  $_GET['listBuyers'] == 'true'){
-  $SQL = "SELECT * FROM `users` where (assigned = '".$_GET['agent']."' and archived != '1') ORDER BY last_name ASC";
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+if(isset($_GET['listBuyers']) && $_GET['listBuyers'] == 'true'){
+  $result = mysql_query( "SELECT * FROM `users` where (assigned = '".$_GET['agent']."' and archived != '1') ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
 
   $options = array();
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {

@@ -6,8 +6,7 @@ include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if($_SESSION['buyer']){
-  $user = $_SESSION['id'];
+if(isset($_SESSION['buyer'])){
   $buyer_email = $_SESSION['email'];
   $buyer_first_name = $_SESSION['firstname'];
   $buyer_last_name = $_SESSION['lastname'];
@@ -17,8 +16,7 @@ if($_SESSION['buyer']){
   $role = 'user';
   
   if($agent_code != ""){
-    $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent)";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT first_name, last_name, phone, email FROM `registered_agents` WHERE (agent_id='".$agent_code."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent_first_name = $row['first_name'];
     $agent_last_name = $row['last_name'];
@@ -27,8 +25,7 @@ if($_SESSION['buyer']){
   }
   
   if($agent2_code != ""){
-    $SQL = "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$buyer_email."') AND (r.agent_id = u.P_agent2)";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT first_name, last_name, phone, email FROM `registered_agents` WHERE (agent_id='".$agent2_code."')" ) or die("Couldn't execute query.".mysql_error());
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
     $agent2_first_name = $row['first_name'];
     $agent2_last_name = $row['last_name'];
@@ -36,15 +33,13 @@ if($_SESSION['buyer']){
     $agent2_cellphone = $row['phone'];
   }
   
-  $SQL = "SELECT * FROM `Users_Search` where (email = '".$buyer_email."') ORDER BY `name` ASC";
-  $formula_result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  $num_formulas = mysql_num_rows($formula_result);
+  $row = mysql_query( "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error());
+  $num_formulas = mysql_num_rows($row);
   $i = 1;
 }
 else{ print "<script> window.location = '/users/logout.php' </script>"; }
 
-if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
-else{ $mainPage = ""; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - My Profile</title>
@@ -66,7 +61,7 @@ else{ $mainPage = ""; }
 	var EditSearch = React.createClass({
 	  getInitialState: function() {
       return{
-        buyer_email: "<?php echo $buyer_email ?>",
+        buyer_email: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
         searchName: this.props.searchName,
         name: "",
         bedrooms: "0",
@@ -397,8 +392,8 @@ else{ $mainPage = ""; }
               });
             }
           });
-          $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+            $('#ajax-box2').dialog('open');
           });
 
           if(price < 100000){
@@ -459,8 +454,8 @@ else{ $mainPage = ""; }
               });
             }
           });
-          $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
-            $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+            $('#ajax-box2').dialog('open');
           });
 
           if(price > 99000000){
@@ -493,7 +488,6 @@ else{ $mainPage = ""; }
       else if(name == "prewar"){ this.setState({prewar: !this.state.prewar}); }
       else if(name == "timeshare"){ this.setState({timeshare: !this.state.timeshare}); }
       else if(name == "newconstruction"){ this.setState({newconstruction: !this.state.newconstruction}); }
-      else{ /* Do nothing */ }
 	  },
 	  handleNeighborhoodChange: function(name, event){
       if(name == "n_all"){
@@ -534,16 +528,12 @@ else{ $mainPage = ""; }
         this.setState({n_d: !this.state.n_d});
         this.setState({n_all: false});
       }
-      else{
-        // Do nothing
-      }
 	  },
 	  handlePropertyChange: function(name, event){
       if(name == "coop"){ this.setState({coop: !this.state.coop}); }
       else if(name == "condo"){ this.setState({condo: !this.state.condo}); }
       else if(name == "house"){ this.setState({house: !this.state.house}); }
       else if(name == "condop"){ this.setState({condop: !this.state.condop}); }
-      else{ /* Do nothing */ }
 	  },
 	  bedroomText: function(){
       if(this.state.bedrooms == 0){ return(<span>Studio</span>); }
@@ -583,7 +573,6 @@ else{ $mainPage = ""; }
       else if(this.state.minPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.minPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.minPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
 	  },
 	  maxPriceText: function(){
       if(this.state.maxPrice == 100000){ return(<span>100K</span>); }
@@ -618,7 +607,6 @@ else{ $mainPage = ""; }
       else if(this.state.maxPrice == 25000000){ return(<span>25M</span>); }
       else if(this.state.maxPrice == 50000000){ return(<span>50M</span>); }
       else if(this.state.maxPrice == 99000000){ return(<span>99M</span>); }
-      else{ /* Do nothing */ }
 	  },
 	  locationText: function(){
       if(this.state.location == 1){ return(<div><p id="y25213-6">All locations</p><p id="y25213-7">&nbsp;</p></div>); }
@@ -631,7 +619,6 @@ else{ $mainPage = ""; }
       else if(this.state.location == 8){ return(<div><p id="y25213-6">Residential area / near local park or river</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 9){ return(<div><p id="y25213-6">Residential area cose to major park</p><p id="y25213-7">&nbsp;</p></div>); }
       else if(this.state.location == 10){ return(<div><p id="y25213-6">Internationally renown / near major park</p><p id="y25213-7">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
 	  },
 	  buildingText: function(){
       if(this.state.building == 1){ return(<div><p id="y25213-14">All buildings</p><p id="y25213-15">&nbsp;</p></div>); }
@@ -644,7 +631,6 @@ else{ $mainPage = ""; }
       else if(this.state.building == 8){ return(<div><p id="y25213-14">Full service building with amenities</p><p id="y25213-15">&nbsp;</p></div>); }
       else if(this.state.building == 9){ return(<div><p id="y25213-14">Locally renowned building or new construction with full services</p></div>); }
       else if(this.state.building == 10){ return(<div><p id="y25213-14">International renown</p><p id="y25213-15">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
 	  },
 	  viewText: function(){
       if(this.state.views == 1){ return(<div><p id="y25213-22">All properties</p><p id="y25213-23">&nbsp;</p></div>); }
@@ -657,21 +643,18 @@ else{ $mainPage = ""; }
       else if(this.state.views == 8){ return(<div><p id="y25213-22">Cityscape views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 9){ return(<div><p id="y25213-22">Cityscape and river or park views</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.views == 10){ return(<div><p id="y25213-22">Cityscape and Central Park views</p><p id="y25213-23">&nbsp;</p></div>); }
-      else{ /* Do nothing */ }
 	  },
 	  bedroomAreaText: function(){
       if(this.state.bedroomArea == 1){ return(<div><p id="y25213-30">Any bedroom size is okay</p><p id="y25213-31">&nbsp;</p></div>); }
       else if(this.state.bedroomArea == 2){ return(<div><p id="y25213-30">A medium master bedroom or larger: at least 13 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 3){ return(<div><p id="y25213-30">A large master bedroom or larger: at least 16 ft by 11 ft</p></div>); }
       else if(this.state.bedroomArea == 4){ return(<div><p id="y25213-30">An extra-large master bedroom: at least 19 ft by 11 ft</p></div>); }
-      else{ /* Do nothing */ }
 	  },
 	  livingAreaText: function(){
       if(this.state.livingArea == 1){ return(<div><p id="y25213-38">Any living room size is okay</p><p id="y25213-23">&nbsp;</p></div>); }
       else if(this.state.livingArea == 2){ return(<div><p id="y25213-38">A medium-sized living room or larger: at least 18 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 3){ return(<div><p id="y25213-38">A large-sized living room or larger: at least 22 ft by 12 ft</p></div>); }
       else if(this.state.livingArea == 4){ return(<div><p id="y25213-38">A extra-large living room or larger: at least 27 ft by 12 ft</p></div>); }
-      else{ /* Do nothing */ }
 	  },
 	  minPriceInput: function(){
       var val = this.state.minPrice;
@@ -796,8 +779,8 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
-          $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
+        $('#ajax-box2').load('messages.php #priceRange',function(){
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -806,7 +789,7 @@ else{ $mainPage = ""; }
           url: "save-criteria.php",
           data: {"email":email, "oldname":oldName, "name":searchName, "location":location_grade, "building":building_grade, "view":views_grade, "floor":min_floor, "bedrooms":bedrooms, "min_price":min_price, "max_price":max_price, "living_area":living_area, "bedroom_area":bedroom_area, "neighborhoods" : neighborhoods, "prop_type":prop_type, "amenities":amen},
           success: function(data){
-            $.get("/controllers/ajax.php", {
+            $.get("ajax.php", {
               editFormulaEmail: 'true', //Call the PHP function
               email: email,
               success: function(result){
@@ -998,143 +981,22 @@ else{ $mainPage = ""; }
     }
   });
 
-	var Permissions = React.createClass({
-	  getInitialState: function(){
-      return{
-        user: "<?php echo $buyer_email ?>",
-        folders: [],
-        formulas: [],
-        selected_folders: [],
-        selected_formulas: []
-      };
-	  },
-	  componentDidMount: function(){
-      $.ajax({
-        type: "POST",
-        url: "get-buyer-formulas.php",
-        data: {"buyer": this.state.user},
-        success: function(data){
-          var formulas = JSON.parse(data);
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              this.setState({formulas: formulas});
-            }
-          }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
-      });
-
-      $.ajax({
-        type: "POST",
-        url: "get-buyer-folders.php",
-        data: {"buyer": this.state.user},
-        success: function(data){
-          var folders = JSON.parse(data);
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              this.setState({folders: folders});
-            }
-          }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
-      });
-	  },
-	  handleFolderChange: function(name, event){
-      var folders = this.state.selected_folders;
-      if((event.target.checked == true) && (folders.indexOf(name) == -1)){ folders.push(name); }
-      else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
-        var i = folders.indexOf(name);
-        if(i != -1) { folders.splice(i, 1); }
-      }
-      else{ /* Do nothing */ }
-      this.setState({selected_folders: folders});
-	  },
-	  handleFormulaChange: function(name, event){
-      var formulas = this.state.selected_formulas;
-      if((event.target.checked == true) && (formulas.indexOf(name) == -1)){ formulas.push(name); }
-      else if((event.target.checked == false) && (formulas.indexOf(name) != -1)){
-        var i = formulas.indexOf(name);
-        if(i != -1) { formulas.splice(i, 1); }
-      }
-      else{ /* Do nothing */ }
-      this.setState({selected_formulas: formulas});
-	  },
-	  closePopup: function(){
-      {this.props.closeDialog()}
-	  },
-	  setPermissions: function(){
-      $.ajax({
-        type: "GET",
-        url: "/controllers/ajax.php",
-        data: {"setPermissions": "true", "folders": this.state.selected_folders, "formulas": this.state.selected_formulas, "agent_id": this.props.agentID},
-        success: function(data){
-          var ajaxStop = 0;
-          $(document).ajaxStop(function() {
-            if(ajaxStop == 0){
-              ajaxStop++;
-              {this.props.closeDialog()}
-            }
-          }.bind(this));
-        }.bind(this),
-        error: function() {
-          console.log("failed");
-        }
-      });
-	  },
-	  render: function(){
-      var folders = this.state.folders.map(function(folder){
-        return(
-          <h4 className="text-popups" id="u1330-10" key={folder.id}><span id="u1330-7"><input type="checkbox" name="folders" value={folder.name} onChange={this.handleFolderChange.bind(this, folder.name)}/></span><span id="u1330-8"> </span><span id="u1330-9">&nbsp; {folder.name}</span></h4>
-        );
-      }.bind(this));
-      var formulas = this.state.formulas.map(function(formula){
-        return(
-          <h4 className="text-popups" id="u1330-10" key={formula.id}><span id="u1330-7"><input type="checkbox" name="formulas" value={formula.name} onChange={this.handleFormulaChange.bind(this, formula.name)}/></span><span id="u1330-8"> </span><span id="u1330-9">&nbsp; {formula.name}</span></h4>
-        );
-      }.bind(this));
-      return(
-        <div>
-          <div className="text-popups clearfix grpelem" id="u26451-5c">
-            <h4 style={{cursor: "pointer"}} onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
-          </div>
-          <h2 className="Subhead-2" id="u1330-2">Set Permissions</h2>
-          <h4 className="text-popups" id="u1330-3">&nbsp;</h4>
-          <h4 className="text-popups" id="u1330-5">Allow {this.props.agent} to view (check as many as apply):</h4>
-          <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
-          {this.state.formulas.length > 0 ? <div><h4 className="text-popups" id="u1330-5" style={{fontWeight: 100}}>Formulas:</h4> {formulas} </div> : <div><h4 className="text-popups" id="u1330-5" style={{fontWeight: 100}}>Formulas:</h4><h4 className="text-popups" id="u1330-10"><span id="u1330-8"> </span><span id="u1330-9">&nbsp; No Formulas Saved</span></h4></div> }
-          <h4 className="text-popups" id="u1330-6">&nbsp;</h4>
-          {/* {this.state.folders.length > 0 ? <div><h4 className="text-popups" id="u1330-5" style={{fontWeight: 100}}>Folders:</h4> {folders} </div> : null }
-          <h4 className="text-popups" id="u1330-6">&nbsp;</h4> */}
-          <h4 className="text-popups" id="u1330-21" onClick={this.setPermissions}><span id="u1330-19">Submit </span><span id="u1330-20"><i className="fa fa-chevron-right"></i></span></h4>
-        </div>
-      );
-	  }
-	});
-
 	var Profile = React.createClass({
 	  getInitialState: function() {
       return{
-        buyer_name: "<?php echo $buyer_first_name . " " . $buyer_last_name ?>",
-        buyer_email: "<?php echo $buyer_email ?>",
+        buyer_name: "<?php echo (isset($buyer_first_name) ? $buyer_first_name : "") . " " . (isset($buyer_last_name) ? $buyer_last_name : "") ?>",
+        buyer_email: "<?php echo (isset($buyer_email) ? $buyer_email : "") ?>",
         buyer_old_email: "",
-        buyer_phone: "<?php echo $buyer_phone ?>",
-        agent1: "<?php echo $agent_code ?>",
-        agent2: "<?php echo $agent2_code ?>",
-        agent1_name: "<?php echo $agent_first_name . " " . $agent_last_name ?>",
-        agent1_email: "<?php echo $agent_email ?>",
-        agent1_phone: "<?php echo $agent_cellphone ?>",
-        agent2_name: "<?php echo $agent2_first_name . " " . $agent2_last_name ?>",
-        agent2_email: "<?php echo $agent2_email ?>",
-        agent2_phone: "<?php echo $agent2_cellphone ?>",
-        mainPage: "<?php echo $mainPage ?>",
+        buyer_phone: "<?php echo (isset($buyer_phone) ? $buyer_phone : "") ?>",
+        agent1: "<?php echo (isset($agent_code) ? $agent_code : "") ?>",
+        agent2: "<?php echo (isset($agent2_code) ? $agent2_code : "") ?>",
+        agent1_name: "<?php echo (isset($agent_first_name) ? $agent_first_name : "") . " " . (isset($agent_last_name) ? $agent_last_name : "") ?>",
+        agent1_email: "<?php echo (isset($agent_email) ? $agent_email : "") ?>",
+        agent1_phone: "<?php echo (isset($agent_cellphone) ? $agent_cellphone : "") ?>",
+        agent2_name: "<?php echo (isset($agent2_first_name) ? $agent2_first_name : "") . " " . (isset($agent2_last_name) ? $agent2_last_name : "") ?>",
+        agent2_email: "<?php echo (isset($agent2_email) ? $agent2_email : "") ?>",
+        agent2_phone: "<?php echo (isset($agent2_cellphone) ? $agent2_cellphone : "") ?>",
+        mainPage: "<?php echo (isset($mainPage) ? $mainPage : "") ?>",
         searchName: "",
         searchAddress: "",
         addingAgent1: "",
@@ -1162,9 +1024,7 @@ else{ $mainPage = ""; }
       var email = this.state.buyer_email;
       var old_email = this.state.buyer_old_email;
 
-      if(name != "" && phone != "" && email != ""){
-        this.setState({editing: "false"});
-      }
+      if(name != "" && phone != "" && email != ""){ this.setState({editing: "false"}); }
 
       if(name == ""){
         $("#ajax-box2").dialog({
@@ -1187,8 +1047,8 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #blankName',function(){
-          $('#ajax-box2').dialog( "option", "title", "Invalid Name" ).dialog('open');
+        $('#ajax-box2').load('messages.php #blankName',function(){
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -1200,9 +1060,6 @@ else{ $mainPage = ""; }
           data: {"firstName":nameArray[0], "lastName":nameArray[1]},
           success: function(data){
             console.log("success");
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }
@@ -1228,8 +1085,8 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #blankPhone',function(){
-          $('#ajax-box2').dialog( "option", "title", "Invalid Phone" ).dialog('open');
+        $('#ajax-box2').load('messages.php #blankPhone',function(){
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -1245,9 +1102,6 @@ else{ $mainPage = ""; }
           data: {"phone":phone},
           success: function(data){
             console.log("success")
-          },
-          error: function() {
-            console.log("failed")
           }
         });
       }
@@ -1273,8 +1127,8 @@ else{ $mainPage = ""; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #blankEmail',function(){
-          $('#ajax-box2').dialog( "option", "title", "Invalid Email" ).dialog('open');
+        $('#ajax-box2').load('messages.php #blankEmail',function(){
+          $('#ajax-box2').dialog('open');
         });
       }
       else{
@@ -1284,9 +1138,6 @@ else{ $mainPage = ""; }
           data: {"email":email},
           success: function(data){
             console.log("success");
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }
@@ -1324,8 +1175,8 @@ else{ $mainPage = ""; }
               });
             }
 					});
-					$('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
-						$('#ajax-box').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+						$('#ajax-box').dialog('open');
 					});
 				}
 		  }
@@ -1348,10 +1199,7 @@ else{ $mainPage = ""; }
               if(e.target.name == "code2"){ this.setState({addingAgent2: ui.item.value}); }
             }.bind(this)
           });
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  addAgent1:function(){
@@ -1360,7 +1208,7 @@ else{ $mainPage = ""; }
       if(code.length == 3){
         $.ajax({
           type: "POST",
-          url: "/controllers/check-agent.php",
+          url: "check-agent.php",
           data: {"code":code},
           success: function(data){
             var info = JSON.parse(data);
@@ -1368,7 +1216,7 @@ else{ $mainPage = ""; }
             if(info == "good"){
               $.ajax({
                 type: "POST",
-                url: "/controllers/change-buyer-info.php",
+                url: "change-buyer-info.php",
                 data: {"code":code},
                 success: function(data){
                   var info = JSON.parse(data);
@@ -1378,11 +1226,7 @@ else{ $mainPage = ""; }
                   this.setState({agent1_phone: info.cell_phone});
                   this.setState({agent1_email: info.e_mail});
                   this.getFormulas();
-                  //this.setPermissions(name, code);
-                }.bind(this),
-                error: function(){
-                  console.log("failed");
-                }
+                }.bind(this)
               });
             }
             else{
@@ -1406,14 +1250,11 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
-          }.bind(this),
-          error: function(){
-            console.log("failed");
-          }
+          }.bind(this)
         });
       }
       else{
@@ -1423,7 +1264,7 @@ else{ $mainPage = ""; }
 
         $.ajax({
           type: "POST",
-          url: "http://homepik.com/controllers/check-agent.php",
+          url: "check-agent.php",
           data: {"name":"true", "firstname": firstname, "lastname": lastname},
           success: function(data){
             var info = JSON.parse(data);
@@ -1431,7 +1272,7 @@ else{ $mainPage = ""; }
             if(info.exists == "good"){
               $.ajax({
                 type: "POST",
-                url: "http://homepik.com/controllers/change-buyer-info.php",
+                url: "change-buyer-info.php",
                 data: {"code":info.code},
                 success: function(data){
                   var info = JSON.parse(data);
@@ -1441,7 +1282,6 @@ else{ $mainPage = ""; }
                   this.setState({agent1_phone: info.cell_phone});
                   this.setState({agent1_email: info.e_mail});
                   this.getFormulas();
-                  //this.setPermissions(name, info.id);
                 }.bind(this),
                 error: function(){
                   console.log("failed");
@@ -1469,14 +1309,11 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
-          }.bind(this),
-          error: function(){
-            console.log("failed");
-          }
+          }.bind(this)
         });
       }
 	  },
@@ -1486,7 +1323,7 @@ else{ $mainPage = ""; }
       if(code.length == 3){
         $.ajax({
           type: "POST",
-          url: "http://homepik.com/controllers/check-agent.php",
+          url: "check-agent.php",
           data: {"code":code},
           success: function(data){
             var exists = JSON.parse(data);
@@ -1494,7 +1331,7 @@ else{ $mainPage = ""; }
             if(exists == "good"){
               $.ajax({
                 type: "POST",
-                url: "http://homepik.com/controllers/change-buyer-info.php",
+                url: "change-buyer-info.php",
                 data: {"code2":code},
                 success: function(data){
                   var info = JSON.parse(data);
@@ -1504,11 +1341,7 @@ else{ $mainPage = ""; }
                   this.setState({agent2_phone: info.cell_phone});
                   this.setState({agent2_email: info.e_mail});
                   this.getFormulas();
-                  //this.setPermissions(name, code);
-                }.bind(this),
-                error: function(){
-                  console.log("failed");
-                }
+                }.bind(this)
               });
             }
             else if(exists == "used"){
@@ -1532,8 +1365,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addSecondary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Agent Assigned" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addSecondary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
             else{
@@ -1557,14 +1390,11 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
-          }.bind(this),
-          error: function(){
-            console.log("failed");
-          }
+          }.bind(this)
         });
       }
       else{
@@ -1574,7 +1404,7 @@ else{ $mainPage = ""; }
 
         $.ajax({
           type: "POST",
-          url: "http://homepik.com/controllers/check-agent.php",
+          url: "check-agent.php",
           data: {"name":"true", "firstname": firstname, "lastname": lastname},
           success: function(data){
             var info = JSON.parse(data);
@@ -1582,7 +1412,7 @@ else{ $mainPage = ""; }
             if(info.exists == "good"){
               $.ajax({
                 type: "POST",
-                url: "http://homepik.com/controllers/change-buyer-info.php",
+                url: "change-buyer-info.php",
                 data: {"code2":info.code},
                 success: function(data){
                   var info = JSON.parse(data);
@@ -1592,11 +1422,7 @@ else{ $mainPage = ""; }
                   this.setState({agent2_phone: info.cell_phone});
                   this.setState({agent2_email: info.e_mail});
                   this.getFormulas();
-                  //this.setPermissions(name, info.id);
-                }.bind(this),
-                error: function(){
-                  console.log("failed");
-                }
+                }.bind(this)
               });
             }
             else if(info.exists == "used"){
@@ -1620,8 +1446,8 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addSecondary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Agent Assigned" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addSecondary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
             else{
@@ -1645,14 +1471,11 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addPrimary',function(){
-                $('#ajax-box2').dialog( "option", "title", "Invalid Code" ).dialog('open');
+              $('#ajax-box2').load('messages.php #addPrimary',function(){
+                $('#ajax-box2').dialog('open');
               });
             }
-          }.bind(this),
-          error: function(){
-            console.log("failed");
-          }
+          }.bind(this)
         });
       }
 	  },
@@ -1678,10 +1501,7 @@ else{ $mainPage = ""; }
                 this.setState({agent2_email: ""});
                 this.setState({addingAgent2: ""});
                 this.getFormulas();
-              }.bind(this),
-              error: function(){
-                console.log("failed");
-              }
+              }.bind(this)
             });
           }
           else{
@@ -1692,10 +1512,7 @@ else{ $mainPage = ""; }
             this.setState({addingAgent1: ""});
             this.getFormulas();
           }
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  removeAgent2: function(){
@@ -1710,39 +1527,8 @@ else{ $mainPage = ""; }
           this.setState({agent2_email: ""});
           this.setState({addingAgent2: ""});
           this.getFormulas();
-        }.bind(this),
-        error: function() {
-          console.log("failed");
-        }
+        }.bind(this)
       });
-	  },
-	  setPermissions: function(name, code){
-      var $dialog =  $("#ajax-box").dialog({
-        modal: true,
-		width: 390,
-        dialogClass: "setPermissionsPopup",
-        close: function(){
-          ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
-          var div = document.createElement('div');
-          div.id = 'ajax-box';
-          document.getElementsByTagName('body')[0].appendChild(div);
-          $( this ).remove();
-        },
-        open: function(){
-          <!--$(this).css("display", "block");-->
-          $(".ui-widget-overlay").bind("click", function(){
-            $("#ajax-box").dialog('close');
-            $(".ui-widget-overlay").hide();
-          });
-        }
-      });
-      var closeDialog = function(){
-        this.getFormulas();
-        $dialog.dialog('close');
-      }.bind(this);
-
-      $(".ui-widget-overlay").show();
-      ReactDOM.render(<Permissions closeDialog={closeDialog} agent={name} agentID={code}/>, $dialog[0]);
 	  },
 	  removeFormula: function(name, event){
       var email = this.state.buyer_email;
@@ -1768,10 +1554,7 @@ else{ $mainPage = ""; }
                     this.getFormulas();
                   }
                 }.bind(this));
-              }.bind(this),
-              error: function(){
-                console.log("failed");
-              }
+              }.bind(this)
             });
 
             $("#ajax-box2").dialog( "destroy" );
@@ -1789,8 +1572,8 @@ else{ $mainPage = ""; }
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #deleteFormula',function(){
-        $('#ajax-box2').dialog( "option", "title", "Delete Formula?" ).dialog('open');
+      $('#ajax-box2').load('messages.php #deleteFormula',function(){
+        $('#ajax-box2').dialog('open');
         $("#deleteFormula").find("#formulaName").html(searchName);
       });
 	  },
@@ -1809,10 +1592,7 @@ else{ $mainPage = ""; }
               this.setState({num_formulas: formulas.length});
             }
           }.bind(this));
-        }.bind(this),
-        error: function(){
-          console.log("failed");
-        }
+        }.bind(this)
       });
 	  },
 	  checkFormula: function(id){
@@ -1824,7 +1604,7 @@ else{ $mainPage = ""; }
       var initial = true;
       var $dialog =  $("#ajax-box3").dialog({
         modal: true,
-		width: 1115,
+        width: 1115,
         dialogClass: "editFormula",
         close: function(){
           ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
@@ -1834,10 +1614,8 @@ else{ $mainPage = ""; }
           $( this ).remove();
         },
         open: function(){
-          <!--$(this).css("display", "block");-->
           $(".ui-widget-overlay").bind("click", function(){
             $("#ajax-box3").dialog('close');
-            $(".ui-widget-overlay").hide();
           });
         }
       });
@@ -1846,7 +1624,6 @@ else{ $mainPage = ""; }
         $dialog.dialog('close');
       }.bind(this)
 
-      $(".ui-widget-overlay").show();
       ReactDOM.render(<EditSearch closeDialog={closeDialog} searchName={name} initial={initial}/>, $dialog[0]);
 	  },
     conductSearch: function(name){
@@ -1883,7 +1660,7 @@ else{ $mainPage = ""; }
                 }
               });
               $('#ajax-box2').load('messages.php #no-formula',function(){
-                $('#ajax-box2').dialog( "option", "title", "No Formula" ).attr('rel','yourbuyers').dialog('open');
+                $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
               });
             }
             else{
@@ -1897,9 +1674,6 @@ else{ $mainPage = ""; }
                 }
               });
             }
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }
@@ -1932,14 +1706,14 @@ else{ $mainPage = ""; }
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #no-formula',function(){
-                $('#ajax-box2').dialog( "option", "title", "No Formula" ).attr('rel','yourbuyers').dialog('open');
+              $('#ajax-box2').load('messages.php #no-formula',function(){
+                $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
                 $('#ajax-box2').parent().css('display', 'block');
                 $('#ajax-box2').css('height', '70px');
               });
             }
             else{
-              $.get("/controllers/ajax.php", {
+              $.get("ajax.php", {
                 saveBuyer: 'true', //Call the PHP function
                 email: buyer, //Put variables into AJAX variables
                 success: function(result){
@@ -1961,9 +1735,6 @@ else{ $mainPage = ""; }
                 }
               });
             }
-          },
-          error: function(){
-            console.log("failed");
           }
         });
       }

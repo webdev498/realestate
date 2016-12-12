@@ -1,7 +1,6 @@
 <?php
 session_start();
-include("dbconfig.php");
-
+include_once("dbconfig.php");
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
@@ -10,15 +9,10 @@ $email = $_POST['email'];
 $folderName = $_POST['name'];
 $_SESSION['buyerSave'] = $email;
 
-if($folderName != "false"){   
-  $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$email."') AND (name = '".$folderName."')";
-}
-else{
-  $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$email."')";
-}
+if($folderName != "false"){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$email."') AND (name = '".$folderName."')"; }
+else{ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$email."')"; }
 
 $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
 while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
   $name = $row['name'];
   $loc_grade = $row['location-grade'];

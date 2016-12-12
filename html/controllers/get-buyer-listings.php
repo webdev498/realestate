@@ -1,21 +1,19 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-
+include_once("dbconfig.php");
+include_once('functions.php');
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_POST['email'])){ $email = $_POST['email']; }
 elseif(isset($_SESSION['guestID'])){ $email = $_SESSION['guestID']; }
+else{ $email = $_SESSION['email']; }
 if(isset($_POST['agentID'])){ $agent_id = $_POST['agentID']; }
 $id = 1;
 $results = array();
 if(isset($email) && $email != ''){
-
   if(isset($_POST['agentID'])){ $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') AND (agent LIKE '%".$agent_id."%') ORDER BY name ASC"; }
-  //else if (isset($_SESSION['guestID'])){ $SQL = "SELECT * FROM users_folders WHERE (user = '".$_SESSION['guestID']."') ORDER BY name ASC"; }
   else{ $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') ORDER BY name ASC"; }
   $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
 
@@ -25,21 +23,18 @@ if(isset($email) && $email != ''){
     if($row['agent'] == ""){ $row['agent'] = "No Agent"; }
     else{
       if(strpos($row['agent'], ',') === false){
-        $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$row['agent']."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$row['agent']."')" ) or die("Couldn't execute query.".mysql_error());
         $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
         $row['agent'] = $row2['name'];
       }
       else{
         $agents = explode(",", $row['agent']);
         
-        $SQL2 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')";
-        $result2 = mysql_query( $SQL2 ) or die("Couldn't execute query.".mysql_error());
+        $result2 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[0]."')" ) or die("Couldn't execute query.".mysql_error());
         $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
         $agent1 = $row2['name'];
         
-        $SQL3 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')";
-        $result3 = mysql_query( $SQL3 ) or die("Couldn't execute query.".mysql_error());
+        $result3 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agents[1]."')" ) or die("Couldn't execute query.".mysql_error());
         $row3 = mysql_fetch_array($result3,MYSQL_ASSOC);
         $agent2 = $row3['name'];
         
@@ -47,15 +42,9 @@ if(isset($email) && $email != ''){
       }
     }
     
-	//if (isset($_SESSION['guestID']){
-	//	$row['buyerName'] = 'Guest';
-	//} else {
-	
-		$SQL4 = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$email."')";
-		$result4 = mysql_query( $SQL4 ) or die("Couldn't execute query.".mysql_error());
+		$result4 = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
 		$row4 = mysql_fetch_array($result4,MYSQL_ASSOC);
 		$row['buyerName'] = $row4['name'];
-	//}
     
     $folders[] = $row;
   }
@@ -63,16 +52,13 @@ if(isset($email) && $email != ''){
   $last_update = 0;
   foreach ($folders as $folder) {
     $folder['listings'] = array();
-    
-    $SQL = "SELECT saved_listings.list_num, saved_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-  
     $grade_total['loc'] = 0;
     $grade_total['bld'] = 0;
     $grade_total['vws'] = 0;
     $grade_total['vroom_sqf'] = 0;
     $result_total = 0;
-  
+    
+    $result = mysql_query( "SELECT saved_listings.list_num, saved_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $grade['loc'] = $row['loc'];
       $grade['bld'] = $row['bld'];
@@ -94,10 +80,8 @@ if(isset($email) && $email != ''){
         $value = number_format($value, 0, '.', ',');
     };
     
-    $SQL = "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."') ORDER BY time DESC";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT distinct saved_listings.list_num, saved_listings.user, saved_listings.comments, saved_listings.folder, saved_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `saved_listings`, `vow_data` where (saved_listings.list_num = vow_data.list_numb) AND (saved_listings.user = '".$email."') AND (saved_listings.folder = '".$folder['name']."') ORDER BY time DESC" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-
       $date = date( "m/d/y", $row['time']);
       if($date > $last_update){$last_update = $date;}
       $address = ucwords(strtolower($row['address']));
@@ -163,17 +147,14 @@ if(isset($email) && $email != ''){
       $id = $id + 1;
     }
     
-    $SQL = "SELECT * FROM `users` WHERE (email = '".$email."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-    
+    $result = mysql_query( "SELECT * FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $agent_code = $row['P_agent'];
       $agent2_code = $row['P_agent2'];
     }
     
     if($agent_code != "" && $agent_code != null){
-      $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent_code."')";
-      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+      $result = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent_code."')" ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent1'] = $row['name'];
     }
@@ -182,8 +163,7 @@ if(isset($email) && $email != ''){
     }
     
     if($agent2_code != "" && $agent2_code != null){
-      $SQL = "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent2_code."')";
-      $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+      $result = mysql_query( "SELECT CONCAT(first_name, ' ', last_name) AS name FROM `registered_agents` WHERE (agent_id = '".$agent2_code."')" ) or die("Couldn't execute query.".mysql_error());
       $row = mysql_fetch_array($result,MYSQL_ASSOC);
       $folder['agent2'] = $row['name'];
     }    

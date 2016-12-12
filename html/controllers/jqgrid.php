@@ -1,13 +1,8 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', '1');
-
-// error_reporting(E_ALL & ~E_NOTICE);
-// ini_set('display_errors', 'On');
 // JQGRID.PHP IS ALWAYS REQUESTED BY THE JQGRID FUNCTION SEARCH.JS
 session_start();
-include('functions.php');
-include("dbconfig.php");
+include_once('functions.php');
+include_once("dbconfig.php");
 
 $user_email = $_SESSION['email'];
 $saved = isset($_REQUEST['saved'])? $_REQUEST['saved']: '';

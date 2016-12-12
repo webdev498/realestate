@@ -1,23 +1,19 @@
 <?php
 session_start();
-include("dbconfig.php");
-include('functions.php');
-
+include_once("dbconfig.php");
+include_once('functions.php');
 // connect to the MySQL database server
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-$email = $_POST['email'];
+$email = (isset($_POST['email']) ? $_POST['email'] : "");
 $listings = array();
-$id = 1;
 $results= array();
+$id = 1;
 
 if($email != ''){
-
-  $SQL = "SELECT * FROM users_folders WHERE (user = '".$email."') ORDER BY last_update DESC" ;
-  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
   $folders = array();
+  $result = mysql_query( "SELECT * FROM users_folders WHERE (user = '".$email."') ORDER BY last_update DESC" ) or die("Couldn't execute query.".mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
     $row['last_update'] = date( "m/d/y", $row['last_update']);
     $folders[] = $row;
@@ -26,16 +22,13 @@ if($email != ''){
   $last_update = 0;
   foreach ($folders as $folder) {
     $folder['listings'] = array();
-
-    $SQL = "SELECT queued_listings.list_num, queued_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
-
     $grade_total['loc'] = 0;
     $grade_total['bld'] = 0;
     $grade_total['vws'] = 0;
     $grade_total['vroom_sqf'] = 0;
     $result_total = 0;
 
+    $result = mysql_query( "SELECT queued_listings.list_num, queued_listings.user, vow_data.loc, vow_data.bld, vow_data.vws,  vow_data.vroom_sqf, vow_data.floor FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."')" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $grade['loc'] = $row['loc'];
       $grade['bld'] = $row['bld'];
@@ -57,8 +50,7 @@ if($email != ''){
         $value = number_format($value, 0, '.', ',');
     };
 
-    $SQL = "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."') ORDER BY time DESC";
-    $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+    $result = mysql_query( "SELECT distinct queued_listings.list_num, queued_listings.user, queued_listings.comments, queued_listings.folder, queued_listings.time, vow_data.price, vow_data.address, vow_data.apt, vow_data.lr, vow_data.br1, vow_data.bed, vow_data.bath, vow_data.maint, vow_data.taxes, vow_data.loc, vow_data.bld, vow_data.vws, vow_data.vroom_sqf, vow_data.status FROM `queued_listings`, `vow_data` where (queued_listings.list_num = vow_data.list_numb) AND (queued_listings.user = '".$email."') AND (queued_listings.folder = '".$folder['name']."') ORDER BY time DESC" ) or die("Couldn't execute query.".mysql_error());
     while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
       $date = date( "m/d/y", $row['time']);
       if($date > $last_update){$last_update = $date;}
@@ -67,6 +59,7 @@ if($email != ''){
       $price = number_format($price, 0, '.', ',');
       $monthly = (intval($row['maint']) + intval($row['taxes']));
       $monthly = number_format($monthly, 0, '.', ',');
+      $bath = $row['bath'];
       $bath = number_format($bath, 0, '.', ',');
       $loc = $row['loc'];
       $loc = number_format($loc, 0, '.', ',');

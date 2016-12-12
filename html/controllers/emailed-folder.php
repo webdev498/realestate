@@ -7,14 +7,12 @@ $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " .
 mysql_select_db($database) or die("Error connecting to db.");
 
 if(isset($_SESSION['buyer'])){
-  $user = $_SESSION['id'];
   $buyer_email = $_SESSION['email'];
   $role = 'user';
   $folder = "";  
   $agent_id = '';
 }
 elseif(isset($_SESSION['agent'])){
-  $user = $_SESSION['id'];
   $agent_email = $_SESSION['email'];
   $agent_id = $_SESSION['agent_id'];
   $role = 'agent';
@@ -47,6 +45,7 @@ else{
 }
 
 if($sender_firstname == ""){ $sender_firstname = $name; }
+$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
 ?>
   <title>HomePik - Listing Folders</title>
   <?php include_css("/views/css/buyer-listing-folders.css"); ?>
@@ -62,12 +61,12 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
 	var UserListings = React.createClass({
 		getInitialState: function() {
 			return{
-				user_email: "<?php echo $user_email ?>",
-        sender: "<?php echo $sender ?>",
-				agent_id: "<?php echo $agent_id ?>",
+				user_email: "<?php echo (isset($user_email) ? $user_email : "") ?>",
+        sender: "<?php echo (isset($sender) ? $sender : "") ?>",
+				agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
 				lastUpdate: "",
 				folders: [],
-				openFolder: "<?php echo $folder ?>",
+				openFolder: "<?php echo (isset($folder) ? $folder : "") ?>",
         documentWidth: ""
 			};
 		},
@@ -76,28 +75,22 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
       this.setState({documentWidth: $(document).width()});
 		},
 		getListings: function(action){
-    console.log(this.state.sender);
-    console.log(this.state.openFolder);
 		  $.ajax({
-			type: "POST",
-			url: "get-emailed-folder.php",
-			data: {"email": this.state.sender, "folder": this.state.openFolder},
-			success: function(data){
-			  var folders = JSON.parse(data);
-        console.log(folders);
-			  var ajaxStop = 0;
-			  $(document).ajaxStop(function() {
-          if(ajaxStop == 0){
-            ajaxStop++;
-            this.setState({folders: folders});
-            $("#loading").hide();
-            $("#noFolders").show();
-          }
-			  }.bind(this));
-			}.bind(this),
-			error: function(){
-			  console.log("failed");
-			}
+        type: "POST",
+        url: "get-emailed-folder.php",
+        data: {"email": this.state.sender, "folder": this.state.openFolder},
+        success: function(data){
+          var folders = JSON.parse(data);
+          var ajaxStop = 0;
+          $(document).ajaxStop(function() {
+            if(ajaxStop == 0){
+              ajaxStop++;
+              this.setState({folders: folders});
+              $("#loading").hide();
+              $("#noFolders").show();
+            }
+          }.bind(this));
+        }.bind(this)
 		  });
 		},
 		checkFolders: function(){
@@ -292,7 +285,6 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
                 </table>
 							  {listings}
 							  <p id="u16157-209">&nbsp;</p>
-							  {/* <p id="u16157-212"><span id="u16157-211">Note: each time new listings are added,<br/>the comparison of the gold bubbles will update.</span></p> */}
                 <div id="u16157-212"><p id="u16157-211">Gold bubble icons evaluate only the listings saved to this folder and shows how they rate when compared to one another. When new listings are added, the gold bubbles will update.&nbsp; <span id="u16156-12"><i className="fa fa-question-circle"></i> </span><span id="u16156-13"><a href="faq.php?section=manage">more info</a></span></p></div>
 							  <p>&nbsp;</p>
 							</div>
@@ -322,15 +314,6 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
 						  <p id="u16159-3"><span id="u16159"><?php if($sender_firstname != ""){ echo $sender_firstname . " ". $sender_lastname; }else{ echo $sender; } ?>'s Listing Folder </span><span id="u16159-2">click name to open</span></p>
 						</div>
 					  </div>
-            {/*
-					  <div className="col-md-7 col-sm-7 col-xs-12">
-              <div className="grpelem" id="u16158"></div>
-              <div className="clearfix grpelem" id="u16156-17">
-               <p id="u16156-4"><span id="u16156">1. </span><span id="u16156-2">This list</span> shows all of the apartments that have been saved to this folder, either by the buyer or by their agent.</p>
-               <p id="u16156-14"><span id="u16156-5">2.</span><span id="u16156-6"> </span><span id="u16156-7">Gold bubble icons</span><span id="u16156-11"> evaluate only the listings saved to this folder and shows how they rate when compared to one another. When new listings are added, the gold bubbles will update.&nbsp; </span> <span id="u16156-12"><i className="fa fa-question-circle"></i> </span><span id="u16156-13"><a href="faq.php?section=manage">more info</a></span></p>
-              </div>
-					  </div>
-            */}
 					</div>
 					<div className="row">
 					  <div className="col-md-12">
@@ -360,7 +343,7 @@ if($sender_firstname == ""){ $sender_firstname = $name; }
 	);
 
 	ReactDOM.render(
-		<Footer />,
+		<Footer mainPage={"<?php echo $mainPage ?>"} />,
 		document.getElementById("footer")
 	);
 </script>
