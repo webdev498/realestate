@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../dbconfig.php");
-include("../functions.php");
-include("../basicHeadOld.php");
+include_once("../dbconfig.php");
+include_once("../functions.php");
+include_once("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
@@ -72,7 +72,7 @@ if($_SESSION['role']){ $role = $_SESSION['role']; }
 							mysql_query("UPDATE users SET notifications = 'none' WHERE email = '".$user."'");
 						}
 						
-						echo "<br><br><center class='Text-1 clearfix'><strong>Your settings has been updated.</strong></center><br><br>";
+						echo "<br><br><center class='Text-1 clearfix'><strong>Your settings have been updated.</strong></center><br><br>";
 						echo '<br><center class="Text-1 clearfix"><a href="/index.php"><button type="button" id="back">Go to Homepage &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 					}
 				}

@@ -1,9 +1,9 @@
 <?php
 session_start();
-include("../dbconfig.php");
-include("../functions.php");
-include("../emailconfig.php");
-include("../basicHeadOld.php");
+include_once("../dbconfig.php");
+include_once("../functions.php");
+include_once("../emailconfig.php");
+include_once("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
