@@ -6,10 +6,7 @@ include_once('emailconfig.php');
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if(isset($_SESSION['user'])){
-  $email = $_SESSION['email'];
-  $role = 'user';
-}
+if(isset($_SESSION['user'])){ $email = $_SESSION['email']; }
 
 if(isset($_POST['firstName'])){
   $firstName = $_POST['firstName'];
@@ -68,7 +65,7 @@ if(isset($_POST['code'])){
   }  
   
   // Get agent's information
-  $result6 = mysql_query( "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent FROM `registered_agents` r, `users` u WHERE (u.email='".$email."') AND (r.agent_id = u.P_agent)" ) or die("Couldn't execute query.".mysql_error());
+  $result6 = mysql_query( "SELECT first_name, last_name, phone, email, agent_id FROM `registered_agents` WHERE (agent_id = '".$code."')" ) or die("Couldn't execute query.".mysql_error());
   $row6 = mysql_fetch_array($result6,MYSQL_ASSOC);
   $agent = $row6['email'];
   $afirstname = $row6['first_name'];
@@ -116,7 +113,7 @@ if(isset($_POST['code2'])){
   mysql_query( "INSERT INTO users_folders(`user`,`name`,`agent`,`last_update`) VALUES  ('".$email."','Folder 2','".$code."','".date('U')."')" ) or die("Couldn't execute query.".mysql_error());
   
   // Get the agent's information
-  $result6 = mysql_query( "SELECT r.first_name, r.last_name, r.phone, r.email, r.agent_id, u.P_agent2 FROM `registered_agents` r, `users` u WHERE (u.email='".$email."') AND (r.agent_id = u.P_agent2)" ) or die("Couldn't execute query.".mysql_error());
+  $result6 = mysql_query( "SELECT first_name, last_name, phone, email, agent_id FROM `registered_agents` WHERE (agent_id = '".$code."')" ) or die("Couldn't execute query.".mysql_error());
   $row6 = mysql_fetch_array($result6,MYSQL_ASSOC);
   $agent = $row6['email'];
   $afirstname = $row6['first_name'];

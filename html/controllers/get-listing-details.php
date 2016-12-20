@@ -340,7 +340,7 @@ if($list_num != ''){
   if(isset($pAgent2) && $pAgent2 != "" && $pAgent2 != null){
     $result = mysql_query( "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '".$pAgent2."'); " ) or die(mysql_error()." ".$SQL);
     $row = mysql_fetch_array($result,MYSQL_ASSOC);
-    $agent2_id = $row['id'];  
+    $agent2_id = $row['agent_id'];  
     $agent2_firstname = $row['first_name'];
     $agent2_lastname = $row['last_name'];
     $agent2_title = $row['title'];

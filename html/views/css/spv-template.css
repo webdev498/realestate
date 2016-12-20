@@ -1,0 +1,59 @@
+body{ font-family: 'lato-light', sans-serif; }
+
+#header { position: fixed; left: 0px; top: 0px; right: 0px; height: 150px; }
+#footer { bottom: 0px; position: fixed; left: 0px; right: 0px; height: 150px; }
+
+.headerImg{ width: 19.5%; }
+.headerSeperator{ border-left: 1px solid #7F7F7F; height: 23px; position: absolute; margin-top: 4px; margin-left: 12px; }
+.headerText{ color: #2B2E34; font-size: 18pt; font-weight: 300; letter-spacing: -1px; margin-left: 22px; margin-top: -4px; position: absolute; }
+.headerText sup{ font-size: 5pt; margin-top: 10px; position: absolute; }
+
+.whiteSpace{ line-height: 4; }
+#pageSeperator{ border-top: 0.1em solid #B2B2B2; height: 8px; margin-bottom: 10px; width: 99.6%; }
+#page2Seperator{ border-top: 0.1em solid #B2B2B2; height: 8px; margin-bottom: 0; width: 99.6%; }
+#pageSeperator2{ border-top: 0.4px solid #000000; height: 7px; margin-bottom: 0; width: 99.6%; }
+
+#firstRow tr{ line-height: 0.6; }
+#firstRow tr > td{ padding-bottom: 2.8px; }
+#secondRow tr, table#thirdRow tr{ line-height: 0.9; }
+#fourthRow tr > td{ line-height: 0.76; }
+#fifthRow tr > td, #sixthRow tr > td{ line-height: 0.95; }
+#fifthRow{ padding-bottom: 2px; }
+#seventhRow{ margin-bottom: 9px;}
+#seventhRow tr > td{ line-height: 0.8; }
+#seventhRow #listing-details{ vertical-align: bottom; width: 100%; }
+#seventhRow #listing-details #address, #seventhRow #listing-details #location{ margin-left: 19px; }
+#seventhRow #listing-details #apt{ margin-left: 18px; }
+#seventhRow #listing-details #minPrice{ margin-left: 10px; }
+#seventhRow #listing-details #interest{ margin-right: 13px; }
+#seventhRow #listing-details #building, #seventhRow #listing-details #floor, #seventhRow #listing-details #view, #seventhRow #listing-details #space, #seventhRow #listing-details #maint{ margin-left: 25px; }
+#eighthRow{ padding-bottom: 15px; }
+#eighthRow tr > td{ vertical-align: baseline; }
+#ninthRow tr > td{ line-height: 0.8; }
+#ninthRow tr:nth-child(odd) > td{ line-height: 0.9; }
+#ninthRow tr:nth-child(even){ background-color: #F3F3F4; }
+#ninthRow tr:nth-child(even) > td{ border: 1px solid #F3F3F4; }
+#ninthRow .border{ border-right: 1.5px solid #E7E7E8; }
+
+.titleText{ color: #2B2E34; font-family: 'lato-bold', sans-serif; font-size: 6pt; }
+.smallText{ color: #2B2E34; font-family: 'lato', sans-serif; font-size: 7pt; }
+.mediumText{ color: #2B2E34; font-family: 'lato', sans-serif; font-size: 9pt !important; }
+#firstRow .infoText, #seventhRow .infoText{ color: #2B2E34; font-family: 'lato-light', sans-serif !important; font-size: 11pt; letter-spacing: 0px; }
+#secondRow .infoText, #thirdRow .infoText{ color: #2B2E34; font-family: 'lato-light', sans-serif; font-size: 10pt; letter-spacing: 0px; }
+#fourthRow .infoText, #fifthRow .infoText, #sixthRow .infoText{ color: #2B2E34; font-family: 'lato-light', sans-serif; font-size: 9pt; letter-spacing: 0px; }
+
+.lineSeperator{ margin: 0 12px; }
+.priceSeperator, .interestSeperator{ margin: 0 13px; }
+.boxed{ background: #E8F4FB; margin-left: 6px; width: 40px; height: 22px; }
+.boxed p{ margin: 3px 0 0; width: 40px; }
+.bold{ font-family: 'lato-bold', sans-serif !important; }
+.smallLineHeight{ line-height: 7px; }
+.pageNumber{ color: #2B2E34; font-family: 'lato-bold', sans-serif !important; font-size: 6pt; margin: 0 !important; text-align: right; width: 100%; }
+.pageNumber span#num{ font-family: lato, sans-serif !important; font-size: 10pt; }
+.dropDown{ padding-top: 95px; }
+table{ margin-left: -2px; }
+
+@font-face { font-family: lato; src: url('../../dompdf/Lib/Fonts/Lato-Regular.ttf'); }
+@font-face { font-family: lato-light; src: url('../../dompdf/Lib/Fonts/Lato-Light.ttf'); }
+@font-face { font-family: lato-bold; src: url('../../dompdf/Lib/Fonts/Lato-Bold.ttf'); }
+@page { margin-left: 6em; margin-bottom: 0px; }

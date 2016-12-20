@@ -344,18 +344,18 @@
                 </table>
               </div>  <!-- /contact -->
             <br><br>
-          </div>
-          {if $tplvar['auth'] == 'agent'}
-            <div class="infobox" style="height:185px;" id="profileHomePikOffice">
-            <h2>HomePik Office</h2>
-              <div style="position: relative;margin-top: 7px;" class="options">
-                {/* <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-spv"><div><i class="fa fa-chevron-right"></i>Selection Portfolio Valuation</div></button><br> */}
-                <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-streeteasy"><div><i class="fa fa-chevron-right"></i>Streeteasy Listing</div></button><br>
-                <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-olr"><div><i class="fa fa-chevron-right"></i>OLR Listing</div></button><br>
-                {/* <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-broker-website"><div><i class="fa fa-chevron-right"></i>Broker Website Listing</div></button> */}
+            {if $tplvar['auth'] == 'agent'}
+              <div class="infobox" style="height:185px;" id="profileHomePikOffice">
+              <h2>HomePik Office</h2>
+                <div style="position: relative;margin-top: 7px;" class="options">
+                  <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-spv"><div><i class="fa fa-chevron-right"></i>Selection Portfolio Valuation</div></button><br>
+                  <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-streeteasy"><div><i class="fa fa-chevron-right"></i>Streeteasy Listing</div></button><br>
+                  <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-olr"><div><i class="fa fa-chevron-right"></i>OLR Listing</div></button><br>
+                  {/* <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-broker-website"><div><i class="fa fa-chevron-right"></i>Broker Website Listing</div></button> */}
+                  </div>
                 </div>
-              </div>
-          {/if}
+            {/if}
+          </div>
         </div> {* /listingmain2 *}
 
         <br style="clear: both;">
@@ -604,6 +604,213 @@
       </div>
       <div class="ui-dialogue-agent-bio-closer ui-dialogue-agent-bio-closer-above ui-dialogue-cost-estimator-popup-closer"><span class="fa fa-times"></span></div>
       <div class="ui-dialogue-agent-bio-closer ui-dialogue-agent-bio-closer-below ui-dialogue-cost-estimator-popup-closer ui-dialogue-cost-estimator-popup-closer-bottom">Close</div>
+    </div>
+    
+    <div class="ui-dialogue-selection-portfolio-valutation-popup" id="ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}">
+      <div class="clearfix grpelem" id="SPV-div">
+        <div class="clearfix grpelem" id="SPV-content">
+          <h2 class="Subhead-2" id="u17925-2">Selection Portfolio Valuation</h2>
+          <h4 class="text-popups" id="u17925-3">&nbsp;</h4>
+          <form action="spv.php" method="POST" target="_blank">
+            <div class="informationRow">
+              <h4 class="text-popups" id="address"><span class="title">Address:</span> {$tplvar['address']}</h4>
+              <h4 class="text-popups" id="listing_price"><span class="title">Price:</span> $<input type="text" id="priceInput" name="price" value={$tplvar['price']} /></h4>
+              <h4 class="text-popups" id="bed"><span class="title">Bedrooms:</span> <input type="number" id="bedroomInput" name="min_bed" min="0" max="9" value={$tplvar['price']} /></h4>
+            </div>
+            <div class="informationRow">
+              <h4 class="text-popups" id="apt"><span class="title">Apartment:</span> {$tplvar['apt']}</h4>
+              <h4 class="text-popups" id="floor"><span class="title">Floor:</span> <input type="number" id="minFloorInput" name="min_floor" min="0" max="30" defaultValue={$tplvar['floor']}/></h4>
+              <h4 class="text-popups" id="monthly"><span class="title">Monthly:</span> $<input type="text" id="monthlyInput" name="min_maint" value={$tplvar['monthly']} /></h4>
+              <h4 class="text-popups" id="bath"><span class="title">Baths:</span> <input type="number" id="bathInput" name="min_bath" min="0" max="10" value={$tplvar['bath']} /></h4>
+            </div>
+              
+            <h4 class="text-popups">&nbsp;</h4>
+            <ul class="nav nav-tabs text-popups">
+              <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
+              <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
+              <li role="presentation"><a href="#building" aria-controls="building" role="tab" data-toggle="tab">Building</a></li>
+              <li role="presentation"><a href="#view" aria-controls="view" role="tab" data-toggle="tab">View</a></li>
+              <li role="presentation"><a href="#size" aria-controls="size" role="tab" data-toggle="tab">Size</a></li>
+            </ul>
+            
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="main">
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="area">
+                    <span class="title">Area:</span><br/>
+                    <input type="radio" name="listing_location" value="Local"/> Local<br/>
+                    <input type="radio" name="listing_location" value="All"/> All Manahattan<br/>
+                    <input type="radio" name="listing_location" value="Zip"/> With zip {$tplvar['zip']}
+                  </h4>
+                  <h4 class="text-popups" id="type">
+                    <span class="title">Listing Type:</span><br/>
+                    <input type="radio" name="listing_type" value="Active"/> Active<br/>
+                    <input type="radio" name="listing_type" value="Historical"/> Historical<br/>
+                    <input type="radio" name="listing_type" value="Both"/> Both
+                  </h4>
+                  <h4 class="text-popups">
+                    <span class="title">Price Range:</span><br/>
+                    <span id="minPriceRange">$<span id="minPrice"></span> To <span id="maxPriceRange">$<span id="maxPrice"></span></span><br/>
+                    <input type="number" id="priceRangeInterest" name="interest" min="5" max="100" defaultValue="10" step="5"/></h4>  
+                </div>
+                
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="condition">
+                    <span class="title">Condition:</span><br/>
+                    <input type="radio" name="condition" value="Level 1"/> Complete rehabilitation required <br/>
+                    <input type="radio" name="condition" value="Level 2"/> Obsolete components in need of replacement <br/>
+                    <input type="radio" name="condition" value="Level 3"/> Premium quality high luxury <br/>
+                    <input type="radio" name="condition" value="Level 4"/> High quality decorator improvements <br/>
+                    <input type="radio" name="condition" value="Level 5"/> Decorator showcase, triple mint condition.
+                  </h4>
+                  <h4 class="text-popups" id="demand">
+                    <span class="title">Demand:</span><br/>
+                    <input type="radio" name="demand" value="Level 1"/> Appreciating market <br/>
+                    <input type="radio" name="demand" value="Level 2"/> Stable market <br/>
+                    <input type="radio" name="demand" value="Level 3"/> Slightly declining market <br/>
+                    <input type="radio" name="demand" value="Level 4"/> Dramatically declining market
+                  </h4>
+                </div>            
+                <h4 class="text-popups" id="u17925-3">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="condos">
+                    <span class="title">Condos only:</span><br/>
+                    <input type="radio" name="condos_only" value="yes"/> Yes<br/>
+                    <input type="radio" name="condos_only" value="no"/> No
+                  </h4>
+                  <h4 class="text-popups" id="amenity_checkboxes">
+                    <span class="title">Amenities:</span><br/>
+                    <input type="checkbox" name="amenities[]" value="fireplace"/> Fireplace<br/>
+                    <input type="checkbox" name="amenities[]" value="elevator"/> Elevator
+                  </h4>
+                  <h4 class="text-popups" id="private_outdoors">
+                    <span class="title">Private Outdoors:</span><br/>
+                    <input type="radio" name="outdoors_amenity" value="none"/> None <br/>
+                    <input type="radio" name="outdoors_amenity" value="balcony"/> Balcony <br/>
+                    <input type="radio" name="outdoors_amenity" value="terrace"/> Terrace <br/>
+                    <input type="radio" name="outdoors_amenity" value="setBack"/> Setback Terrace <br/>
+                    <input type="radio" name="outdoors_amenity" value="garden"/> Private garden / Roof deck
+                  </h4>
+                </div>                    
+              </div>
+              <div role="tabpanel" class="tab-pane" id="location">
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="loc">Location:</h4>
+                  <h4 class="text-popups" id="loc_grade"><span class="title">Grade:</span> <input type="text" id="minLocInputSet" name="min_loc" value={$tplvar['loc']} disabled="disabled" /></h4>
+                </div>
+                <div class="text-popups">
+                  <input type="radio" name="location_grade" value="10"/> Internationally renown / near major park<br/>
+                  <input type="radio" name="location_grade" value="9"/> Residential area close to major park<br/>
+                  <input type="radio" name="location_grade" value="8"/> Residential area / near local park or river<br/>
+                  <input type="radio" name="location_grade" value="7"/> Residential area / neighborhood amenities<br/>
+                  <input type="radio" name="location_grade" value="6"/> Quiet residential street<br/>
+                  <input type="radio" name="location_grade" value="5"/> Active commercial street / Residential Area<br/>
+                  <input type="radio" name="location_grade" value="4"/> Active commercial street<br/>
+                  <input type="radio" name="location_grade" value="3"/> Emerging residential area<br/>
+                  <input type="radio" name="location_grade" value="2"/> New developing market<br/>
+                  <input type="radio" name="location_grade" value="1"/> All locations
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="building">
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="bld">Building:</h4>
+                  <h4 class="text-popups" id="bld_grade"><span class="title">Grade:</span> <input type="text" id="minBldInputSet" name="min_bld" value={$tplvar['bld']} disabled="disabled" /></h4>
+                </div>
+                <div class="text-popups">
+                  <input type="radio" name="building_grade" value="10"/> International renown<br/>
+                  <input type="radio" name="building_grade" value="9"/> Locally renowned building or new construction with full services<br/>
+                  <input type="radio" name="building_grade" value="8"/> Full service building with amenities<br/>
+                  <input type="radio" name="building_grade" value="7"/> Doorman building with amenities<br/>
+                  <input type="radio" name="building_grade" value="6"/> Doorman building &mdash;no amenities<br/>
+                  <input type="radio" name="building_grade" value="5"/> Elevator building in good condition<br/>
+                  <input type="radio" name="building_grade" value="4"/> Elevator building in fair condition<br/>
+                  <input type="radio" name="building_grade" value="3"/> Walkup in good condition<br/>
+                  <input type="radio" name="building_grade" value="2"/> Walkup in fair condition<br/>
+                  <input type="radio" name="building_grade" value="1"/> All buildings
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="view">
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 class="text-popups" id="vws">Views:</h4>
+                  <h4 class="text-popups" id="vws_grade"><span class="title">Grade:</span> <input type="text" id="minVwsInputSet" name="min_vws" value={$tplvar['vws']} disabled="disabled" /></h4>
+                </div>
+                <div class="text-popups">
+                  <input type="radio" name="view_grade" value="10"/> Cityscape and Central Park views<br/>
+                  <input type="radio" name="view_grade" value="9"/> Cityscape and river or park views<br/>
+                  <input type="radio" name="view_grade" value="8"/> Cityscape views<br/>
+                  <input type="radio" name="view_grade" value="7"/> Rooftop views<br/>
+                  <input type="radio" name="view_grade" value="6"/> Street view or interior garden, bright<br/>
+                  <input type="radio" name="view_grade" value="5"/> Street view or interior garden, moderate light<br/>
+                  <input type="radio" name="view_grade" value="4"/> Interior courtyard or area without view but bright<br/>
+                  <input type="radio" name="view_grade" value="3"/> Interior courtyard or area with moderate light<br/>
+                  <input type="radio" name="view_grade" value="2"/> Indirect light<br/>
+                  <input type="radio" name="view_grade" value="1"/> All properties
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="size">
+                <h4 class="text-popups">&nbsp;</h4>
+                <h4 class="text-popups" id="value_rooms">Value Rooms</h4>
+                <h4 class="text-popups">The space factor consists of an accumulation of the measurements in the Living Room, Dining Room, Master Bedroom
+                and 2nd and 3rd Bedrooms. This is more accurate than gross footage since it is verifiable. The Space Factor generally accounts for approximately
+                90% of the usable area within a studio or 1 Bedroom apartment. It accounts for approximately 85% of the usable area in two and three bedroom apartments.</h4>
+                <h4 class="text-popups">&nbsp;</h4>
+                <div class="informationRow">
+                  <h4 id="label" class="text-popups">Primary<br/>Value<br/>Rooms</h4>
+                  <table id="dimensionTable">
+                    <colgroup><col width="175"/><col width="145"/><col width="70"/></colgroup>
+                    <tbody>
+                      <tr>
+                        <td><span class="text-popups">&nbsp;</span></td>
+                        <td><span class="text-popups">&nbsp;</span></td>
+                        <td><span class="text-popups">SQ.Feet</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="text-popups">Living Room</span></td>
+                        <td><span class="text-popups"><input type="text" id="lrone" class="dimensionInput" name="living_dimension[]" value=""/> x <input type="text" id="lrtwo" class="dimensionInput" name="living_dimension[]" value=""/></span></td>
+                        <td><span class="text-popups"><input type="text" id="lrt" class="dimensionTotal" name="living_dimension[]" value="" disabled="disabled"/></span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="text-popups">Master Bedroom</span></td>
+                        <td><span class="text-popups"><input type="text" id="mbone" class="dimensionInput" name="master_dimension[]" value=""/> x <input type="text" id="mbtwo" class="dimensionInput" name="master_dimension[]" value=""/></span></td>
+                        <td><span class="text-popups"><input type="text" id="mbt" class="dimensionTotal" name="master_dimension[]" value="" disabled="disabled"/></span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="text-popups">Dining Room</span></td>
+                        <td><span class="text-popups"><input type="text" id="drone" class="dimensionInput" name="dining_dimension[]" value=""/> x <input type="text" id="drtwo" class="dimensionInput" name="dining_dimension[]" value=""/></span></td>
+                        <td><span class="text-popups"><input type="text" class="dimensionTotal" name="dining_dimension[]" value="" disabled="disabled"/></span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="text-popups">2nd Bedroom</span></td>
+                        <td><span class="text-popups"><input type="text" id="bbone" class="dimensionInput" name="2bedroom_dimension[]" value=""/> x <input type="text" id="bbtwo" class="dimensionInput" name="2bedroom_dimension[]" value=""/></span></td>
+                        <td><span class="text-popups"><input type="text" id="bbt" class="dimensionTotal" name="2bedroom_dimension[]" value="" disabled="disabled"/></span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="text-popups">3rd Bedroom</span></td>
+                        <td><span class="text-popups"><input type="text" id="bbbone" class="dimensionInput" name="3bedroom_dimension[]" value=""/> x <input type="text" id="bbbtwo" class="dimensionInput" name="3bedroom_dimension[]" value=""/></span></td>
+                        <td><span class="text-popups"><input type="text" id="bbbt" class="dimensionTotal" name="3bedroom_dimension[]" value="" disabled="disabled"/></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h4 id="total" class="text-popups">Total Value<br/>Room SQ.<br/>Footage<br/><input type="text" id="total_sqf" name="min_space" value="" disabled="disabled" /></h4>
+                </div>
+              </div>
+            </div>
+            <h4 class="text-popups">&nbsp;</h4>
+            <input type="hidden" name="listing" value={$tplvar['list_num']}/>
+            <input type="hidden" id="minLocInputSet" name="min_loc" value={$tplvar['loc']}/>
+            <input type="hidden" id="minBldInputSet" name="min_bld" value={$tplvar['bld']}/>
+            <input type="hidden" id="minVwsInputSet" name="min_view" value={$tplvar['vws']}/>
+            <input type="hidden" id="total_sqf" name="min_space" value={$tplvar['space']}/>
+            <button type="submit" name="submit" class="text-popups" id="submit">Process <i class="fa fa-chevron-right"></i></button>
+          </form>              
+        </div>
+      </div>
+      <h4 id="{$tplvar['list_num']}closeSpvPopup"><i class="fa fa-times" title="close"></i></h4>
     </div>
 </body>
 </html>

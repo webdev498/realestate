@@ -1471,7 +1471,11 @@ var Tabs = React.createClass({
       open: function(){
         $('#amenities').addClass('shift');
         $(this).parent().parent().parent().addClass("active");
-        localStorage.sportive = $("#sportive").val();
+        localStorage.sportive = $("#sportive").val();        
+        $('#neighborhoods-container').find("input[value='hidden']").parent().find("span").addClass('neighborhood-explaination');
+        $('#neighborhoods-container').find("input[value='hidden']").parent().parent().css("margin-bottom", "9px");
+        $('#neighborhoods-container').find("input[value='hidden2']").parent().find("span").addClass('neighborhood-explaination');
+        $('#neighborhoods-container').find("input[value='hidden2']").parent().parent().css("margin-bottom", "23px");
       },
       close:  function(){
         $('#amenities').removeClass('shift');
@@ -1863,13 +1867,20 @@ var Tabs = React.createClass({
           <div id="nbhood_box" className='criterion select'>
             <div className="label">Neighborhoods</div><div id="neighborhoods-container">
               <select id="neighborhoods" name="neighborhoods" multiple="multiple">
-                <option value="North" >Far Uptown</option>
-                <option value="SMG" >Midtown East</option>
+                <option value="North">Far Uptown</option>
+                <option value="hidden">116th St. and north, including Harlem, Hudson Heights, Washington Heights, Inwood, Spanish Harlem</option>
                 <option value="Westside" >Upper West Side</option>
-                <option value="Village" >East/West Village</option>
+                <option value="hidden">59th St. up to 116th St., west of Central Park including Lincoln Center, Upper West Side, Manhattan Valley</option>
                 <option value="Eastside" >Upper East Side</option>
-                <option value="Lower" >Downtown</option>
+                <option value="hidden">59th St. to 116th St., east of Central Park, including Lenox Hill, Yorkville, Carnegie Hill, Roosevelt Island</option>
                 <option value="Chelsea" >Midtown West</option>
+                <option value="hidden">14th St. to 59th St., west, including Flatiron, Chelsea, Hudson Yards, Clinton</option>
+                <option value="SMG" >Midtown East</option>
+                <option value="hidden">From 14th St. to 59th St., east, including Gramercy Park, Murray Hill, Sutton Place</option>
+                <option value="Village" >East/West Village</option>
+                <option value="hidden2">From Houston St. to 14th St., east and west, including Noho, Greenwich Village</option>
+                <option value="Lower" >Downtown</option>
+                <option value="hidden">Below Houston St. including Soho, Tribeca, Little Italy, Lower East Side, Chinatown, Financial District, Battery Park City, South Street Seaport</option>
               </select>
             </div>
             <div className="selectborder">&nbsp;</div>

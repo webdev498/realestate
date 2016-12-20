@@ -565,3 +565,74 @@ function previous(){
 $("#main").bind('click',function(){ $('.space-factor-popup').remove(); $('.implied-square-footage-popup').remove(); })
 $('.space-factor-popup').click(function(event){ event.stopPropagation(); });
 $('.implied-square-footage-popup').click(function(event){ event.stopPropagation(); });
+
+$( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog({ 
+  autoOpen: false,
+  modal: true,
+  dialogClass: 'selectionValuationPopup',
+  draggable: false,
+  resizable: false,
+  width: 850,
+  open: function(){
+    $(':focus', this).blur();
+    calculatePriceRange(10);
+    $("input[value='Local']").attr("checked", true);
+    $("input[value='Active']").attr("checked", true);
+    $("input[name='condition'][value='Level 3']").attr("checked", true);
+    $("input[name='demand'][value='Level 2']").attr("checked", true);
+    $("input[name='condos_only'][value='no']").attr("checked", true);
+    $("input[name='location_grade'][value='{$tplvar['loc']}']").attr("checked", true);
+    $("input[name='building_grade'][value='{$tplvar['bld']}']").attr("checked", true);
+    $("input[name='view_grade'][value='{$tplvar['vws']}']").attr("checked", true);
+    if({$tplvar['amenities']['fireplace']} == "1"){ $("input[value='fireplace']").attr("checked", true); }
+    if({$tplvar['amenities']['elevator']} == "1"){ $("input[value='elevator']").attr("checked", true); }
+    if({$tplvar['amenities']['balcony']} == "1"){ $("input[value='balcony']").attr("checked", true); }
+    else if({$tplvar['amenities']['terrace'] == "1"){ $("input[value='terrace']").attr("checked", true); }
+    else if({$tplvar['amenities']['garden'] == "1" || {$tplvar['amenities']['roofd'] == "1"){ $("input[value='garden']").attr("checked", true); }
+    else{ $("input[value='none']").attr("checked", true); }
+    $(".ui-widget-overlay").bind("click", function(){
+      $("#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}{$tplvar['agent_id_1']}").dialog('close');
+    });
+  }
+});
+$( "#{$tplvar['list_num']}-spv" ).click(function() {
+  $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog( "open" );
+});
+
+$('#{$tplvar['list_num']}closeSpvPopup').click(function (){
+  $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog('close');
+});
+
+$('#submit').click(function (){
+  $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog('close');
+});
+
+function calculatePriceRange(interest){
+  var price = this.state.price;
+  while(price.indexOf(",") != -1){ price = price.replace(",",""); }
+  price = Number(price);
+  
+  var minPriceRange = price - (price * (interest / 100));
+  minPriceRange = minPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  $("#minPrice").html(minPriceRange);
+  
+  var maxPriceRange = price + (price * (interest / 100));
+  maxPriceRange = maxPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  $('#maxPrice').html(maxPriceRange);
+};
+
+function calculateDimensions(){
+  var ltotal = this.state.lrd_one * this.state.lrd_two;
+  $("#lrt").html(ltotal).val(ltotal);
+  var mtotal = this.state.mbd_one * this.state.mbd_two;
+  $("#mbt").html(mtotal).val(mtotal);
+  var dtotal = this.state.drd_one * this.state.drd_two;
+  $("#drt").html(dtotal).val(dtotal);
+  var bbtotal = this.state.bbd_one * this.state.bbd_two;
+  $("#bbt").html(bbtotal).val(bbtotal);
+  var bbbtotal = this.state.bbbd_one * this.state.bbbd_two;
+  $("#bbbt").html(bbbtotal).val(bbbtotal);
+  
+  var stotal = ltotal + mtotal + dtotal + bbtotal + bbbtotal;
+  $("#total_sqf").html(stotal).val(stotal);
+};

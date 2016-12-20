@@ -162,7 +162,7 @@ span.area.grade_desc { display: none; font-family: 'Lato', sans-serif; font-size
 #floor_box.select .ui-multiselect-checkboxes label input:checked { background:RGB(248,137,63); border-color: RGB(248,137,63); }
 .select .ui-multiselect-menu { border: 0px; left: -14px !important; width: 410px !important; }
 .ui-spinner { border: 2px solid #D3D3D3; }
-#nbhood_box.criterion { margin-right: 97px; float:left; width:45% !important; margin:0 5% 0 0 !important;}
+#nbhood_box.criterion { margin-right: 97px; float:left; /*width:45% !important;*/ width:48% !important; margin:0 5% 0 0 !important;}
 .criterion, #price_box, #bedrooms_box, #nbhood_box, #floor_box, #bedroom,  #living, #location, #building, #view { background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; float:left; height:auto; margin-bottom: 34px; position: relative; }
 #price_box.criterion { margin-right: 77px; }
 .criterion:nth-child(even) { margin-right: 90px !important; width: 44% !important; }
@@ -1048,7 +1048,7 @@ nav.footerNavBar{ margin-top:30px;}
 
 #nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all{ float:left; height:auto; position:relative !important; width:100% !important; top:auto !important; bottom:auto !important; left:auto !important; padding:0;}
 #nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul{ border:medium none !important; float:left; margin:7px 0 0 0; padding:5px 0 0; width:100%; left:auto;}
-#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li{ float:left; margin:0 0 9px 0 !important; width:50% !important; height:auto !important;}
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li{ float:left; line-height: 35px; /*margin:0 0 9px 0 !important;*/ margin: 0px; /*width:50% !important;*/width:100% !important; height:auto !important;}
 #nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label{ border-radius:0; font-size:21px; font-weight:normal; margin:0; padding:0; width:100%; background:none; border:none;}
 #nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label input{ float:left; margin:4px 9px 0 0;}
 #nbhood_box button.ui-multiselect{ float:left; width:100% !important;}
@@ -1065,6 +1065,12 @@ nav.footerNavBar{ margin-top:30px;}
 /*11-7-2016 css end*/
 .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.comingSoon{ background-color:#ffffff; border-color:#b2b2b2; border-radius:6px; border-style:solid; border-width:1px; box-shadow:4px 4px 8px rgba(0, 0, 0, 0.25); height:145px; left:50%; margin:-50px 0 0 -125px; padding-bottom:69px; position:fixed; top:45%; width:250px; z-index:1001; resize:none;}
 .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.comingSoon #close1{ left:210px; margin-top:17px; top:-80px;}
+
+/*12-13-2016 css*/
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul{ column-count: 2; -webkit-column-count: 2; -moz-column-count: 2; }
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li:nth-child(9){ margin-top: 50px; }
+.neighborhood-explaination{ color: #000000; display: block; font-family: lato, sans-serif; font-size: 14px; font-weight: 300; line-height: 14px; margin-bottom: 5px; margin-left: 29px; }
+input[value='hidden0'], input[value='hidden'], input[value='hidden2']{ display: none; }
 
 @font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('ÃƒÆ’Ã‚Â¢Ãƒâ€¹Ã…â€œÃƒâ€šÃ‚Âº'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
 @-ms-viewport { width: device-width; }

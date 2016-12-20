@@ -30,8 +30,7 @@ if(isset($_GET['newTab'])){ ?>
 ?>
 
   <title>HomePik - Listing Details</title>
-  <?php include_css("/views/css/single-listing-detail.css");
-  include_css("/views/css/buyer-profile-edit.css"); ?>
+  <?php include_css("/views/css/single-listing-detail.css"); ?>
 </head>
 <body>
   <div id="listing"></div>
@@ -796,6 +795,369 @@ if(isset($_GET['newTab'])){ ?>
 	  }
 	});
 
+  var SPVFilters = React.createClass({
+	  getInitialState: function(){
+      return{
+        listing: this.props.listing,
+        price: this.props.details['price'],
+        min_price: "",
+        max_price: "",
+        min_maint: this.props.details['monthly'],
+        min_bed: this.props.details['bed'],
+        min_bath: this.props.details['bath'],
+        min_bld: this.props.details['bld'],
+        min_loc: this.props.details['loc'],
+        min_vws: this.props.details['vws'],
+        min_floor: this.props.details['floor'],
+        lrd_one: 0,
+        lrd_two: 0,
+        lrdt: 0,
+        mbd_one: 0,
+        mbd_two: 0,
+        mbdt: 0,
+        drd_one: 0,
+        drd_two: 0,
+        drdt: 0,
+        bbd_one: 0,
+        bbd_two: 0,
+        bbdt: 0,
+        bbbd_one: 0,
+        bbbd_two: 0,
+        bbbdt: 0,
+        min_space: this.props.details['space'],
+        type: "Active",
+        location: "Local",
+        condition: "Level 3",
+        demand: "Level 2",
+        interest: 10,
+        condo_only: "no",
+        amenities: []
+      };
+	  },
+    componentDidMount: function(){
+      this.calculatePriceRange(this.state.interest);
+      $("input[value='Local']").attr("checked", true);
+      $("input[value='Active']").attr("checked", true);
+      $("input[name='condition'][value='Level 3']").attr("checked", true);
+      $("input[name='demand'][value='Level 2']").attr("checked", true);
+      $("input[name='condos_only'][value='no']").attr("checked", true);
+      $("input[name='location_grade'][value='"+this.state.min_loc+"']").attr("checked", true);
+      $("input[name='building_grade'][value='"+this.state.min_bld+"']").attr("checked", true);
+      $("input[name='view_grade'][value='"+this.state.min_vws+"']").attr("checked", true);
+      if(this.props.details['amenities']['fireplace'] == "1" && this.props.details['amenities']['elevator'] == "1"){
+        $("input[value='fireplace']").attr("checked", true);
+        $("input[value='elevator']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("fireplace");        
+        amenities.push("elevator");
+        this.setState({amenities: amenities});
+      }
+      else if(this.props.details['amenities']['fireplace'] == "1" && this.props.details['amenities']['elevator'] == "0"){
+        $("input[value='fireplace']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("fireplace");        
+        this.setState({amenities: amenities});
+      }
+      else if(this.props.details['amenities']['fireplace'] == "0" && this.props.details['amenities']['elevator'] == "1"){
+        $("input[value='elevator']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("elevator");
+        this.setState({amenities: amenities});
+      }
+      if(this.props.details['amenities']['balcony'] == "1"){
+        $("input[value='balcony']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("balcony");
+        this.setState({amenities: amenities});      
+      }
+      else if(this.props.details['amenities']['terrace'] == "1"){
+        $("input[value='terrace']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("terrace");
+        this.setState({amenities: amenities});      
+      }
+      else if(this.props.details['amenities']['garden'] == "1" || this.props.details['amenities']['roofd'] == "1"){
+        $("input[value='garden']").attr("checked", true);
+        var amenities = this.state.amenities;
+        amenities.push("garden");
+        this.setState({amenities: amenities});      
+      }
+      else{
+        $("input[value='none']").attr("checked", true);
+      }
+    },
+	  handleChange: function (name, event) {
+      var change = {};
+      change[name] = event.target.value
+      this.setState(change);
+      if(name == "price"){ this.calculatePriceRange(this.state.interest); }
+      else if(name == "interest"){ this.calculatePriceRange(event.target.value); }
+      else if(name == "lrd_one" || name == "lrd_two" || name == "mbd_one" || name == "mbd_two" || name == "drd_one" || name == "drd_one" || name == "bbd_one" || name == "bbd_two" || name == "bbbd_one" || name == "bbbd_two"){ setTimeout(function(){ this.calculateDimensions(); }.bind(this), 1000); }
+	  },
+    handleAmenityChange: function(event) {
+      var amenity = event.target.value
+      var amenities = this.state.amenities;
+      
+      if(amenity == "fireplace" || amenity == "elevator"){
+        if(amenities.indexOf(amenity) == -1){ amenities.push(amenity); }
+        else{ amenities.splice(amenities.indexOf(amenity), 1); }
+      }
+      else if(amenity == "none" || amenity == "balcony" || amenity == "terrace" || amenity == "setBack" || amenity == "garden"){
+        if(amenities.indexOf(amenity) == -1){ amenities.push(amenity); }
+        if(amenity != "none" && amenities.indexOf("none") != -1){ amenities.splice(amenities.indexOf("none"), 1); }
+        if(amenity != "balcony" && amenities.indexOf("balcony") != -1){ amenities.splice(amenities.indexOf("balcony"), 1); }
+        if(amenity != "terrace" && amenities.indexOf("terrace") != -1){ amenities.splice(amenities.indexOf("terrace"), 1); }
+        if(amenity != "setBack" && amenities.indexOf("setBack") != -1){ amenities.splice(amenities.indexOf("setBack"), 1); }
+        if(amenity != "garden" && amenities.indexOf("garden") != -1){ amenities.splice(amenities.indexOf("garden"), 1); }
+      }
+      this.setState({amenities: amenities});
+	  },
+    calculatePriceRange: function(interest){
+      var price = this.state.price;
+      while(price.indexOf(",") != -1){ price = price.replace(",",""); }
+      price = Number(price);
+      
+      var minPriceRange = price - (price * (interest / 100));
+      minPriceRange = minPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      this.setState({min_price: minPriceRange});
+      
+      var maxPriceRange = price + (price * (interest / 100));
+      maxPriceRange = maxPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      this.setState({max_price: maxPriceRange});
+    },
+    calculateDimensions: function(){
+      var ltotal = this.state.lrd_one * this.state.lrd_two;
+      this.setState({lrdt: ltotal});
+      var mtotal = this.state.mbd_one * this.state.mbd_two;
+      this.setState({mbdt: mtotal});
+      var dtotal = this.state.drd_one * this.state.drd_two;
+      this.setState({drdt: dtotal});
+      var bbtotal = this.state.bbd_one * this.state.bbd_two;
+      this.setState({bbdt: bbtotal});
+      var bbbtotal = this.state.bbbd_one * this.state.bbbd_two;
+      this.setState({bbbdt: bbbtotal});
+      
+      var stotal = ltotal + mtotal + dtotal + bbtotal + bbbtotal;
+      this.setState({min_space: stotal});
+    },
+    submit: function(){
+      setTimeout(function(){ this.closePopup(); }.bind(this), 3000);
+    },
+	  closePopup: function(){
+      {this.props.closeDialog()}
+	  },
+	  render: function(){
+      return(
+        <div>
+          <div className="clearfix grpelem" id="SPV-div">
+            <div className="clearfix grpelem" id="SPV-content">
+              <h2 className="Subhead-2" id="u17925-2">Selection Portfolio Valuation</h2>
+              <h4 className="text-popups" id="u17925-3">&nbsp;</h4>
+              <form action="spv.php" method="POST" target="_blank" onSubmit={this.submit}>
+                <div className="informationRow">
+                  <h4 className="text-popups" id="address"><span className="title">Address:</span> {this.props.details['address']}</h4>
+                  <h4 className="text-popups" id="listing_price"><span className="title">Price:</span> $<input type="text" id="priceInput" name="price" value={this.state.price} onChange={this.handleChange.bind(this, "price")} /></h4>
+                  <h4 className="text-popups" id="bed"><span className="title">Bedrooms:</span> <input type="number" id="bedroomInput" name="min_bed" min="0" max="9" value={this.state.min_bed} onChange={this.handleChange.bind(this, "min_bed")} /></h4>
+                </div>
+                <div className="informationRow">
+                  <h4 className="text-popups" id="apt"><span className="title">Apartment:</span> {this.props.details['apt']}</h4>
+                  <h4 className="text-popups" id="floor"><span className="title">Floor:</span> <input type="number" id="minFloorInput" name="min_floor" min="0" max="30" defaultValue={this.state.min_floor} onChange={this.handleChange.bind(this, "min_floor")} /></h4>
+                  <h4 className="text-popups" id="monthly"><span className="title">Monthly:</span> $<input type="text" id="monthlyInput" name="min_maint" value={this.state.min_maint} onChange={this.handleChange.bind(this, "min_maint")} /></h4>
+                  <h4 className="text-popups" id="bath"><span className="title">Baths:</span> <input type="number" id="bathInput" name="min_bath" min="0" max="10" value={this.state.min_bath} onChange={this.handleChange.bind(this, "min_bath")} /></h4>
+                </div>
+                  
+                <h4 className="text-popups">&nbsp;</h4>
+                <ul className="nav nav-tabs text-popups">
+                  <li role="presentation" className="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
+                  <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Location</a></li>
+                  <li role="presentation"><a href="#building" aria-controls="building" role="tab" data-toggle="tab">Building</a></li>
+                  <li role="presentation"><a href="#view" aria-controls="view" role="tab" data-toggle="tab">View</a></li>
+                  <li role="presentation"><a href="#size" aria-controls="size" role="tab" data-toggle="tab">Size</a></li>
+                </ul>
+                
+                <div className="tab-content">
+                  <div role="tabpanel" className="tab-pane active" id="main">
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="area">
+                        <span className="title">Area:</span><br/>
+                        <input type="radio" name="listing_location" value="Local" onChange={this.handleChange.bind(this, 'location')} /> Local<br/>
+                        <input type="radio" name="listing_location" value="All" onChange={this.handleChange.bind(this, 'location')}/> All Manahattan<br/>
+                        <input type="radio" name="listing_location" value="Zip" onChange={this.handleChange.bind(this, 'location')}/> With zip {this.props.details['zip']}
+                      </h4>
+                      <h4 className="text-popups" id="type">
+                        <span className="title">Listing Type:</span><br/>
+                        <input type="radio" name="listing_type" value="Active" onChange={this.handleChange.bind(this, 'type')} /> Active<br/>
+                        <input type="radio" name="listing_type" value="Historical" onChange={this.handleChange.bind(this, 'type')}/> Historical<br/>
+                        <input type="radio" name="listing_type" value="Both" onChange={this.handleChange.bind(this, 'type')}/> Both
+                      </h4>
+                      <h4 className="text-popups">
+                        <span className="title">Price Range:</span><br/>
+                        <span id="minPriceRange">${this.state.min_price}</span> To <span id="maxPriceRange">${this.state.max_price}</span><br/>
+                        <input type="number" id="priceRangeInterest" name="interest" min="5" max="100" defaultValue="10" step="5" onChange={this.handleChange.bind(this, "interest")} /></h4>  
+                    </div>
+                    
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="condition">
+                        <span className="title">Condition:</span><br/>
+                        <input type="radio" name="condition" value="Level 1" onChange={this.handleChange.bind(this, 'type')}/> Complete rehabilitation required <br/>
+                        <input type="radio" name="condition" value="Level 2" onChange={this.handleChange.bind(this, 'type')}/> Obsolete components in need of replacement <br/>
+                        <input type="radio" name="condition" value="Level 3" onChange={this.handleChange.bind(this, 'type')}/> Premium quality high luxury <br/>
+                        <input type="radio" name="condition" value="Level 4" onChange={this.handleChange.bind(this, 'type')}/> High quality decorator improvements <br/>
+                        <input type="radio" name="condition" value="Level 5" onChange={this.handleChange.bind(this, 'type')}/> Decorator showcase, triple mint condition.
+                      </h4>
+                      <h4 className="text-popups" id="demand">
+                        <span className="title">Demand:</span><br/>
+                        <input type="radio" name="demand" value="Level 1" onChange={this.handleChange.bind(this, 'type')}/> Appreciating market <br/>
+                        <input type="radio" name="demand" value="Level 2" onChange={this.handleChange.bind(this, 'type')}/> Stable market <br/>
+                        <input type="radio" name="demand" value="Level 3" onChange={this.handleChange.bind(this, 'type')}/> Slightly declining market <br/>
+                        <input type="radio" name="demand" value="Level 4" onChange={this.handleChange.bind(this, 'type')}/> Dramatically declining market
+                      </h4>
+                    </div>            
+                    <h4 className="text-popups" id="u17925-3">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="condos">
+                        <span className="title">Condos only:</span><br/>
+                        <input type="radio" name="condos_only" value="yes" onChange={this.handleChange.bind(this, 'condo_only')}/> Yes<br/>
+                        <input type="radio" name="condos_only" value="no" onChange={this.handleChange.bind(this, 'condo_only')}/> No
+                      </h4>
+                      <h4 className="text-popups" id="amenity_checkboxes">
+                        <span className="title">Amenities:</span><br/>
+                        <input type="checkbox" name="amenities[]" value="fireplace" onChange={this.handleAmenityChange}/> Fireplace<br/>
+                        <input type="checkbox" name="amenities[]" value="elevator" onChange={this.handleAmenityChange}/> Elevator
+                      </h4>
+                      <h4 className="text-popups" id="private_outdoors">
+                        <span className="title">Private Outdoors:</span><br/>
+                        <input type="radio" name="outdoors_amenity" value="none" onChange={this.handleAmenityChange}/> None <br/>
+                        <input type="radio" name="outdoors_amenity" value="balcony" onChange={this.handleAmenityChange}/> Balcony <br/>
+                        <input type="radio" name="outdoors_amenity" value="terrace" onChange={this.handleAmenityChange}/> Terrace <br/>
+                        <input type="radio" name="outdoors_amenity" value="setBack" onChange={this.handleAmenityChange}/> Setback Terrace <br/>
+                        <input type="radio" name="outdoors_amenity" value="garden" onChange={this.handleAmenityChange}/> Private garden / Roof deck
+                      </h4>
+                    </div>                    
+                  </div>
+                  <div role="tabpanel" className="tab-pane" id="location">
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="loc">Location:</h4>
+                      <h4 className="text-popups" id="loc_grade"><span className="title">Grade:</span> <input type="text" id="minLocInputSet" name="min_loc" value={this.state.min_loc} disabled="disabled" /></h4>
+                    </div>
+                    <div className="text-popups">
+                      <input type="radio" name="location_grade" value="10" onChange={this.handleChange.bind(this, 'min_loc')}/> Internationally renown / near major park<br/>
+                      <input type="radio" name="location_grade" value="9" onChange={this.handleChange.bind(this, 'min_loc')}/> Residential area close to major park<br/>
+                      <input type="radio" name="location_grade" value="8" onChange={this.handleChange.bind(this, 'min_loc')}/> Residential area / near local park or river<br/>
+                      <input type="radio" name="location_grade" value="7" onChange={this.handleChange.bind(this, 'min_loc')}/> Residential area / neighborhood amenities<br/>
+                      <input type="radio" name="location_grade" value="6" onChange={this.handleChange.bind(this, 'min_loc')}/> Quiet residential street<br/>
+                      <input type="radio" name="location_grade" value="5" onChange={this.handleChange.bind(this, 'min_loc')}/> Active commercial street / Residential Area<br/>
+                      <input type="radio" name="location_grade" value="4" onChange={this.handleChange.bind(this, 'min_loc')}/> Active commercial street<br/>
+                      <input type="radio" name="location_grade" value="3" onChange={this.handleChange.bind(this, 'min_loc')}/> Emerging residential area<br/>
+                      <input type="radio" name="location_grade" value="2" onChange={this.handleChange.bind(this, 'min_loc')}/> New developing market<br/>
+                      <input type="radio" name="location_grade" value="1" onChange={this.handleChange.bind(this, 'min_loc')}/> All locations
+                    </div>
+                  </div>
+                  <div role="tabpanel" className="tab-pane" id="building">
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="bld">Building:</h4>
+                      <h4 className="text-popups" id="bld_grade"><span className="title">Grade:</span> <input type="text" id="minBldInputSet" name="min_bld" value={this.state.min_bld} disabled="disabled" /></h4>
+                    </div>
+                    <div className="text-popups">
+                      <input type="radio" name="building_grade" value="10" onChange={this.handleChange.bind(this, 'min_bld')}/> International renown<br/>
+                      <input type="radio" name="building_grade" value="9" onChange={this.handleChange.bind(this, 'min_bld')}/> Locally renowned building or new construction with full services<br/>
+                      <input type="radio" name="building_grade" value="8" onChange={this.handleChange.bind(this, 'min_bld')}/> Full service building with amenities<br/>
+                      <input type="radio" name="building_grade" value="7" onChange={this.handleChange.bind(this, 'min_bld')}/> Doorman building with amenities<br/>
+                      <input type="radio" name="building_grade" value="6" onChange={this.handleChange.bind(this, 'min_bld')}/> Doorman building &mdash;no amenities<br/>
+                      <input type="radio" name="building_grade" value="5" onChange={this.handleChange.bind(this, 'min_bld')}/> Elevator building in good condition<br/>
+                      <input type="radio" name="building_grade" value="4" onChange={this.handleChange.bind(this, 'min_bld')}/> Elevator building in fair condition<br/>
+                      <input type="radio" name="building_grade" value="3" onChange={this.handleChange.bind(this, 'min_bld')}/> Walkup in good condition<br/>
+                      <input type="radio" name="building_grade" value="2" onChange={this.handleChange.bind(this, 'min_bld')}/> Walkup in fair condition<br/>
+                      <input type="radio" name="building_grade" value="1" onChange={this.handleChange.bind(this, 'min_bld')}/> All buildings
+                    </div>
+                  </div>
+                  <div role="tabpanel" className="tab-pane" id="view">
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 className="text-popups" id="vws">Views:</h4>
+                      <h4 className="text-popups" id="vws_grade"><span className="title">Grade:</span> <input type="text" id="minVwsInputSet" name="min_vws" value={this.state.min_vws} disabled="disabled" /></h4>
+                    </div>
+                    <div className="text-popups">
+                      <input type="radio" name="view_grade" value="10" onChange={this.handleChange.bind(this, 'min_vws')}/> Cityscape and Central Park views<br/>
+                      <input type="radio" name="view_grade" value="9" onChange={this.handleChange.bind(this, 'min_vws')}/> Cityscape and river or park views<br/>
+                      <input type="radio" name="view_grade" value="8" onChange={this.handleChange.bind(this, 'min_vws')}/> Cityscape views<br/>
+                      <input type="radio" name="view_grade" value="7" onChange={this.handleChange.bind(this, 'min_vws')}/> Rooftop views<br/>
+                      <input type="radio" name="view_grade" value="6" onChange={this.handleChange.bind(this, 'min_vws')}/> Street view or interior garden, bright<br/>
+                      <input type="radio" name="view_grade" value="5" onChange={this.handleChange.bind(this, 'min_vws')}/> Street view or interior garden, moderate light<br/>
+                      <input type="radio" name="view_grade" value="4" onChange={this.handleChange.bind(this, 'min_vws')}/> Interior courtyard or area without view but bright<br/>
+                      <input type="radio" name="view_grade" value="3" onChange={this.handleChange.bind(this, 'min_vws')}/> Interior courtyard or area with moderate light<br/>
+                      <input type="radio" name="view_grade" value="2" onChange={this.handleChange.bind(this, 'min_vws')}/> Indirect light<br/>
+                      <input type="radio" name="view_grade" value="1" onChange={this.handleChange.bind(this, 'min_vws')}/> All properties
+                    </div>
+                  </div>
+                  <div role="tabpanel" className="tab-pane" id="size">
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <h4 className="text-popups" id="value_rooms">Value Rooms</h4>
+                    <h4 className="text-popups">The space factor consists of an accumulation of the measurements in the Living Room, Dining Room, Master Bedroom
+                    and 2nd and 3rd Bedrooms. This is more accurate than gross footage since it is verifiable. The Space Factor generally accounts for approximately
+                    90% of the usable area within a studio or 1 Bedroom apartment. It accounts for approximately 85% of the usable area in two and three bedroom apartments.</h4>
+                    <h4 className="text-popups">&nbsp;</h4>
+                    <div className="informationRow">
+                      <h4 id="label" className="text-popups">Primary<br/>Value<br/>Rooms</h4>
+                      <table id="dimensionTable">
+                        <colgroup><col width="175"/><col width="145"/><col width="70"/></colgroup>
+                        <tbody>
+                          <tr>
+                            <td><span className="text-popups">&nbsp;</span></td>
+                            <td><span className="text-popups">&nbsp;</span></td>
+                            <td><span className="text-popups">SQ.Feet</span></td>
+                          </tr>
+                          <tr>
+                            <td><span className="text-popups">Living Room</span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionInput" name="living_dimension[]" value={this.state.lrd_one} onChange={this.handleChange.bind(this, "lrd_one")} /> x <input type="text" className="dimensionInput" name="living_dimension[]" value={this.state.lrd_two} onChange={this.handleChange.bind(this, "lrd_two")} /></span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionTotal" name="living_dimension[]" value={this.state.lrdt} disabled="disabled"/></span></td>
+                          </tr>
+                          <tr>
+                            <td><span className="text-popups">Master Bedroom</span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionInput" name="master_dimension[]" value={this.state.mbd_one} onChange={this.handleChange.bind(this, "mbd_one")} /> x <input type="text" className="dimensionInput" name="master_dimension[]" value={this.state.mbd_two} onChange={this.handleChange.bind(this, "mbd_two")} /></span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionTotal" name="master_dimension[]" value={this.state.mbdt} disabled="disabled"/></span></td>
+                          </tr>
+                          <tr>
+                            <td><span className="text-popups">Dining Room</span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionInput" name="dining_dimension[]" value={this.state.drd_one} onChange={this.handleChange.bind(this, "drd_one")} /> x <input type="text" className="dimensionInput" name="dining_dimension[]" value={this.state.drd_two} onChange={this.handleChange.bind(this, "drd_two")} /></span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionTotal" name="dining_dimension[]" value={this.state.drdt} disabled="disabled"/></span></td>
+                          </tr>
+                          <tr>
+                            <td><span className="text-popups">2nd Bedroom</span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionInput" name="2bedroom_dimension[]" value={this.state.bbd_one} onChange={this.handleChange.bind(this, "bbd_one")} /> x <input type="text" className="dimensionInput" name="2bedroom_dimension[]" value={this.state.bbd_two} onChange={this.handleChange.bind(this, "bbd_two")} /></span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionTotal" name="2bedroom_dimension[]" value={this.state.bbdt} disabled="disabled"/></span></td>
+                          </tr>
+                          <tr>
+                            <td><span className="text-popups">3rd Bedroom</span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionInput" name="3bedroom_dimension[]" value={this.state.bbbd_one} onChange={this.handleChange.bind(this, "bbbd_one")} /> x <input type="text" className="dimensionInput" name="3bedroom_dimension[]" value={this.state.bbbd_two} onChange={this.handleChange.bind(this, "bbbd_two")} /></span></td>
+                            <td><span className="text-popups"><input type="text" className="dimensionTotal" name="3bedroom_dimension[]" value={this.state.bbbdt} disabled="disabled"/></span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <h4 id="total" className="text-popups">Total Value<br/>Room SQ.<br/>Footage<br/><input type="text" id="total_sqf" name="min_space" value={this.state.min_space} disabled="disabled" /></h4>
+                    </div>
+                  </div>
+                </div>
+                <h4 className="text-popups">&nbsp;</h4>
+                <input type="hidden" name="listing" value={this.state.listing}/>
+                <input type="hidden" name="min_loc" value={this.state.min_loc}/>
+                <input type="hidden" name="min_bld" value={this.state.min_bld}/>
+                <input type="hidden" name="min_view" value={this.state.min_vws}/>
+                <input type="hidden" name="min_space" value={this.state.min_space}/>
+                <button type="submit" name="submit" className="text-popups" id="submit">Process <i className="fa fa-chevron-right"></i></button>
+              </form>              
+            </div>
+          </div>
+          <h4 id="closeSpvPopup" onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
+        </div>
+      );
+	  }
+	});
+  
 	var Listing = React.createClass({
 	  getInitialState: function() {
       return{
@@ -1298,6 +1660,30 @@ if(isset($_GET['newTab'])){ ?>
 
       ReactDOM.render(<Send closeDialog={closeDialog} role={this.state.role} listing_num={this.state.listing} agent_email={this.state.details['agent_email']} agent2_email={this.state.details['agent2_email']} selected={agent} message={"Please send me more information on this listing."}/>, $dialog[0]);
 	  },
+    spvDocument: function(){
+      var $dialog =  $("#ajax-box").dialog({
+        modal: true,
+        width: 850,
+        dialogClass: 'spvFilterPopup',
+        close: function(){
+          ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+          var div = document.createElement('div');
+          div.id = 'ajax-box';
+          document.getElementsByTagName('body')[0].appendChild(div);
+          $( this ).remove();
+        },
+        open: function(){
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+      });
+      var closeDialog = function(){
+        $dialog.dialog('close');
+      }
+
+      ReactDOM.render(<SPVFilters closeDialog={closeDialog} listing={this.state.listing} details={this.state.details}/>, $dialog[0]);
+    },
 	  render: function(){
       return(
         <div className="clearfix" id="page">
