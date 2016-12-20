@@ -2,7 +2,7 @@
 session_start();
 include("../dbconfig.php");
 include("../functions.php");
-include("../basicHeadOld.php");
+include("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 

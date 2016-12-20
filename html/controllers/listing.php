@@ -388,12 +388,10 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
       var folders = this.state.selected;
       if((event.target.checked == true) && (folders.indexOf(name) == -1)){
         folders.push(name);
-        if(this.state.folder == name){ this.setState({makeFolder: true}); }
       }
       else if((event.target.checked == false) && (folders.indexOf(name) != -1)){
         var i = folders.indexOf(name);
         if(i != -1) { folders.splice(i, 1); }
-        if(this.state.folder == name){ this.setState({makeFolder: false}); }
       }
       this.setState({selected: folders});
 	  },
