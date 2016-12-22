@@ -254,37 +254,37 @@ $name = $name[0];
 		</form>
 		<div class="container">
       <div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div1" className="report-chart"></div>
           <div id="chart_div2" className="report-chart"></div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div3" className="report-chart"></div>
           <div id="chart_div4" className="report-chart"></div>
 				</div>
 			</div>
       <div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div5" className="report-chart"></div>
           <div id="chart_div6" className="report-chart"></div>
 				</div>
 			</div>
       <div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div7" className="report-chart"></div>
           <div id="chart_div8" className="report-chart"></div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div9" className="report-chart"></div>
           <div id="chart_div10" className="report-chart"></div>
 				</div>
 			</div>
 						<div class="row">
-				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1">
+				<div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-4">
 					<div id="chart_div11" className="report-chart"></div>
           <div id="chart_div12" className="report-chart"></div>
 				</div>
