@@ -253,7 +253,7 @@ if(isset($_POST['delete2'])){
 }
 
 if(isset($_POST['update'])){
-  $result = mysql_query( "UPDATE `users` set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assing_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "UPDATE `users` set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   
   $_SESSION['agent1'] = $_SESSION['agent2'];
   $_SESSION['agent2'] = '';
