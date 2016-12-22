@@ -55,5 +55,12 @@ label { display: inline; font-weight: normal; }
   #signinBorder tr td input{ width:95% !important; }  
   #signinSubmit{ margin:0; min-width:100px; }
 }
-@media (min-width:640px) and (max-width:767px){ #signinArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } }
-@media (min-width:768px) and (max-width:800px){ #signinArea{ left: 10%; top: 1%; width: 580px !important; } }
+@media (min-width:640px) and (max-width:767px){ 
+	#signinArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } 
+	#agentSigninArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } 
+}
+@media (min-width:768px) and (max-width:800px){ 
+	#signinArea{ left: 10%; top: 1%; width: 580px !important; }
+    #agentSigninArea{left: 10%; top: 1%; width: 580px !important;}
+}
+	
