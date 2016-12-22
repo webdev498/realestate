@@ -1,14 +1,36 @@
 <?php
+
 session_start();
-include_once("dbconfig.php");
-include_once("functions.php");
-include_once("basicHead.php");
+include("dbconfig.php");
+include ("functions.php");
+include("basicHead2.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
+/*if (!$_SESSION['user']) {
+  print "<script> window.location = '/users/logout.php' </script>";
+}
 
-if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
-$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
+  print "<script> window.location = '/users/logout.php' </script>";
+}
+
+if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
+else{ $mainPage = ""; }
+*/
+/*$analytics = $_SESSION['analytics'];
+$analysis = $_SESSION['activity_analysis'];*/
+$email = $_SESSION['email'];
+$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where email= '".$email."'";
+$res = mysql_query( $sql ) or die("Couldn't execute query. Error 1.".mysql_error());
+while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
+  $firstname = $row['first_name'];
+  $lastname = $row['last_name'];
+  $id = $row['agent_id'];
+}
+$name = explode('@', $_SESSION['email']);
+$name = $name[0];
 ?>
+
 
   <title>HomePik - Activity Analysis</title>
   <?php include_css("/views/css/analysis.css"); ?>
@@ -23,7 +45,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 		<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
       <div class="row"></div>
 			<div class="row report-row">
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 col-xs-3">
           <p class="report-header">Listings By Month</p>
 					<fieldset class="form-group">
 						<select class="form-control" id="listMonth" name="listMonth">
@@ -43,7 +65,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <p class="report-header">Listings Year-to-Date</p>
 					<fieldset class="form-group">
 						<select class="form-control" id="listYearlyArea" name="listYearlyArea">
@@ -59,7 +81,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 col-xs-3">
           <p class="report-header">Agents By Month</p>
 					<fieldset class="form-group">
 						<select class="form-control" id="agentMonth" name="agentMonth">
@@ -79,7 +101,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <p class="report-header">Agents Year-to-Date</p>
           <fieldset class="form-group">
             <select class="form-control" id="agentYearlyArea" name="agentYearlyArea">
@@ -97,7 +119,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         </div>
 			</div>
 			<div class="row report-row">
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 					<fieldset class="form-group">
 						<select class="form-control" id="listYear" name="listYear">
 						  <option value="blank">-- Select Year --</option>
@@ -109,12 +131,12 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 					<fieldset class="form-group">
-						<button class="form-control" type="submit" name="listings-yearly" style="background-color: #0085C6; color: #FFFFFF;">Year-to-Date Report</button>
+						<button class="form-control mobileText" type="submit" name="listings-yearly" style="background-color: #0085C6; color: #FFFFFF;">Submit</button>
 					</fieldset>
 				</div>
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 col-xs-3">
 					<fieldset class="form-group">
 						<select class="form-control" id="agentYear" name="agentYear">
 						  <option value="blank">-- Select Year --</option>
@@ -126,16 +148,24 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-        <div class="col-md-3 col-sm-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <fieldset class="form-group">
             <select class="form-control" id="agentYearlyCode" name="agentYearlyCode" placeholder="-- Select Agent --" value="blank">
               <?php
-              $result = mysql_query( "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
-              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {                
-								$id = $row['agent_id'];
-								if (strlen($id) <= 1){ $name = "No Agent"; }
-								else { $name = $row['last_name'] . ",  " . $row['first_name']; }
-								echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
+              $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+
+              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
+                  if (strlen($id) <= 1){
+                    $name = "No Agent";
+                  } else {
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
+                  }
+                  echo "<option value='".$id."' ".(($_POST["agentYearlyCode"]==$id)?"selected":"").">".$name."</option>";
+                  //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
+                }
               }
                ?>
             </select>
@@ -143,7 +173,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         </div>
 			</div>
 			<div class="row report-row">
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 col-xs-3">
 					<fieldset class="form-group">
 						<select class="form-control" id="listArea" name="listArea">
 						  <option value="blank">-- Select Area --</option>
@@ -158,7 +188,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 						</select>
 					</fieldset>
 				</div>
-  				<div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3">
+  				<div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3 col-xs-3 col-xs-offset-3">
   					<fieldset class="form-group">
   						<select class="form-control" id="agentArea" name="agentArea">
   						  <option value="blank">-- Select Area --</option>
@@ -173,38 +203,51 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
   						</select>
   					</fieldset>
   				</div>
-          <div class="col-md-3 col-sm-3">
+          <div class="col-md-3 col-sm-3 col-xs-3">
   					<fieldset class="form-group">
-  						<button class="form-control" type="submit" name="agent-yearly" style="background-color: #0085C6; color: #FFFFFF;">Year-to-Date Report</button>
+  						<button class="form-control" type="submit" name="agent-yearly" style="background-color: #0085C6; color: #FFFFFF;">Submit</button>
   					</fieldset>
   				</div>
   			</div>
   			<div class="row report-row">
-				<div class="col-md-3 col-sm-3">
+				<div class="col-md-3 col-sm-3 col-xs-3">
           <fieldset class="form-group">
-  				  <button class="form-control" type="submit" name="report-submit" style="background-color: #0085C6; color: #FFFFFF;">Monthly Report</button>
+  				  <button class="form-control" type="submit" name="report-submit" style="background-color: #0085C6; color: #FFFFFF;">Submit</button>
   				</fieldset>
 				</div>
-        <div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3">
+			  <!--<div class="col-md-2 col-md-offset-3">
+          <fieldset class="form-group">
+					       <input class="form-control" type="text" id="agentCode" name="agentCode" placeholder="--Agent Code--" value="<?php if (isset($_POST['agentCode'])) echo $_POST['agentCode']; ?>"/>
+          </fieldset>
+				</div>-->
+        <div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3 col-xs-3 col-xs-offset-3">
           <fieldset class="form-group">
             <select class="form-control" id="agentCode" name="agentCode" placeholder="-- Select Agent --" value="blank">
               <?php
-								$result = mysql_query( "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC" ) or die("Couldn't execute query.".mysql_error());
-								while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
-									$id = $row['agent_id'];
-									if (strlen($id) <= 1){ $name = "No Agent"; }
-									else{ $name = $row['last_name'] . ",  " . $row['first_name']; }
-									echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
-								}
-              ?>
+              $SQL = "SELECT `first_name`, `last_name`, `agent_id` FROM `registered_agents` WHERE (`active` = 'Y') GROUP BY agent_id ORDER BY last_name ASC";
+              $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+
+              while($row = mysql_fetch_array($result,MYSQL_ASSOC)) {
+                if($row['first_name'] != ".T." && $row['first_name'] != ".F." && $row['last_name'] != ".T." && $row['last_name'] != ".F."){
+                  $id = $row['agent_id'];
+                  if (strlen($id) <= 1){
+                    $name = "No Agent";
+                  } else {
+                    $name = $row['last_name'] . ",  " . $row['first_name'];
+                  }
+                  echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
+                  //echo "<option value='".$id."' ".(($_POST["agentCode"]==$id)?"selected":"").">".$name."</option>";
+                }
+              }
+               ?>
             </select>
           </fieldset>
         </div>
 			</div>
 			<div class="row report-row">
-        <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6">
+        <div class="col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6">
           <fieldset class="form-group">
-  				  <button class="form-control" type="submit" name="agent-submit" style="background-color: #0085C6; color: #FFFFFF;">Monthly Report</button>
+  				  <button class="form-control" type="submit" name="agent-submit" style="background-color: #0085C6; color: #FFFFFF;">Submit</button>
   				</fieldset>
 				</div>
 			</div>
@@ -264,17 +307,17 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
   );
 
   ReactDOM.render(
-    <NavBar mainPage={"<?php echo $mainPage ?>"} />,
+    <NavBar mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("navbar")
   );
 
   ReactDOM.render(
-    <AddressSearch mainPage={"<?php echo $mainPage ?>"} />,
+    <AddressSearch mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("address-search")
   );
 
   ReactDOM.render(
-    <Footer mainPage={"<?php echo $mainPage ?>"} />,
+    <Footer mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 
@@ -282,67 +325,97 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 
 <?php
 // listings MONTHLY REPORTS
-if (isset($_POST['report-submit'])) { ?>
+if (isset($_POST['report-submit'])) {
+
+  ?>
   <!--Change all other dropdowns to first option-->
   <script type="text/javascript">
   $( '#listYearlyArea' ).each( function () {
-		if( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentMonth' ).each( function () {
-    if( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentYear' ).each( function () {
-    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentArea' ).each( function () {
-    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentCode' ).each( function () {
-    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentYearlyArea' ).each( function () {
-    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   $( '#agentYearlyCode' ).each( function () {
-    if ( $( this ).children().length > 0 ) { $( $( this ).children()[0] ).attr( 'selected', 'selected' ); }
-  });
+      if ( $( this ).children().length > 0 ) {
+          $( $( this ).children()[0] ).attr( 'selected', 'selected' );
+      }
+  } );
   </script>
 
   <?php
+
+
 	$listMonth = $_POST['listMonth'];
 	$listYear = $_POST['listYear'];
 	$listArea = $_POST['listArea'];
 
-  if (($listMonth == "blank") || ($listYear == "blank") || ($listYearArea == "blank")){
-		//DO NOT SUBMIT
-		//Show pop up instead
-		echo "<script type='text/javascript'>alert('Please fill out all fields!')</script>";
-	}
-	else{
-		if (($listMonth == '04') || ($listMonth == '06') || ($listMonth == '09') || ($listMonth == '11')) { $listDay = '30'; }
-		elseif ($listMonth == '02'){ $listDay = '28'; }
-		else { $listDay = '31'; }
-
-		if ($listMonth == '01') {
-			$chartLabelYear = $listYear - 1;
-			$chartLabelDay = '31';
-			$chartLabelMonth = '12';
-			$chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
-		} else {
-			$chartLabelYear = $listYear;
-			$chartLabelMonth = $listMonth - 1;
-				if(($chartLabelMonth == '04') || ($chartLabelMonth == '06') || ($chartLabelMonth == '09') || ($chartLabelMonth == '11')) { $chartLabelDay = '30'; }
-				elseif ($chartLabelMonth == '02'){ $chartLabelDay = '28'; }
-				else { $chartLabelDay = '31'; }
-			$chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
+  if (($listMonth == "blank") || ($listYear == "blank") || ($listYearArea == "blank"))
+		{
+			//DO NOT SUBMIT
+			//Show pop up instead
+			echo "<script type='text/javascript'>alert('Please fill out all fields!')</script>";
 		}
+	else
+		{
 
-		$listBegDay = '01';
-		$listMonthName = date('F', mktime(0, 0, 0, $listMonth, 10));
-		$listBegDate = $listYear . '-' . $listMonth . '-' . $listBegDay;
-		$listEndDate = $listYear . '-' . $listMonth . '-' . $listDay;
-		$chartLabelStart = $listMonth . '/' . $listBegDay . '/' . $listYear;
-		$chartLabelEnd = $listMonth . '/' . $listDay . '/' . $listYear;
+      if (($listMonth == '04') || ($listMonth == '06') || ($listMonth == '09') || ($listMonth == '11')) {
+        $listDay = '30';
+      } elseif ($listMonth == '02'){
+        $listDay = '28';
+      } else {
+        $listDay = '31';
+      }
+
+      if ($listMonth == '01') {
+        $chartLabelYear = $listYear - 1;
+        $chartLabelDay = '31';
+        $chartLabelMonth = '12';
+        $chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
+      } else {
+        $chartLabelYear = $listYear;
+        $chartLabelMonth = $listMonth - 1;
+          if (($chartLabelMonth == '04') || ($chartLabelMonth == '06') || ($chartLabelMonth == '09') || ($chartLabelMonth == '11')) {
+            $chartLabelDay = '30';
+          } elseif ($chartLabelMonth == '02'){
+            $chartLabelDay = '28';
+          } else {
+            $chartLabelDay = '31';
+          }
+        $chartLabelStartOther = $chartLabelMonth . '/' . $chartLabelDay . '/' . $chartLabelYear;
+      }
+
+      $listBegDay = '01';
+      //$listEndDay = '28';
+  		$listMonthName = date('F', mktime(0, 0, 0, $listMonth, 10));
+    	$listBegDate = $listYear . '-' . $listMonth . '-' . $listBegDay;
+      $listEndDate = $listYear . '-' . $listMonth . '-' . $listDay;
+      $chartLabelStart = $listMonth . '/' . $listBegDay . '/' . $listYear;
+      $chartLabelEnd = $listMonth . '/' . $listDay . '/' . $listYear;
 
 
 		//Query for number of beds by month
@@ -793,13 +866,13 @@ if (isset($_POST['listings-yearly'])) {
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $listArea . "' AND LEFT(list_date, 2) = '" . $listMonth . "' AND RIGHT(list_date, 4) = '" . $listYear . "' AND status = 'AVAIL' AND last_change_date < '" . $listEndDate . "' GROUP BY bed";
 		//Query for total inventory at beginning of month - chart 1
     if ($listYearlyArea == 'All Markets') {
-      $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE status = 'AVAIL' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
+      $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
       //print $sql;
     } else {
       if ($listYearlyArea == 'North'){
-         $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = 'E-North' OR nbrhood = 'W-North' AND status = 'AVAIL' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
+         $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = 'E-North' OR nbrhood = 'W-North' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
       } else {
-         $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $listYearlyArea . "' AND status = 'AVAIL' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
+         $sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $listYearlyArea . "' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "') GROUP BY bed";
       }
     }
 		//$sql = "SELECT COUNT(*) AS bedCount, bed FROM `vow_data` WHERE nbrhood = '" . $listArea . "' AND status = 'AVAIL' AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') < '" . $listBegDate . "') GROUP BY bed";
@@ -827,12 +900,12 @@ if (isset($_POST['listings-yearly'])) {
 
 		//Query for new and updated listings year-to-date
     if ($listYearlyArea == 'All Markets'){
-      $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
+      $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE  (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
     } else {
       if ($listYearlyArea == 'North'){
-        $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE nbrhood = 'E-North' OR nbrhood = 'W-North' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE nbrhood = 'E-North' OR nbrhood = 'W-North' AND  (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
       } else {
-        $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE nbrhood = '" . $listYearlyArea . "' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE nbrhood = '" . $listYearlyArea . "' AND  (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
       }
     }
 	  //$sql = "SELECT COUNT(*) AS totalCount, bed FROM `vow_data` WHERE nbrhood = '" . $listArea . "' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "')) OR ((DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $listBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(last_change_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $listEndDate . "'))) GROUP BY bed";
@@ -1246,7 +1319,6 @@ $( '#agentYearlyCode' ).each( function () {
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$firstname = $row['first_name'];
 			$lastname = $row['last_name'];
-			$agentEmail = $row['email'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1258,13 +1330,13 @@ $( '#agentYearlyCode' ).each( function () {
 
 		//Agent Report
     if ($agentArea == 'All Markets') {
-      $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE status = 'AVAIL' AND agent_id_1 = '". $agentCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+      $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE agent_id_1 = '". $agentCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       //print $sql;
     } else {
       if ($agentArea == 'North') {
-        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE (nbrhood = 'W-North' OR nbrhood = 'E-North') AND agent_id_1 = '". $agentCode ."' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE (nbrhood = 'W-North' OR nbrhood = 'E-North') AND agent_id_1 = '". $agentCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       } else {
-        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND agent_id_1 = '". $agentCode ."' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND agent_id_1 = '". $agentCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       }
     }
 
@@ -1347,12 +1419,12 @@ $( '#agentYearlyCode' ).each( function () {
 	//Total buyer listings by area
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
     } else {
 		if ($agentArea == 'North') {
-				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "'  AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data' WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
 			}	
 		}
 	
@@ -1747,7 +1819,6 @@ if (isset($_POST['agent-yearly'])) {
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$firstname = $row['first_name'];
 			$lastname = $row['last_name'];
-			$agentEmail = $row['email'];
 		}
 
     if ($_POST['agentCode'] == ""){
@@ -1759,13 +1830,13 @@ if (isset($_POST['agent-yearly'])) {
 
 		//Agent Report
     if ($agentYearlyArea == 'All Markets') {
-      $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE status = 'AVAIL' AND agent_id_1 = '". $agentYearlyCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+      $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE agent_id_1 = '". $agentYearlyCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       //print $sql;
     } else {
       if ($agentYearlyArea == 'North') {
-        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE (nbrhood = 'W-North' OR nbrhood = 'E-North') AND agent_id_1 = '". $agentYearlyCode ."' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE (nbrhood = 'W-North' OR nbrhood = 'E-North') AND agent_id_1 = '". $agentYearlyCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       } else {
-        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentYearlyArea . "' AND agent_id_1 = '". $agentYearlyCode ."' AND status = 'AVAIL' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
+        $sql = "SELECT COUNT(*) AS listCount, bed FROM `vow_data` WHERE nbrhood = '" . $agentYearlyArea . "' AND agent_id_1 = '". $agentYearlyCode ."' AND (((DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') >= '" . $agentBegDate . "') AND (DATE_FORMAT(STR_TO_DATE(list_date, '%m/%d/%Y'), '%Y-%m-%d') <= '" . $agentEndDate . "'))) GROUP BY bed";
       }
     }
 
@@ -1845,19 +1916,21 @@ if (isset($_POST['agent-yearly'])) {
 
     $jsonBuyerAllChart = json_encode($buyerAllChart);
 	
+	$testAgent = 'jsarkodie@bellmarc.com';
+	
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentYearlyArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND  time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $testAgent . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentYearlyArea == 'North') {
-			$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $testAgent . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE saved_listings.agent = '" . $agentEmail . "'  AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $testAgent . "' AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			}	
 		}
 	
-	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyers.".mysql_error());
+	$result = mysql_query( $sql ) or die("Couldn't execute query. Total buyer listings.".mysql_error());
 
     $buyerAllListingsChartTotal = 0;
     $buyerAllListingsChart = array(
