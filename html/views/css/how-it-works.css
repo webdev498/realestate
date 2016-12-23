@@ -5,7 +5,7 @@
 
 .version.how_it_works{color:#000016;background-color:#89B9E0;}
 
-#how_it_works{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
+#how_it_works{ min-height: 100%; height: auto !important; height: 100%; padding-bottom: 15px !important;}
 #page{ background-color:transparent; background-image:none; border-color:#000000; border-width:0px; margin-left:auto; margin-right:auto; max-width: 1200px; min-height:900px; padding-bottom:0px; width:100%; z-index:1; }
 #page_position_content{ margin-bottom:-11px; padding-top:7px; width:100%; }
 
@@ -56,15 +56,16 @@
 #u331-11,#u331-13,#u331-15,#u331-17,#u331-19,#u331-20,#u335-11,#u335-13,#u335-15{ padding-bottom:7px; }
 
 .about-phrase { color: #7F7F7F; font-family: lato, sans-serif; font-size: 30px; font-weight: 300; line-height: 30px; padding: 20px; text-align: center; }
-.video-container { height: 228px; width: 396px; }
-.video-image { margin-left: 185px; padding-bottom: 50px !important;}
+.video-container { height: 228px; width: 396px; margin-bottom: 30px;}
+.video-image { margin-left: 185px;}
 .image-container { height: 228px; width: 304px; }
-.pdf-image{ padding-bottom: 50px !important; }
-.video-image p, .pdf-image p{ margin-bottom: 20px; }
+.video-image p, .pdf-image p{ margin-bottom: 20px !important; }
 
 @media (min-width: 992px){ .col-md-3 { width: 26% !important; } }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
-	.video-image{ margin-left: 150px !important; }
+	.video-image{ margin-left: 100px !important; }
+	#page{max-width: 990px !important; padding: 0;}
+	.last-panel{height: 300px !important;}
 }
 @media (min-width: 768px) and (max-width: 991px){
 	.video-image { margin-left: 0px; text-align: center; }
@@ -76,3 +77,12 @@
 }
 @media (max-width: 700px){ #backBtn{ margin-top: -40px; } }
 @media (max-width: 550px){ #backBtn{ margin-top: -75px; } }
+@media (max-width: 375px){
+	.video-image { margin-left: 0px; text-align: left;}
+	.pdf-image { text-align: left;}
+	.video-container { height: 180px; width: 220px; }
+	.image-container { height: 180px; width: 220px; }
+	.about-phrase{font-size: 20px; text-align: left;}
+	.Subhead-2{text-align: left;}
+	.last-panel{height: 300px !important;}
+}

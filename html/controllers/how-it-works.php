@@ -1,13 +1,15 @@
 <?php
 session_start();
-include_once('functions.php');
-include_once('basicHead.php');
+include("controllers/dbconfig.php");
+include("controllers/functions.php");
+include("controllers/basicHead2.php");
 
-$mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
+if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
+else{ $mainPage = ""; }
 ?>
 
 	<title>HomePik - How it works</title>
-  <?php include_css("/views/css/how-it-works.css");
+  <?php include_css("/css/how-it-works.css");
 	include_once("analyticstracking.php") ?>
 </head>
 <body>
@@ -115,7 +117,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
 								<div className="col-md-5ths">
-                  <div className="panel">
+                  <div className="panel last-panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u335-18">
 												<h4 className="text-popups" id="u335-3"><span id="u335">Manage</span><span id="u335-2"> your searches</span></h4>
@@ -163,7 +165,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 	);
 
 	ReactDOM.render(
-    <Footer mainPage={"<?php echo $mainPage ?>"} />,
+    <Footer mainPage={"<? echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 </script>
