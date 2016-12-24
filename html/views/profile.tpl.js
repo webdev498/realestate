@@ -30,38 +30,6 @@ $('.{$tplvar['list_num']}primary').click(function(){
   });
 }); 
 
-// SAVE LISTING
-{if $tplvar['auth'] != 'agent'}
-  $('.{$tplvar['list_num']}save-listing').click(function(e){
-    var clickon=1;
-    var classNames = $(e.target).attr('class');
-    if(classNames.indexOf('fa-2x')>=0){ clickon = 2; }
-    $.get("/controllers/dialog.php", {
-      clickon: clickon,
-      purpose: 'buyerSave',
-      listing: '{$tplvar['list_num']}'
-    }, 
-    function (data) {
-      var title = (data.title),
-      content = (data.content);
-      $('#{$tplvar['list_num']}buyerSave').html(content).dialog("option", "title", title).dialog('open');
-    }, "json");
-  });
-  
-{elseif $tplvar['auth'] == 'agent'}
-  $('.{$tplvar['list_num']}save-listing').click(function(){
-    $.get("/controllers/dialog.php", {
-      purpose: 'agentSave',
-      listing: '{$tplvar['list_num']}'
-    }, 
-    function (data) {
-      var title = (data.title),
-      content = (data.content);
-      $('#{$tplvar['list_num']}agentSave').html(content).dialog("option", "title", title).dialog('open');
-    }, "json");
-  });                
-{/if}
-
 // CONTACT FORM FOR BOTH AGENTS
 $( "#{$tplvar['list_num']}contact-form" ).dialog({
   autoOpen: false,
@@ -297,33 +265,6 @@ $('#{$tplvar['list_num']}emailListing').click(function(){
     $('.ui-dialog').css("left", "35%")
   }
   return false;
-});
-
-/* SPV */
-$('#{$tplvar['list_num']}-spv').click(function(){
-
-});
-
-/* StreetEasy */
-$('#{$tplvar['list_num']}-streeteasy').click(function(){
-  var ad = {$tplvar['address']};
-  while(ad.indexOf(" ") != -1){ ad = ad.replace(" ", "+"); }
-  var sea = ad + "+" + {$tplvar['zip']};
-  
-  window.open('https://www.streeteasy.com/nyc/search?search='+sea,'_blank');
-});
-
-/* OLR */
-$('#{$tplvar['list_num']}-olr').click(function(){
-  var olra = {$tplvar['address']};
-  while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
-  
-  window.open('http://public.olr.com/building_results.aspx?address='+olra,'_blank');
-});
-
-/* Listing Wep Page */
-$('#{$tplvar['list_num']}-broker-website').click(function(){
-
 });
      
 /* MY PROFILE DIALOG FOR FIRST AGENT */
@@ -566,6 +507,7 @@ $("#main").bind('click',function(){ $('.space-factor-popup').remove(); $('.impli
 $('.space-factor-popup').click(function(event){ event.stopPropagation(); });
 $('.implied-square-footage-popup').click(function(event){ event.stopPropagation(); });
 
+/*
 $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog({ 
   autoOpen: false,
   modal: true,
@@ -584,11 +526,11 @@ $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).di
     $("input[name='location_grade'][value='{$tplvar['loc']}']").attr("checked", true);
     $("input[name='building_grade'][value='{$tplvar['bld']}']").attr("checked", true);
     $("input[name='view_grade'][value='{$tplvar['vws']}']").attr("checked", true);
-    if({$tplvar['amenities']['fireplace']} == "1"){ $("input[value='fireplace']").attr("checked", true); }
-    if({$tplvar['amenities']['elevator']} == "1"){ $("input[value='elevator']").attr("checked", true); }
-    if({$tplvar['amenities']['balcony']} == "1"){ $("input[value='balcony']").attr("checked", true); }
-    else if({$tplvar['amenities']['terrace'] == "1"){ $("input[value='terrace']").attr("checked", true); }
-    else if({$tplvar['amenities']['garden'] == "1" || {$tplvar['amenities']['roofd'] == "1"){ $("input[value='garden']").attr("checked", true); }
+    if({$tplvar['amenities']['Fireplace']} == "1"){ $("input[value='fireplace']").attr("checked", true); }
+    if({$tplvar['amenities']['Elevator']} == "1"){ $("input[value='elevator']").attr("checked", true); }
+    if({$tplvar['amenities']['Balcony']} == "1"){ $("input[value='balcony']").attr("checked", true); }
+    else if({$tplvar['amenities']['Terrace']} == "1"){ $("input[value='terrace']").attr("checked", true); }
+    else if({$tplvar['amenities']['Garden']} == "1" || {$tplvar['amenities']['Roof Deck']} == "1"){ $("input[value='garden']").attr("checked", true); }
     else{ $("input[value='none']").attr("checked", true); }
     $(".ui-widget-overlay").bind("click", function(){
       $("#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}{$tplvar['agent_id_1']}").dialog('close');
@@ -636,3 +578,25 @@ function calculateDimensions(){
   var stotal = ltotal + mtotal + dtotal + bbtotal + bbbtotal;
   $("#total_sqf").html(stotal).val(stotal);
 };
+*/
+/* StreetEasy */
+$('#{$tplvar['list_num']}-streeteasy').click(function(){
+  var ad = '{$tplvar['address']}';
+  while(ad.indexOf(" ") != -1){ ad = ad.replace(" ", "+"); }
+  var sea = ad + "+" + {$tplvar['zip']};
+  
+  window.open('https://www.streeteasy.com/nyc/search?search='+sea,'_blank');
+});
+
+/* OLR */
+$('#{$tplvar['list_num']}-olr').click(function(){
+  var olra = '{$tplvar['address']}';
+  while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
+  
+  window.open('http://public.olr.com/building_results.aspx?address='+olra,'_blank');
+});
+
+/* Listing Wep Page */
+$('#{$tplvar['list_num']}-broker-website').click(function(){
+  console.log("clicked");
+});

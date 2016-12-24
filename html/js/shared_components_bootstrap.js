@@ -431,9 +431,9 @@ var AddBuyer = React.createClass({
     return(
       <div>
         <div id="addBuyerTop">
+          <h4 id="closePopup" onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
           <span id="addBuyerHeader" className="text-popups">Add New Buyer</span>
           <img src="/images/manage_buyers_normal.png" width="65" height="65" style={{float: "right"}}/>
-          <h4 id="closePopup" onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
         </div>
         <div id="addBuyerBorder">
           <form onSubmit={this.addBuyer} autoComplete="off" data-bind="nextFieldOnEnter:true">
@@ -2124,6 +2124,7 @@ window.MenuNavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
+                    <li><a href="/controllers/agent-profile.php?MP=menu">Agent Profile</a></li>
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="/controllers/buyers.php?MP=menu">Manage Buyers</a></li>
                     <li><a href="/controllers/agent-listings.php?MP=menu">Saved Listings</a></li>

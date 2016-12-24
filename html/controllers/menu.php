@@ -444,9 +444,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
       return(
         <div>
           <div id="addBuyerTop">
+          <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           <span className="text-popups" id="addBuyerHeader">Add New Buyer</span>
           <img src="/images/manage_buyers_normal.png" width="65" height="65" style={{float: "right"}}/>
-          <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           </div>
           <div id="addBuyerBorder">
             <form onSubmit={this.addBuyer} autoComplete="off" data-bind="nextFieldOnEnter:true">
@@ -565,9 +565,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             <a href="my-messages.php?MP=menu" className="button-links last-button">
               <div className="museBGSize grpelem" id="u27965"><span className="button-text">MESSAGES {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</span></div>
             </a>
-          </div>
-          <div id="u8048">
-            <a href="change-password.php?MP=menu" className="adminLink">Change Password</a>
           </div>
         </div>
       );

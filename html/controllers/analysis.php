@@ -1,34 +1,14 @@
 <?php
-
 session_start();
-include("dbconfig.php");
-include ("functions.php");
-include("basicHead2.php");
+include_once("dbconfig.php");
+include_once("functions.php");
+include_once("basicHead.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
-/*if (!$_SESSION['user']) {
-  print "<script> window.location = '/users/logout.php' </script>";
-}
 
-if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){
-  print "<script> window.location = '/users/logout.php' </script>";
-}
-
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 'N'){ print "<script> window.location = '/users/logout.php' </script>"; }
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
-*/
-/*$analytics = $_SESSION['analytics'];
-$analysis = $_SESSION['activity_analysis'];*/
-$email = $_SESSION['email'];
-$sql = "SELECT first_name, last_name, agent_id FROM `registered_agents` where email= '".$email."'";
-$res = mysql_query( $sql ) or die("Couldn't execute query. Error 1.".mysql_error());
-while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
-  $firstname = $row['first_name'];
-  $lastname = $row['last_name'];
-  $id = $row['agent_id'];
-}
-$name = explode('@', $_SESSION['email']);
-$name = $name[0];
 ?>
 
 

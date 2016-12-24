@@ -1220,11 +1220,11 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 data: {"code":code},
                 success: function(data){
                   var info = JSON.parse(data);
-                  var name = info.firstname + " " + info.lastname;
+                  var name = info.first_name + " " + info.last_name;
                   this.setState({agent1: code});
                   this.setState({agent1_name: name});
-                  this.setState({agent1_phone: info.cell_phone});
-                  this.setState({agent1_email: info.e_mail});
+                  this.setState({agent1_phone: info.phone});
+                  this.setState({agent1_email: info.email});
                   this.getFormulas();
                 }.bind(this)
               });
@@ -1276,11 +1276,11 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 data: {"code":info.code},
                 success: function(data){
                   var info = JSON.parse(data);
-                  var name = info.firstname + " " + info.lastname;
-                  this.setState({agent1: info.id});
+                  var name = info.first_name + " " + info.last_name;
+                  this.setState({agent1: info.agent_id});
                   this.setState({agent1_name: name});
-                  this.setState({agent1_phone: info.cell_phone});
-                  this.setState({agent1_email: info.e_mail});
+                  this.setState({agent1_phone: info.phone});
+                  this.setState({agent1_email: info.email});
                   this.getFormulas();
                 }.bind(this),
                 error: function(){
@@ -1335,11 +1335,11 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 data: {"code2":code},
                 success: function(data){
                   var info = JSON.parse(data);
-                  var name = info.firstname + " " + info.lastname;
+                  var name = info.first_name + " " + info.last_name;
                   this.setState({agent2: code});
                   this.setState({agent2_name: name});
-                  this.setState({agent2_phone: info.cell_phone});
-                  this.setState({agent2_email: info.e_mail});
+                  this.setState({agent2_phone: info.phone});
+                  this.setState({agent2_email: info.email});
                   this.getFormulas();
                 }.bind(this)
               });
@@ -1416,11 +1416,11 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 data: {"code2":info.code},
                 success: function(data){
                   var info = JSON.parse(data);
-                  var name = info.firstname + " " + info.lastname;
-                  this.setState({agent2: info.id})
+                  var name = info.first_name + " " + info.last_name;
+                  this.setState({agent2: info.agent_id})
                   this.setState({agent2_name: name});
-                  this.setState({agent2_phone: info.cell_phone});
-                  this.setState({agent2_email: info.e_mail});
+                  this.setState({agent2_phone: info.phone});
+                  this.setState({agent2_email: info.email});
                   this.getFormulas();
                 }.bind(this)
               });
@@ -1486,23 +1486,16 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         data: {"delete": "true"},
         success: function(data){
           if(this.state.agent2_name != ""){
-            $.ajax({
-              type: "POST",
-              url: "change-buyer-info.php",
-              data: {"update":"true"},
-              success: function(data){
-                this.setState({agent1: this.state.agent2});
-                this.setState({agent1_name: this.state.agent2_name});
-                this.setState({agent1_phone: this.state.agent2_phone});
-                this.setState({agent1_email: this.state.agent2_email});
-                this.setState({agent2: ""});
-                this.setState({agent2_name: ""});
-                this.setState({agent2_phone: ""});
-                this.setState({agent2_email: ""});
-                this.setState({addingAgent2: ""});
-                this.getFormulas();
-              }.bind(this)
-            });
+            this.setState({agent1: this.state.agent2});
+            this.setState({agent1_name: this.state.agent2_name});
+            this.setState({agent1_phone: this.state.agent2_phone});
+            this.setState({agent1_email: this.state.agent2_email});
+            this.setState({agent2: ""});
+            this.setState({agent2_name: ""});
+            this.setState({agent2_phone: ""});
+            this.setState({agent2_email: ""});
+            this.setState({addingAgent2: ""});
+            this.getFormulas();
           }
           else{
             this.setState({agent1: ""});
@@ -1528,53 +1521,6 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           this.setState({addingAgent2: ""});
           this.getFormulas();
         }.bind(this)
-      });
-	  },
-	  removeFormula: function(name, event){
-      var email = this.state.buyer_email;
-      var searchName = name;
-
-      $("#ajax-box2").dialog({
-        autoOpen: false,
-        height: 225,
-        width: 240,
-        modal: true,
-        dialogClass: "deleteFormulaPopup",
-        buttons: {
-          Yes: function() {
-            $.ajax({
-              type: "POST",
-              url: "delete-criteria.php",
-              data: {"email":email, "name":searchName},
-              success: function(data){
-                var ajaxStop = 0;
-                $(document).ajaxStop(function() {
-                  if(ajaxStop == 0){
-                    ajaxStop++;
-                    this.getFormulas();
-                  }
-                }.bind(this));
-              }.bind(this)
-            });
-
-            $("#ajax-box2").dialog( "destroy" );
-          }.bind(this),
-          No: function() {
-            $( this ).dialog( "destroy" );
-          }
-        },
-        close: function() {
-          $( this ).dialog( "destroy" );
-        },
-        open: function(){
-          $(".ui-widget-overlay").bind("click", function(){
-            $("#ajax-box2").dialog('close');
-          });
-        }
-      });
-      $('#ajax-box2').load('messages.php #deleteFormula',function(){
-        $('#ajax-box2').dialog('open');
-        $("#deleteFormula").find("#formulaName").html(searchName);
       });
 	  },
 	  getFormulas: function(){

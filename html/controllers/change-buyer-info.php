@@ -6,7 +6,7 @@ include_once('emailconfig.php');
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if(isset($_SESSION['user'])){ $email = $_SESSION['email']; }
+if(isset($_SESSION['buyer'])){ $email = $_SESSION['email']; }
 
 if(isset($_POST['firstName'])){
   $firstName = $_POST['firstName'];
@@ -142,28 +142,25 @@ if(isset($_POST['code2'])){
 
 if(isset($_POST['delete'])){
   // Get buyer's information
-  $result = mysql_query( "SELECT first_name, last_name, P_agent, P_agent2 FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, P_agent, P_agent2 FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);  
-  $firstname = $row['first_name'];
-  $lastname = $row['last_name'];
+  $buyer_name = $row['name'];
   $id = $row['P_agent'];
   $id2 = $row['P_agent2'];
   
   // Get the first agent's information
-  $result2 = mysql_query( "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+  $result2 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);  
   $agent = $row2['email'];
-  $afirstname = $row2['first_name'];
-  $alastname = $row2['last_name'];
+  $agent_name = $row2['name'];
   
   // Get folder associated with first agent
-  $result3 = mysql_query( "SELECT name, agent FROM `users_folders` WHERE (user = '".$email."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error());
+  $result3 = mysql_query( "SELECT name FROM `users_folders` WHERE (user = '".$email."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
   while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC)){
     $name = $row3['name'];
-    $agents = $row3['agent'];
   
     // Check if buyer has second agent
-    if($id2 == ""){
+    if($id2 == "" || $id2 == null){
       // buyer only has one agent associated with their account
       // Remove the agent from the listings
       mysql_query( "UPDATE `saved_listings` SET agent='' WHERE (user = '".$email."') AND (agent = '".$agent."')" ) or die("Couldn't execute query.".mysql_error());
@@ -172,7 +169,10 @@ if(isset($_POST['delete'])){
       mysql_query( "UPDATE `Users_Search` SET agent='' WHERE (email = '".$email."') AND (name = '".$name."')" ) or die("Couldn't execute query.".mysql_error()); 
   
       // Remove the agent from the folder
-      mysql_query( "UPDATE `users_folders` SET agent='' WHERE (user = '".$email."') AND (name = '".$name."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error());
+      mysql_query( "UPDATE `users_folders` SET agent='' WHERE (user = '".$email."') AND (name = '".$name."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+      
+      // Remove the first agent from the buyer's account
+      mysql_query( "UPDATE `users` SET P_agent='', P_agent_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
       
       $_SESSION['agent1'] = '';
     }
@@ -185,16 +185,28 @@ if(isset($_POST['delete'])){
       mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$email."') AND (name = '".$name."')" )  or die(mysql_error());
     
       // Delete the folder
-      mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$email."') AND (name = '".$name."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error()); 
+      mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$email."') AND (name = '".$name."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+      
+      // Remove the first agent from the buyer's account and replace with the second agent
+      $result = mysql_query( "UPDATE `users` set P_agent=P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2='', P_agent2_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
+      
+      // Move all listings with second agent from Folder 2 to Folder 1
+      mysql_query( "UPDATE `saved_listings` SET folder='Folder 1' WHERE (user = '".$email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error());
+      
+      // Rename formula with second agent from Folder 2 to Folder 1
+      mysql_query( "UPDATE `Users_Search` SET name='Folder 1' WHERE (email = '".$email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error()); 
+  
+      // Rename folder with second agent from Folder 2 to Folder 1
+      mysql_query( "UPDATE `users_folders` SET name='Folder 1' WHERE (user = '".$email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error());
+  
+      $_SESSION['agent1'] = $_SESSION['agent2'];
+      $_SESSION['agent2'] = '';
     }
   }
-  
-  // Remove the first agent from the buyer's account
-  mysql_query( "UPDATE `users` SET P_agent='', P_agent_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
 
   // Send email to first agent that they have been removed from the account.
-  $message = "Hello ". $afirstname . " " . $alastname . ",<br><br>";
-  $message .= $firstname ." ". $lastname . " has removed you as their primary agent.\n\n ";
+  $message = "Hello ". $agent_name . ",<br><br>";
+  $message .= $buyer_name . " has removed you as their primary agent.\n\n ";
   $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
   $message .= "HomePik.com is licensed by Nice Idea Media";
   
@@ -206,18 +218,16 @@ if(isset($_POST['delete'])){
 
 if(isset($_POST['delete2'])){
   //Get user information and agent 2 id
-  $result = mysql_query( "SELECT first_name, last_name, P_agent2 FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
+  $result = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, P_agent2 FROM `users` WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $firstname = $row['first_name'];
-  $lastname = $row['last_name'];
+  $buyer_name = $row['name'];
   $id = $row['P_agent2'];
   
   // Get agent 2's information
-  $result2 = mysql_query( "SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+  $result2 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
   $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
   $agent = $row2['email'];
-  $afirstname = $row2['first_name'];
-  $alastname = $row2['last_name'];
+  $agent_name = $row2['name'];
   
   // Get the folder associated with that agent.
   $result3 = mysql_query( "SELECT name, agent FROM `users_folders` WHERE (user = '".$email."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error());
@@ -239,8 +249,8 @@ if(isset($_POST['delete2'])){
   mysql_query( "UPDATE `users` SET P_agent2='', P_agent2_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
   
   // Send email to agent agent that they have been removed from account.
-  $message = "Hello ". $afirstname . " " . $alastname . ",<br><br>";
-  $message .= $firstname ." ". $lastname . " has removed you as their primary agent.\n\n ";
+  $message = "Hello ". $agent_name . ",<br><br>";
+  $message .= $buyer_name . " has removed you as their primary agent.\n\n ";
   $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
   $message .= "HomePik.com is licensed by Nice Idea Media";
   
@@ -251,41 +261,4 @@ if(isset($_POST['delete2'])){
   
   $_SESSION['agent2'] = ''; 
 }
-
-if(isset($_POST['update'])){
-  $result = mysql_query( "UPDATE `users` set P_agent = P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2 = '', P_agent2_assign_time=0 WHERE (email = '".$email."')" ) or die("Couldn't execute query.".mysql_error());
-  
-  $_SESSION['agent1'] = $_SESSION['agent2'];
-  $_SESSION['agent2'] = '';
-}
-
-if(isset($_POST['updateListings'])){
-  $result = mysql_query( "SELECT r.email FROM `registered_agents` r, `users` u WHERE (u.email = '".$email."') AND (r.agent_id = u.P_agent)" ) or die("Couldn't execute query.".mysql_error());
-  $row = mysql_fetch_array($result,MYSQL_ASSOC);
-  $P_agent = $row['email'];
-  
-  $result2 = mysql_query( "SELECT r.email FROM `registered_agents` r, `users` u WHERE (u.email = '".$email."') AND (r.agent_id = u.P_agent2)" ) or die("Couldn't execute query.".mysql_error());
-  $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
-  $P_agent2 = $row2['email'];
-  
-  $result3 = mysql_query( "SELECT * FROM `saved_listings` WHERE (user = '".$email."') AND (agent = '')" ) or die("Couldn't execute query.".mysql_error());
-  while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC)){
-    $rs = mysql_query( "SELECT * FROM saved_listings WHERE (user = '" . $email . "') AND (list_num = '" . $row3['list_num'] . "') AND (agent = '".$P_agent."')" );
-    $num = mysql_num_rows($rs);
-    
-    if($num < 1){
-      mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$email."','".$row['list_num']."','".$row['from']."','".$row['comments']."','".$row['role']."','".$P_agent."','".$row['time']."')" )  or die(mysql_error());
-    }
-    
-    $rs = mysql_query( "SELECT * FROM saved_listings WHERE (user = '" . $email . "') AND (list_num = '" . $row['list_num'] . "') AND (agent = '".$P_agent2."')" );
-    $num = mysql_num_rows($rs);
-    
-    if($num < 1){
-      mysql_query( "INSERT INTO saved_listings(`user`,`list_num`,`saved_by`,`comments`, `role`, `agent`, `time`) VALUES  ('".$email."','".$row['list_num']."','".$row['from']."','".$row['comments']."','".$row['role']."','".$P_agent2."','".$row['time']."')" )  or die(mysql_error());
-    }
-  }
-  
-  mysql_query( "DELETE FROM saved_listings WHERE (user ='" . $email . "') AND (agent='')" )  or die(mysql_error());
-}
-
 ?>

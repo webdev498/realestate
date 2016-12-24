@@ -374,7 +374,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   $code = string_encrypt($list_numb, $session);
   $list_numb = $row['list_numb'];
   if($_SESSION['agent']){ $sql = "SELECT * FROM queued_listings WHERE user = '" . $email . "' AND list_num = '" . $list_numb . "'"; }
-  if($_SESSION['buyer']){ $sql = "SELECT * FROM saved_listings WHERE user = '" . $email . "' AND list_num = '" . $list_numb . "'"; }
+  else if($_SESSION['buyer']){ $sql = "SELECT * FROM saved_listings WHERE user = '" . $email . "' AND list_num = '" . $list_numb . "'"; }
   else{ $sql = "SELECT * FROM saved_listings WHERE user = '" . $_SESSION['guestID'] . "' AND list_num = '" . $list_numb . "'"; }
   $rs = mysql_query($sql);
   $num = mysql_num_rows($rs);

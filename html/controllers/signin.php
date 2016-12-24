@@ -53,7 +53,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #registerRquirements',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -80,7 +80,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -107,7 +107,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #passwordRequirement',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();

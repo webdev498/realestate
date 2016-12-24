@@ -624,99 +624,112 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             <AddressSearch mainPage={this.state.mainPage} />
             <div className="Text-1" id="u8521-1">
               <span className="Text-1" id="u8522-1">Manage Agents</span>
-              <div id="adminOptions">
-                <div id="addAgent">
-                  <span className="Text-1" id="addAgentTitle">Add Agent</span>
-                  <div id="addAgentForm">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>First Name: </td><td><input className="input1" name="firstname" value={this.state.addAgent_firstname} onChange={this.handleChange.bind(this, 'addAgent_firstname')}/></td>
-                          <td>Last Name: </td><td><input className="input1" name="lastname" value={this.state.addAgent_lastname} onChange={this.handleChange.bind(this, 'addAgent_lastname')}/></td>
-                          <td>Title: </td><td><input className="input1" name="title" value={this.state.addAgent_title} onChange={this.handleChange.bind(this, 'addAgent_title')}/></td>
-                        </tr>
-                        <tr>
+              <div className="container-fluid agent-profile-container">
+                <div id="adminOptions">
+                  <div id="addAgent">
+                    <span className="Text-1" id="addAgentTitle">Add Agent</span>
+                    <div id="addAgentForm">
+                      <div className="row">
+                        <div className="col-md-4 col-sm-6 col-xs-12">
+                          <span>First Name: </span><span><input className="input1" name="firstname" value={this.state.addAgent_firstname} onChange={this.handleChange.bind(this, 'addAgent_firstname')}/></span>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">
+                          <span>Last Name: </span><span><input className="input1" name="lastname" value={this.state.addAgent_lastname} onChange={this.handleChange.bind(this, 'addAgent_lastname')}/></span>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12"> 
+                          <span>Title: </span><span><input className="input1" name="title" value={this.state.addAgent_title} onChange={this.handleChange.bind(this, 'addAgent_title')}/></span>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">  
                           <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')} onBlur={this.updatePhone}/></td>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                                           
-                        </tr>
-                        <tr>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Status: </td><td><input type="radio" name="status" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Active &nbsp;&nbsp;&nbsp;<input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Not Active</td>
+                        </div>
+                        <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Administrator: </td><td><input type="radio" name="admin" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> Yes &nbsp;&nbsp;&nbsp;<input type="radio" name="admin" value="N" onChange={this.handleChange.bind(this, 'addAgent_admin')}/> No</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <button type="submit" name="submit" id="addAgentSubmit" onClick={this.addAgent}>Add Agent <i id="arrow" className="fa fa-chevron-right"></i></button>
-                  </div>
-                </div>
-                <div id="removeAgents">
-                  <span className="Text-1" id="removeAgentsTitle">Remove Agents</span>
-                    {this.state.registered_agents.length > 0 ?
-                    <div id="agentsRegisteredSection">
-                      <table>
-                        <tbody id="displayAgents">
-                        </tbody>
-                      </table>
-                      <button type="submit" name="submit" id="removeAgentsSubmit" onClick={this.removeAgents}>Remove Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
-                    </div>
-                  :
-                    <div>
-                      <div id="loading" className="Text-1"><span>Loading Agents...</span></div>
-                      <div id="noAgents" className="Text-1">
-                        <span>No Registered Agents</span>                        
-                      </div>                      
-                    </div>
-                  }
-                  
-                </div>
-                <div id="updateAgents">
-                  <span className="Text-1" id="updateAgentsTitle">Update Agent Status / Profile <span id="u16159-2">click name to edit profile</span></span>
-                  <div id="agentsRegisteredSection">
-                
-                    <ul className="nav nav-tabs" role="tablist">
-                      <li className="active"><a href="#activeAgents" aria-controls="activeAgents" role="tab" data-toggle="tab">Active Agents</a></li>
-                      <li><a href="#archivedAgents" aria-controls="archivedAgents" role="tab" data-toggle="tab">Archived Agents</a></li>
-                    </ul>
-
-                    <div className="tab-content">
-                      <div role="tabpanel" className="tab-pane active" id="activeAgents">
-                        {this.state.registered_active_agents.length > 0 ?
-                          <div>
-                            <table id="activeAgentsTable">
-                              <tbody id="displayActiveAgents">
-                              </tbody>
-                            </table>
-                            
-                            <button type="submit" name="submit" id="updateAgentsSubmit" onClick={this.archiveAgents}>Archive Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
-                          </div>
-                        :
-                          <div>
-                            <div id="loading" className="Text-1"><span>Loading Active Agents...</span></div>
-                            <div id="noAgents" className="Text-1">
-                              <span>No Active Agents</span>                        
-                            </div>                      
-                          </div>
-                        }
+                        </div>
                       </div>
-                      <div role="tabpanel" className="tab-pane" id="archivedAgents">
-                        {this.state.registered_archived_agents.length > 0 ?
-                          <div>
-                            <table id="archivedAgentsTable">
-                              <tbody id="displayArchivedAgents">
-                              </tbody>
-                            </table>
-                            
-                            <button type="submit" name="submit" id="updateAgentsSubmit" onClick={this.activateAgents}>Activate Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
-                          </div>
-                        :
-                          <div>
-                            <div id="loading" className="Text-1"><span>Loading Archived Agents...</span></div>
-                            <div id="noAgents" className="Text-1">
-                              <span>No Archived Agents</span>                        
-                            </div>                      
-                          </div>
-                        }
-                      </div>                      
+                      <button type="submit" name="submit" id="addAgentSubmit" onClick={this.addAgent}>Add Agent <i id="arrow" className="fa fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                  <div id="removeAgents">
+                    <span className="Text-1" id="removeAgentsTitle">Remove Agents</span>
+                      {this.state.registered_agents.length > 0 ?
+                      <div id="agentsRegisteredSection">
+                        <table>
+                          <colgroup><col width="220"/><col width="220"/><col width="220"/><col width="220"/><col width="220"/></colgroup>
+                          <tbody id="displayAgents">
+                          </tbody>
+                        </table>
+                        <button type="submit" name="submit" id="removeAgentsSubmit" onClick={this.removeAgents}>Remove Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
+                      </div>
+                    :
+                      <div>
+                        <div id="loading" className="Text-1"><span>Loading Agents...</span></div>
+                        <div id="noAgents" className="Text-1">
+                          <span>No Registered Agents</span>                        
+                        </div>                      
+                      </div>
+                    }
+                    
+                  </div>
+                  <div id="updateAgents">
+                    <span className="Text-1" id="updateAgentsTitle">Update Agent Status / Profile <span id="u16159-2">click name to edit profile</span></span>
+                    <div id="agentsRegisteredSection">
+                  
+                      <ul className="nav nav-tabs" role="tablist">
+                        <li className="active"><a href="#activeAgents" aria-controls="activeAgents" role="tab" data-toggle="tab">Active Agents</a></li>
+                        <li><a href="#archivedAgents" aria-controls="archivedAgents" role="tab" data-toggle="tab">Archived Agents</a></li>
+                      </ul>
+  
+                      <div className="tab-content">
+                        <div role="tabpanel" className="tab-pane active" id="activeAgents">
+                          {this.state.registered_active_agents.length > 0 ?
+                            <div>
+                              <table id="activeAgentsTable">
+                                <colgroup><col width="220"/><col width="220"/><col width="220"/><col width="220"/><col width="220"/></colgroup>
+                                <tbody id="displayActiveAgents">
+                                </tbody>
+                              </table>
+                              
+                              <button type="submit" name="submit" id="updateAgentsSubmit" onClick={this.archiveAgents}>Archive Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
+                            </div>
+                          :
+                            <div>
+                              <div id="loading" className="Text-1"><span>Loading Active Agents...</span></div>
+                              <div id="noAgents" className="Text-1">
+                                <span>No Active Agents</span>                        
+                              </div>                      
+                            </div>
+                          }
+                        </div>
+                        <div role="tabpanel" className="tab-pane" id="archivedAgents">
+                          {this.state.registered_archived_agents.length > 0 ?
+                            <div>
+                              <table id="archivedAgentsTable">
+                                <colgroup><col width="220"/><col width="220"/><col width="220"/><col width="220"/><col width="220"/></colgroup>
+                                <tbody id="displayArchivedAgents">
+                                </tbody>
+                              </table>
+                              
+                              <button type="submit" name="submit" id="updateAgentsSubmit" onClick={this.activateAgents}>Activate Agents <i id="arrow" className="fa fa-chevron-right"></i></button>
+                            </div>
+                          :
+                            <div>
+                              <div id="loading" className="Text-1"><span>Loading Archived Agents...</span></div>
+                              <div id="noAgents" className="Text-1">
+                                <span>No Archived Agents</span>                        
+                              </div>                      
+                            </div>
+                          }
+                        </div>                      
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -74,7 +74,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
+          $('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -102,7 +102,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #registerRquirements',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -150,7 +150,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                   });
                 }
               });
-              $('#ajax-box').load('/controllers/messages.php #invalidInput',function(){
+              $('#ajax-box').load('messages.php #invalidInput',function(){
                 $('#ajax-box').dialog('open');
               });
             }
@@ -185,7 +185,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+          $('#ajax-box').load('messages.php #registerRquirements',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -211,7 +211,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
+          $('#ajax-box').load('messages.php #invalidName',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -237,7 +237,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
+          $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();

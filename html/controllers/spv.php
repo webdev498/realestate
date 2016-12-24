@@ -1,5 +1,5 @@
 <?php
-require_once("../dompdf/autoload.inc.php");
+require_once("/dompdf/autoload.inc.php");
 include_once("dbconfig.php");
 
 // reference the Dompdf namespace

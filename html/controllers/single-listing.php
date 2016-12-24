@@ -1890,10 +1890,10 @@ if(isset($_GET['newTab'])){ ?>
                     {this.state.role == "agent" ?
                       <div id="u8788-28">
                         <h2 className="Subhead-4 contactHeader" id="u8788-2">HomePik Office</h2>
-                        {/* <p className="Text-3--2-kern" id="u8788-16">
+                        <p className="Text-3--2-kern" id="u8788-16">
                           <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
                           <span id="u8788-15"><a target="_blank" style={{cursor: "pointer"}}><span>Selection Portfolio Valuation</span></a></span>
-                        </p> */}
+                        </p>
                         <p className="Text-3--2-kern" id="u8788-16">
                           <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>
                           <span id="u8788-15"><a target="_blank" href={"https://www.streeteasy.com/nyc/search?search=" + this.state.searchAddress} style={{cursor: "pointer"}}><span>Streeteasy Listing</span></a></span>

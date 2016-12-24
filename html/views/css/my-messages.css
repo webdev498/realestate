@@ -41,10 +41,30 @@
 #u22763{	z-index: 184;	width: 66px;	background-color: transparent;	position: relative;	margin-right: -10000px;	left: 147px;}
 #u22780{	z-index: 186;	width: 66px;	background-color: transparent;	position: relative;	margin-right: -10000px;	margin-top: 115px;	left: 147px;}
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
-	body{		min-width: 100%;	}		
-	#page{		min-width: 100%;	}
-	#messages{		margin-left: 5px;	}
-	#u22718-99{		width: 860px;	}
-	#u22754{		width: 800px;	}
+@media (max-width: 1024px){
+	body{ min-width: 100%;	}		
+	#page{ min-width: 100%;	}
+	#messages{ margin-left: 5px;	}
+	#u22718-99{ width: 860px;	}
+	#u22754{ width: 800px;	}
+}
+@media (max-width: 768px){	
+	#u22718-99{ width: 605px;	}
+	#u22754{ width: 590px; }	
+}
+@media (max-width: 650px){
+	#u22718-99{ width: 480px;	}
+	#u22754{ width: 455px; }	
+}
+@media (max-width: 600px){
+	#u22655-16{ border: none; display: inline; margin-right: 0 !important; width: 474px; }
+	#u22655-16 table{ display: inline-block; width: 155px; }
+	#u22718-99{ left: 105px; margin-right: 0 !important; margin-top: 20px; width: 480px;	}
+	#u22754{ width: 455px; }	
+}
+@media (max-width: 400px){
+	#u22655-16{ border: none; display: inline; margin-right: 0 !important; width: 315px; }
+	#u22655-16 table{ display: inline-block; width: 155px; }
+	#u22718-99{ left: 105px; margin-right: 0 !important; margin-top: 20px; width: 320px;	}
+	#u22754{ width: 295px; }	
 }

@@ -44,7 +44,7 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #addBuyerTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:10px 40px 0; }
 #addBuyerHeader{ font-family: lato,sans-serif; font-weight: 300; font-size: 30px; line-height: 3; text-align: left; }
 #addBuyerSubmit { background: none; border: none; color: #646464; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
-#closePopup{ color: #B2B2B2; cursor: pointer; left: 550px; position: absolute; top: 10px; width: 10px; }
+#closePopup{ color: #B2B2B2; cursor: pointer; float: right; margin-right: -40px; margin-top: -10px; }
 #closeClearListingPopup{ color: #B2B2B2; cursor: pointer; left: 270px; position: absolute; top: 0px; }
 .input1{ border: 1px solid rgb(178, 178, 178); box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.33) inset, -1px -1px 2px rgba(0, 0, 0, 0.33) inset; height: 30px; padding-left: 4px; width: 300px; }
 
@@ -156,6 +156,10 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #muse_css_mq,.html{ background-color: #FFFFFF; }
 body{ position: relative; width: 100%; }
 @font-face{ font-family: '__FontAwesome_5'; src: url('../fonts/fontawesome-webfont.eot'); src: local('☺'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
+/* latin-ext */
+@font-face { font-family: 'Lato'; font-style: normal; font-weight: 300; src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v11/dPJ5r9gl3kK6ijoeP1IRsvY6323mHUZFJMgTvxaG2iE.woff2) format('woff2'); unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face { font-family: 'Lato'; font-style: normal; font-weight: 300; src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v11/EsvMC5un3kjyUhB9ZEPPwg.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000; }
 @media(max-width: 335px){
 	#u2680, #u2681{ width: 245px !important; }
 	#u2682-4{ width: 230px !important; }
@@ -212,6 +216,21 @@ body{ position: relative; width: 100%; }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
 	.ui-dialog.choseBuyingFormula, .ui-dialog.chooseBuyingFormula{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); display: block !important; height: 535px !important; left: 0% !important; margin: -50px 0 0 0; padding-bottom: 69px; position: fixed !important; top: 15% !important; width: 795px !important; z-index: 1001; }
+}
+
+/* Add Buyer Popup - Mobile */
+@media (max-width: 500px){
+  .ui-dialog.addBuyerPopup{ height: 312px !important; overflow-y: scroll; top: 17% !important; width: 465px !important; }
+  .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
+}
+@media (max-width: 400px){
+  .ui-dialog.addBuyerPopup{ overflow-y: scroll; width: 300px !important; }
+  #addBuyerTop{ padding: 10px 0 0 !important; }
+  #addBuyerBorder{ padding: 40px 0 2px !important; }
+  #addBuyerHeader{ font-size: 25px !important; }
+  #closePopup{ margin-right: -10px !important; margin-top: -15px !important; }
+  #addBuyerBorder .input1{ width: 210px !important }
+  .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
 }
 
 /* scrollbar test */

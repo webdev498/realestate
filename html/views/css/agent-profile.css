@@ -1,0 +1,47 @@
+
+#agentProfile{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; } 
+#page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; height: 100%; margin-left: auto; margin-right: auto; max-width: 1200px; padding-bottom: 50px; width: 100%; z-index: 1; }
+#page_position_content{ margin-bottom: -4px; }
+
+.ui-dialog.blankNamePopup, .ui-dialog.blankPhonePopup, .ui-dialog.blankEmailPopup{	background-color: #ffffff;	border-color: #b2b2b2;	border-style: solid;	border-width: 1px;	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);	height: 160px !important;	left: 50% !important;	margin: -50px 0 0 -125px;	padding-bottom: 69px;	position: fixed !important;	top: 43% !important;	width: 240px !important;	z-index: 1001;}
+.row{	width: 100%;}
+.agent-profile-container{	padding-left: 0 !important;	padding-right: 0 !important; }
+
+#u7132-18{ background-color: transparent; font-size: 18px; line-height: 25px; margin-right: -10000px; margin-top: 73px; min-height: 414px; position: relative; width: 110px; z-index: 47; }
+#u7132-19{ text-decoration: underline; }
+#u7132-20{ color: #0085C6; margin-left: -120px; margin-top: 20px; width: 150px; }
+#u7137-86{ background-color: transparent; border: 1px solid; border-bottom: none; border-color: #B2B2B2; border-right: none; border-top: none; height: 100%; margin-right: -10000px; margin-top: 20px; max-width: 746px; min-height: 380px; position: relative; width: 100%; z-index: 65; }
+#u7137-8{ line-height: 0px;	margin-left: 20px; padding-bottom: 12px; }
+#u7137-2{ color: #0085C6; font-family: lato, sans-serif; font-size: 24px; font-weight: 600; line-height: 34px; }
+#u7137-5{ color: #0085C6; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; font-style: italic; line-height: 25px; }
+#u7137-4,#u7137-6{ font-family: lato, sans-serif; font-size: 18px; font-style: italic; font-weight: 300; line-height: 25px; }
+#u7137-10{ font-family: lato, sans-serif; font-size: 18px; font-weight: 500; line-height: 25px; }
+#u7123-19{ background-color: transparent; font-size: 18px; height: 100%; left: 120px; line-height: 25px; margin-right: -10000px; margin-top: 74px; position: relative; width: 225px; z-index: 151; }
+#u7123-10{ font-family: lato, sans-serif; font-style: italic; font-weight: 300; }
+#u7139-6{ color: #0085C6; font-family: lato, sans-serif; font-size: 18px; font-weight: 400; line-height: 0px; text-align: justify; }
+#u7139-4{ line-height: 25px; }
+#u7139-5{ color: #939393; font-family: lato, sans-serif; font-size: 14px; font-style: italic; font-weight: 400; line-height: 20px; }
+#u7137-3,#u7137-7,#u7137-12,#u7137-14,#u7137-16,#u7137-18,#u7137-20,#u7137-22,#u7137-24,#u7137-26,#u7137-28,#u7137-30,#u7137-32,#u7139-8,#u7139-10,#u7139-12,#u7139-14,#u7139-16,#u7139-18,#u7139-20,#u7139-22,#u7139-24,#u7139-26,#u7139-28{ font-size: 18px; line-height: 25px; }
+#u7124-6{	background-color: transparent; color: #0085C6;	font-family: lato, sans-serif; font-size: 24px; font-weight: 700; line-height: 29px; margin-right: -10000px; margin-top: 26px; min-height: 44px; position: relative; width: 265px; z-index: 255; }
+#u7124-4{	line-height: 0px; }
+#u7124{	line-height: 29px; }
+#u7139-29,#u7124-2{	font-size: 18px; line-height: 22px; }
+#u7124-3{	color: #7F7F7F; font-family: lato, sans-serif; font-size: 18px; font-style: italic; font-weight: 300; line-height: 22px; }
+
+.input{ border-width: 1px; border-style: solid; border-color: #B2B2B2; width: 185px; margin-bottom: 1px; }
+textarea{ height: 200px; }
+
+#userActivity{ font-size: 18px; margin-left: 20px; }
+#userActivityInfo table tr > td{ padding-bottom: 0.3em !important; }
+#userActivityInfo table tr > td:first-child{ vertical-align: top; }
+#userActivityInfo table tr > td:nth-child(odd){ float: right; padding-right: 10px; }
+#userActivity select{ margin-left: 10px; }
+#userActivity button{ border: 1px solid #b2b2b2; margin-left: 10px; padding: 0 5px; }
+#userActivityInfo{ display: none; margin-top: 15px; }
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+	body{ min-width: 100%;	}
+	#page{ min-width: 100%;	}
+	#agentProfile{ margin-left: 5px;	}
+}
+@media (max-width: 992px){ #profile-section{ margin-left: 15px;	} }

@@ -23,7 +23,7 @@ body{ max-width: 1350px; margin: auto !important; }
 #slideshowu644 div { background-color: transparent; height: auto !important; position:absolute; left: 0 !important; max-height: 418px; z-index:0; width: 100% !important;}
 .SSSlideLoading{ background: url("/images/loading.gif") no-repeat center center; }
 
-.indexNavBar.navbar{ background-color: #000; border-color: #000; border-radius: 0; margin-bottom: 0 !important; min-height: 32px !important; max-height: 32px !important; }
+.indexNavBar.navbar{ background-color: #000; border-color: #000; border-radius: 0; margin-bottom: 0 !important; min-height: 32px !important; }
 .indexNavBar.navbar .navbar-nav > li{ color: #FFFFFF; font-size: 14px; font-family: lato, sans-serif; font-weight: 300; height: 32px; letter-spacing: 1px; margin-top: -1px; }
 .indexNavBar.navbar .navbar-nav > li > a{ padding-bottom: 0 !important; padding-top: 5px !important; }
 .indexNavBar.navbar .navbar-right { margin-right: 20px !important; }
@@ -88,17 +88,48 @@ img { max-width:100%; }
 
 @font-face { font-family: '__FontAwesome_5'; font-style: normal; font-weight: 400; src: url('../fonts/fontawesome-webfont.eot'); src: local('☺'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.svg') format('svg'); }
 @media screen and (-webkit-min-device-pixel-ratio:0){ body{ text-rendering: auto; } }
-@media (max-width:319px){ #slideshowu644{ min-height:160px; height:160px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-10px !important;} }
-@media (min-width:320px) and (max-width:359px){ #slideshowu644{ min-height:178px; height:178px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-10px !important;} }
-@media (min-width:360px) and (max-width:479px){ #slideshowu644{ min-height:200px; height:200px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-15px !important;} }
-@media (min-width:480px) and (max-width:519px){ #slideshowu644{ min-height:275px; height:275px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-20px !important;} }
-@media (min-width:520px) and (max-width:639px){ #slideshowu644{ min-height:300px; height:300px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-26px !important;} }
-@media (min-width:640px) and (max-width:767px){ #slideshowu644{ min-height:300px; height:300px; max-height:none; overflow:hidden;}.SlideShowWidget img{margin-top:-84px !important;} }
+@media (max-width:319px){
+	#slideshowu644{ min-height:160px; height:160px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-10px !important;}	
+	.slider-seller-option{ margin-top: 25.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
+@media (min-width:320px) and (max-width:359px){
+	#slideshowu644{ min-height:178px; height:178px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-10px !important;}
+	.slider-seller-option{ margin-top: 25.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
+@media (min-width:360px) and (max-width:479px){
+	#slideshowu644{ min-height:200px; height:200px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-15px !important;}
+	.slider-seller-option{ margin-top: 70.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
+@media (min-width:480px) and (max-width:519px){
+	#slideshowu644{ min-height:275px; height:275px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-20px !important;}
+	.slider-seller-option{ margin-top: 70.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
+@media (min-width:520px) and (max-width:639px){
+	#slideshowu644{ min-height:300px; height:300px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-26px !important;}
+	.slider-seller-option{ margin-top: 70.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
+@media (min-width:640px) and (max-width:767px){
+	#slideshowu644{ min-height:300px; height:300px; max-height:none; overflow:hidden;}
+	.SlideShowWidget img{margin-top:-84px !important;}
+	.slider-seller-option{ margin-top: 125.5px; }
+	.indexNavBar #firstOption{ padding: 0; }
+}
 @media (min-width: 768px) and (max-width: 1024px){
 	#u25521{ left: -19px !important; margin-left: 5px; }
 	#u15182-4{ margin-top: 45px !important; }
 	.i_c_f{ margin: 50px 0 0; width: 100%; }
 	.SlideShowWidget img{margin-top:-127px !important;}
+	.slider-seller-option{ margin-top: 125.5px; }
 }
 @media (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
 	#u25521{ left: -19px !important; margin-left: 5px; }

@@ -6,11 +6,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href='https://webfonts.creativecloud.com/c/be4972/1w;lato,2,c0p:W:n3,c0x:W:n7/l' rel='stylesheet' type='text/css'>
-    <?php include_css("../views/css/spv-template.css"); ?>
+    <?php include_css("/views/css/spv-template.css"); ?>
   </head>
   <body>
     <div id="header">
-      <img class="headerImg" src="../images/homepik_logo.png" alt=""/>
+      <img class="headerImg" src="/images/homepik_logo.png" alt=""/>
       <span class="headerSeperator"></span>
       <span class="headerText">Selection Portfolio<sup>TM</sup>&nbsp;&nbsp; Current Market Valuation</span>     
     </div>
