@@ -260,8 +260,11 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
 
       // Decide which agent's contact info to show (show office manager based on neighborhood unless the user is a buyer who has been assigned to an agent)
       if($tplvar['role'] == 'buyer'){
-        $tplvar['P_agent'] = $_SESSION['agent1'];
-        $tplvar['P_agent2'] = $_SESSION['agent2'];
+        $SQL = "SELECT * FROM users WHERE (email = '" . $_SESSION['email'] . "')";
+        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
+        $row = mysql_fetch_assoc($result);
+        $tplvar['P_agent'] = $row['P_agent'];
+        $tplvar['P_agent2'] = $row['P_agent2'];
         
         if ($tplvar['P_agent'] == ''){
           $tplvar['error'] = 'No primary agent';
@@ -275,7 +278,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
         }
       }
       
-      $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['agent_id_1']."')" ) or die(mysql_error() . " " . $SQL);
+      $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['agent_id_1']."')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_assoc($result);
       $active = $row['active'];
 
@@ -284,7 +288,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       if ($tplvar['agent_id_1'] == '') {
         $agentNums = array();
         $agentCount = 0;
-        $result = mysql_query( "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $tplvar['address'] . "'); " ) or die(mysql_error() . " " . $SQL);
+        $SQL = "SELECT location, agent_1, agent_2, agent_3, agent_4 FROM Building_file WHERE (location = '" . $tplvar['address'] . "'); ";
+        $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
         $row = mysql_fetch_assoc($result);
         $tplvar['build_location'] = $row['location'];
         $tplvar['agent_1_v2'] = $row['agent_1'];
@@ -293,7 +298,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
         $tplvar['agent_4_v2'] = $row['agent_4'];
 
         if ($tplvar['agent_1_v2'] != ''){
-          $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_1_v2'] . "'); " ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_1_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $active = $row['active'];
 
@@ -304,7 +310,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
           }
         }
         elseif ($tplvar['agent_2_v2'] != ''){
-          $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_2_v2'] . "'); " ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_2_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $active = $row['active'];
 
@@ -315,7 +322,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
           }
         }
         elseif ($tplvar['agent_3_v2'] != ''){
-          $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_3_v2'] . "'); " ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_3_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $active = $row['active'];
 
@@ -326,7 +334,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
           }
         }
         elseif ($tplvar['agent_4_v2'] != ''){
-          $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_4_v2'] . "'); " ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_4_v2'] . "'); ";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $active = $row['active'];
 
@@ -346,7 +355,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
             $tplvar['agentCount'] = $agentCount;
           }
           else{
-            $result = mysql_query( "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')" ) or die(mysql_error() . " " . $SQL);
+            $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')";
+            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
             $row = mysql_fetch_assoc($result);
             $tplvar['office'] = $row['office'];
             if($tplvar['office'] == "SS"){ $tplvar['office'] = "BSS"; }
@@ -354,12 +364,14 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
             $tplvar['error'] .= 'Got an office';
 
             //Get code and manager id from office where code is office from zip_to_office
-            $result = mysql_query( "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')" ) or die(mysql_error() . " " . $SQL);
+            $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')";
+            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
             $row = mysql_fetch_assoc($result);
             $tplvar['mgr_id'] = isset($row['mgr_id']) ? $row['mgr_id'] : '';
             $tplvar['error'] .= 'Got an id';
             
-            $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')" ) or die(mysql_error() . " " . $SQL);
+            $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')";
+            $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
             $row = mysql_fetch_assoc($result);
             $active = $row['active'];
 
@@ -369,7 +381,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
         }
         else{
           // Get office from zip_to_office where zip is zip of building
-          $result = mysql_query( "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')" ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT office FROM zip_to_office WHERE (zip = '" . $tplvar['zip'] . "')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $tplvar['office'] = $row['office'];
           if($tplvar['office'] == "SS"){ $tplvar['office'] = "BSS"; }
@@ -377,12 +390,14 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
           $tplvar['error'] .= 'Got an office';
 
           //Get code and manager id from office where code is office from zip_to_office
-          $result = mysql_query( "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')" ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT code, mgr_id FROM office WHERE (code = '" . $tplvar['office'] . "')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $tplvar['mgr_id'] = isset($row['mgr_id']) ? $row['mgr_id'] : '';          
           $tplvar['error'] .= 'Got an id';
           
-          $result = mysql_query( "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')" ) or die(mysql_error() . " " . $SQL);
+          $SQL = "SELECT active FROM `registered_agents` WHERE (agent_id = '".$tplvar['mgr_id']."')";
+          $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
           $row = mysql_fetch_assoc($result);
           $active = $row['active'];
 
@@ -391,7 +406,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
         }
       }
 
-      $result = mysql_query( "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_1'] . "'); " ) or die(mysql_error() . " " . $SQL);
+      $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_1'] . "'); ";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_array($result, MYSQL_ASSOC);
       $tplvar['agent_id'] = $row['id'];
       $tplvar['agent_firstname'] = $row['first_name'];
@@ -409,7 +425,8 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
 
       if($tplvar['agent_id_1'] == "NB"){ $tplvar['agent_email'] = "nbinder@homepik.com"; }
 
-      $result = mysql_query( "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_2'] . "'); " ) or die(mysql_error() . " " . $SQL);
+      $SQL = "SELECT first_name, last_name, title, agent_id, phone, email, bio FROM `registered_agents` WHERE (agent_id = '" . $tplvar['agent_id_2'] . "'); ";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_array($result, MYSQL_ASSOC);
       $tplvar['agent2_id'] = $row['id'];
       $tplvar['agent2_firstname'] = $row['first_name'];
@@ -428,19 +445,21 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
       if($tplvar['agent_id_2'] == "NB"){ $tplvar['agent2_email'] = "nbinder@homepik.com"; }
 
       // DETERMINE IF IT'S AN IDX LISTING
-      $result = mysql_query( "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $tplvar['RLS_id'] . "','\"')" ) or die(mysql_error() . " " . $SQL);
+      $SQL = "SELECT * FROM IDX_Listing_Numbers WHERE `RLS_id` = CONCAT('\"','" . $tplvar['RLS_id'] . "','\"')";
+      $result = mysql_query($SQL) or die(mysql_error() . " " . $SQL);
       $row = mysql_fetch_array($result, MYSQL_ASSOC);
       $tplvar['RLS_id_match'] = $row['RLS_id'];
 
       // DISPLAY WHICH FOLDERS THE LISTING HAS BEEN SAVED TO
       $tplvar['saved_to'] = '';
       $count= 0;
-      if(isset($_SESSION['agent'])){
-        foreach($_SESSION['saved_listings'] as $key => $value) {
+      if($_SESSION['agent']){
+        foreach ($_SESSION['saved_listings'] as $key => $value) {
           if ($value[1] == $list_numb) {
             if ($value[0] == $_SESSION['email']) { $value[0] = 'Agent Folder'; }
             else{
-              $result = mysql_query( "SELECT first_name, last_name FROM `users` where (email = '" . $value[0] . "')" ) or die("Couldn't execute query." . mysql_error());
+              $SQL = "SELECT first_name, last_name FROM `users` where (email = '" . $value[0] . "')";
+              $result = mysql_query($SQL) or die("Couldn't execute query." . mysql_error());
               $row = mysql_fetch_array($result, MYSQL_ASSOC);
               $value[0] = $row['first_name'] . " " . $row['last_name'];
             }

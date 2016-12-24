@@ -507,6 +507,7 @@ $("#main").bind('click',function(){ $('.space-factor-popup').remove(); $('.impli
 $('.space-factor-popup').click(function(event){ event.stopPropagation(); });
 $('.implied-square-footage-popup').click(function(event){ event.stopPropagation(); });
 
+/*
 $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog({ 
   autoOpen: false,
   modal: true,
@@ -577,7 +578,7 @@ function calculateDimensions(){
   var stotal = ltotal + mtotal + dtotal + bbtotal + bbbtotal;
   $("#total_sqf").html(stotal).val(stotal);
 };
-
+*/
 /* StreetEasy */
 $('#{$tplvar['list_num']}-streeteasy').click(function(){
   var ad = '{$tplvar['address']}';
