@@ -344,19 +344,17 @@
                 </table>
               </div>  <!-- /contact -->
             <br><br>
-            {* 
             {if $tplvar['auth'] == 'agent'}
               <div class="infobox" style="height:185px;" id="profileHomePikOffice">
               <h2>HomePik Office</h2>
                 <div style="position: relative;margin-top: 7px;" class="options">
-                  {* <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-spv"><div><i class="fa fa-chevron-right"></i>Selection Portfolio Valuation</div></button><br> *}
+                  <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-spv"><div><i class="fa fa-chevron-right"></i>Selection Portfolio Valuation</div></button><br>
                   <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-streeteasy"><div><i class="fa fa-chevron-right"></i>Streeteasy Listing</div></button><br>
                   <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-olr"><div><i class="fa fa-chevron-right"></i>OLR Listing</div></button><br>
                   {* <button type="button" class="agent-info-list" id="{$tplvar['list_num']}-broker-website"><div><i class="fa fa-chevron-right"></i>Broker Website Listing</div></button> *}
                   </div>
                 </div>
             {/if}
-            *}
           </div>
         </div> {* /listingmain2 *}
 
