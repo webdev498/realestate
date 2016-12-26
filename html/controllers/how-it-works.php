@@ -1,15 +1,15 @@
 <?php
 session_start();
-include("controllers/dbconfig.php");
-include("controllers/functions.php");
-include("controllers/basicHead2.php");
+include_once("dbconfig.php");
+include_once('functions.php');
+include_once('basicHead.php');
 
 if(isset($_GET['MP'])){ $mainPage = $_GET['MP']; }
 else{ $mainPage = ""; }
 ?>
 
 	<title>HomePik - How it works</title>
-  <?php include_css("/css/how-it-works.css");
+  <?php include_css("/views/css/how-it-works.css");
 	include_once("analyticstracking.php") ?>
 </head>
 <body>
