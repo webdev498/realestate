@@ -52,7 +52,8 @@ tr > td{  padding-bottom: 1em !important;}
 
 #u16154{	z-index: 522;	width: 20px;	background-color: transparent;	position: relative;	margin-right: -10000px;	margin-top: 35px;	left: -15px;}
 #u16160-3{	z-index: 524;	width: 450px;	min-height: 40px;	background-color: transparent;	line-height: 29px;	color: #0085C6;	font-size: 24px;	font-family: lato, sans-serif;	font-weight: 700;	position: relative;	margin-right: -10000px;	margin-top: 19px;}
-#u16159-5{	z-index: 527;	width: 100%;	max-width: 674px;	min-height: 44px;	background-color: transparent;	line-height: 29px;	color: #0085C6;	font-size: 24px;	font-family: lato, sans-serif;	font-weight: 700;	position: relative;	margin-right: -10000px;}
+/*#u16159-5{	z-index: 527;	width: 100%;	max-width: 674px;	min-height: 44px;	background-color: transparent;	line-height: 29px;	color: #0085C6;	font-size: 24px;	font-family: lato, sans-serif;	font-weight: 700;	position: relative;	margin-right: -10000px;}*/
+#u16159-5{	z-index: 527;	width: 100%;	max-width: 674px;	min-height: 44px;	background-color: transparent;	line-height: 29px;	color: #000000;	font-size: 24px;	font-family: lato, sans-serif;	font-weight: 700;	position: relative;	margin-right: -10000px;}
 #u16159-5b{	z-index: 527;	width: 100%;	max-width: 674px;	min-height: 44px;	background-color: transparent;	line-height: 29px;	color: #0085C6; cursor: pointer; font-size: 18px; font-family: lato, sans-serif;	font-weight: 700;	position: relative;	margin-left: 17px; margin-top: 20px;}
 #u16159{	line-height: 29px;}
 #u16159-2{	font-size: 15px;	color: #7F7F7F;	font-family: lato, sans-serif;	font-weight: 300;	font-style: italic;	line-height: 18px;}
