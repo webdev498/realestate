@@ -3184,7 +3184,7 @@ $(document).ready(function(){
         });
       }
     });
-    $("#delete-listing").dialog('open');
+    //$("#delete-listing").dialog('open');
 
     $.get("/controllers/ajax.php", {
       clear_one_saved_from_folder: 'true',
