@@ -479,7 +479,7 @@ if ((authentication() == 'agent') OR (authentication() == 'user') OR (authentica
 
       // HTML TEMPLATE
       $templatehead = $smarty->fetch('headReduced.tpl.php', array('tplvar' => $tplvar));
-      $template = $smarty->fetch('profile.tpl.php', array('tplvar' => $tplvar));
+      $template = $smarty->fetch('profile.tpl.old.php', array('tplvar' => $tplvar));
       print $template; // display the templated profile page
 
       // JAVASCRIPT TEMPLATE
