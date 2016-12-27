@@ -321,7 +321,7 @@ window.CriteriaNavBar = React.createClass({
                     <li><a onClick={this.newSearch}>New Search</a></li>
                     <li><a href="/controllers/buyer-profile.php?MP=criteria" className="my-profile">My Profile</a></li>
                     <li><a href="/controllers/saved.php?MP=criteria">Listing Folders</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=criteria">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=criteria">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.checkAgent() ?
@@ -331,7 +331,7 @@ window.CriteriaNavBar = React.createClass({
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="/controllers/buyers.php?MP=criteria">Manage Buyers</a></li>
                     <li><a href="/controllers/agent-listings.php?MP=criteria">Saved Listings</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=criteria">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=criteria">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 
@@ -562,7 +562,7 @@ window.SearchNavBar = React.createClass({
                     <li id="editCriteriaOption"><a onClick={this.editSearch}>Edit Search Criteria</a></li>
                     <li><a href="/controllers/buyer-profile.php?MP=results" className="my-profile">My Profile</a></li>
                     <li><a href="/controllers/saved.php?MP=results">Listing Folders</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=results">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=results">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.checkAgent() ?
@@ -573,7 +573,7 @@ window.SearchNavBar = React.createClass({
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="/controllers/buyers.php?MP=results">Manage Buyers</a></li>
                     <li><a href="/controllers/agent-listings.php?MP=results">Saved Listings</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=results">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=results">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 

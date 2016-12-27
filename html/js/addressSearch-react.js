@@ -233,7 +233,7 @@ window.SearchNavBar = React.createClass({
 
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+      width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -319,7 +319,7 @@ window.SearchNavBar = React.createClass({
                     <li><a href="/search.php#newSearch">New Search</a></li>
                     <li><a href="/controllers/buyer-profile.php?MP=address" className="my-profile">My Profile</a></li>
                     <li><a href="/controllers/saved.php?MP=address">Listing Folders</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=address">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=address">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
               {this.checkAgent() ?
@@ -329,7 +329,7 @@ window.SearchNavBar = React.createClass({
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="/controllers/buyers.php?MP=address">Manage Buyers</a></li>
                     <li><a href="/controllers/agent-listings.php?MP=address">Saved Listings</a></li>
-                    <li><a href="/controllers/my-messages.php?MP=address">Messages</a></li>
+                    <li><a href="/controllers/my-messages.php?MP=address">Messages {this.state.messages != 0 && this.state.messages != "" ?<sup id="unreadMessages"> {this.state.messages}</sup> : null}</a></li>
                   </ul>
               : null }
 
