@@ -43,7 +43,7 @@ if($list_num != ''){
   $loc = (isset($min_loc) ? $min_loc : $row['loc']);
   $bld = (isset($min_bld) ? $min_bld : $row['bld']);
   $vws = (isset($min_vws) ? $min_vws : $row['vws']);
-  $space = (isset($min_space) ? preg_replace("/[^0-9]/", "", $min_space) : $row['vroom_sqf']);
+  $space = (isset($min_space) ? preg_replace("/[^0-9]/", "", floor($min_space)) : $row['vroom_sqf']);
   $space_uf = $space;
   $space = number_format($space, 0, '.', ',');
   $floor = (isset($min_floor) ? $min_floor : $row['floor']);
@@ -65,7 +65,7 @@ if($list_num != ''){
   else{
     if($listings == "Active"){ $where = "WHERE (status = 'AVAIL')"; }
     elseif($listings == "Historical"){ $where = "WHERE (status != 'AVAIL')"; }
-    else{ $where = ""; }
+    else{ $where = "WHERE ((status = 'AVAIL') OR (status != 'AVAIL'))"; }
   }
   
   // Additional Filters
@@ -91,7 +91,11 @@ if($list_num != ''){
     $where2 .= " AND (vws >= '".$min_vws."')";
   }
   if($min_floor != $row['floor'] && $min_floor > 0){
-    if($additional_filters == ""){ $additional_filters .= "Listing activity in the past 12 months<span class='lineSeperator'>|</span> <span class='titleText'>on or above</span> ".$min_floor."th floor"; }
+    if(substr($min_floor, -1) == "1" && $min_floor != "11"){ $ending = "st"; }
+    else if(substr($min_floor, -1) == "2" && $min_floor != "12"){ $ending = "nd"; }
+    else if(substr($min_floor, -1) == "3" && $min_floor != "13"){ $ending = "rd"; }
+    else{ $ending = "th"; }
+    if($additional_filters == ""){ $additional_filters .= "Listing activity in the past 12 months<span class='lineSeperator'>|</span> <span class='titleText'>on or above</span> ".$min_floor.$ending." floor"; }
     else{ $additional_filters .= "<span class='lineSeperator'>|</span> <span class='titleText'>on or above</span> ".$min_floor."th floor"; }
     $where2 .= " AND (floor >= '".$min_floor."')";
   }
@@ -106,7 +110,6 @@ if($list_num != ''){
   if(in_array("garden", $amenity)){ $where2 .= " AND (garden = '1' OR roofd = '1')"; }
   
   //EVALUATION DETAILS SECTION
-  
   // NUMBER OF LISTINGS NO FILTER: This gets the number of listings without filters returned the search results
   $result = mysql_query("SELECT COUNT(*) AS num_listings FROM vow_data " . $where ." AND (list_numb != '". $list_num ."')");
   $row2 = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -402,7 +405,6 @@ if($list_num != ''){
   $total_adjustment = number_format(abs($total_adjustment), 0, '.', ',');
   $val_adjustment = number_format(abs($val_adjustment), 0, '.', ',');
   
-  //echo "SELECT price, address, apt, loc, bld, vws, vroom_sqf, floor, bed, maint, taxes, virtual, burnst, fireplace, garage, pool, roofd, garden, den, din, laundry, ac, security, doorman, wheelchair, elevator, healthclub, utilities, pets, furnished, prewar, loft, terrace, balcony, outdoor, wash_dry, nofee FROM vow_data " . $where . $where2 . " AND (list_numb != '". $list_num ."')";
   $compare_listings = array();
   $result = mysql_query("SELECT price, address, apt, loc, bld, vws, vroom_sqf, floor, bed, maint, taxes, virtual, burnst, fireplace, garage, pool, roofd, garden, den, din, laundry, ac, security, doorman, wheelchair, elevator, healthclub, utilities, pets, furnished, prewar, loft, terrace, balcony, outdoor, wash_dry, nofee FROM vow_data " . $where . $where2 . " AND (list_numb != '". $list_num ."')") or die(mysql_error());
   while($row = mysql_fetch_array($result,MYSQL_ASSOC)){
@@ -410,7 +412,7 @@ if($list_num != ''){
     $c_address = str_replace("&", " & ", $c_address);
     $c_address = ucwords(strtolower($c_address));
     
-    if($c_address == $address){ $same_build = "<img src='../images/check.png' height='10'/>"; }
+    if($c_address == $address){ $same_build = "<img src='..../images/check.png' height='10'/>"; }
     else{ $same_build = "&nbsp;"; }
     
     $c_price = $row['price'];

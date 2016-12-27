@@ -7,12 +7,12 @@ $('#{$tplvar['list_num']} .gallerysmallimage a img').mouseover(function(){
 });
 $('#{$tplvar['list_num']} .gallerysmallimage a img').live('click',function(){
   var this_photo = $(this).attr('src');
- {$tplvar['list_num']}_photoDefault = this_photo
+ {$tplvar['list_num']}_photoDefault = this_photo;
 });
 $('#{$tplvar['list_num']} .gallerysmallimage a img').mouseout(function(){
   $('#{$tplvar['list_num']} .imagebig a img').attr('src',{$tplvar['list_num']}_photoDefault);
 }).delay(1000);
-    
+  
 //ADD / REMOVE PRIMARY AGENT
 $('.{$tplvar['list_num']}primary').click(function(){
   var agent = $(this).attr('data-agent');
@@ -82,7 +82,6 @@ $('.ui-dialogue-email-send').click(function (){
     });
   }
   else{
-
     if ($('.ui-dialogue-custom-content').find("#friendSend:checkbox:checked").length > 0) {
       var friendEmail = $('.ui-dialogue-custom-content').find('#friendEmail').val();
       $.get("/controllers/ajax.php", { list_num: '{$tplvar['list_num']}', sendTo: friendEmail, comments: comments, guestName: guestName, emailListing: 'true'}, function(result) { console.log("Success!"); });
@@ -136,7 +135,7 @@ $( "#{$tplvar['list_num']}agentSave" ).dialog({
     				
     $.ajax({
       type: "POST",
-      url: "http://homepik.com/controllers/buyer-save.php",
+      url: "../controllers/buyer-save.php",
       success: function(data){
         var buyer = JSON.parse(data);
         $("#buyerSave").val(buyer);
@@ -147,7 +146,7 @@ $( "#{$tplvar['list_num']}agentSave" ).dialog({
     });
     
     if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-      $('.ui-dialog').css("left", "35%")
+      $('.ui-dialog').css("left", "35%");
     }
     
     $(".ui-widget-overlay").bind("click", function(){
@@ -202,7 +201,7 @@ $( "#{$tplvar['list_num']}buyerSave" ).dialog({
     $('#buyerSave').val(buyer.email);
     
     if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-      $('.ui-dialog').css("left", "35%")
+      $('.ui-dialog').css("left", "35%");
     }
     
     $(".ui-widget-overlay").bind("click", function(){
@@ -234,7 +233,7 @@ $('.{$tplvar['list_num']}brokerDetails').click(function(){
   $( "#{$tplvar['list_num']}brokerDetails" ).dialog( "open" );
   $( "#{$tplvar['list_num']}brokerDetails" ).parent().attr('rel', "blue");
   if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-    $('.ui-dialog').css("left", "35%")
+    $('.ui-dialog').css("left", "35%");
   }
   return false;
 });
@@ -250,7 +249,7 @@ $('.{$tplvar['list_num']}contact').click(function(){
   $( "#{$tplvar['list_num']}contact-form .cont_f_n_p input[value='"+$(this).find("button").attr("id")+"']" ).parent().find("input:first-child").attr("checked", true);
   $( "#{$tplvar['list_num']}contact-form" ).find('#contactComments').val("Please send me information about this property.");
   if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-    $('.ui-dialog').css("left", "35%")
+    $('.ui-dialog').css("left", "35%");
   }
   return false;
 });
@@ -262,7 +261,7 @@ $('#{$tplvar['list_num']}emailListing').click(function(){
   $( "#{$tplvar['list_num']}contact-form .cont_f_n_p #friendSend" ).attr("checked", true);
   $( "#{$tplvar['list_num']}contact-form" ).find('#contactComments').val("");
   if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-    $('.ui-dialog').css("left", "35%")
+    $('.ui-dialog').css("left", "35%");
   }
   return false;
 });
@@ -337,7 +336,7 @@ $( "#{$tplvar['list_num']}{$tplvar['agent_id_2']}agentBio" ).click(function() {
   $( "#{$tplvar['list_num']}agentDialog2" ).parent().attr('rel', "blue");
   
   if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-    $('.ui-dialog').css("left", "35%")
+    $('.ui-dialog').css("left", "35%");
   }
   return false;
 });
@@ -351,7 +350,7 @@ $( "#{$tplvar['list_num']}{$tplvar['agent_id_1']}agentBio" ).click(function() {
   $( "#{$tplvar['list_num']}agentDialog" ).parent().attr('rel', "blue");
   
   if((navigator.userAgent.match(/iPad/i) != null) == true && ((Math.abs(window.orientation) === 0) || (Math.abs(window.orientation) === 180))){
-    $('.ui-dialog').css("left", "35%")
+    $('.ui-dialog').css("left", "35%");
   }
   return false;
 });
@@ -365,8 +364,7 @@ $( "#ui-dialogue-cost-estimator-popup{$tplvar['list_num']}{$tplvar['agent_id_1']
     resizable:false,
     width: 600,
     create: function(e, ui) {
-      $(this).dialog('widget')
-      .addClass('ui-dialogue-cost-estimator-popup-container');
+      $(this).dialog('widget').addClass('ui-dialogue-cost-estimator-popup-container');
     },
     open: function(){
       $(':focus', this).blur();
@@ -441,9 +439,10 @@ function formatNumber(number) {
   }
   
   return formattedNum + decimal;
-}
+};
 /*cost estimator popup ends*/
-    
+
+
 var numImages = 0;
 var index = 1;
     
@@ -470,12 +469,8 @@ $("#{$tplvar['list_num']}previous").die('click').live('click',function(){
 
 $("body").keydown(function(e) {
   if($("#{$tplvar['list_num']}slideshowArea").css('display') != "none") {
-    if (e.keyCode == 37) {
-      previous();
-    }
-    else if (e.keyCode == 39) {
-      next();
-    }
+    if (e.keyCode == 37){ previous(); }
+    else if (e.keyCode == 39){ next(); }
   }
 });
     
@@ -484,7 +479,7 @@ $("#{$tplvar['list_num']}next").click(function(){
 });
     
 function next(){
-  var id = $("#{$tplvar['list_num']}slideshow").find(".active").attr("id")
+  var id = $("#{$tplvar['list_num']}slideshow").find(".active").attr("id");
 
   if(id.indexOf(numImages) > -1){ index = 1; }
   else{ index++; }
@@ -494,7 +489,7 @@ function next(){
 };
     
 function previous(){
-  var id = $("#{$tplvar['list_num']}slideshow").find(".active").attr("id")
+  var id = $("#{$tplvar['list_num']}slideshow").find(".active").attr("id");
 
   if(id.indexOf("1") > -1){ index = numImages; }
   else{ index--; }
@@ -503,29 +498,33 @@ function previous(){
   $("#{$tplvar['list_num']}slideshow").find("#image"+index).removeClass("nonactive").addClass("active");
 };
 
-$("#main").bind('click',function(){ $('.space-factor-popup').remove(); $('.implied-square-footage-popup').remove(); })
+$("#main").bind('click',function(){ $('.space-factor-popup').remove(); $('.implied-square-footage-popup').remove(); });
 $('.space-factor-popup').click(function(event){ event.stopPropagation(); });
 $('.implied-square-footage-popup').click(function(event){ event.stopPropagation(); });
 
-/*
+/* SPV Document */
 $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog({ 
   autoOpen: false,
   modal: true,
-  dialogClass: 'selectionValuationPopup',
+  dialogClass: 'spvFilterPopup',
   draggable: false,
   resizable: false,
   width: 850,
   open: function(){
     $(':focus', this).blur();
     calculatePriceRange(10);
+    $('#priceInput').val('{$tplvar['price']}');
     $("input[value='Local']").attr("checked", true);
     $("input[value='Active']").attr("checked", true);
+    $('#priceRangeInterest').val('10');
+    calculatePriceRange('10');
     $("input[name='condition'][value='Level 3']").attr("checked", true);
     $("input[name='demand'][value='Level 2']").attr("checked", true);
     $("input[name='condos_only'][value='no']").attr("checked", true);
     $("input[name='location_grade'][value='{$tplvar['loc']}']").attr("checked", true);
     $("input[name='building_grade'][value='{$tplvar['bld']}']").attr("checked", true);
     $("input[name='view_grade'][value='{$tplvar['vws']}']").attr("checked", true);
+    addDimensions();
     if({$tplvar['amenities']['Fireplace']} == "1"){ $("input[value='fireplace']").attr("checked", true); }
     if({$tplvar['amenities']['Elevator']} == "1"){ $("input[value='elevator']").attr("checked", true); }
     if({$tplvar['amenities']['Balcony']} == "1"){ $("input[value='balcony']").attr("checked", true); }
@@ -533,7 +532,7 @@ $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).di
     else if({$tplvar['amenities']['Garden']} == "1" || {$tplvar['amenities']['Roof Deck']} == "1"){ $("input[value='garden']").attr("checked", true); }
     else{ $("input[value='none']").attr("checked", true); }
     $(".ui-widget-overlay").bind("click", function(){
-      $("#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}{$tplvar['agent_id_1']}").dialog('close');
+      $("#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}").dialog('close');
     });
   }
 });
@@ -549,36 +548,207 @@ $('#submit').click(function (){
   $( "#ui-dialogue-selection-portfolio-valutation-popup{$tplvar['list_num']}" ).dialog('close');
 });
 
+$('#priceInput').change(function(){
+  var interest = $('#priceRangeInterest').val();
+  calculatePriceRange(interest);
+});
+
+$('#priceRangeInterest').change(function(){
+  var interest = $(this).val();
+  calculatePriceRange(interest);
+});
+
+$("input[type='radio'][name='location_grade']").change(function(){
+  var grade = $("input[type='radio'][name='location_grade']:checked").val();
+  $("input[type='text']#minLocInputSet").val(grade);
+  $("input[type='hidden']#minLocInputSet").val(grade);
+});
+
+$("input[type='radio'][name='building_grade']").change(function(){
+  var grade = $("input[type='radio'][name='building_grade']:checked").val();
+  $("input[type='text']#minBldInputSet").val(grade);
+  $("input[type='hidden']#minBldInputSet").val(grade);
+});
+
+$("input[type='radio'][name='view_grade']").change(function(){
+  var grade = $("input[type='radio'][name='view_grade']:checked").val();
+  $("input[type='text']#minVwsInputSet").val(grade);
+  $("input[type='hidden']#minVwsInputSet").val(grade);
+});
+
+$("#lrone").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#lrtwo").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#mbone").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#mbtwo").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#drone").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#drtwo").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#bbone").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#bbtwo").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#bbbone").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
+$("#bbbtwo").change(function(){
+  var dimension = $(this).val();
+  if(dimension == ""){ $(this).val(0); }
+  calculateDimensions();
+});
+
 function calculatePriceRange(interest){
-  var price = this.state.price;
+  var price = $('#priceInput').val();
   while(price.indexOf(",") != -1){ price = price.replace(",",""); }
+  while(price.indexOf(" ") != -1){ price = price.replace(" ",""); }
   price = Number(price);
+  interest = Number(interest);
   
   var minPriceRange = price - (price * (interest / 100));
   minPriceRange = minPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  minPriceRange = formatPrice(minPriceRange);
   $("#minPrice").html(minPriceRange);
   
   var maxPriceRange = price + (price * (interest / 100));
   maxPriceRange = maxPriceRange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  maxPriceRange = formatPrice(maxPriceRange);
   $('#maxPrice').html(maxPriceRange);
 };
 
+function formatPrice(number) {
+  number = number.toString();
+  var sections = [];
+  var index = 0;
+  var formattedNum = "";
+  while(number.length != 0){
+    sections[index] = number.slice(-3);
+    number = number.substring(0, number.length - 3);
+    index++;
+  }
+  
+  for(var i = 0; i < index; i++){
+    if( (i+1) < index) { formattedNum = "," + sections[i] + formattedNum; }
+    else{ formattedNum = sections[i] + formattedNum; }    
+  }
+  
+  return formattedNum;
+};
+
+function addDimensions(){
+  var living = '{$tplvar['living_room_uf']}';
+  if(living != ""){
+    var livingD = living.split("X");
+    $("#lrone").val(Math.floor(livingD[0]));
+    $("#lrtwo").val(Math.floor(livingD[1]));
+  }
+  else{ 
+    $("#lrone").val(0);
+    $("#lrtwo").val(0);
+  }
+  
+  var dining = '{$tplvar['dining_room_uf']}';
+  if(dining != ""){ 
+    var diningD = dining.split("X");
+    $("#drone").val(Math.floor(diningD[0]));
+    $("#drtwo").val(Math.floor(diningD[1]));
+  }
+  else{
+    $("#drone").val(0);
+    $("#drtwo").val(0);
+  }
+  
+  var master = '{$tplvar['bedroom_one_uf']}';
+  if(master != ""){
+    var masterD = master.split("X");
+    $("#mbone").val(Math.floor(masterD[0]));
+    $("#mbtwo").val(Math.floor(masterD[1]));
+  }
+  else{
+    $("#mbone").val(0);
+    $("#mbtwo").val(0);    
+  }
+  
+  var bedroomtwo= '{$tplvar['bedroom_two_uf']}';
+  if(bedroomtwo != ""){
+    var bedroomtwoD = bedroomtwo.split("' x ");
+    $("#bbone").val(Math.floor(bedroomtwoD[0]));
+    $("#bbtwo").val(Math.floor(bedroomtwoD[1]));
+  }
+  else{
+    $("#bbone").val(0);
+    $("#bbtwo").val(0);
+  }
+  
+  var bedroomthree = '{$tplvar['bedroom_three_uf']}';
+  if(bedroomthree != ""){
+    var bedroomthreeD = bedroomthree.split("' x ");
+    $("#bbbone").val(Math.floor(bedroomthree[0]));
+    $("#bbbtwo").val(Math.floor(bedroomthree[1]));
+  }
+  else{
+    $("#bbbone").val(0);
+    $("#bbbtwo").val(0);
+  }
+  
+  calculateDimensions();
+};
+
 function calculateDimensions(){
-  var ltotal = this.state.lrd_one * this.state.lrd_two;
+  var ltotal = Number($("#lrone").val()) * Number($("#lrtwo").val());
   $("#lrt").html(ltotal).val(ltotal);
-  var mtotal = this.state.mbd_one * this.state.mbd_two;
+  var mtotal = Number($("#mbone").val()) * Number($("#mbtwo").val());
   $("#mbt").html(mtotal).val(mtotal);
-  var dtotal = this.state.drd_one * this.state.drd_two;
+  var dtotal = Number($("#drone").val()) * Number($("#drtwo").val());
   $("#drt").html(dtotal).val(dtotal);
-  var bbtotal = this.state.bbd_one * this.state.bbd_two;
+  var bbtotal = Number($("#bbone").val()) * Number($("#bbtwo").val());
   $("#bbt").html(bbtotal).val(bbtotal);
-  var bbbtotal = this.state.bbbd_one * this.state.bbbd_two;
+  var bbbtotal = Number($("#bbbone").val()) * Number($("#bbbtwo").val());
   $("#bbbt").html(bbbtotal).val(bbbtotal);
   
   var stotal = ltotal + mtotal + dtotal + bbtotal + bbbtotal;
-  $("#total_sqf").html(stotal).val(stotal);
+  $("input[type='text']#total_sqf").html(stotal).val(stotal);
+  $("input[type='hidden']#total_sqf").val(stotal);
 };
-*/
+
 /* StreetEasy */
 $('#{$tplvar['list_num']}-streeteasy').click(function(){
   var ad = '{$tplvar['address']}';
@@ -591,12 +761,12 @@ $('#{$tplvar['list_num']}-streeteasy').click(function(){
 /* OLR */
 $('#{$tplvar['list_num']}-olr').click(function(){
   var olra = '{$tplvar['address']}';
-  while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
+  //while(olra.indexOf(" ") != -1){ olra = olra.replace(" ", "%"); }
   
   window.open('http://public.olr.com/building_results.aspx?address='+olra,'_blank');
 });
 
 /* Listing Wep Page */
 $('#{$tplvar['list_num']}-broker-website').click(function(){
-  console.log("clicked");
+  console.log("Clicked");
 });
