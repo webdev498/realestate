@@ -1896,17 +1896,17 @@ if (isset($_POST['agent-yearly'])) {
 
     $jsonBuyerAllChart = json_encode($buyerAllChart);
 	
-	$testAgent = 'jsarkodie@bellmarc.com';
+	//$testAgent = 'jsarkodie@bellmarc.com';
 	
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentYearlyArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $testAgent . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentYearlyArea == 'North') {
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $testAgent . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $testAgent . "' AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			}	
 		}
 	
