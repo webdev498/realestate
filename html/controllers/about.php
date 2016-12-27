@@ -43,7 +43,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel-body about-panel">
                     <h3 className="FAQ-1-grey-bd" id="u6178-2">The Background</h3><br />
                     <p className="Text-1">Neil Binder is the inventor of Selection Portfolio, the patented technology underlying HomePik. In his real estate experience of over 36 years, Neil realized that the three basic questions asked by customers have never changed.</p><br />
-                    <p className="Text-1"><span id="u6178-10">1&nbsp;</span>What is available in my price range?</p>
+                    <p className="Text-1"><span id="u6178-10">1.&nbsp;</span>What is available in my price range?</p>
                     <p className="Text-1"><span id="u6178-16">2&nbsp;</span>Which apartment should I buy?</p>
                     <p className="Text-1"><span id="u6178-22">3&nbsp;</span> How much should I pay for it?</p>
                   </div>
