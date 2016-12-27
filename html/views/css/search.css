@@ -1019,6 +1019,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
 .ui-dialog.spvFilterPopup input, .ui-dialog.spvFilterPopup select{ border: 1px solid #B2B2B2;	color: #646464;	font-family: lato, sans-serif;	font-size: 18px;	font-weight: 300;	line-height: 25px;	padding: 0px;}
 .ui-dialog.spvFilterPopup #submit{ border: none; background: none; cursor: pointer; float: right; font-family: lato, sans-serif; font-size: 18px; text-align: right; }
 .ui-dialog.spvFilterPopup #submit i{ color: #0085C6; }
+.ui-dialog.spvFilterPopup #submit .fa-times{ color: #0085C6; }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
   .editFormula{ left: 16% !important; top: 2% !important; width: 550px !important;}
