@@ -191,17 +191,17 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 							<div className="navbar-collapse menu-navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/search.php#newSearch">BROWSE</a></li>
-                    <li><a href="how-it-works.php?MP=index">HOW IT WORKS</a></li>
+                    <li><a href="/controllers/how-it-works.php?MP=index">HOW IT WORKS</a></li>
                   </ul>
 	
 								<ul className="nav navbar-nav navbar-right">
-									<li id="sell-home-option"><a href="sell-home.php">SELL YOUR HOME</a></li>
+									<li id="sell-home-option"><a href="/controllers/sell-home.php">SELL YOUR HOME</a></li>
 									<li className="dropdown">
 										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SIGN UP / LOG IN </a>
 										<ul className="dropdown-menu">
-											<li><a href="signin.php">LOG IN AS A BUYER</a></li>
-											<li><a href="agent-signin.php">LOG IN AS AN AGENT</a></li>
-											<li><a href="guest-register.php">SIGN UP</a></li>
+											<li><a href="/controllers/signin.php">LOG IN AS A BUYER</a></li>
+											<li><a href="/controllers/agent-signin.php">LOG IN AS AN AGENT</a></li>
+											<li><a href="/controllers/guest-register.php">SIGN UP</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -317,23 +317,23 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 								<div className="museBGSize grpelem" id="u6300"></div>
 								<div className="i_b_c" id="browse" >BROWSE<br/>no password required</div>
 							</a>
-							<a href="how-it-works.php?MP=index">
+							<a href="/controllers/how-it-works.php?MP=index">
 								<div className="museBGSize grpelem" id="u6316">  </div>
 								<div className="i_b_c">HOW<br/>it works</div>
 							</a>
-							<a href="guest-register.php">
+							<a href="/controllers/guest-register.php">
 								<div className="museBGSize grpelem" id="u617"> </div>
 								<div className="i_b_c">SIGN UP<br/>become a registered buyer</div>
 							</a>
-							<a href="signin.php">
+							<a href="/controllers/signin.php">
 								<div className="museBGSize grpelem" id="u622">   </div>
 								<div className="i_b_c">LOG IN<br/>as a buyer</div>
 							</a>
-							<a href="agent-signin.php">
+							<a href="/controllers/agent-signin.php">
 								<div className="museBGSize grpelem" id="u614">   </div>
 								<div className="i_b_c">LOG IN<br/>as an agent</div>
 							</a>
-							<a href="sell-home.php">
+							<a href="/controllers/sell-home.php">
 								<div className="museBGSize grpelem" id="u615">   </div>
 								<div className="i_b_c">SELLER<br/>list with us</div>
 							</a>
