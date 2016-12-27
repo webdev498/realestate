@@ -263,7 +263,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 
 						 <div className="collapse navbar-collapse footer-navbar-collapse" id="bs-example-navbar-collapse-1">
 						   <ul className="nav navbar-nav">
-								<li id="copyright">Copyright 2016 Nice Idea Media, Inc and HomePik.com</li>
+								<li id="copyright">Copyright 2016 Nice Idea Media, Inc and HomePik.com.</li>
 								<li><a href="about.php?MP=index"><span id="u15181-2">|</span>About HomePik</a></li>
 								<li><a href="contactus.php?MP=index"><span id="u15181-6">|</span>Contact Us</a></li>
 								<li><a style={{cursor:"pointer"}} onClick={this.comingSoon}><span id="u15181-8">|</span>Site Map</a></li>
