@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("functions.php");
-include_once("basicHead.php");
+include_once("basicHeadOld.php");
 
 if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); };
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
