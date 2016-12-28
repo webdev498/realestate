@@ -1399,12 +1399,12 @@ $( '#agentYearlyCode' ).each( function () {
 	//Total buyer listings by area
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
     } else {
 		if ($agentArea == 'North') {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentYearlyCode . "' OR P_agent2 = '" . $agentYearlyCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
 			}	
 		}
 	
