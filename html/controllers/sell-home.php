@@ -41,7 +41,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
                   <h4 id="u124-11">Contact us for a <span id="u124-9">free</span> consultation:</h4>
                   <h4 id="u124-13">212- 421-1122&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; sellers@homepik.com</h4>
                 </div>
-                <div className="col-md-5ths">
+                <div className="col-md-5ths" id="col-one">
                   <div className="panel">
                     <div className="panel-body first-panel sell-home-panel">
                       <div className="clearfix grpelem" id="u116">
@@ -59,7 +59,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
                     </div>
                   </div>
                 </div>
-                <div className="col-md-5ths">
+                <div className="col-md-5ths" id="col-two">
                   <div className="panel">
                     <div className="panel-body sell-home-panel">
                       <div className="clearfix grpelem" id="u112">
@@ -79,7 +79,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
                     </div>
                   </div>
                 </div>
-                <div className="col-md-5ths">
+                <div className="col-md-5ths" id="col-three">
                   <div className="panel">
                     <div className="panel-body sell-home-panel">
                       <div className="clearfix grpelem" id="u129">
@@ -97,7 +97,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
                     </div>
                   </div>
                 </div>
-                <div className="col-md-5ths">
+                <div className="col-md-5ths" id="col-four">
                   <div className="panel">
                     <div className="panel-body sell-home-panel">
                       <div className="clearfix grpelem" id="u125">
@@ -115,7 +115,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
                     </div>
                   </div>
                 </div>
-                <div className="col-md-5ths">
+                <div className="col-md-5ths" id="col-five">
                   <div className="panel">
                     <div className="panel-body sell-home-panel">
                       <div className="clearfix grpelem" id="u120">

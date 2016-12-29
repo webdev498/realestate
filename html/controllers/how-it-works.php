@@ -36,7 +36,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 										</div>
 									</div>
 								</div>
-								<div className="col-md-5ths">
+								<div className="col-md-5ths" id="col-one">
                   <div className="panel">
                     <div className="panel-body first-panel how-it-works-panel">
                       <div className="clearfix grpelem" id="u332-24">
@@ -53,7 +53,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     </div>
                   </div>
                 </div>
-								<div className="col-md-5ths">
+								<div className="col-md-5ths" id="col-two">
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u331-24">
@@ -78,7 +78,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     </div>
                   </div>
                 </div>
-								<div className="col-md-5ths">
+								<div className="col-md-5ths" id="col-three">
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u333-22">
@@ -91,7 +91,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     </div>
                   </div>
                 </div>
-								<div className="col-md-5ths">
+								<div className="col-md-5ths" id="col-four">
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u334-20">
@@ -115,7 +115,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     </div>
                   </div>
                 </div>
-								<div className="col-md-5ths">
+								<div className="col-md-5ths" id="col-five">
                   <div className="panel last-panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u335-18">

@@ -67,9 +67,10 @@
 	#u8048{	top: 75px;}
 	.last-button{	margin-right: 40px !important;}
 }
-
 @media (max-width: 790px){
 	.menu-image{ margin-right: 10px;}
-	#pu7925{ height: 350px;}
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
+	.button-links{ margin-left: 35px; }
 }
 /* end of buyer-options css */

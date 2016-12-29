@@ -37,7 +37,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           <AddressSearch mainPage={this.state.mainPage} />
           <div id="container-fluid">
             <div className="row-fluid">
-              <div className="col-md-5ths">
+              <div className="col-md-5ths" id="col-one">
                 <h2 className="panel-heading u6175-4">About HomePik</h2>
                 <div className="panel">
                   <div className="panel-body about-panel">
@@ -49,7 +49,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
               </div>
-              <div className="col-md-5ths">
+              <div className="col-md-5ths" id="col-two">
                 <h2 className="panel-heading u6175-4">&nbsp;&nbsp;</h2>
                 <div className="panel">
                   <div className="panel-body about-panel panel-border">
@@ -59,7 +59,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
               </div>
-              <div className="col-md-5ths">
+              <div className="col-md-5ths" id="col-three">
                 <h2 className="panel-heading u6175-4">&nbsp;&nbsp;</h2>
                 <div className="panel">
                   <div className="panel-body about-panel panel-border">
@@ -68,7 +68,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
               </div>
-              <div className="col-md-5ths">
+              <div className="col-md-5ths" id="col-four">
                 <h2 className="panel-heading u6175-4">&nbsp;&nbsp;</h2>
                 <div className="panel">
                   <div className="panel-body about-panel panel-border">
@@ -78,7 +78,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
               </div>
-              <div className="col-md-5ths">
+              <div className="col-md-5ths" id="col-five">
                 <h2 className="panel-heading u6175-4">&nbsp;&nbsp;</h2>
                 <div className="panel panel">
                   <div className="panel-body about-panel panel-border">

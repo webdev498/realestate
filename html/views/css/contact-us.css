@@ -38,13 +38,15 @@
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
 	#page{ margin-left: 0px !important; margin-right: 0px !important; }
 	.col-xs-5ths { float: left; width: 50% !important; }
+	.panel{ margin-bottom: 0 !important;}
 	.panel-body{ height: 100% !important; min-height: 400px; }
-	#third-panel, #fourth-panel{ min-height: 210px; }
+	#third-panel, #fourth-panel{ min-height: 240px; }
 	#overlay{ height: 170% !important; }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
 	#page{ margin-left: 0px !important; margin-right: 0px !important; }
 	.col-xs-5ths { float: left; width: 30% !important; }
+	.panel{ margin-bottom: 0 !important;}
 	.panel-body{ height: 100% !important; min-height: 400px; }
 	#fourth-panel{ min-height: 160px; }
 	#overlay{ height: 170% !important; }

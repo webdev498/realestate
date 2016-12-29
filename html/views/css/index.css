@@ -142,6 +142,10 @@ img { max-width:100%; }
 	#u15182-4{ margin-top: 45px !important; }
 	.i_c_f{ margin: 50px 77px 0; width: 80%; }
 	.SlideShowWidget img{margin-top:-119px !important;}
+	#slideshowu644{ max-height: 360px; min-height: 360px; }
+	.indexNavBar #firstOption{ padding-right: 10px; }
+	#u619-7{ display: flex; }
+	.section_one, .section_two, .section_three{ width: 253px; }
 }
 @media (max-width:1290px){ .section_one{ padding-left: 0 !important; } }
 @media (min-width:1280px) and (max-width:1380px) { body{ max-width:100%; overflow-x:hidden; } }

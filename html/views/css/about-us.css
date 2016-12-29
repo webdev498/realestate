@@ -45,10 +45,14 @@
 @media (max-width: 980px){ .about-panel { height: 715px;	} }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 	#header, #menu, #footer{ margin-left: 5px; }
+	#col-three .panel-heading, #col-four .panel-heading, #col-five .panel-heading{ display: none; }
 	.col-md-5ths { width: 50% !important; float: left; }
-	.about-panel{ height: 100% !important; min-height: 400px;	}
+	.about-panel{ height: 100% !important; min-height: 250px;	}
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){ .video-image{ margin-left: 150px !important; } #overlay{ height: 170% !important; }}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
+	.video-image{ margin-left: 150px !important; }
+	#overlay{ height: 170% !important; }
+}
 @media (min-width: 768px) and (max-width: 991px){
 	.col-md-5ths { width: 50%; float: left;	}
 	.about-panel { height: 350px; }

@@ -61,8 +61,16 @@
 .image-container { height: 228px; width: 304px; }
 .video-image p, .pdf-image p{ margin-bottom: 20px !important; }
 
-@media (min-width: 992px){ .col-md-3 { width: 26% !important; } }
+@media (min-width: 992px){ #video-powerpoint-container .col-md-3 { width: 26% !important; } }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
+	#col-three{ border-right: none; }
+	#col-four{ margin-top: 30px; }
+	.col-md-5ths{ width: 245px; }
+}
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
+	.col-md-5ths{ width: 240px; }
+	#col-four{ border-right: none; }
+	#col-five{ margin-top: 30px; }
 	.video-image{ margin-left: 100px !important; }
 	#page{max-width: 990px !important; padding: 0;}
 	.last-panel{height: 300px !important;}

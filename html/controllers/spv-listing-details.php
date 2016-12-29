@@ -412,7 +412,7 @@ if($list_num != ''){
     $c_address = str_replace("&", " & ", $c_address);
     $c_address = ucwords(strtolower($c_address));
     
-    if($c_address == $address){ $same_build = "<img src='..../images/check.png' height='10'/>"; }
+    if($c_address == $address){ $same_build = "<img src='/images/check.png' height='10'/>"; }
     else{ $same_build = "&nbsp;"; }
     
     $c_price = $row['price'];
