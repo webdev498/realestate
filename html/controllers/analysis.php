@@ -1399,12 +1399,12 @@ $( '#agentYearlyCode' ).each( function () {
 	//Total buyer listings by area
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, WHERE email = user AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "' AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
     } else {
 		if ($agentArea == 'North') {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings`, `vow_data` WHERE email = user AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND nbrhood = '" . $agentArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "') AND (P_agent = '" . $agentCode . "' OR P_agent2 = '" . $agentCode . "')";
 			}	
 		}
 	
@@ -1901,12 +1901,12 @@ if (isset($_POST['agent-yearly'])) {
 	//Total buyer listings
     //$sql = "SELECT COUNT(*) AS buyerCount FROM `users` WHERE P_agent = '" . $agentCode . "'";
 	if ($agentYearlyArea == 'All Markets'){
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND saved_listings.agent = '" . $agentYearlyCode . "' AND time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "'";
     } else {
 		if ($agentYearlyArea == 'North') {
-		$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+		$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND saved_listings.agent = '" . $agentYearlyCode . "' AND (nbrhood = 'W-North' OR nbrhood = 'E-North') AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			} else  {
-				$sql = "SELECT COUNT(*) AS buyerListingCount FROM `saved_listings`, `vow_data` WHERE saved_listings.agent = '" . $agentYearlyCode . "' AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
+				$sql = "SELECT COUNT(*) AS buyerListingCount, list_num FROM `users`, `saved_listings` JOIN `vow_data` ON list_num = list_numb WHERE user = email AND saved_listings.agent = '" . $agentYearlyCode . "' AND nbrhood = '" . $agentYearlyArea . "' AND (time >= '" . $rtimeBegDate . "' AND time <= '" . $rtimeEndDate . "')";
 			}	
 		}
 	
