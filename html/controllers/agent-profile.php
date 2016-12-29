@@ -395,7 +395,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
 
-                <div className="col-md-8 col-sm-10 col-xs-10" id="activity-section">
+                <div className="col-md-8 col-sm-10 col-xs-12" id="activity-section">
                   <div className="clearfix grpelem" id="u7137-86">
                     <p className="Text-1" id="u7137-8"><span id="u7137-2">Activity</span></p>
                     <div id="userActivity" className="Text-1">

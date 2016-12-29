@@ -39,6 +39,7 @@ textarea{ height: 200px; }
 #userActivity button{ border: 1px solid #b2b2b2; margin-left: 10px; padding: 0 5px; }
 #userActivityInfo{ display: none; margin-top: 15px; }
 
+@media (max-width: 320px){ #u7123-19{ width: 175px;	} }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
 	body{ min-width: 100%;	}
 	#page{ min-width: 100%;	}

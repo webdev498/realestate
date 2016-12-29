@@ -40,11 +40,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel">
                     <div className="panel-body first-panel how-it-works-panel">
                       <div className="clearfix grpelem" id="u332-24">
-												<h4 className="text-popups" id="u332-3"><span id="u332">Select</span><span id="u332-2"> your basic</span></h4>
-												<h4 className="text-popups">parameters</h4>
+												<h4 className="text-popups" id="u332-3"><span id="u332">Select</span><span id="u332-2"> your basic parameters</span></h4>
 												<p id="u332-6">&nbsp;</p>
-												<p className="Text-1">Using simple sliders,</p>
-												<p className="Text-1">make selections for four <br/>primary categories:<br/><br/></p>
+												<p className="Text-1" id="select_paragraph">Using simple sliders, make selections for four primary categories:<br/><br/></p>
 												<h6 className="Text-2-ex-lead" id="u332-16"><img className="selectImgs" src="/images/price_range.png"/> Price range</h6>
 												<h6 className="Text-2-ex-lead" id="u332-18"><img className="selectImgs" src="/images/number_of_bedroom.png"/> Number of bedrooms</h6>
 												<h6 className="Text-2-ex-lead" id="u332-20"><img className="selectImgs" src="/images/neighborhood.png"/> Neighborhoods</h6>
@@ -57,8 +55,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u331-24">
-												<h4 className="text-popups" id="u331-3"><span id="u331">Define</span><span id="u331-2"> your buying</span></h4>
-												<h4 className="text-popups">formula</h4>
+												<h4 className="text-popups" id="u331-3"><span id="u331">Define</span><span id="u331-2"> your buying formula</span></h4>
 												<p>&nbsp;</p>
 												<p className="Text-1">Using simple sliders, make selections for five primary motivators:</p>
 												<p className="Text-1">&nbsp;</p>
@@ -82,8 +79,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u333-22">
-												<h4 className="text-popups" id="u333-3"><span id="u333">Search</span><span id="u333-2"> for apartments</span></h4>
-												<h4 className="text-popups">that match it</h4>
+												<h4 className="text-popups" id="u333-3"><span id="u333">Search</span><span id="u333-2"> for apartments that match it</span></h4>
 												<h4 className="text-popups">&nbsp;</h4>
 												<img id="pinkArrow" src="/images/search_homepik.png"/>
 												<p className="Text-1" id="searchText"><span id="u333-8">HomePik</span> will scan the entire database of available apartments in New York City for those that match your buying formula</p>
@@ -95,18 +91,16 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u334-20">
-												<h4 className="text-popups" id="u334-3"><span id="u334">View</span><span id="u334-2"> the results of</span></h4>
-												<h4 className="text-popups">the search</h4>
+												<h4 className="text-popups" id="u334-3"><span id="u334">View</span><span id="u334-2"> the results of the search</span></h4>
 												<p>&nbsp;</p>
 												<p className="Text-1"><span id="u334-7">HomePik</span> has located every apartment that meets your minimum criteria and compared them using its patented rating system:</p>
 												<p className="Text-1">&nbsp;</p>
 												<h6 className="Text-2-ex-lead" id="u334-12"><img className="viewImgs" src="/images/meets.png"/> = meets your criteria</h6>
 												<h6 className="Text-2-ex-lead" id="u334-14"><img className="viewImgs" src="/images/exceeds.png"/> = exceeds your criteria</h6>
-												<h6 className="Text-2-ex-lead"><img className="viewImgs" src="/images/greatly.png"/> = greatly exceeds your</h6>
-												<p className="Text-1" id="u334-18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; criteria</p>
-												<img src="/images/divider_d.png"/>
+												<h6 className="Text-2-ex-lead" id="greater_criteria"><img className="viewImgs" src="/images/greatly.png"/> = greatly exceeds your <span id="indent">criteria</span></h6>
+												<img id="divider" src="/images/divider_d.png"/>
 												<div className="Text-1 clearfix grpelem" id="u339-9">
-													<p id="u339-2">HomePik is the one</p>
+													<p id="u339-2">HomePik is the one </p>
 													<p id="u339-4">and only search engine able to compare properties.</p>
 													<p>&nbsp;</p>
 													<p>Your searches. Your way.</p>
@@ -119,8 +113,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   <div className="panel last-panel">
                     <div className="panel-body how-it-works-panel">
                       <div className="clearfix grpelem" id="u335-18">
-												<h4 className="text-popups" id="u335-3"><span id="u335">Manage</span><span id="u335-2"> your searches</span></h4>
-												<h4 className="text-popups">and selections</h4>
+												<h4 className="text-popups" id="u335-3"><span id="u335">Manage</span><span id="u335-2"> your searches and selections</span></h4>
 												<p>&nbsp;</p>
 												<p className="Text-1">Save searches and properties, email them, and connect with your agent</p>
 												<p className="Text-1">&nbsp;</p>
@@ -133,7 +126,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   </div>
                 </div>
 							</div>
-							<div className="row">
+							<div className="row" id="video-powerpoint-container">
 								<div>
 									<p className="about-phrase">HomePik is the future of real estate. If you're not using it, you're missing out.</p>
 									<p> </p>

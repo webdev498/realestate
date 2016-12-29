@@ -40,15 +40,16 @@ label { display: inline; font-weight: normal; }
 @media (max-width:479px){
   .container-fluid{ padding: 0 5px;}
   #signinArea{ height: 475px; margin:0 !important; min-width:auto !important; width:97% !important; }
-  #signinArea div{ padding:30px 20px 0; }
+  #agentSigninArea{ height: 340px; margin: 35px 0 0 !important; min-width:auto !important; width:97% !important; }
+  #signinArea div, #agentSigninArea div{ padding:30px 20px 0; }
   #signinBorder tr td:nth-child(2){ width:75% !important; }  
   #signinBorder tr td input{ float:right; width:95% !important; }  
   #signinSubmit{ float:right !important; margin:0; }  
   #disclaimer{ padding: 0 !important; }
 }
 @media (min-width:480px) and (max-width:639px){ 
-  #signinArea{ position: absolute; width:95% !important; }  
-  #signinArea div{ padding:4% 5% 0; width:90%; }  
+  #signinArea, #agentSigninArea{ position: absolute; width:95% !important; }  
+  #signinArea div, #agentSigninArea div{ padding:4% 5% 0; width:90%; }  
   #signin .row{ margin:0; }  
   #signinBorder tr td:nth-child(1){ max-width:20% !important; width:20% !important; }    
   #signinBorder tr td:nth-child(2){ width:55% !important; }  
@@ -56,11 +57,9 @@ label { display: inline; font-weight: normal; }
   #signinSubmit{ margin:0; min-width:100px; }
 }
 @media (min-width:640px) and (max-width:767px){ 
-	#signinArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } 
-	#agentSigninArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; } 
+	#signinArea, #agentSigninArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; }
 }
 @media (min-width:768px) and (max-width:800px){ 
-	#signinArea{ left: 10%; top: 1%; width: 580px !important; }
-    #agentSigninArea{left: 10%; top: 1%; width: 580px !important;}
+	#signinArea, #agentSigninArea{ left: 10%; top: 1%; width: 580px !important; }
 }
 	

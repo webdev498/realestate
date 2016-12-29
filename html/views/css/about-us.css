@@ -68,3 +68,11 @@
 	#overlay{ height: 170% !important; }
 }
 @media (max-width: 760px){ .footerNavBar{ margin-left: 0 !important; } }
+@media (min-width: 501px) and (max-width: 764px){
+	#col-two .panel-heading, #col-three .panel-heading, #col-four .panel-heading, #col-five .panel-heading{ display: none; }
+}
+@media (max-width: 500px){
+	#col-two .panel-heading, #col-three .panel-heading, #col-four .panel-heading, #col-five .panel-heading{ display: none; }
+	.video-container{ height: 220px; width: 300px; }
+	.image-container{ height: 220px; width: 300px; }
+}

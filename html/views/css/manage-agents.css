@@ -47,3 +47,4 @@ input[type="radio"].indent{ margin-left: 12px; }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { #page{ min-height: 614px; } }
 @media (max-width: 1040px){ .col-md-4.col-sm-6.col-xs-12{ text-align: left; }}
+@media (max-width: 360px){ #adminOptions{ margin-left: 10px; } }

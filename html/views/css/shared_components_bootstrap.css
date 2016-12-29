@@ -233,6 +233,11 @@ body{ position: relative; width: 100%; }
   .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
 }
 
+/* back button - Mobile */
+@media (max-width: 500px){
+  #backBtn{ padding-bottom: 20px; width: 100%; }
+}
+
 /* scrollbar test */
 /*internet explorer scrollbar css*/
 body{ scrollbar-base-color: #708090; scrollbar-base-color: #708090; scrollbar-3dlight-color: #708090; scrollbar-highlight-color: #708090; scrollbar-arrow-color: black; scrollbar-shadow-color: #708090; scrollbar-dark-shadow-color: #708090; }

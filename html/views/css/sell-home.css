@@ -60,3 +60,9 @@
 	#col-four{ margin-top: 30px; }
 	.col-md-5ths{ width: 245px; }
 }
+@media (max-width: 500px){
+	#backBtn{ margin-top: -80px; }
+	.col-md-5ths{ border-bottom: 1px solid #B2B2B2; border-right: none; margin-bottom: 20px; width: 100%; }
+	#u116, #u117-11, #u112, #u115-18, #u129, #u132-13, #u125, #u126-13, #u120, #u121-12{ width: 100%; }
+	.panel-body{ min-height: auto; padding: 0 15px 10px 0; }
+}
