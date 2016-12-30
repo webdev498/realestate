@@ -95,6 +95,7 @@
 	#indent{ margin-left: 0; }
 	.panel-body{ min-height: auto; padding: 0 15px 10px 0; }
 	.video-image { margin-left: 0px; text-align: left;}
+	.pdf-image { margin-left: 0px; text-align: left;}
 	.video-container{ height: 220px; width: 300px; }
 	.image-container{ height: 220px; width: 300px; }
 	.about-phrase{font-size: 20px; text-align: left;}
