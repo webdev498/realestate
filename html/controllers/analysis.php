@@ -1323,6 +1323,7 @@ $( '#agentYearlyCode' ).each( function () {
     //$sql = "SELECT COUNT(*) AS listCount FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND agent_id_1 = '". $agentCode ."' AND list_date >= '" . $agentBegDate . "' AND list_date <='" . $agentEndDate . "' AND status = 'AVAIL'";
     $result = mysql_query( $sql ) or die("Couldn't execute query. Error 8.".mysql_error());
 
+	$agentChartTotal = 0;
     $agentChart = array(
 			'cols' => array(
 				 array('type' => 'string', 'label' => 'Bedroom'),
@@ -1823,6 +1824,7 @@ if (isset($_POST['agent-yearly'])) {
     //$sql = "SELECT COUNT(*) AS listCount FROM `vow_data` WHERE nbrhood = '" . $agentArea . "' AND agent_id_1 = '". $agentCode ."' AND list_date >= '" . $agentBegDate . "' AND list_date <='" . $agentEndDate . "' AND status = 'AVAIL'";
     $result = mysql_query( $sql ) or die("Couldn't execute query. Error 8.".mysql_error());
 
+	$agentChartTotal = 0;
     $agentChart = array(
 			'cols' => array(
 				 array('type' => 'string', 'label' => 'Bedroom'),
