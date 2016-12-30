@@ -5,7 +5,7 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #header{ margin: auto; max-width: 960px; }
 #wrapper{ margin: auto; max-width: 960px; }
 #signinArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 430px; margin: auto; margin-top: 7%; max-width: 580px; min-width: 440px; position: fixed; }
-#agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: 11%; max-width: 580px; min-width: 440px; position: fixed; }
+#agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: 11%; max-width: 580px; position: fixed; }
 #signinHeader{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
 #loginHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
 #signinBorder{ margin:auto; padding: 40px; }
@@ -40,7 +40,7 @@ label { display: inline; font-weight: normal; }
 @media (max-width:479px){
   .container-fluid{ padding: 0 5px;}
   #signinArea{ height: 475px; margin:0 !important; min-width:auto !important; width:97% !important; }
-  #agentSigninArea{ height: 340px; margin: 35px 0 0 !important; min-width:auto !important; width:97% !important; }
+  #agentSigninArea{ height: 330px; margin: 0 !important; min-width:auto !important; width:97% !important; }
   #signinArea div, #agentSigninArea div{ padding:30px 20px 0; }
   #signinBorder tr td:nth-child(2){ width:75% !important; }  
   #signinBorder tr td input{ float:right; width:95% !important; }  
@@ -57,7 +57,8 @@ label { display: inline; font-weight: normal; }
   #signinSubmit{ margin:0; min-width:100px; }
 }
 @media (min-width:640px) and (max-width:767px){ 
-	#signinArea, #agentSigninArea{ left: 7%; position: absolute; top: 1%; width: 580px !important; }
+	#signinArea { left: 7%; position: absolute; top: 1%; width: 580px !important; }
+	#agentSigninArea{ left: 7%; position: absolute; margin-top: 5px !important; width: 580px !important; }
 }
 @media (min-width:768px) and (max-width:800px){ 
 	#signinArea, #agentSigninArea{ left: 10%; top: 1%; width: 580px !important; }
