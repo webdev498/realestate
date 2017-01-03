@@ -162,25 +162,38 @@ $_SESSION['unreadMessages'] = 0;
           {this.state.agent1_email != "" ?
             <div className="clearfix colelem" id="pu22655-16">
               <div className="text-popups clearfix grpelem" id="u22655-16">
-                <div>
-                  <h4 id="u22655">&nbsp;</h4>
-                  <h4 id="u22655-2">&nbsp;</h4>
-                  <h4 id="u22655-3">&nbsp;</h4>
-                  <h4 id="u22655-4">&nbsp;</h4>
-                  {this.state.agent1_email != "" ?
-                    <h4 id="u22655-7" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent1')}>
-                      <span id="u22655-5">{this.state.agent1_selected ? <i className="fa fa-check"></i> : <i className="fa fa-circle-thin"></i>}</span><span id="u22655-6"> {this.state.agent1_name}</span>
-                    </h4>
-                  : null }
-                  <h4 id="u22655-8">&nbsp;</h4>
-                  <h4 id="u22655-9">&nbsp;</h4>
-                  <h4 id="u22655-10">&nbsp;</h4>
-                  {this.state.agent2_email != "" ?
-                    <h4 id="u22655-14" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent2')}>
-                      <span id="u22655-11">{this.state.agent2_selected ? <i className="fa fa-check"></i> : <i className="fa fa-circle-thin"></i>}</span><span id="u22655-13"> {this.state.agent2_name}</span>
-                    </h4>
-                  : null }
-                </div>
+                <table>
+                  <colgroup><col width="300"/></colgroup>
+                  <tbody>
+                    <tr>
+                      <td className="selectionImage" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent1')}>
+                        {this.state.agent1_selected ? <img className="block" id="u22763_img" src="/images/button_agent.png" alt="" width="66" height="66"/> : <img className="block" id="u22780_img" src="/images/button_agent_lighter.png" alt="" width="66" height="66" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent1')}/>}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent1')}>
+                        {this.state.agent1_selected ? <i className="fa fa-check"></i> : <i className="fa fa-circle-thin"></i>}<span id="u22655-6"> {this.state.agent1_name}</span><div>&nbsp;</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                {this.state.agent2_email != "" ?
+                  <table>
+                    <colgroup><col width="300"/></colgroup>
+                    <tbody>
+                      <tr>
+                        <td className="selectionImage" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent2')}>
+                          {this.state.agent2_selected ? <img className="block" id="u22763_img" src="/images/button_agent.png" alt="" width="66" height="66"/> : <img className="block" id="u22780_img" src="/images/button_agent_lighter.png" alt="" width="66" height="66" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent2')}/>}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent2')}>
+                          {this.state.agent2_selected ? <i className="fa fa-check"></i> : <i className="fa fa-circle-thin"></i>}<span id="u22655-13"> {this.state.agent2_name}</span><div>&nbsp;</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                : null }
               </div>
               <div className="grpelem" id="u22675"></div>
               <div className="clearfix grpelem" id="u22718-99">
@@ -190,16 +203,6 @@ $_SESSION['unreadMessages'] = 0;
                 </div>
                 <p className="messages-2-ital" style={{marginLeft: 12 + 'px'}}><a style={{cursor: "pointer"}} onClick={this.sendMessage}>Send</a></p>
               </div>
-              {this.state.agent1_email != "" ?
-                <div className="clip_frame grpelem" id="u22763">
-                  {this.state.agent1_selected ? <img className="block" id="u22763_img" src="/images/button_agent.png" alt="" width="66" height="66"/> : <img className="block" id="u22780_img" src="/images/button_agent_lighter.png" alt="" width="66" height="66" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent1')}/>}
-                </div>
-              : null }
-              {this.state.agent2_email != "" ?
-                <div className="clip_frame grpelem" id="u22780">
-                  {this.state.agent2_selected ? <img className="block" id="u22763_img" src="/images/button_agent.png" alt="" width="66" height="66"/> : <img className="block" id="u22780_img" src="/images/button_agent_lighter.png" alt="" width="66" height="66" style={{cursor: "pointer"}} onClick={this.handleAgentClick.bind(this, 'agent2')}/>}
-                </div>
-              : null }
             </div>
           :
             <div className="clearfix colelem" id="pu22655-16">

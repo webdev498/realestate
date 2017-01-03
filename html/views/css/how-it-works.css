@@ -86,7 +86,7 @@
 @media (max-width: 700px){ #backBtn{ margin-top: -40px; } }
 @media (max-width: 550px){ #backBtn{ margin-top: -75px; } }
 @media (max-width: 500px){
-	#backBtn{ margin-top: -50px; }
+	#backBtn{ margin-top: -80px; }
 	.col-md-5ths{ border-bottom: 1px solid #B2B2B2; border-right: none; margin-bottom: 20px; width: 100%; }
 	#u332-24, #select_paragraph, #u331-24, #u333-22, #u333-3, #u334-20, #u335-18{ width: 100%; }
 	#searchText{ width: 85%;}
