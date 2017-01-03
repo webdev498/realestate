@@ -87,8 +87,37 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 		  }
 		},
     checkPassword: function(){
-      if( this.state.changePassword == "true" && this.state.newPass != "" && this.state.confPass != "" && this.state.newPass.length >= 5 && this.state.confPass.length >= 5 ){
-        if(this.state.newPass == this.state.confPass){ return true; }
+      if( this.state.changePassword == "true"){
+        if(this.state.newPass != "" && this.state.confPass != "" && this.state.newPass.length >= 5 && this.state.confPass.length >= 5 ){
+          if(this.state.newPass == this.state.confPass){ return true; }
+          else{
+            $("#ajax-box").dialog({
+              modal: true,
+              height: 'auto',
+              width: 'auto',
+              autoOpen: false,
+              dialogClass: 'ajaxbox errorMessage',
+              buttons : {
+                Ok: function(){
+                  $(this).dialog("close");
+                }
+              },
+              close: function() {
+                $( this ).dialog( "destroy" );
+              },
+              open: function(){
+                $(".ui-widget-overlay").bind("click", function(){
+                  $("#ajax-box").dialog('close');
+                });
+              }
+            });
+            $('#ajax-box').load('messages.php #passwordsMatch',function(){
+              $('#ajax-box').dialog('open');
+            });
+            
+            return false;
+          }
+        }
         else{
           $("#ajax-box").dialog({
             modal: true,
@@ -110,7 +139,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
               });
             }
           });
-          $('#ajax-box').load('messages.php #passwordsMatch',function(){
+          $('#ajax-box').load('messages.php #passwordRequirement',function(){
             $('#ajax-box').dialog('open');
           });
           
@@ -118,31 +147,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         }
       }
       else{
-        $("#ajax-box").dialog({
-          modal: true,
-          height: 'auto',
-          width: 'auto',
-          autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
-          buttons : {
-            Ok: function(){
-              $(this).dialog("close");
-            }
-          },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
-          open: function(){
-            $(".ui-widget-overlay").bind("click", function(){
-              $("#ajax-box").dialog('close');
-            });
-          }
-        });
-        $('#ajax-box').load('messages.php #passwordRequirement',function(){
-          $('#ajax-box').dialog('open');
-        });
-        
-        return false;
+        return true;
       }
     },
     submitInfo: function(){

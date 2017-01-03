@@ -1,8 +1,9 @@
 <?php
 session_start();
-include("../dbconfig.php");
-include("../functions.php");
-include("../basicHead3.php");
+include_once("../dbconfig.php");
+include_once("../functions.php");
+include_once("../emailconfig.php");
+include_once("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
@@ -101,7 +102,7 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 								
 								mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' "); //update the online field
 								
-								$message = 'Hello ' . $firstname. ' ' . $lastname . ', <br><br>';
+								$message = 'Hello ' . $firstName. ' ' . $lastName . ', <br><br>';
 							  $message .= 'Your agent information with HomePik has been updated.';
 								$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
 
@@ -130,6 +131,11 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 						$_SESSION['role'] = 'agent';
 						$_SESSION['agent'] = 'true';
 						$_SESSION['admin'] = $row2['admin'];
+						
+						// Get un-read message count
+						$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `registered_agents` as r ON m.agent=r.email WHERE (agent = '".$email."') AND (sender != '".$email."') AND (m.time > r.online)") or die("Couldn't execute query.".mysql_error());
+						$row = mysql_fetch_array($result,MYSQL_ASSOC);
+						$_SESSION['unreadMessages'] = $row['messages'];
 						
 						mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' "); //update the online field
 						

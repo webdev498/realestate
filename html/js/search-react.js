@@ -37,12 +37,20 @@ window.SearchHeader = React.createClass({
   },
   render : function(){
     return(
-      <div id="header-content" className="searchHeader">
-        {this.props.role == "guest" ?
-          <a onClick={this.logout} style={{cursor:'pointer'}}><img src='/images/homepik_logo_bubbles_legend_7.png' id='logo' alt='Homepik Logo'/></a>
-        :
-          <a href='/controllers/menu.php' style={{cursor:'pointer'}}><img src='/images/homepik_logo_bubbles_legend_7.png' id='logo' alt='Homepik Logo'/></a>
-        }
+      <div id="header-content" className="searchHeader container-fluid header-container">
+        <div className="row">
+          <div className="clip_frame colelem" id="u25521">
+            <div className="col-md-3 col-sm-3 col-xs-5" id="first-section">
+              {this.props.role == "user" || this.props.role == "agent" ? <a href='../controllers/menu.php'><img className="block" id="u25521_img_1" src="../images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> : <a onClick={this.logout} style={{cursor: 'pointer'}}><img className="block" id="u25521_img_1" src="../images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> }
+            </div>
+            <div className="col-md-4 col-sm-4 col-xs-7" id="second-section">
+              <img className="block" id="u25521_img_2" src="../images/homepik_logo_bubbles_legend_7_part_2.png" alt=""/>
+            </div>
+            <div className="col-md-5 col-sm-5 col-xs-12" id="third-section">
+              <img className="block" id="u25521_img_3" src="../images/homepik_logo_bubbles_legend_7_part_3.png" alt=""/>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

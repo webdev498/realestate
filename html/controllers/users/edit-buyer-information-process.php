@@ -129,6 +129,11 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								$_SESSION['user'] = 'true';
 								$_SESSION['buyer'] = 'true';
 								
+								// Get un-read message count
+								$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());
+								$row = mysql_fetch_array($result,MYSQL_ASSOC);
+								$_SESSION['unreadMessages'] = $row['messages'];
+								
 								$time = date('U');
 								mysql_query("UPDATE users SET online = '" . $time . "' WHERE email = '" . $email . "' "); //update the online field							
 								$_SESSION['logged_in'] = $time;
@@ -160,6 +165,11 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 						$_SESSION['role'] = "buyer";
 						$_SESSION['user'] = 'true';
 						$_SESSION['buyer'] = 'true';
+						
+						// Get un-read message count
+						$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());
+						$row = mysql_fetch_array($result,MYSQL_ASSOC);
+						$_SESSION['unreadMessages'] = $row['messages'];
 						
 						$time = date('U');
 						mysql_query("UPDATE users SET online = '" . $time . "' WHERE email = '" . $email . "' "); //update the online field							
