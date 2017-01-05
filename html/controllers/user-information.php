@@ -11,9 +11,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 
 <?php include_css("/views/css/user-information.css");
   include_once('autoLogout.php'); ?>
-  <script type="text/javascript">
+  <!--<script type="text/javascript">
     document.write('\x3Cscript src="' + (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//webfonts.creativecloud.com/lato:n3,n4,i4,n7:default.js" type="text/javascript">\x3C/script>');
-  </script>
+  </script>-->
 </head>
 <body>
   <div id="userInformation"></div>
