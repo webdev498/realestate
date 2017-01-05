@@ -112,9 +112,9 @@ var AddBuyer = React.createClass({
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidPhone',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -127,9 +127,8 @@ var AddBuyer = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidBuyerPhone',function(){
+        $('#ajax-box2').load('/controllers/messages.php #invalid_phone',function(){
           $('#ajax-box2').dialog('open');
-          $('#ajax-box2').parent().attr('rel', 'purple');
         });
       }
     }
@@ -151,9 +150,9 @@ var AddBuyer = React.createClass({
         height: 'auto',
         width: '275px',
         autoOpen: false,
-        dialogClass: 'ajaxbox errorMessage',
+        dialogClass: 'ajaxbox errorMessage addBuyerBlank',
         buttons: {
-          Ok: function(){
+          close: function(){
             $(this).dialog("destroy");
           }
         },
@@ -166,9 +165,8 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #addBuyerInfo',function(){
+      $('#ajax-box2').load('/controllers/messages.php #add_buyer_blank',function(){
         $('#ajax-box2').dialog('open');
-        $('#ajax-box2').parent().attr('rel', 'purple');
       });
     }
     // CHECK IF THE EMAIL IS VALID IF NOT DISPLAY ERROR POPUP
@@ -178,9 +176,9 @@ var AddBuyer = React.createClass({
         height: 'auto',
         width: '275px',
         autoOpen: false,
-        dialogClass: 'ajaxbox errorMessage',
+        dialogClass: 'ajaxbox errorMessage invalidEmail',
         buttons: {
-          Ok: function(){
+          close: function(){
             $(this).dialog("destroy");
           }
         },
@@ -193,9 +191,8 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #invalidBuyerEmail',function(){
+      $('#ajax-box2').load('/controllers/messages.php #invalid_email',function(){
         $('#ajax-box2').dialog('open');
-        $('#ajax-box2').parent().attr('rel', 'purple');
       });
     }
     // CHECK IF THE EMAIIL IS A BELLMARC EMAIL IF SO DISPLAY ERROR POPUP
@@ -205,9 +202,9 @@ var AddBuyer = React.createClass({
         height: 'auto',
         width: '275px',
         autoOpen: false,
-        dialogClass: 'ajaxbox errorMessage',
+        dialogClass: 'ajaxbox errorMessage addBuyerValidEmails',
         buttons: {
-          Ok: function(){
+          close: function(){
             $(this).dialog("destroy");
           }
         },
@@ -220,7 +217,7 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #addBuyerEmail',function(){
+      $('#ajax-box2').load('/controllers/messages.php #add_buyer_valid_emails',function(){
         $('#ajax-box2').dialog('open');
       });
     }
@@ -248,10 +245,10 @@ var AddBuyer = React.createClass({
                   height: 'auto',
                   width: '275px',
                   autoOpen: false,
-                  dialogClass: 'ajaxbox confirmationMessage',
+                  dialogClass: 'ajaxbox confirmationMessage buyerAdded',
                   buttons: {
                     "View Buyer": function(){
-                      window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
+                      window.location = "/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
                     },
                     "Close": function(){                        
                       $( this ).dialog( "destroy" );
@@ -266,7 +263,7 @@ var AddBuyer = React.createClass({
                     });
                   }
                 });
-                $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
+                $('#ajax-box2').load('/controllers/messages.php #add_buyer_added_confirmation',function(){
                   $('#ajax-box2').dialog('open');
                 });
               }
@@ -288,11 +285,11 @@ var AddBuyer = React.createClass({
                 height: 'auto',
                 width: '265px',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage buyerExistsMadePrimary',
                 buttons: {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("destroy");
-                    window.location = "http://homepik.com/controllers/buyers.php";
+                    window.location = "/controllers/buyers.php";
                   }
                 },
                 close: function() {
@@ -304,9 +301,8 @@ var AddBuyer = React.createClass({
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary',function(){
+              $('#ajax-box2').load('/controllers/messages.php #add_buyer_exists_made_primary',function(){
                 $('#ajax-box2').dialog('open');
-                $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
               {this.props.closeDialog()}
@@ -334,11 +330,11 @@ var AddBuyer = React.createClass({
                       height: 'auto',
                       width: '265px',
                       autoOpen: false,
-                      dialogClass: 'ajaxbox errorMessage',
+                      dialogClass: 'ajaxbox errorMessage buyerExistsMadeSecondary',
                       buttons: {
-                        Ok: function(){
+                        close: function(){
                           $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
+                          window.location = "/controllers/buyers.php";
                         }
                       },
                       close: function() {
@@ -350,9 +346,8 @@ var AddBuyer = React.createClass({
                         });
                       }
                     });
-                    $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary2',function(){
+                    $('#ajax-box2').load('/controllers/messages.php #add_buyer_exists_made_secondary',function(){
                       $('#ajax-box2').dialog('open');
-                      $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
                     {this.props.closeDialog()}
@@ -363,11 +358,11 @@ var AddBuyer = React.createClass({
                       height: 'auto',
                       width: '265px',
                       autoOpen: false,
-                      dialogClass: 'ajaxbox errorMessage',
+                      dialogClass: 'ajaxbox errorMessage alreadyAgent',
                       buttons: {
-                        Ok: function(){
+                        close: function(){
                           $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
+                          window.location = "/controllers/buyers.php";
                         }
                       },
                       close: function() {
@@ -379,9 +374,8 @@ var AddBuyer = React.createClass({
                         });
                       }
                     });
-                    $('#ajax-box2').load('/controllers/messages.php #alreadyAgent',function(){
+                    $('#ajax-box2').load('/controllers/messages.php #add_buyer_already_agent',function(){
                       $('#ajax-box2').dialog('open');
-                      $('#ajax-box2').parent().attr('rel', 'purple');
                     });
 
                     {this.props.closeDialog()}
@@ -396,11 +390,10 @@ var AddBuyer = React.createClass({
                 height: 'auto',
                 width: '265px',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage buyerExistsMaxAgents',
                 buttons: {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("destroy");
-                    $('#ajax-box').dialog( "option", "title", "Add A New Buyer" ).dialog('destroy');
                   }
                 },
                 close: function() {
@@ -412,9 +405,8 @@ var AddBuyer = React.createClass({
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addBuyerExists',function(){
+              $('#ajax-box2').load('/controllers/messages.php #add_buyer_exists_max_agents',function(){
                 $('#ajax-box2').dialog('open');
-                $('#ajax-box2').parent().attr('rel', 'purple');
               });
 
               {this.props.closeDialog()}
@@ -2210,7 +2202,7 @@ window.AddressSearch = React.createClass({
       <div className="clearfix colelem" id="pu2680">
         {this.props.mainPage == "index" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/index.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Home</span></a></span> : null }
         {this.props.mainPage == "menu" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/menu.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Menu</span></a></span> : null }
-        {this.props.mainPage == "admin" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="../controllers/admin-menu.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Administrator Menu</span></a></span> : null }
+        {this.props.mainPage == "admin" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/admin-menu.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Administrator Menu</span></a></span> : null }
         {this.props.mainPage == "criteria" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/search.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Search Criteria</span></a></span> : null }
         {this.props.mainPage == "results" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/search.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Search Results</span></a></span> : null }
         {this.props.mainPage == "address" ? <span id="backBtn" className="Text-1 clearfix colelem"><a href="/controllers/addressSearch.php"><span className="fa fa-chevron-left"></span> <span className="backBtnText">Address Search Results</span></a></span> : null }
@@ -2236,15 +2228,8 @@ var ComingSoon = React.createClass({
   render: function(){
     return(
       <div>
-        <div>
-          <p className="space">&nbsp;</p>
-          <p className="space">&nbsp;</p>
-          <p className="space">&nbsp;</p>
-          <p style={{textAlign: "center", fontSize: 20 + 'px', fontWeight: "bold"}}>Coming soon...</p>
-        </div>
-        <div className="text-popups clearfix grpelem" id="close1">
-          <h4 style={{cursor: "pointer"}} onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
-        </div>
+        <h4 id="closePopup" onClick={this.closePopup}><i className="fa fa-times" title="close"></i></h4>
+        <div id="comingSoonText"><p>Coming soon...</p></div>
       </div>
     );
   }

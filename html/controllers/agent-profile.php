@@ -91,9 +91,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox blankNamePopup',
+          dialogClass: 'ajaxbox errorMessage blankName',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -106,7 +106,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             });
           }
         });
-        $('#ajax-box2').load('messages.php #blankName',function(){
+        $('#ajax-box2').load('messages.php #blank_name',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -129,9 +129,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox blankPhonePopup',
+          dialogClass: 'ajaxbox errorMessage blankPhone',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -144,7 +144,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             });
           }
         });
-        $('#ajax-box2').load('messages.php #blankPhone',function(){
+        $('#ajax-box2').load('messages.php #blank_phone',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -171,9 +171,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox blankEmailPopup',
+          dialogClass: 'ajaxbox errorMessage blankEmail',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -186,7 +186,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             });
           }
         });
-        $('#ajax-box2').load('messages.php #blankEmail',function(){
+        $('#ajax-box2').load('messages.php #blank_email',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -224,9 +224,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPhone',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -239,7 +239,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
               });
             }
 					});
-					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+					$('#ajax-box').load('messages.php #invalid_phone',function(){
 						$('#ajax-box').dialog('open');
 					});
 				}
@@ -269,9 +269,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage needDate',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -284,7 +284,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             });
           }
         });
-        $('#ajax-box').load('messages.php #needDate',function(){
+        $('#ajax-box').load('messages.php #activity_report_need_date',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -317,7 +317,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidDate',
             buttons : {
               Ok: function(){
                 $(this).dialog("close");
@@ -332,7 +332,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidDate',function(){
+          $('#ajax-box').load('messages.php #activity_report_invalid_date',function(){
             $('#ajax-box').dialog('open');
           });
         }

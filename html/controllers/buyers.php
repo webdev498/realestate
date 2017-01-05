@@ -353,9 +353,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             height: 'auto',
             width: '275px',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPrice',
             buttons: {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("destroy");
               }
             },
@@ -368,7 +368,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
               });
             }
           });
-          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+          $('#ajax-box2').load('messages.php #invalid_price',function(){
             $('#ajax-box2').dialog('open');
           });
 
@@ -415,9 +415,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             height: 'auto',
             width: '275px',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPrice',
             buttons: {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("destroy");
               }
             },
@@ -430,7 +430,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
               });
             }
           });
-          $('#ajax-box2').load('messages.php #invalidPrice',function(){
+          $('#ajax-box2').load('messages.php #invalid_price',function(){
             $('#ajax-box2').dialog('open');
           });
 
@@ -740,7 +740,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox priceRangePopup',
+          dialogClass: 'ajaxbox errorMessage invalidPriceRange',
           buttons: {
             Ok: function(){
               $(this).dialog("destroy");
@@ -755,7 +755,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             });
           }
         });
-        $('#ajax-box2').load('messages.php #priceRange',function(){
+        $('#ajax-box2').load('messages.php #invalid_price_range',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -1152,7 +1152,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 height: 'auto',
                 width: '20%',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage noFormulaSaved',
                 buttons : {
                   Ok: function(){
                     $(this).dialog("close");
@@ -1167,7 +1167,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   });
                 }
               });
-              $('#ajax-box2').load('messages.php #no-formula',function(){
+              $('#ajax-box2').load('messages.php #no_formula_saved',function(){
                 $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
               });
             }
@@ -1199,9 +1199,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 height: 'auto',
                 width: '245px',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage noFormulaSaved',
                 buttons : {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("close");
                   }
                 },
@@ -1214,7 +1214,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                   });
                 }
               });
-              $('#ajax-box2').load('messages.php #no-formula',function(){
+              $('#ajax-box2').load('messages.php #no_formula_saved',function(){
                 $('#ajax-box2').attr('rel','yourbuyers').dialog('open');
                 $('#ajax-box2').parent().css('display', 'block');
                 $('#ajax-box2').css('height', '70px');
@@ -1291,7 +1291,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           });
         }
       });
-      $('#ajax-box2').load('messages.php #deleteBuyer',function(){
+      $('#ajax-box2').load('messages.php #delete_buyer',function(){
         $('#ajax-box2').dialog('open');
         $("#deleteBuyer").find("#name").html(name);
       });

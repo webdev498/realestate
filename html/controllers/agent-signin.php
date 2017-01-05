@@ -37,9 +37,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage blankLogin',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){ $(this).dialog("close"); }
           },
           close: function() { 
             $( this ).dialog( "destroy" );
@@ -51,7 +51,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #login_blank',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -62,9 +62,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){ $(this).dialog("close"); }
           },
           close: function() {
             $( this ).dialog( "destroy" );
@@ -76,7 +76,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalid_email',function(){ 
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -87,9 +87,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage shortPassword',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){ $(this).dialog("close"); }
           },
           close: function() {
             $( this ).dialog( "destroy" );
@@ -101,13 +101,10 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #short_password',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
-      }
-      else{
-        // Continue to process
       }
     },
 	  render: function(){
@@ -123,7 +120,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     <img src="/images/button_agent.png" style={{float: "right"}}/>
                   </div>
                   <div id="signinBorder">
-                    <form onSubmit={this.validate} action="http://homepik.com/controllers/users/agent-process.php" id="validate" method="post" autoComplete="off">
+                    <form onSubmit={this.validate} action="users/agent-process.php" id="validate" method="post" autoComplete="off">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup><col width="250"/><col width="350"/></colgroup>
                         <tbody>
@@ -147,7 +144,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                           <tr><td></td></tr>
                           <tr>
                             <td colSpan="2" algin="center">
-                              <a href="agent-forgot-password.php" className="text-popups">Forgot Your Password ?</a>
+                              <a href="agent-forgot-password.php" className="text-popups">Forgot Your Password?</a>
                             </td>
                           </tr>
                         </tbody>

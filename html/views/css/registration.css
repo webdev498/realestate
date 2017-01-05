@@ -6,8 +6,8 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 
 #header{ margin: auto; max-width: 960px; }
 #wrapper{ margin: auto; max-width: 960px; }
-#registerBackground{ background-image: url('/images/fotolia_83811129_retouched.jpg'); background-repeat: repeat-y; height: 1170px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
-#registerBackground2{ background-image: url('/images/fotolia_68256058_subscription_monthly_m.jpg'); background-repeat: repeat-y; height: 1150px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#registerBackground{ background-image: url('../../images/fotolia_83811129_retouched.jpg'); background-repeat: repeat-y; height: 1170px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#registerBackground2{ background-image: url('../../images/fotolia_68256058_subscription_monthly_m.jpg'); background-repeat: repeat-y; height: 1150px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
 #registrationArea{ background: white; border: gray; border-style: solid; border-width: 1pt; box-shadow: 7px 7px 7px #D1D0CE; height: 100%; margin: auto; max-width: 580px; min-width: 560px; top: 1%; }
 #registrationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
 #registrationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
@@ -18,7 +18,7 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #registrationBorder form td select { float: left; width: 92%; border:1px solid;}
 #registrationBorder .asterisk{ color: #D2008F; padding-left: 2px; }
 #registrationBorder #agentMoreInfo:hover{ color: #0085C6; }
-#primaryAgent{ background-image: url('/images/box_625x400.png'); height: 485px; left: 496px; position: absolute; top: 355px; width: 670px; z-index: 700; }
+#primaryAgent{ background-image: url('../../images/box_625x400.png'); height: 485px; left: 496px; position: absolute; top: 355px; width: 670px; z-index: 700; }
 #primAgentText{ left: 80px; position: absolute; top: 100px; width: 550px; }
 #primAgentList{ color: #0085C6; padding-left: 20px; }
 #primAgentList p{ color: #606060; }
@@ -33,7 +33,6 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 
 .input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
 .input2{ border: medium none; height: 35px; width: 323px; }
-.text-popups{ color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding: 0px; }
 .ui-autocomplete { color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; max-height: 200px; overflow-x: hidden; overflow-y: auto; padding: 0px; }
 .underline{ text-decoration: underline; }
 
@@ -50,20 +49,7 @@ input[type="radio"], input[type="checkbox"] { -webkit-appearance: checkbox; -moz
 #closeAgentListPopup{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 310px; top: 0; }
 #agents p{ line-height: 1.7; }
 
-.ui-dialog .ui-dialog-titlebar{ display: none; }
-.ui-dialog{ box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-weight: normal; font-size: 1.1em; font-family: 'Lato', sans-serif; z-index: 1001; }
-.ui-dialog .ui-dialog-buttonpane{ border-width: 0 0 0 0 !important; }
-.ui-dialog .ui-dialog-buttonpane button{ background: transparent none repeat scroll 0% 0%; border: medium none; color: #646464; font-weight: 600; }
-.ui-dialog.noRegistration{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; height: 200px !important; left: 39% !important; position: fixed !important; top: 33% !important; width: 275px !important; z-index: 1001; }
-.ui-dialog.errorMessage{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; height: 150px !important; left: 41% !important; position: fixed !important; top: 33% !important; width: 240px !important; z-index: 1001; }
-.ui-dialog.errorMessage #ajax-box #registerRquirements{ margin-top: 30px; }
-.ui-dialog.errorMessage #ajax-box #invalidBuyerEmail{ margin-top: 5px; }
-.ui-dialog.errorMessage .ui-resizable-handle, .ui-dialog.noRegistration .ui-resizable-handle{ display: none !important; }
-
-.ui-widget-overlay{ background: #ffffff; height: 1175px !important; opacity: 0.8; position: absolute; top: 0px; }
-
 @font-face{ font-family: '__FontAwesome_5'; src: url('../fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
-
 @media print{ .terms-box{ background: linear-gradient(transparent 150px, white); border: 1px solid #cccccc; color: #333333; font-size: 0.9em; height: 100%; overflow: auto; padding: 12px; width: 450px; } }
 @media (max-width:479px){
   .container-fluid{ padding: 0 5px; }

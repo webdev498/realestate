@@ -254,9 +254,9 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage registrationBlank',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -269,7 +269,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
             });
           }
 				});
-				$('#ajax-box').load('messages.php #registerRquirements',function(){
+				$('#ajax-box').load('messages.php #registration_blank',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -280,9 +280,9 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidName',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -295,7 +295,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidName',function(){
+				$('#ajax-box').load('messages.php #invalid_name',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -306,9 +306,9 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidEmail',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -321,7 +321,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+				$('#ajax-box').load('messages.php #invalid_email',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -332,9 +332,9 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage shortPassword',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -347,21 +347,21 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
             });
           }
 				});
-				$('#ajax-box').load('messages.php #passwordRequirement',function(){
+				$('#ajax-box').load('messages.php #short_password',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
 		  }
 		  else{
-				if (!$('input[name=terms]:checked').length > 0) {
+				if(!$('input[name=terms]:checked').length > 0) {
 					$("#ajax-box").dialog({
 						modal: true,
 						height: 'auto',
 						width: 'auto',
 						autoOpen: false,
-						dialogClass: 'ajaxbox errorMessage',
+						dialogClass: 'ajaxbox errorMessage disclosureConsent',
 						buttons : {
-							Ok: function(){
+							close: function(){
 								$(this).dialog("close");
 							}
 						},
@@ -374,7 +374,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 							});
 						}
 					});
-					$('#ajax-box').load('messages.php #registerDisclosure',function(){
+					$('#ajax-box').load('messages.php #registration_disclosure_consent',function(){
 						$('#ajax-box').dialog('open');
 					});
 					e.preventDefault();
@@ -385,9 +385,9 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 						height: 'auto',
 						width: 'auto',
 						autoOpen: false,
-						dialogClass: 'ajaxbox noRegistration',
+						dialogClass: 'ajaxbox errorMessage disclosureNoConsent',
 						buttons : {
-							Ok: function(){
+							close: function(){
 								$(this).dialog("close");
 								window.location.replace("http://www.homepik.com");
 							}
@@ -401,12 +401,11 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 							});
 						}
 					});
-					$('#ajax-box').load('messages.php #noRegistration',function(){
+					$('#ajax-box').load('messages.php #registration_disclosure_no_consent',function(){
 						$('#ajax-box').dialog('open');
 					});
 					e.preventDefault();
 				}
-				else{ /* continue to processing page */ }
 		  }
 		},
 		render: function(){

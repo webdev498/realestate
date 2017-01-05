@@ -14,8 +14,7 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
 
 .input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
-.text-popups{ color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding: 0px; }
-.ui-autocomplete { max-height: 200px; overflow-x: hidden; overflow-y: auto; }
+.ui-autocomplete{ max-height: 200px; overflow-x: hidden; overflow-y: auto; }
 
 *, *::before, *::after { box-sizing: content-box; }
 a, a:visited, a:hover{ color: #D2008F !important; font-weight: 400 !important; text-decoration: none !important; }
@@ -23,20 +22,7 @@ input:focus, select:focus, textarea:focus, button:focus { outline: none; }
 tr > td{ padding-bottom: 1em !important; }
 label { display: inline; font-weight: normal; }
 
-.ui-dialog .ui-dialog-titlebar{ display: none; }
-.ui-dialog{ box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; }
-.ui-dialog .ui-dialog-buttonpane{ border-width: 0 0 0 0 !important; }
-.ui-dialog .ui-dialog-buttonpane button{ background: transparent none repeat scroll 0% 0%; border: medium none; color: #646464; font-weight: 600; }
-
-.ui-dialog.errorMessage{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); font-weight: normal; font-size: 1.1em; font-family: 'Lato', sans-serif; height: 150px !important; left: 50% !important; margin: -50px 0 0 -125px; position: fixed !important; top: 43% !important; width: 240px !important; z-index: 1001; }
-.ui-dialog.errorMessage #ajax-box #registerRquirements{ margin-top: 30px; }
-.ui-dialog.errorMessage #ajax-box #invalidBuyerEmail{ margin-top: 5px; }
-.ui-dialog.errorMessage .ui-resizable-handle{ display: none !important; }
-
-.ui-widget-overlay{ background: #ffffff; height: 1000px !important; opacity: 0.8; }
-
 @font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
-
 @media (max-width:479px){
   .container-fluid{ padding: 0 5px;}
   #signinArea{ height: 475px; margin:0 !important; min-width:auto !important; width:97% !important; }
@@ -62,5 +48,4 @@ label { display: inline; font-weight: normal; }
 }
 @media (min-width:768px) and (max-width:800px){ 
 	#signinArea, #agentSigninArea{ left: 10%; top: 1%; width: 580px !important; }
-}
-	
+}	

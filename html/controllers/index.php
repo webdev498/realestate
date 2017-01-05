@@ -227,11 +227,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true) { $_SESSION['loadSaved'] = t
 		render: function(){
 			return(
 				<div className="shadow clearfix grpelem comingSoonPopup" id="u25718" style={{display: "none"}}>
-					<div>
-						<p>&nbsp;</p>
-						<p>&nbsp;</p>
-						<p style={{textAlign: "center", fontSize: 20 + 'px', fontWeight: "bold"}}>Coming soon...</p>
-					</div>
+					<div id="comingSoonText"><p>Coming soon...</p></div>
 					<div className="text-popups clearfix grpelem" id="comingSoonClose">
 						<h4 style={{cursor: "pointer"}} onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
 					</div>

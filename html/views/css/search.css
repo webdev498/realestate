@@ -61,7 +61,7 @@ input.users, select.users { border: 1px solid #D3D3D3; height: 18px; letter-spac
 #main, #tabs { padding-bottom: 30px; width: 1204px; }
 #main { height: auto !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none; }
 #role, #email, #guestID, #agentID { display:none; }
-#criteriaFooter{ margin-left: auto; margin-right: auto; width: 1347px; }
+#criteriaFooter{ margin-left: auto; margin-right: auto; width: 100%; }
 #searchResultsFooter{ display: none; margin-left: auto; margin-right: auto; width: 1347px; }
 #criteriaFooter nav.footerNavBar, #searchResultsFooter nav.footerNavBar{ max-width: 1347px; }
 
@@ -1721,12 +1721,12 @@ input[value='hidden0'], input[value='hidden'], input[value='hidden2']{ display: 
   #header{ height: 117px; }
   #listing-counters-div .custom-listing-counter h4{ margin-left: 0; }
   #listing-count_homepik.double-counter{ width: 94%; }
-  .custom-listing-counter{ line-height: 21px; text-align: right; }
+  .custom-listing-counter{ line-height: 21px; }
   #listing-count_note .custom-listing-counter{ padding-left: 0; }
   #listing-count_note.double-counter{ padding-top: 20px; }
   #listing-count_note.double-counter .custom-listing-counter h4{font-size: 17px; }
   #listing-count_note.double-counter .custom-listing-counter{ font-size: 15px; }
-  #bedrooms_box{ margin-left: 7px; }
+  #bedrooms_box{ margin-left: 7px; -moz-transform: scale(0.8, 0.8); zoom: 0.8; zoom: 80%; }
   #price_box.criterion{ margin-left: 7px; margin-top: 0; }
   .criterion #price.mini{ width: 91%; }
   #price_box .label, #price_box .mini .grade_desc{ font-size: 17px; }

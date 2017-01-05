@@ -3,7 +3,6 @@
 #page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; height: 100%; margin-left: auto; margin-right: auto; max-width: 1200px; padding-bottom: 50px; width: 100%; z-index: 1; }
 #page_position_content{ margin-bottom: -4px; }
 
-.ui-dialog.blankNamePopup, .ui-dialog.blankPhonePopup, .ui-dialog.blankEmailPopup{	background-color: #ffffff;	border-color: #b2b2b2;	border-style: solid;	border-width: 1px;	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);	height: 160px !important;	left: 50% !important;	margin: -50px 0 0 -125px;	padding-bottom: 69px;	position: fixed !important;	top: 43% !important;	width: 240px !important;	z-index: 1001;}
 .row{	width: 100%;}
 .agent-profile-container{	padding-left: 0 !important;	padding-right: 0 !important; }
 

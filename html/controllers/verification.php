@@ -59,9 +59,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPhone',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -74,7 +74,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+          $('#ajax-box').load('messages.php #invalid_phone',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -87,9 +87,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage verificationBlank',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -102,7 +102,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             });
           }
         });
-        $('#ajax-box').load('messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #buyer_verification_blank',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -135,9 +135,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                 height: 'auto',
                 width: 'auto',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage invalidInformation',
                 buttons : {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("close");
                   }
                 },
@@ -150,7 +150,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                   });
                 }
               });
-              $('#ajax-box').load('messages.php #invalidInput',function(){
+              $('#ajax-box').load('messages.php #invalid_information',function(){
                 $('#ajax-box').dialog('open');
               });
             }
@@ -170,9 +170,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage verificationBlank',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -185,7 +185,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('messages.php #registerRquirements',function(){
+          $('#ajax-box').load('messages.php #buyer_verification_blank_two',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -196,9 +196,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidName',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -211,7 +211,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidName',function(){
+          $('#ajax-box').load('messages.php #invalid_name',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -222,9 +222,9 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidEmail',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -237,7 +237,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+          $('#ajax-box').load('messages.php #invalid_email',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -263,7 +263,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                     <span id="verificationHeader" className="text-popups">Buyer Verification</span>
                   </div>
                   <div id="verificationBorder">
-                    <form onSubmit={this.validate} action="http://homepik.com/controllers/users/verification-process.php" id="validate" method="post" autoComplete="off">
+                    <form onSubmit={this.validate} action="users/verification-process.php" id="validate" method="post" autoComplete="off">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup>
                           <col width="250"/><col width="350"/>
@@ -323,7 +323,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           </tr>
                           <tr>
                             <td colSpan="2">
-                              <input type="hidden" name="formStep" value="verification2" />
+                              <input type="hidden" name="formStep" value="verification" />
                               <a href="signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
                               {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }

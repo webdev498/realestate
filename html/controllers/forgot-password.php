@@ -83,9 +83,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPhone',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -98,7 +98,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+          $('#ajax-box').load('messages.php #invalid_phone',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -111,9 +111,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage verificationBlank',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -126,7 +126,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #buyer_verification_blank',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -166,9 +166,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                 height: 'auto',
                 width: 'auto',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage invalidInformation',
                 buttons : {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("close");
                   }
                 },
@@ -181,7 +181,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                   });
                 }
               });
-              $('#ajax-box').load('messages.php #invalidInput',function(){
+              $('#ajax-box').load('messages.php #invalid_information',function(){
                 $('#ajax-box').dialog('open');
               });
             }
@@ -201,9 +201,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage verificationBlank',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -216,7 +216,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #registerRquirements',function(){
+          $('#ajax-box').load('messages.php #buyer_verification_blank_two',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -227,9 +227,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidName',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -242,7 +242,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidName',function(){
+          $('#ajax-box').load('messages.php #invalid_name',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -253,9 +253,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidEmail',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -268,7 +268,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+          $('#ajax-box').load('messages.php #invalid_email',function(){
             $('#ajax-box').dialog('open');
           });
           e.preventDefault();
@@ -290,9 +290,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                   height: 'auto',
                   width: 'auto',
                   autoOpen: false,
-                  dialogClass: 'ajaxbox errorMessage',
+                  dialogClass: 'ajaxbox errorMessage invalidInformation',
                   buttons : {
-                    Ok: function(){
+                    close: function(){
                       $(this).dialog("close");
                     }
                   },
@@ -305,7 +305,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     });
                   }
                 });
-                $('#ajax-box').load('messages.php #invalidInput',function(){
+                $('#ajax-box').load('messages.php #invalid_information',function(){
                   $('#ajax-box').dialog('open');
                 });
               }
@@ -336,9 +336,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage passwordDontMatch',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -351,7 +351,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #passwordsMatch',function(){
+          $('#ajax-box').load('messages.php #passwords_dont_match',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -362,9 +362,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage shortPassword',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -377,7 +377,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #short_password',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -430,9 +430,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage blankInformationEdit',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -445,7 +445,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #registerRquirements',function(){
+				$('#ajax-box').load('messages.php #buyer_information_edit_blank',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -456,9 +456,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidName',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -471,7 +471,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidName',function(){
+				$('#ajax-box').load('messages.php #invalid_name',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -482,9 +482,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidEmail',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -497,7 +497,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+				$('#ajax-box').load('messages.php #invalid_email',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -508,9 +508,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage shortPassword',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -523,13 +523,10 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #passwordRequirement',function(){
+				$('#ajax-box').load('messages.php #short_password',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
-		  }
-		  else{
-				/* continue to processing page */
 		  }
 		},
     render: function(){
@@ -626,7 +623,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     <img src="/images/button_pen_states.png" style={{float: "right"}}/>
                   </div>
                   <div id="buyerInformationBorder">
-                    <form onSubmit={this.validateInformation} action="http://homepik.com/controllers/users/edit-buyer-information-process.php" id="validate editBuyerInformation" className="validate" method="get" autoComplete="off" data-bind="nextFieldOnEnter:true">
+                    <form onSubmit={this.validateInformation} action="users/edit-buyer-information-process.php" id="validate editBuyerInformation" className="validate" method="get" autoComplete="off" data-bind="nextFieldOnEnter:true">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup><col width="250"/><col width="350"/></colgroup>
                         <tbody>

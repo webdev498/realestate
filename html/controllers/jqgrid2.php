@@ -110,7 +110,7 @@ $row = mysql_fetch_array($result2, MYSQL_ASSOC);
 $avg_views = number_format($row['avg_views'], 0, '.', ',');
 
 // SPACE AVERAGE: This gets the average space  of all returned the search results
-$result2 = mysql_query("SELECT avg(vroom_sqf) AS avg_space " . $from . " $where AND vow_data.vroom_sqf > 0");
+$result2 = mysql_query("SELECT avg(vroom_sqf) AS avg_space " . $from . " WHERE $where AND vow_data.vroom_sqf > 0");
 $row = mysql_fetch_array($result2, MYSQL_ASSOC);
 $avg_space = $row['avg_space'];
 
@@ -154,15 +154,15 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
   $price = number_format($price, 0, '.', ',');
   $loc = $row['loc'];
   $loc = number_format($loc, 0, '.', ',');
-  $loc = relative_to_average($loc, $avg_location); // check if the location  grade for this listing is higher, lower, or equal to the average for the search results
+  $loc = relative_to_average($loc, $avg_location, ''); // check if the location  grade for this listing is higher, lower, or equal to the average for the search results
   $bld = $row['bld'];
   $bld = number_format($bld, 0, '.', ',');
-  $bld = relative_to_average($bld, $avg_building);  // check if the building grade for this listing is higher, lower, or equal to the average for the search results
+  $bld = relative_to_average($bld, $avg_building, '');  // check if the building grade for this listing is higher, lower, or equal to the average for the search results
   $vws = $row['vws'];
   $vws = number_format($vws, 0, '.', ',');
-  $vws = relative_to_average($vws, $avg_views);  // check if the views grade for this listing is higher, lower, or equal to the average for the search results
+  $vws = relative_to_average($vws, $avg_views, '');  // check if the views grade for this listing is higher, lower, or equal to the average for the search results
   $spac = $row['vroom_sqf'];
-  $spac = relative_to_average($spac, $avg_space);  // check if the space for this listing is higher, lower, or equal to the average for the search results
+  $spac = relative_to_average($spac, $avg_space, '');  // check if the space for this listing is higher, lower, or equal to the average for the search results
   $bed = $row['bed'];
   $bath = $row['bath'];
   $bath = number_format($bath, 0, '.', ',');
@@ -339,7 +339,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     };
   };
 
-  $SQL4 = "SELECT newcon FROM Building_file WHERE (location = '".$ad."')";
+  $SQL4 = "SELECT newcon FROM Building_file WHERE (location = '".$address."')";
   $result4 = mysql_query($SQL4) or die("Couldn't execute query." . mysql_error());
   $row4 = mysql_fetch_array($result4, MYSQL_ASSOC);
   if($row4['newcon'] == '1'){
@@ -389,7 +389,6 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
       	<div class='saved' style='display:none;'>" . $saved . "</div>
               <div class='details' style='margin:3px 0 0 0;'>
       	<div>" . $nbrhood . "</div>
-      	<div>" . $building_address . "</div>
       	<div>" . $bed . " BRs <span style='color:#a0a0a0;'>&nbsp; " . $bath . " baths</span</div>
       	<div style='margin:6px 0 0 0;color:#a0a0a0;'>Master Bed: " . $bedroom1 . "'</div>
       	<div style='color:#a0a0a0;'>Living Room: " . $living_room . "'</div>

@@ -46,23 +46,15 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 		  this.setState(change);
 		},
 		checkPQ: function(){
-		  if(this.state.phone != ""){
-				return true;
-		  }else{
-				if(this.state.secQues != "default" && this.state.secAns != ""){
-					return true;
-				}
-				else{
-					return false;
-				}
+		  if(this.state.phone != ""){ return true; }
+			else{
+				if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
+				else{ return false; }
 		  }
 		},
 		checkInput: function(){
-		  if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){
-				return true;
-		  } else{
-				return false
-		  }
+		  if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
+			else{ return false }
 		},
 		updatePhone: function(){
 		  var number = this.state.phone;
@@ -78,9 +70,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 						height: 'auto',
 						width: 'auto',
 						autoOpen: false,
-						dialogClass: 'ajaxbox errorMessage',
+						dialogClass: 'ajaxbox errorMessage invalidPhone',
 						buttons : {
-							Ok: function(){
+							close: function(){
 								$(this).dialog("close");
 							}
 						},
@@ -93,7 +85,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 							});
 						}
 					});
-					$('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+					$('#ajax-box').load('messages.php #invalid_phone',function(){
 						$('#ajax-box').dialog('open');
 					});
 				}
@@ -109,9 +101,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage registrationBlank',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -124,7 +116,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #registerRquirements',function(){
+				$('#ajax-box').load('messages.php #registration_blank',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -135,9 +127,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidName',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -150,7 +142,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidName',function(){
+				$('#ajax-box').load('messages.php #invalid_name',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -161,9 +153,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage invalidEmail',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -176,7 +168,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+				$('#ajax-box').load('messages.php #invalid_email',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -187,9 +179,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 					height: 'auto',
 					width: 'auto',
 					autoOpen: false,
-					dialogClass: 'ajaxbox errorMessage',
+					dialogClass: 'ajaxbox errorMessage shortPassword',
 					buttons : {
-						Ok: function(){
+						close: function(){
 							$(this).dialog("close");
 						}
 					},
@@ -202,7 +194,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
 				});
-				$('#ajax-box').load('messages.php #passwordRequirement',function(){
+				$('#ajax-box').load('messages.php #short_password',function(){
 					$('#ajax-box').dialog('open');
 				});
 				e.preventDefault();
@@ -214,9 +206,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 						height: 'auto',
 						width: 'auto',
 						autoOpen: false,
-						dialogClass: 'ajaxbox errorMessage',
+						dialogClass: 'ajaxbox errorMessage disclosureConsent',
 						buttons : {
-							Ok: function(){
+							close: function(){
 								$(this).dialog("close");
 							}
 						},
@@ -229,7 +221,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 							});
 						}
 					});
-					$('#ajax-box').load('messages.php #registerDisclosure',function(){
+					$('#ajax-box').load('messages.php #registration_disclosure_consent',function(){
 						$('#ajax-box').dialog('open');
 					});
 					e.preventDefault();
@@ -240,7 +232,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 						height: 'auto',
 						width: 'auto',
 						autoOpen: false,
-						dialogClass: 'ajaxbox noRegistration',
+						dialogClass: 'ajaxbox errorMessage disclosureNoConsent',
 						buttons : {
 							Ok: function(){
 								$(this).dialog("close");
@@ -256,12 +248,11 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 							});
 						}
 					});
-					$('#ajax-box').load('messages.php #noRegistration',function(){
+					$('#ajax-box').load('messages.php #registration_disclosure_no_consent',function(){
 						$('#ajax-box').dialog('open');
 					});					
 					e.preventDefault();
 				}
-				else{ /* continue to processing page */ }
 		  }
 		},
 		render: function(){

@@ -47,18 +47,22 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage verificationBlank',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #agent_verification_blank',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -69,18 +73,22 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidName',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
+        $('#ajax-box').load('messages.php #invalid_name',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -91,18 +99,22 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalid_email',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -124,7 +136,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                     <span id="verificationHeader" className="text-popups">Agent Verification</span>
                   </div>
                   <div id="verificationBorder">
-                    <form onSubmit={this.validate} action="http://homepik.com/controllers/users/agent-verification-process.php" id="validate" method="post" autoComplete="off">
+                    <form onSubmit={this.validate} action="users/agent-verification-process.php" id="validate" method="post" autoComplete="off">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup>
                           <col width="250"/><col width="350"/>
@@ -156,7 +168,7 @@ if($_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
                           </tr>
                           <tr>
                             <td colSpan="2">
-                              <input type="hidden" name="formStep" value="verification2" />
+                              <input type="hidden" name="formStep" value="verification" />
                               <a href="agent-signin.php"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>
                               <button type="submit" name="submit" id="verificationSubmit" className="text-popups">Verify <i id="arrow" className="fa fa-chevron-right"></i></button>
                             </td>

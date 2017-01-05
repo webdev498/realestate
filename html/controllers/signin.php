@@ -37,9 +37,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage blankLogin',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -53,7 +53,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #login_blank',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -64,9 +64,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -80,7 +80,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalid_email',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -91,9 +91,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage shortPassword',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -107,7 +107,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #short_password',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -129,7 +129,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                     <img src="/images/button_my_profile.png" style={{float: "right"}}/>
                   </div>
                   <div id="signinBorder">
-                    <form onSubmit={this.validate} action="/controllers/users/process.php" id="validate" method="post" autoComplete="off">
+                    <form onSubmit={this.validate} action="users/process.php" id="validate" method="post" autoComplete="off">
                       <table cellPadding="2" cellSpacing="0" border="0">
                         <colgroup><col width="250"/><col width="350"/></colgroup>
                         <tbody>

@@ -7,9 +7,9 @@
 .header-container #second-section, .header-container #third-section{ display: none; }
 
 .ui-dialog.editFormula{background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); top: 1% !important; z-index: 1001; }
-.ui-dialog.priceRangePopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 160px !important; margin: -50px 0 0 -125px; padding-bottom: 69px; position: fixed !important; width: 240px !important; z-index: 1001; }
 .ui-dialog.deleteBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: auto !important; margin: -50px 0 0 -125px; position: fixed !important; width: 240px !important; z-index: 1001; }
 .ui-dialog.deleteBuyerPopup #ajax-box2{ height: auto !important; }
+.deleteBuyerPopup .ui-resizable-handle{ display: none !important; }
 .formulaLine{ background-color: #C2C2C2; height: 1px; left: 18px; max-width: 850px; position: absolute; width: 99%; z-index: 268; }
 
 #noFormulas, #loadingFormulas{ font-size: 18px !important; }

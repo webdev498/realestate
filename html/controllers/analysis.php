@@ -287,17 +287,17 @@ else{ $mainPage = ""; }
   );
 
   ReactDOM.render(
-    <NavBar mainPage={"<? echo $mainPage ?>"} />,
+    <NavBar mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("navbar")
   );
 
   ReactDOM.render(
-    <AddressSearch mainPage={"<? echo $mainPage ?>"} />,
+    <AddressSearch mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("address-search")
   );
 
   ReactDOM.render(
-    <Footer mainPage={"<? echo $mainPage ?>"} />,
+    <Footer mainPage={"<?php echo $mainPage ?>"} />,
     document.getElementById("footer")
   );
 

@@ -128,9 +128,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             height: 'auto',
             width: '275px',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPhone',
             buttons: {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("destroy");
               }
             },
@@ -143,8 +143,8 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
               });
             }
           });
-          $('#ajax-box2').load('messages.php #invalidBuyerPhone',function(){
-            $('#ajax-box2').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
+          $('#ajax-box2').load('messages.php #invalid_phone',function(){
+            $('#ajax-box2').dialog('open');
           });
         }
       }
@@ -167,9 +167,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage addBuyerBlank',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -182,7 +182,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             });
           }
         });
-        $('#ajax-box2').load('messages.php #addBuyerInfo',function(){
+        $('#ajax-box2').load('messages.php #add_buyer_blank',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -193,9 +193,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -208,7 +208,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box2').load('messages.php #invalid_email',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -219,9 +219,9 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
           height: 'auto',
           width: '275px',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage addBuyerValidEmails',
           buttons: {
-            Ok: function(){
+            close: function(){
               $(this).dialog("destroy");
             }
           },
@@ -234,7 +234,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #addBuyerEmail',function(){
+        $('#ajax-box2').load('messages.php #add_buyer_valid_emails',function(){
           $('#ajax-box2').dialog('open');
         });
       }
@@ -248,8 +248,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
 
             // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
             if(info == null){
-
-              $.get("/controllers/ajax.php", {
+              $.get("ajax.php", {
                 addBuyer: 'true',
                 firstname: firstname,
                 lastname: lastname,
@@ -261,10 +260,10 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     height: 'auto',
                     width: '275px',
                     autoOpen: false,
-                    dialogClass: 'ajaxbox confirmationMessage',
+                    dialogClass: 'ajaxbox confirmationMessage buyerAdded',
                     buttons: {
                       "View Buyer": function(){
-                        window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
+                        window.location = "buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
                       },
                       "Close": function(){                        
                         $( this ).dialog( "destroy" );
@@ -279,7 +278,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                       });
                     }
                   });
-                  $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
+                  $('#ajax-box2').load('messages.php #add_buyer_added_confirmation',function(){
                     $('#ajax-box2').dialog('open');
                   });
                 }
@@ -291,7 +290,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
               // IF ACCOUNT EXISTS CHECK IF THEY HAVE AT LEAST ONE AGENT
               // IF NOT ASSIGN AGENT AS ONE OF BUYER'S AGENTS
               if(info.P_agent == "" || info.P_agent == null){
-                $.get("/controllers/ajax.php", {
+                $.get("ajax.php", {
                   AddPrimary: 'true',
                   email: email
                 });
@@ -301,11 +300,11 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                   height: 'auto',
                   width: '265px',
                   autoOpen: false,
-                  dialogClass: 'ajaxbox errorMessage',
+                  dialogClass: 'ajaxbox errorMessage buyerExistsMadePrimary',
                   buttons: {
-                    Ok: function(){
+                    close: function(){
                       $(this).dialog("destroy");
-                      window.location = "http://homepik.com/controllers/buyers.php";
+                      window.location = "buyers.php";
                     }
                   },
                   close: function() {
@@ -317,7 +316,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     });
                   }
                 });
-                $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary',function(){
+                $('#ajax-box2').load('messages.php #add_buyer_exists_made_primary',function(){
                   $('#ajax-box2').dialog('open');
                 });
 
@@ -326,109 +325,107 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
               // IF THEY HAVE ONE AGENT CHECK IF THEY HAVE TWO AGENTS
               // IF ONLY HAVE ONE ASSIGN AGENT AS SECOND AGENT
               else if((info.P_agent != '' && info.P_agent != null) && (info.P_agent2 == '' || info.P_agent2 == null)){
-
                 $.ajax({
-                 type: "POST",
-                 url: "check-agent.php",
-                 data: {"getEmail":"true", "id":info.P_agent},
-                 success: function(data){
-                  var aEmail = JSON.parse(data);
-
-                  // CHECK IF EMAIL OF AGENT TRYING TO ADD IS ALREADY ASSIGNED
-                  // IF NOT ADDED AGENT, IF SO DISPLAY POPUP WITH MESSAGE
-                  if(agentEmail != aEmail){
-                    $.get("/controllers/ajax.php", {
-                      AddPrimary2: 'true',
-                      email: email
-                    });
-
-                    $("#ajax-box2").dialog({
-                      modal: true,
-                      height: 'auto',
-                      width: '265px',
-                      autoOpen: false,
-                      dialogClass: 'ajaxbox errorMessage',
-                      buttons: {
-                        Ok: function(){
-                          $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
-                        }
-                      },
-                      close: function() {
-                        $( this ).dialog( "destroy" );
-                      },
-                      open: function(){
-                        $(".ui-widget-overlay").bind("click", function(){
-                          $("#ajax-box2").dialog('close');
-                        });
-                      }
-                    });
-                    $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary2',function(){
-                      $('#ajax-box2').dialog('open');
-                    });
-
-                    {this.props.closeDialog()}
-                  }
-                  else{
-                    $("#ajax-box2").dialog({
-                     modal: true,
-                     height: 'auto',
-                     width: '265px',
-                     autoOpen: false,
-                     dialogClass: 'ajaxbox errorMessage',
-                     buttons: {
-                       Ok: function(){
-                        $(this).dialog("destroy");
-                        window.location = "http://homepik.com/controllers/buyers.php";
-                       }
-                     },
-                     close: function() {
-                       $( this ).dialog( "destroy" );
-                     },
-                    open: function(){
-                      $(".ui-widget-overlay").bind("click", function(){
-                        $("#ajax-box2").dialog('close');
+                  type: "POST",
+                  url: "check-agent.php",
+                  data: {"getEmail":"true", "id":info.P_agent},
+                  success: function(data){
+                    var aEmail = JSON.parse(data);
+    
+                    // CHECK IF EMAIL OF AGENT TRYING TO ADD IS ALREADY ASSIGNED
+                    // IF NOT ADDED AGENT, IF SO DISPLAY POPUP WITH MESSAGE
+                    if(agentEmail != aEmail){
+                      $.get("ajax.php", {
+                        AddPrimary2: 'true',
+                        email: email
                       });
+    
+                      $("#ajax-box2").dialog({
+                        modal: true,
+                        height: 'auto',
+                        width: '265px',
+                        autoOpen: false,
+                        dialogClass: 'ajaxbox errorMessage buyerExistsMadeSecondary',
+                        buttons: {
+                          close: function(){
+                            $(this).dialog("destroy");
+                            window.location = "buyers.php";
+                          }
+                        },
+                        close: function() {
+                          $( this ).dialog( "destroy" );
+                        },
+                        open: function(){
+                          $(".ui-widget-overlay").bind("click", function(){
+                            $("#ajax-box2").dialog('close');
+                          });
+                        }
+                      });
+                      $('#ajax-box2').load('messages.php #add_buyer_exists_made_secondary',function(){
+                        $('#ajax-box2').dialog('open');
+                      });
+      
+                      {this.props.closeDialog()}
                     }
-                   });
-                  $('#ajax-box2').load('/controllers/messages.php #alreadyAgent',function(){
-                    $('#ajax-box2').dialog('open');
-                  });
-
-                  {this.props.closeDialog()}
-                }
-              }
-            });
-          }
-            // IF THEY HAVE TWO AGENTS DISPLAY POPUP WITH ALERT
-            else{
-              $("#ajax-box2").dialog({
-                modal: true,
-                height: 'auto',
-                width: '265px',
-                autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
-                buttons: {
-                  Ok: function(){
-                    $(this).dialog("destroy");
-                    $('#ajax-box').dialog( "option", "title", "Add A New Buyer" ).dialog('destroy');
+                    else{
+                      $("#ajax-box2").dialog({
+                        modal: true,
+                        height: 'auto',
+                        width: '265px',
+                        autoOpen: false,
+                        dialogClass: 'ajaxbox errorMessage alreadyAgent',
+                        buttons: {
+                          close: function(){
+                            $(this).dialog("destroy");
+                            window.location = "buyers.php";
+                          }
+                        },
+                        close: function() {
+                          $( this ).dialog( "destroy" );
+                        },
+                        open: function(){
+                          $(".ui-widget-overlay").bind("click", function(){
+                            $("#ajax-box2").dialog('close');
+                          });
+                        }
+                      });
+                      $('#ajax-box2').load('messages.php #add_buyer_already_agent',function(){
+                        $('#ajax-box2').dialog('open');
+                      });
+      
+                      {this.props.closeDialog()}
+                    }
                   }
-                },
-                close: function() {
-                  $( this ).dialog( "destroy" );
-                },
-                open: function(){
-                  $(".ui-widget-overlay").bind("click", function(){
-                    $("#ajax-box2").dialog('close');
-                  });
-                }
-              });
-              $('#ajax-box2').load('/controllers/messages.php #addBuyerExists',function(){
-                $('#ajax-box2').dialog('open');
-              });
-
-              {this.props.closeDialog()}
-            }
+                });
+              }
+              // IF THEY HAVE TWO AGENTS DISPLAY POPUP WITH ALERT
+              else{
+                $("#ajax-box2").dialog({
+                  modal: true,
+                  height: 'auto',
+                  width: '265px',
+                  autoOpen: false,
+                  dialogClass: 'ajaxbox errorMessage buyerExistsMaxAgents',
+                  buttons: {
+                    close: function(){
+                      $(this).dialog("destroy");
+                    }
+                  },
+                  close: function() {
+                    $( this ).dialog( "destroy" );
+                  },
+                  open: function(){
+                    $(".ui-widget-overlay").bind("click", function(){
+                      $("#ajax-box2").dialog('close');
+                    });
+                  }
+                });
+                $('#ajax-box2').load('messages.php #add_buyer_exists_max_agents',function(){
+                  $('#ajax-box2').dialog('open');
+                });
+  
+                {this.props.closeDialog()}
+              }
             }
           }.bind(this),
           error: function(){

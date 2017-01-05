@@ -74,9 +74,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             height: 'auto',
             width: 'auto',
             autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
+            dialogClass: 'ajaxbox errorMessage invalidPhone',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -89,7 +89,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #invalidBuyerPhone',function(){
+          $('#ajax-box').load('messages.php #invalid_phone',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -105,9 +105,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage verificationBlank',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -120,7 +120,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #agent_verification_blank',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -130,9 +130,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidName',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -145,7 +145,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #invalidName',function(){
+        $('#ajax-box').load('messages.php #invalid_name',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -155,9 +155,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -170,7 +170,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
+        $('#ajax-box').load('messages.php #invalid_email',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -198,9 +198,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                 height: 'auto',
                 width: 'auto',
                 autoOpen: false,
-                dialogClass: 'ajaxbox errorMessage',
+                dialogClass: 'ajaxbox errorMessage invalidInformation',
                 buttons : {
-                  Ok: function(){
+                  close: function(){
                     $(this).dialog("close");
                   }
                 },
@@ -213,7 +213,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                   });
                 }
               });
-              $('#ajax-box').load('messages.php #invalidInput',function(){
+              $('#ajax-box').load('messages.php #invalid_information',function(){
                 $('#ajax-box').dialog('open');
               });
             }
@@ -242,7 +242,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             autoOpen: false,
             dialogClass: 'ajaxbox errorMessage',
             buttons : {
-              Ok: function(){
+              close: function(){
                 $(this).dialog("close");
               }
             },
@@ -255,7 +255,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
               });
             }
           });
-          $('#ajax-box').load('messages.php #passwordsMatch',function(){
+          $('#ajax-box').load('messages.php #passwords_dont_match',function(){
             $('#ajax-box').dialog('open');
           });
         }
@@ -266,9 +266,9 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage shortPassword',
           buttons : {
-            Ok: function(){
+            close: function(){
               $(this).dialog("close");
             }
           },
@@ -281,121 +281,119 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             });
           }
         });
-        $('#ajax-box').load('messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #short_password',function(){
           $('#ajax-box').dialog('open');
         });
       }
     },
     validateInformation: function(e){
-      //if(this.state.edit == "true"){
-        var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        var emailValid = emailReg.test(this.state.email);
-  
-        if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.newPass == "" || this.state.phone == ""){
-          $("#ajax-box").dialog({
-            modal: true,
-            height: 'auto',
-            width: 'auto',
-            autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
-            buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
-            },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
-            open: function(){
-              $(".ui-widget-overlay").bind("click", function(){
-                $("#ajax-box").dialog('close');
-              });
+      var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      var emailValid = emailReg.test(this.state.email);
+
+      if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.newPass == "" || this.state.phone == ""){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage blankInformationEdit',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
             }
-          });
-          $('#ajax-box').load('messages.php #registerRquirements',function(){
-            $('#ajax-box').dialog('open');
-          });
-          e.preventDefault();
-        }
-        else if(this.state.firstname.match(/[0-9]/g) != null || this.state.lastname.match(/[0-9]/g) != null){
-          $("#ajax-box").dialog({
-            modal: true,
-            height: 'auto',
-            width: 'auto',
-            autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
-            buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
-            },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
-            open: function(){
-              $(".ui-widget-overlay").bind("click", function(){
-                $("#ajax-box").dialog('close');
-              });
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #agent_information_edit_blank',function(){
+          $('#ajax-box').dialog('open');
+        });
+        e.preventDefault();
+      }
+      else if(this.state.firstname.match(/[0-9]/g) != null || this.state.lastname.match(/[0-9]/g) != null){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage invalidName',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
             }
-          });
-          $('#ajax-box').load('messages.php #invalidName',function(){
-            $('#ajax-box').dialog('open');
-          });
-          e.preventDefault();
-        }
-        else if(!emailValid){
-          $("#ajax-box").dialog({
-            modal: true,
-            height: 'auto',
-            width: 'auto',
-            autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
-            buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
-            },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
-            open: function(){
-              $(".ui-widget-overlay").bind("click", function(){
-                $("#ajax-box").dialog('close');
-              });
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #invalid_name',function(){
+          $('#ajax-box').dialog('open');
+        });
+        e.preventDefault();
+      }
+      else if(!emailValid){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
             }
-          });
-          $('#ajax-box').load('messages.php #invalidBuyerEmail',function(){
-            $('#ajax-box').dialog('open');
-          });
-          e.preventDefault();
-        }
-        else if(this.state.newPass.length < 5){
-          $("#ajax-box").dialog({
-            modal: true,
-            height: 'auto',
-            width: 'auto',
-            autoOpen: false,
-            dialogClass: 'ajaxbox errorMessage',
-            buttons : {
-              Ok: function(){
-                $(this).dialog("close");
-              }
-            },
-            close: function() {
-              $( this ).dialog( "destroy" );
-            },
-            open: function(){
-              $(".ui-widget-overlay").bind("click", function(){
-                $("#ajax-box").dialog('close');
-              });
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #invalid_email',function(){
+          $('#ajax-box').dialog('open');
+        });
+        e.preventDefault();
+      }
+      else if(this.state.newPass.length < 5){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage shortPassword',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
             }
-          });
-          $('#ajax-box').load('messages.php #passwordRequirement',function(){
-            $('#ajax-box').dialog('open');
-          });
-          e.preventDefault();
-        }
-      //}
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #short_password',function(){
+          $('#ajax-box').dialog('open');
+        });
+        e.preventDefault();
+      }
 		},
     back: function(){
       window.location.assign("javascript:history.back()")

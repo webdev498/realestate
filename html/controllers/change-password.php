@@ -45,18 +45,22 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage changePasswordBlank',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+        $('#ajax-box').load('messages.php #change_password_blank',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -67,18 +71,22 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           height: 'auto',
           width: 'auto',
           autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage',
+          dialogClass: 'ajaxbox errorMessage shortPassword',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            Ok: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
+        $('#ajax-box').load('messages.php #short_password',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
@@ -91,22 +99,23 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
           autoOpen: false,
           dialogClass: 'ajaxbox errorMessage',
           buttons : {
-            Ok: function(){ $(this).dialog("close"); }
+            close: function(){
+              $(this).dialog("close");
+            }
           },
-          close: function() { $( this ).dialog( "destroy" ); },
+          close: function(){
+            $( this ).dialog( "destroy" );
+          },
           open: function(){
             $(".ui-widget-overlay").bind("click", function(){
               $("#ajax-box").dialog('close');
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #passwordsMatch',function(){
+        $('#ajax-box').load('messages.php #passwords_dont_match',function(){
           $('#ajax-box').dialog('open');
         });
         e.preventDefault();
-      }
-      else{
-        // Go to process page.
       }
     },
 	  render: function(){
@@ -118,7 +127,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             <AddressSearch mainPage={this.state.mainPage}  />
             <div className="Text-1" id="u8521-1">
               <span className="Text-1" id="u8522-1">Change Password</span>
-              <form onSubmit={this.validate} action="/controllers/users/change-pass.php" id="validate resetPass" className="validate" method="get">
+              <form onSubmit={this.validate} action="users/change-pass.php" id="validate resetPass" className="validate" method="get">
                 <table cellPadding="2" cellSpacing="0" border="0">
                   <colgroup><col width="250"/><col width="315"/></colgroup>
                   <tbody>
