@@ -1147,22 +1147,216 @@ if(isset($_GET['deleteAgent'])){
 if(isset($_GET['reassignAgent'])){
   $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
   $db = mysql_select_db('sp', $con) or die(mysql_error());
+  $buyer_email = $_GET['buyer'];
+  $new_agent_id = $_GET['id'];
+  
+  // Get buyer's information
+  $result = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name FROM `users` WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error());
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);  
+  $buyer_name = $row['name'];
   
   if($_GET['agent'] == "agent1"){
-    $res = mysql_query("SELECT P_agent FROM `users` WHERE email='".$_GET['buyer']."'")  or die(mysql_error());
-    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $result2 = mysql_query("SELECT P_agent FROM `users` WHERE email='".$_GET['buyer']."'")  or die(mysql_error());
+    $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
     
-    $res2 = mysql_query("UPDATE `users_folders` SET `agent`='".$_GET['id']."' WHERE (user='".$_GET['buyer']."') AND (agent='".$row['P_agent']."')") or die(mysql_error());
-    $res3 = mysql_query("UPDATE `Users_Search` SET `agent`='".$_GET['id']."' WHERE (email='".$_GET['buyer']."') AND (agent='".$row['P_agent']."')") or die(mysql_error());
-    $res4 = mysql_query("UPDATE `users` SET `P_agent`='".$_GET['id']."', `P_agent_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'") or die(mysql_error());
+    $res3 = mysql_query("UPDATE `users_folders` SET `agent`='".$new_agent_id."' WHERE (user='".$buyer_email."') AND (agent='".$row2['P_agent']."')") or die(mysql_error());
+    $res4 = mysql_query("UPDATE `Users_Search` SET `agent`='".$new_agent_id."' WHERE (email='".$buyer_email."') AND (agent='".$row2['P_agent']."')") or die(mysql_error());
+    $res5 = mysql_query("UPDATE `users` SET `P_agent`='".$new_agent_id."', `P_agent_assign_time`='".date('U')."' WHERE email='".$buyer_email."'") or die(mysql_error());
+    
+    // Get the name of the agent removed
+    $result6 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$row2['P_agent']."')" ) or die("Couldn't execute query.".mysql_error());
+    $row6 = mysql_fetch_array($result6,MYSQL_ASSOC); 
+    $old_agent_email = $row6['name'];
+    $agent_email = $row6['email'];
+    
+    // Send email to agent that they have been removed from account.
+    $message = "Hello ". $agent_name . ",<br><br>";
+    $message .= "An administrator has removed you as $buyer_name's primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($old_agent_email);
+    $mail->Subject = 'HomePik.com Lost Buyer';
+    $mail->Body = $message;
+    $mail->send();
   }
   else if($_GET['agent'] == "agent2"){
-    $res = mysql_query("SELECT P_agent2 FROM `users` WHERE email='".$_GET['buyer']."'")  or die(mysql_error());
-    $row = mysql_fetch_array($res,MYSQL_ASSOC);
+    $result2 = mysql_query("SELECT P_agent2 FROM `users` WHERE email='".$buyer_email."'")  or die(mysql_error());
+    $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
     
-    $res2 = mysql_query("UPDATE `users_folders` SET `agent`='".$_GET['id']."' WHERE (user='".$_GET['buyer']."') AND (agent='".$row['P_agent2']."')") or die(mysql_error());
-    $res3 = mysql_query("UPDATE `Users_Search` SET `agent`='".$_GET['id']."' WHERE (email='".$_GET['buyer']."') AND (agent='".$row['P_agent2']."')") or die(mysql_error());
-    $res4 = mysql_query("UPDATE `users` SET `P_agent2`='".$_GET['id']."', `P_agent2_assign_time`='".date('U')."' WHERE email='".$_GET['buyer']."'") or die(mysql_error());
-  }  
+    $res3 = mysql_query("UPDATE `users_folders` SET `agent`='".$new_agent_id."' WHERE (user='".$buyer_email."') AND (agent='".$row2['P_agent2']."')") or die(mysql_error());
+    $res4 = mysql_query("UPDATE `Users_Search` SET `agent`='".$new_agent_id."' WHERE (email='".$buyer_email."') AND (agent='".$row2['P_agent2']."')") or die(mysql_error());
+    $res5 = mysql_query("UPDATE `users` SET `P_agent2`='".$new_agent_id."', `P_agent2_assign_time`='".date('U')."' WHERE email='".$buyer_email."'") or die(mysql_error());
+    
+    // Get the name of the agent removed
+    $result6 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$row2['P_agent']."')" ) or die("Couldn't execute query.".mysql_error());
+    $row6 = mysql_fetch_array($result6,MYSQL_ASSOC); 
+    $old_agent_email = $row6['name'];
+    $agent_email = $row6['email'];
+    
+    // Send email to agent that they have been removed from account.
+    $message = "Hello ". $agent_name . ",<br><br>";
+    $message .= "An administrator has removed you as $buyer_name's primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($old_agent_email);
+    $mail->Subject = 'HomePik.com Lost Buyer';
+    $mail->Body = $message;
+    $mail->send();
+  }
+  
+  // Get the name of the agent reassigned to the buyer
+  $result7 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$new_agent_id."')" ) or die("Couldn't execute query.".mysql_error());
+  $row7 = mysql_fetch_array($result7,MYSQL_ASSOC); 
+  $agent_name = $row7['name'];
+  $new_agent_email = $row7['email'];
+  
+  // Send email to agent that they have been added to the buyer's account.
+  $message = "Hello ". $agent_name . ",<br><br>";
+  $message .= "An administrator has assigned you as $buyer_name's primary agent.\n\n ";
+  $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+  $message .= "HomePik.com is licensed by Nice Idea Media";
+  
+  $mail->ClearAllRecipients(); // Clear all recipients
+  $mail->addAddress($new_agent_email);
+  $mail->Subject = 'HomePik.com Gained Buyer';
+  $mail->Body = $message;
+  $mail->send();
+  
+  // Send email to buyer that an agent have been reassigned to the account.
+  $message = "Hello ". $buyer_name . ",<br><br>";
+  $message .= "An administrator has reassigned you a new agent. $agent_name is now one of your primary agent.\n\n ";
+  $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+  $message .= "HomePik.com is licensed by Nice Idea Media";
+  
+  $mail->ClearAllRecipients(); // Clear all recipients
+  $mail->addAddress($buyer_email);
+  $mail->Subject = 'HomePik.com Agent Reassigned';
+  $mail->Body = $message;
+  $mail->send();
 }; // REASSIGN BUYER'S AGENT END
+
+// REMOVE BUYER'S AGENT
+if(isset($_GET['removeAgent'])){
+  $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
+  $db = mysql_select_db('sp', $con) or die(mysql_error());
+  $buyer_email = $_GET['buyer'];  
+  
+  if($_GET['agent'] == "agent1"){
+    // Get buyer's information
+    $result = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, P_agent, P_agent2 FROM `users` WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error());
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);  
+    $buyer_name = $row['name'];
+    $id = $row['P_agent'];
+    $id2 = $row['P_agent2'];
+    
+    // Get the first agent's information
+    $result2 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+    $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);  
+    $old_agent_email = $row2['email'];
+    $agent_name = $row2['name'];
+    
+    // Get folder associated with first agent
+    $result3 = mysql_query( "SELECT name FROM `users_folders` WHERE (user = '".$buyer_email."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+    while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC)){
+      $name = $row3['name'];
+    
+      // Check if buyer has second agent
+      if($id2 == "" || $id2 == null){
+        // buyer only has one agent associated with their account
+        mysql_query( "UPDATE `saved_listings` SET agent='' WHERE (user = '".$buyer_email."') AND (agent = '".$agent."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the agent from the listings
+        mysql_query( "UPDATE `Users_Search` SET agent='' WHERE (email = '".$buyer_email."') AND (name = '".$name."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the agent from the formula associated with the folder
+        mysql_query( "UPDATE `users_folders` SET agent='' WHERE (user = '".$buyer_email."') AND (name = '".$name."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the agent from the folder
+        mysql_query( "UPDATE `users` SET P_agent='', P_agent_assign_time=0 WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the first agent from the buyer's account
+      }
+      else{
+        // buyer has a second agent associated with their account        
+        mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$buyer_email."') AND (folder = '".$name."')" )  or die(mysql_error()); // Delete the listings inside that folder.   
+        mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (name = '".$name."')" )  or die(mysql_error()); // Delete the buying formula associated with the folder.              
+        mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$buyer_email."') AND (name = '".$name."') AND (agent = '".$id."')" ) or die("Couldn't execute query.".mysql_error()); // Delete the folder                
+        mysql_query( "UPDATE `users` set P_agent=P_agent2, P_agent_assign_time=P_agent2_assign_time, P_agent2='', P_agent2_assign_time=0 WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the first agent from the buyer's account and replace with the second agent
+        mysql_query( "UPDATE `saved_listings` SET folder='Folder 1' WHERE (user = '".$buyer_email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error()); // Move all listings with second agent from Folder 2 to Folder 1       
+        mysql_query( "UPDATE `Users_Search` SET name='Folder 1' WHERE (email = '".$buyer_email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error()); // Rename formula with second agent from Folder 2 to Folder 1
+        mysql_query( "UPDATE `users_folders` SET name='Folder 1' WHERE (user = '".$buyer_email."') AND (agent = '".$id2."')" ) or die("Couldn't execute query.".mysql_error()); // Rename folder with second agent from Folder 2 to Folder 1
+      }
+    }
+  
+    // Send email to agent that they have been removed from the account.
+    $message = "Hello ". $agent_name . ",<br><br>";
+    $message .= "An administrator has removed you as $buyer_name's primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($old_agent_email);
+    $mail->Subject = 'HomePik.com Lost Buyer';
+    $mail->Body = $message;
+    $mail->send();
+    
+    // Send email to buyer that an agent have been removed from account.
+    $message = "Hello ". $buyer_name . ",<br><br>";
+    $message .= "An administrator has removed $agent_name as your primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($buyer_email);
+    $mail->Subject = 'HomePik.com Agent Removed';
+    $mail->Body = $message;
+    $mail->send();
+  }
+  else if($_GET['agent'] == "agent2"){
+    //Get user information and agent 2 id
+    $result = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, P_agent2 FROM `users` WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error());
+    $row = mysql_fetch_array($result,MYSQL_ASSOC);
+    $buyer_name = $row['name'];
+    $id = $row['P_agent2'];
+    
+    // Get agent 2's information
+    $result2 = mysql_query( "SELECT CONCAT(first_name, ' ' ,last_name) as name, email FROM `registered_agents` WHERE (agent_id = '".$id."')" ) or die("Couldn't execute query.".mysql_error());
+    $row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+    $old_agent_email = $row2['email'];
+    $agent_name = $row2['name'];
+    
+    // Get the folder associated with that agent.
+    $result3 = mysql_query( "SELECT name, agent FROM `users_folders` WHERE (user = '".$buyer_email."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error());
+    while($row3 = mysql_fetch_array($result3,MYSQL_ASSOC)){
+      $name = $row3['name'];
+      $agents = $row3['agent'];
+      
+      mysql_query( "DELETE FROM `saved_listings` WHERE (user = '".$buyer_email."') AND (folder = '".$name."')" )  or die(mysql_error()); // Delete the listings inside that folder.     
+      mysql_query( "DELETE FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (name = '".$name."')" )  or die(mysql_error()); // Delete the buying formula associated with the folder.      
+      mysql_query( "DELETE FROM `users_folders` WHERE (user = '".$buyer_email."') AND (name = '".$name."') AND (agent LIKE '%".$id."%')" ) or die("Couldn't execute query.".mysql_error()); // Delete the folder
+    }
+     
+    mysql_query( "UPDATE `users` SET P_agent2='', P_agent2_assign_time=0 WHERE (email = '".$buyer_email."')" ) or die("Couldn't execute query.".mysql_error()); // Remove the agent from the buyer's account
+    
+    // Send email to agent that they have been removed from account.
+    $message = "Hello ". $agent_name . ",<br><br>";
+    $message .= "An administrator has removed you as $buyer_name's primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($old_agent_email);
+    $mail->Subject = 'HomePik.com Lost Buyer';
+    $mail->Body = $message;
+    $mail->send();
+    
+    // Send email to buyer that an agent have been removed from account.
+    $message = "Hello ". $buyer_name . ",<br><br>";
+    $message .= "An administrator has removed $agent_name as your primary agent.\n\n ";
+    $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+    $message .= "HomePik.com is licensed by Nice Idea Media";
+    
+    $mail->ClearAllRecipients(); // Clear all recipients
+    $mail->addAddress($buyer_email);
+    $mail->Subject = 'HomePik.com Agent Removed';
+    $mail->Body = $message;
+    $mail->send();
+  }  
+}; // REMOVE BUYER'S AGENT END
 ?>

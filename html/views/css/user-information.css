@@ -5,8 +5,8 @@
 #u8521-1{	z-index: 47;	max-width: 100%;	min-height: 460px;	background-color: transparent;	line-height: 25px;	font-size: 18px;	margin-top: 10px;	padding-bottom: 50px; }
 #u8522-1{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; font-weight: bold; color: #0085C6; }
 #userTypeSelect, #userSelect{ padding-bottom: 15px; }
-#reassignAgent{ color: #7F7F7F; cursor: pointer; font-family: lato, sans-serif; font-size: 15px; font-weight: 300; font-style: italic; line-height: 18px; margin-left: 5px; }
-#reassignAgent:hover { color: #0085C6; text-decoration: none; }
+#reassignAgent, #removeAgent{ color: #7F7F7F; cursor: pointer; font-family: lato, sans-serif; font-size: 15px; font-weight: 300; font-style: italic; line-height: 18px; margin-left: 5px; }
+#reassignAgent:hover, #removeAgent:hover { color: #0085C6; text-decoration: none; }
 
 .ui-widget-overlay{ z-index: 600; }
 #overlay{ background-color: white; display: none; height: 110%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
@@ -36,6 +36,7 @@ input[type="radio"].indent{ margin-left: 12px; }
 
 .viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; }
 .viewBuyerInfoPopup .ui-resizable-handle{ display: none !important; }
+#closeBuyerInformationPopup{ color: #B2B2B2; cursor: pointer; text-align: right; width: 100%; }
 #buyerInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
 #buyerInformationTop #closePopup{ left: 510px !important; }
 #buyerInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
@@ -99,21 +100,17 @@ input[type="radio"].indent{ margin-left: 12px; }
 	#tableHeader, #fullTable, .midTable{ display: none;	}
 	.smallTable{ display: block;	}
 }
-
 @media (max-width: 767px){
 	.folderDetails.col-xs-4, .folderDetails.col-xs-12{ padding-bottom: 0px; padding-top: 10px;	}
 	.folderDetails.col-xs-4.indent, .folderDetails.col-xs-12.indent{ padding-left: 10px;	}
 }
-
 @media (min-width: 768px) and (max-width: 1075px){
 	.folderDetails{ width: auto; padding-left: 0px; padding-right: 10px;	}
 }
-
 @media (min-width: 651px) and (max-width: 1000px){
 	#tableHeader, #fullTable, .smallTable{ display: none;	}
 	.midTable{ display: block;	}
 }
-
 @media (min-width: 1001px){
 	#tableHeader, #fullTable{ display: block;	}
 	.midTable, .smallTable{ display: none;	}

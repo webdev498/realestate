@@ -249,18 +249,30 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       var m = this.state.month;
       var d = this.state.day;
       var y = this.state.year;
+      var status = true;
       
-      if( (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d <= 31 || d == "default") ){ return true; } // Check if month has 31 days
-      else if( (m == 4 || m == 6 || m == 9 || m == 11) && (d <= 30 || d == "default") ){ return true; } // Check if month has 30 days
-      else if( m == 2 && d == "default" ){ return true; } // February only selected no day
+      if( (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d <= 31 || d == "default") ){ status = true; } // Check if month has 31 days
+      else if( (m == 4 || m == 6 || m == 9 || m == 11) && (d <= 30 || d == "default") ){ status = true; } // Check if month has 30 days
+      else if( m == 2 && d == "default" ){ status = true; } // February only selected no day
       else if( m == 2 && d != "default" ){ // February and day selected 
-        if( ( ( ( y % 4 == 0 ) && ( y % 100 != 0) ) || ( year % 400 == 0 ) ) && (d <= 29 || d == "default" ) ){ return true; } // Leap year day <= 29
+        if( ( ( ( y % 4 == 0 ) && ( y % 100 != 0) ) || ( year % 400 == 0 ) ) && (d <= 29 || d == "default" ) ){ status = true; } // Leap year day <= 29
         else{
-          if( d <= 28 ){ return true; } // Not leap year day <= 28
-          else{ return false; } // Invalid date
+          if( d <= 28 ){ status = true; } // Not leap year day <= 28
+          else{ status = false; } // Invalid date
         }
       }
-      else{ return false; } // Invalid date
+      else{ status = false; } // Invalid date
+      
+      if(status){
+        var inputDate = new Date(m + "/" + d + "/" + y); // Create date from input value
+        var todaysDate = new Date(); // Get today's date
+              
+        // setHours to 0 to remove time
+        if(inputDate.setHours(0,0,0,0) <= todaysDate.setHours(0,0,0,0)){ status = true; }
+        else{ status = false; }
+      }
+      
+      return status;
     },
     getActivity: function(){
       if(this.state.month == "default" || this.state.year == "default"){ // Check if a date is defaulted

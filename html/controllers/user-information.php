@@ -276,6 +276,22 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         }
       }.bind(this), 1000)
     },
+    removeAgent: function(agent){
+      $.get("ajax.php", {
+        removeAgent: 'true',
+        buyer: this.state.buyerInfo['email'],
+        agent: agent,
+        success: function(result){
+          var ajaxStop = 0;
+          $(document).ajaxStop(function() {
+            if(ajaxStop == 0){
+              ajaxStop++;
+              this.getBuyerInfo();
+            }
+          }.bind(this));
+        }.bind(this)
+      });
+    },
     closePopup: function(){
       {this.props.closeDialog()}
     },
@@ -317,7 +333,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     <td className="text-popups">{this.state.reassign_agent1 == "true" ?
                       <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
                     :
-                      <span>{this.state.buyerInfo['P_agent']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
+                      <span>{this.state.buyerInfo['P_agent']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a> &nbsp;<a id="removeAgent" onClick={this.removeAgent.bind(this, "agent1")}>remove</a></span>
                     } </td>
                   : <td className="text-popups">No Agent</td> }
                 </tr>
@@ -327,7 +343,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     <td className="text-popups">{this.state.reassign_agent2 == "true" ?
                       <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
                     :
-                      <span>{this.state.buyerInfo['P_agent2']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
+                      <span>{this.state.buyerInfo['P_agent2']} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a> &nbsp;<a id="removeAgent" onClick={this.removeAgent.bind(this, "agent2")}>remove</a></span>
                     } </td>
                   </tr>
                 : null}                        
@@ -359,8 +375,18 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         month: "default",
         day: "default",
         year: "default",
+        years: [],
         activity: []
       };
+	  },
+	  componentDidMount: function(){
+      var currentTime = new Date(); // Return today's date and time
+      var year = parseInt(currentTime.getFullYear()); // returns the year (four digits) as integer
+      var dates = [];
+      for(var i=2015; i <= year; i++){
+        dates.push(i);
+      }
+      this.setState({years: dates});
 	  },
     handleChange: function (name, event) {
       var change = {};
@@ -650,6 +676,22 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         }
       }.bind(this), 1000)
     },
+    removeAgent: function(agent){
+      $.get("ajax.php", {
+        removeAgent: 'true',
+        buyer: this.state.selected_user_info.email,
+        agent: agent,
+        success: function(result){
+          var ajaxStop = 0;
+          $(document).ajaxStop(function() {
+            if(ajaxStop == 0){
+              ajaxStop++;
+              this.getBuyerInformation(this.state.selected_user_info.email);
+            }
+          }.bind(this));
+        }.bind(this)
+      });
+    },
     openFolder: function(name){
 		  if(this.state.openFolder != name){ this.setState({openFolder: name}); }
 		  else{ this.setState({openFolder: ""}); }
@@ -730,18 +772,30 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       var m = this.state.month;
       var d = this.state.day;
       var y = this.state.year;
+      var status = true;
       
-      if( (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d <= 31 || d == "default") ){ return true; } // Check if month has 31 days
-      else if( (m == 4 || m == 6 || m == 9 || m == 11) && (d <= 30 || d == "default") ){ return true; } // Check if month has 30 days
-      else if( m == 2 && d == "default" ){ return true; } // February only selected no day
+      if( (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d <= 31 || d == "default") ){ status = true; } // Check if month has 31 days
+      else if( (m == 4 || m == 6 || m == 9 || m == 11) && (d <= 30 || d == "default") ){ status = true; } // Check if month has 30 days
+      else if( m == 2 && d == "default" ){ status = true; } // February only selected no day
       else if( m == 2 && d != "default" ){ // February and day selected 
-        if( ( ( ( y % 4 == 0 ) && ( y % 100 != 0) ) || ( year % 400 == 0 ) ) && (d <= 29 || d == "default" ) ){ return true; } // Leap year day <= 29
+        if( ( ( ( y % 4 == 0 ) && ( y % 100 != 0) ) || ( year % 400 == 0 ) ) && (d <= 29 || d == "default" ) ){ status = true; } // Leap year day <= 29
         else{
-          if( d <= 28 ){ return true; } // Not leap year day <= 28
-          else{ return false; } // Invalid date
+          if( d <= 28 ){ status = true; } // Not leap year day <= 28
+          else{ status = false; } // Invalid date
         }
       }
-      else{ return false; } // Invalid date
+      else{ status = false; } // Invalid date
+      
+      if(status){
+        var inputDate = new Date(m + "/" + d + "/" + y); // Create date from input value
+        var todaysDate = new Date(); // Get today's date
+              
+        // setHours to 0 to remove time
+        if(inputDate.setHours(0,0,0,0) <= todaysDate.setHours(0,0,0,0)){ status = true; }
+        else{ status = false; }
+      }
+      
+      return status;
     },
     getAgentActivity: function(){    
       if(this.state.month == "default" || this.state.year == "default"){ // Check if a date is defaulted
@@ -827,6 +881,11 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       var buyers = this.state.agents_buyers.map(function(buyer) {
         return(
           <p><a style={{cursor: "pointer"}} onClick={this.viewBuyerInfo.bind(this, buyer.email)}>{buyer.first_name} {buyer.last_name}</a></p>
+        );
+      }.bind(this));
+      var years = this.state.years.map(function(year) {
+        return(
+          <option value={year}>{year}</option>
         );
       }.bind(this));
       var folders = this.state.buyer_folders.map(function (folder) {
@@ -1070,7 +1129,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                                     <td>{this.state.reassign_agent1 == "true" ?
                                       <span><input type="text" id="formAgent" className="agent-code input1" name="agent1-code" value={this.state.agent1_id} onChange={this.handleChange.bind(this, 'agent1_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent1")}>assign</a></span>
                                     :
-                                      <span>{this.state.selected_user_info.P_agent} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a></span>
+                                      <span>{this.state.selected_user_info.P_agent} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent1")}>reassign</a> &nbsp;<a id="removeAgent" onClick={this.removeAgent.bind(this, "agent1")}>remove</a></span>
                                     } </td>
                                   :
                                     <td>N/A</td>
@@ -1082,7 +1141,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                                     <td>{this.state.reassign_agent2 == "true" ?
                                       <span><input type="text" id="formAgent" className="agent-code input1" name="agent2-code" value={this.state.agent2_id} onChange={this.handleChange.bind(this, 'agent2_id')} onFocus={this.getAgentsForInput}/> <a id="reassignAgent" onClick={this.assignAgent.bind(this, "agent2")}>assign</a></span>
                                     :
-                                      <span>{this.state.selected_user_info.P_agent2} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a></span>
+                                      <span>{this.state.selected_user_info.P_agent2} <a id="reassignAgent" onClick={this.handleReassignAgent.bind(this, "agent2")}>reassign</a> &nbsp;<a id="removeAgent" onClick={this.removeAgent.bind(this, "agent2")}>remove</a></span>
                                     } </td>
                                   </tr>
                                 : null}
@@ -1117,7 +1176,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                       </select>
                       <select id="year" onChange={this.handleChange.bind(this, 'year')}>
                         <option value="default">Year</option>
-                        <option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option>
+                        {years}
                       </select>
                       <button onClick={this.getAgentActivity}>View Activity</button>
                       <div id="userActivityInfo">
