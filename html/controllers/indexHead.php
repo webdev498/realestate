@@ -26,6 +26,7 @@
     <script src="https://webfonts.creativecloud.com/lato:n3,n7:default.js" type="text/javascript"></script>
     <script type="text/javascript"> touch = false;</script>
     <script src="/js/jquery/jquery-1.10.2.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
     <?php include_javascript("/static/js/bundle/app.js"); ?>
     <script>

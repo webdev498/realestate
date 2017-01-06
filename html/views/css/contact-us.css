@@ -58,3 +58,7 @@
 	#second-panel, #third-panel, #fourth-panel, #fifth-panel{ border: none; }
 	#fifth-panel{ min-height: 1px; }
 }
+@media (min-width: 400px){
+	#col-one, #col-two{ width: 50% !important; }
+	#col-two .panel-heading{ display: block !important; }
+}

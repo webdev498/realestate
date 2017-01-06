@@ -18,6 +18,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
   <div id="manageAgents"></div>
   <div id="footer"></div>
   <div id="overlay"></div>
+  <div id="edit-agent"></div>
   <div id='ajax-box'></div>
   <div id='ajax-box2'></div>
 <script type="text/babel">
@@ -383,14 +384,14 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         success: function(data){
           var info = JSON.parse(data);
           
-          var $dialog =  $("#ajax-box").dialog({
+          var $dialog =  $("#edit-agent").dialog({
             width: 560,
             dialogClass: 'ajaxbox editAgentInfoPopup',
             modal: true,
             close: function(){
-              ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+              ReactDOM.unmountComponentAtNode(document.getElementById('edit-agent'));
               var div = document.createElement('div');
-              div.id = 'ajax-box';
+              div.id = 'edit-agent';
               document.getElementsByTagName('body')[0].appendChild(div);
               $( this ).remove();
             },

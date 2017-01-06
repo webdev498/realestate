@@ -675,6 +675,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
   .searchAddress, #searchAddress{ margin-top: 30px !important }
   .thead-container, #jqGrid_container {-moz-transform: scale(0.26, 0.26); zoom: 0.26; zoom: 26%;}
   #gbox_list{ top: 500px !important; }
+  #searchResultsFooter{ position: relative; width: 100%; }
 }
 @media only screen and ( min-width: 320px ) and ( max-width: 360px ){
   body{ min-width: 0; }
@@ -688,10 +689,11 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
   .searchAddress{ margin-top: 57px !important }
   .thead-container, #jqGrid_container {-moz-transform: scale(0.3, 0.3); zoom: 0.3; zoom: 30%;}
   #gbox_list{ top: 445px !important; }
+  #searchResultsFooter{ position: relative; width: 100%; }
 }
 @media ( min-width: 361px ) and ( max-width: 480px ){
   body{ min-width: 0; }
-  #reg-or-not-popup{ height: 96% !important; margin: -45px 0 0 -175px; min-height: 0 !important; width: 470px !important; }
+  #reg-or-not-popup{ height: 96% !important; margin: -95px 0 0 -135px; min-height: 0 !important; width: 355px !important; }
   #reg-or-not-popup .regOrNotBody{ padding: 136px 0 0; }
   #reg-or-not-popup p:first-child{ width: 100%; }
   #searchresultsheader{ height: 90px; }
@@ -702,6 +704,7 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
   .searchAddress{ margin-top: 57px !important }
   .thead-container, #jqGrid_container {-moz-transform: scale(0.3, 0.3); zoom: 0.3; zoom: 30%;}
   #gbox_list{ top: 390px !important; }
+  #searchResultsFooter{ position: relative; width: 100%; }
 }
 @media ( min-width: 481px ) and ( max-width: 640px ){
   body{ min-width: 0; }
@@ -713,6 +716,21 @@ div.speech::after { border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #ffffff #fff
   #searchresultsheader #what_symbol_means{ margin: 0; max-width: 100%; width: 100% !important; }
   #main #addressSearch{ float: left; width: 100% !important; }
   .thead-container, #jqGrid_container {-moz-transform: scale(0.53, 0.53); zoom: 0.53; zoom: 53%;}
+  #searchResultsFooter{ position: relative; width: 100%; }
+}
+@media ( min-width: 641px ) and ( max-width: 767px ){
+  body{ min-width: 0; }
+  #reg-or-not-popup{ height: 340px !important; margin: -50px 0 0 -200px; min-height: 0 !important; }
+  #reg-or-not-popup .regOrNotBody{ padding: 136px 0 0; }
+  #reg-or-not-popup p:first-child{ width: 100%; }
+  #searchresultsheader{ height: 110px; }
+  #searchresultsheader #logo{ margin-left: 7px; width: 35% !important; }
+  #searchresultsheader #what_symbol_means{ margin: 0; max-width: 100%; width: 100% !important; }
+  #main #addressSearch{ float: left; width: 100% !important; }
+  .thead-container, #jqGrid_container {-moz-transform: scale(0.55, 0.55); zoom: 0.55; zoom: 55%;}
+  #scrollwrapper{ top: 60px !important; }
+  #scroller{height: 685px;}
+  #searchResultsFooter{ position: relative; width: 100%; }
 }
 @media only screen and (min-device-width : 501px) and (max-device-width : 1024px) and (orientation:portrait)  {
   .table-header .amenitiesmenu{ margin-left: 555px; top: 260px; }

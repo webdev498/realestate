@@ -37,7 +37,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 					<AddressSearch mainPage={this.state.mainPage} />
 					<div className="container-fluid contactContent">
 						<div className="row">
-							<div className="col-md-5ths col-xs-5ths">
+							<div className="col-md-5ths col-xs-5ths" id="col-one">
 								<h2 className="panel-heading" id="u6262-4">Our company</h2>
 								<div className="panel">
 									<div className="panel-body" id="first-panel">
@@ -57,7 +57,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 									</div>
 								</div>
 							</div>
-							<div className="col-md-5ths col-xs-5ths">
+							<div className="col-md-5ths col-xs-5ths" id="col-two">
 								<h2 className="panel-heading empty-heading" id="u6262-4">&nbsp;&nbsp;</h2>
 								<div className="panel">
 									<div className="panel-body panel-border" id="second-panel">
@@ -76,7 +76,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 									</div>
 								</div>
 							</div>
-							<div className="col-md-5ths col-xs-5ths">
+							<div className="col-md-5ths col-xs-5ths" id="col-three">
 								<h2 className="panel-heading" id="u6262-4">Contact us</h2>
 								<div className="panel">
 									<div className="panel-body panel-border" id="third-panel">
@@ -88,7 +88,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 									</div>
 								</div>
 							</div>
-							<div className="col-md-5ths col-xs-5ths">
+							<div className="col-md-5ths col-xs-5ths" id="col-four">
 								<h2 className="panel-heading" id="u6262-4">Press</h2>
 								<div className="panel">
 									<div className="panel-body panel-border" id="fourth-panel">
@@ -98,7 +98,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 									</div>
 								</div>
 							</div>
-							<div className="col-md-5ths col-xs-5ths">
+							<div className="col-md-5ths col-xs-5ths" id="col-five">
 								<h2 className="panel-heading" id="u6262-4">Investors</h2>
 								<div className="panel">
 									<div className="panel-body panel-border" id="fifth-panel">
