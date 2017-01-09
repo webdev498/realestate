@@ -354,7 +354,7 @@ if (isset($_POST['report-submit'])) {
 	$listYear = $_POST['listYear'];
 	$listArea = $_POST['listArea'];
 
-  if (($listMonth == "blank") || ($listYear == "blank") || ($listYearArea == "blank"))
+  if (($listMonth == "blank") || ($listYear == "blank") || ($listArea == "blank"))
 		{
 			//DO NOT SUBMIT
 			//Show pop up instead
@@ -833,7 +833,7 @@ if (isset($_POST['listings-yearly'])) {
 
       $listBegDay = '01';
       $listBegMonth = '01';
-  		$listMonthName = date('F', mktime(0, 0, 0, $listMonth, 10));
+  		$listMonthName = date('F', mktime(0, 0, 0, $month, 10));
     	$listBegDate = $year . '-' . $listBegMonth . '-' . $listBegDay;
       $listEndDate = $year . '-' . $month . '-' . $listDay;
       $chartStartDate = $listBegMonth . '-' . $listBegDay . '-' . $year;

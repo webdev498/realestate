@@ -179,8 +179,8 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             }.bind(this));
           }.bind(this)
         });
+		{this.props.closeDialog()}
       }
-	  {this.props.closeDialog()}
 	  
     },
     closePopup: function(){
