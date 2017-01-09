@@ -37,8 +37,8 @@ input[type="radio"].indent{ margin-left: 12px; }
 .viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; }
 .viewBuyerInfoPopup .ui-resizable-handle{ display: none !important; }
 #closeBuyerInformationPopup{ color: #B2B2B2; cursor: pointer; text-align: right; width: 100%; }
+#bottomCloseBuyerInformationPopup{ color: #646464; cursor: pointer; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding-bottom: 20px; text-align: right; }
 #buyerInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
-#buyerInformationTop #closePopup{ left: 510px !important; }
 #buyerInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
 #buyerInformationBorder{ margin:auto; padding: 0 40px; }
 #buyerInformationArea input{ color: #646464; font-family: lato, sans-serif !important; font-size: 18px !important; font-weight: 300; line-height: 25px; padding: 0px 3px; width: 240px }

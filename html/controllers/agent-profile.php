@@ -264,6 +264,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       else{ status = false; } // Invalid date
       
       if(status){
+        if(d == "default"){ d = 1; }
         var inputDate = new Date(m + "/" + d + "/" + y); // Create date from input value
         var todaysDate = new Date(); // Get today's date
               

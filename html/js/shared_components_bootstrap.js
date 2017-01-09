@@ -227,11 +227,10 @@ var AddBuyer = React.createClass({
         url: "/controllers/check-buyer.php",
         data: {"email": email},
         success: function(data){
-          console.log("success");
           var info = jQuery.parseJSON(data);
 
           // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
-          if(info == null){
+          if(info == null || info == false){
 
             $.get("/controllers/ajax.php", {
               addBuyer: 'true',
@@ -248,14 +247,14 @@ var AddBuyer = React.createClass({
                   dialogClass: 'ajaxbox confirmationMessage buyerAdded',
                   buttons: {
                     "View Buyer": function(){
-                      window.location = "/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
-                    },
+                      window.location = "/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname+"&MP="+this.props.mainPage;
+                    }.bind(this),
                     "Close": function(){                        
-                      $( this ).dialog( "destroy" );
+                      $( "#ajax-box2" ).dialog( "destroy" );
                     }
                   },
                   close: function() {
-                    $( this ).dialog( "destroy" );
+                    $( "#ajax-box2" ).dialog( "destroy" );
                   },
                   open: function(){
                     $(".ui-widget-overlay").bind("click", function(){
@@ -266,7 +265,7 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').load('/controllers/messages.php #add_buyer_added_confirmation',function(){
                   $('#ajax-box2').dialog('open');
                 });
-              }
+              }.bind(this)
             });
             
             {this.props.closeDialog()}
@@ -288,12 +287,12 @@ var AddBuyer = React.createClass({
                 dialogClass: 'ajaxbox errorMessage buyerExistsMadePrimary',
                 buttons: {
                   close: function(){
-                    $(this).dialog("destroy");
-                    window.location = "/controllers/buyers.php";
-                  }
+                    $("#ajax-box2").dialog("destroy");
+                    window.location = "/controllers/buyers.php?MP="+this.props.mainPage;
+                  }.bind(this)
                 },
                 close: function() {
-                  $( this ).dialog( "destroy" );
+                  $( "#ajax-box2" ).dialog( "destroy" );
                 },
                 open: function(){
                   $(".ui-widget-overlay").bind("click", function(){
@@ -333,12 +332,12 @@ var AddBuyer = React.createClass({
                       dialogClass: 'ajaxbox errorMessage buyerExistsMadeSecondary',
                       buttons: {
                         close: function(){
-                          $(this).dialog("destroy");
-                          window.location = "/controllers/buyers.php";
-                        }
+                          $("#ajax-box2").dialog("destroy");
+                          window.location = "/controllers/buyers.php?MP="+this.props.mainPage;
+                        }.bind(this)
                       },
                       close: function() {
-                        $( this ).dialog( "destroy" );
+                        $( "#ajax-box2" ).dialog( "destroy" );
                       },
                       open: function(){
                         $(".ui-widget-overlay").bind("click", function(){
@@ -361,12 +360,12 @@ var AddBuyer = React.createClass({
                       dialogClass: 'ajaxbox errorMessage alreadyAgent',
                       buttons: {
                         close: function(){
-                          $(this).dialog("destroy");
-                          window.location = "/controllers/buyers.php";
-                        }
+                          $("#ajax-box2").dialog("destroy");
+                          window.location = "/controllers/buyers.php?MP="+this.props.mainPage;
+                        }.bind(this)
                       },
                       close: function() {
-                        $( this ).dialog( "destroy" );
+                        $( "#ajax-box2" ).dialog( "destroy" );
                       },
                       open: function(){
                         $(".ui-widget-overlay").bind("click", function(){
@@ -380,7 +379,7 @@ var AddBuyer = React.createClass({
 
                     {this.props.closeDialog()}
                   }
-                }
+                }.bind(this)
               });
             }
             // IF THEY HAVE TWO AGENTS DISPLAY POPUP WITH ALERT
@@ -1742,7 +1741,7 @@ window.NavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
+    ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email} mainPage={this.props.mainPage}/>, $dialog[0]);
   },
   logout: function(){
     $.removeCookie("previousPage");
@@ -1984,7 +1983,7 @@ window.MenuNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email}/>, $dialog[0]);
+    ReactDOM.render(<AddBuyer closeDialog={closeDialog} agent_email={this.state.email} mainPage={'menu'}/>, $dialog[0]);
   },
   logout: function(){
     $.removeCookie("previousPage");

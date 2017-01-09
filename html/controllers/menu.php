@@ -247,7 +247,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
             var info = jQuery.parseJSON(data);
 
             // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
-            if(info == null){
+            if(info == null || info == false){
               $.get("ajax.php", {
                 addBuyer: 'true',
                 firstname: firstname,
@@ -263,7 +263,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     dialogClass: 'ajaxbox confirmationMessage buyerAdded',
                     buttons: {
                       "View Buyer": function(){
-                        window.location = "buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
+                        window.location = "buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname+"&MP=menu";
                       },
                       "Close": function(){                        
                         $( this ).dialog( "destroy" );
@@ -304,7 +304,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                   buttons: {
                     close: function(){
                       $(this).dialog("destroy");
-                      window.location = "buyers.php";
+                      window.location = "buyers.php?MP=menu";
                     }
                   },
                   close: function() {
@@ -349,7 +349,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                         buttons: {
                           close: function(){
                             $(this).dialog("destroy");
-                            window.location = "buyers.php";
+                            window.location = "buyers.php?MP=menu";
                           }
                         },
                         close: function() {
@@ -377,7 +377,7 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                         buttons: {
                           close: function(){
                             $(this).dialog("destroy");
-                            window.location = "buyers.php";
+                            window.location = "buyers.php?MP=menu";
                           }
                         },
                         close: function() {

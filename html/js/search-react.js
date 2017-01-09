@@ -205,7 +205,7 @@ window.CriteriaNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    ReactDOM.render(<AddBuyer email={this.props.email} closeDialog={closeDialog}/>, $dialog[0]);
+    ReactDOM.render(<AddBuyer email={this.props.email} closeDialog={closeDialog} mainPage={'criteria'}/>, $dialog[0]);
   },
   logout: function(){
     $.removeCookie("previousPage");
@@ -444,7 +444,7 @@ window.SearchNavBar = React.createClass({
       $dialog.dialog('close');
     }
 
-    ReactDOM.render(<AddBuyer email={this.props.email} closeDialog={closeDialog}/>, $dialog[0]);
+    ReactDOM.render(<AddBuyer email={this.props.email} closeDialog={closeDialog} mainPage={'results'}/>, $dialog[0]);
   },
   logout: function(){
     $.removeCookie("previousPage");
@@ -3053,8 +3053,8 @@ $('body').delegate('.need-to-signup-first-div-link', 'click', function (e){
 $('body').delegate('#reg-or-not-popup-closer', 'click', function (e){
   $("#reg-or-not-popup").dialog('close');
 });
-
 /*guest resgister popup ends*/
+
 var AddBuyer = React.createClass({
   getInitialState: function() {
     return{
@@ -3217,7 +3217,7 @@ var AddBuyer = React.createClass({
           var info = jQuery.parseJSON(data);
 
           // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
-          if(info == null){
+          if(info == null || info == false){
             $.get("/controllers/ajax.php", {
               addBuyer: 'true',
               firstname: firstname,
@@ -3233,14 +3233,14 @@ var AddBuyer = React.createClass({
                   dialogClass: 'ajaxbox confirmationMessage',
                   buttons: {
                     "View Buyer": function(){
-                      window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
-                    },
+                      window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname+"MP="+this.props.mainPage;
+                    }.bind(this),
                     "Close": function(){
-                      $( this ).dialog( "destroy" );
+                      $( "#ajax-box2" ).dialog( "destroy" );
                     }
                   },
                   close: function() {
-                    $( this ).dialog( "destroy" );
+                    $( "#ajax-box2" ).dialog( "destroy" );
                   },
                   open: function(){
                     $(".ui-widget-overlay").bind("click", function(){
@@ -3251,7 +3251,7 @@ var AddBuyer = React.createClass({
                 $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
                   $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
                 });
-              }
+              }.bind(this)
             });
 
             {this.props.closeDialog()}
@@ -3273,12 +3273,12 @@ var AddBuyer = React.createClass({
                 dialogClass: 'ajaxbox errorMessage',
                 buttons: {
                   Ok: function(){
-                    $(this).dialog("destroy");
-                    window.location = "http://homepik.com/controllers/buyers.php";
-                  }
+                    $("#ajax-box2").dialog("destroy");
+                    window.location = "http://homepik.com/controllers/buyers.php?MP="+this.props.mainPage;
+                  }.bind(this)
                 },
                 close: function() {
-                  $( this ).dialog( "destroy" );
+                  $( "#ajax-box2" ).dialog( "destroy" );
                 },
                 open: function(){
                   $(".ui-widget-overlay").bind("click", function(){
@@ -3318,12 +3318,12 @@ var AddBuyer = React.createClass({
                       dialogClass: 'ajaxbox errorMessage',
                       buttons: {
                         Ok: function(){
-                          $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
-                        }
+                          $("#ajax-box2").dialog("destroy");
+                          window.location = "http://homepik.com/controllers/buyers.php?MP="+this.props.mainPage;
+                        }.bind(this)
                       },
                       close: function() {
-                        $( this ).dialog( "destroy" );
+                        $( "#ajax-box2" ).dialog( "destroy" );
                       },
                       open: function(){
                         $(".ui-widget-overlay").bind("click", function(){
@@ -3346,12 +3346,12 @@ var AddBuyer = React.createClass({
                       dialogClass: 'ajaxbox errorMessage',
                       buttons: {
                         Ok: function(){
-                          $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
-                        }
+                          $("#ajax-box2").dialog("destroy");
+                          window.location = "http://homepik.com/controllers/buyers.php?MP="+this.props.mainPage;
+                        }.bind(this)
                       },
                       close: function() {
-                        $( this ).dialog( "destroy" );
+                        $( "#ajax-box2" ).dialog( "destroy" );
                       },
                       open: function(){
                         $(".ui-widget-overlay").bind("click", function(){
@@ -3365,7 +3365,7 @@ var AddBuyer = React.createClass({
 
                     {this.props.closeDialog()}
                   }
-                }
+                }.bind(this)
               });
             }
             // IF THEY HAVE TWO AGENTS DISPLAY POPUP WITH ALERT
@@ -3379,7 +3379,7 @@ var AddBuyer = React.createClass({
                 buttons: {
                   Ok: function(){
                     $(this).dialog("destroy");
-                    $('#ajax-box').dialog( "option", "title", "Add A New Buyer" ).dialog('destroy');
+                    $('#ajax-box').dialog('destroy');
                   }
                 },
                 close: function() {

@@ -954,6 +954,66 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       );
     }
   });
+  
+  var ViewBuyerInformation = React.createClass({
+    getInitialState: function() {
+      return{
+        buyerInfo: []
+      };
+    },
+    componentWillMount: function(){
+      this.getBuyerInfo();
+    },
+    getBuyerInfo: function(){
+      $.ajax({
+				type: "POST",
+				url: "get-buyers.php",
+				data: {"buyerInformation": "true", "email": this.props.buyer},
+				success: function(data){
+					var buyer = JSON.parse(data);
+					this.setState({buyerInfo: buyer});
+				}.bind(this),
+				error: function(){
+					console.log("failed");
+				}.bind(this)
+		  });
+    },
+    closePopup: function(){
+      {this.props.closeDialog()}
+    },
+    render: function(){
+      return(
+        <div id="buyerInformationArea">
+          <h4 id="closeBuyerInformationPopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
+          <div id="buyerInformationTop">
+            <span id="buyerInformationHeader" className="text-popups">Buyer Information</span>
+            <img src="/images/button_pen_states.png" style={{float: "right"}}/>
+          </div>
+          <div id="buyerInformationBorder">
+            <table cellPadding="2" cellSpacing="0" border="0">
+              <colgroup><col width="250"/><col width="350"/></colgroup>
+              <tbody>
+                <tr>
+                  <td className="text-popups">Name:</td>
+                  <td className="text-popups">{this.state.buyerInfo['first_name']} {this.state.buyerInfo['last_name']}<br/></td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Email:</td>
+                  <td className="text-popups">{this.state.buyerInfo['email']}</td>
+                </tr>
+                <tr>
+                  <td className="text-popups">Phone:</td>
+                  <td className="text-popups">{this.state.buyerInfo['phone'] != "" ? this.state.buyerInfo['phone'] : <span>Not Available</span>}</td>
+                </tr>                      
+              </tbody>
+            </table>
+            <br/>
+            <h4 id="bottomCloseBuyerInformationPopup" onClick={this.closePopup}><span>close</span></h4>
+          </div>
+        </div>
+      );
+    }
+  });
 
 	var Buyers = React.createClass({
 	  getInitialState: function() {
@@ -1247,6 +1307,30 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         });
       }
 	  },
+    viewBuyerInfo: function(email){
+      var $dialog =  $("#ajax-box").dialog({
+				width: 565,
+				dialogClass: 'viewBuyerInfoPopup',
+        modal: true,
+				close: function(){
+					ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
+					var div = document.createElement('div');
+					div.id = 'ajax-box';
+					document.getElementsByTagName('body')[0].appendChild(div);
+					$( this ).remove();
+				},
+        open: function(){
+          $(".ui-widget-overlay").bind("click", function(){
+            $("#ajax-box").dialog('close');
+          });
+        }
+			});
+			var closeDialog = function(){
+				$dialog.dialog('close');
+			}.bind(this)
+
+			ReactDOM.render(<ViewBuyerInformation closeDialog={closeDialog} buyer={email} />, $dialog[0]);
+    },
 	  editBuyer: function(){
       return this.state.editing;
 	  },
@@ -1340,7 +1424,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 </p>
               :
                 <p id="u28564-21" className="buyerName" key={buyer.id}>
-                  <span id="u28564-19"><i className="fa fa-chevron-right"></i></span><span id="u28564-20" style={{cursor:"pointer"}} onClick={this.handleBuyerClick.bind(this, buyer.email, buyer.first_name, buyer.last_name)}>&nbsp; {buyer.last_name}, {buyer.first_name}</span>
+                  <span id="u28564-19"><i className="fa fa-chevron-right"></i></span><span id="u28564-20" style={{cursor:"pointer"}} onClick={this.handleBuyerClick.bind(this, buyer.email, buyer.first_name, buyer.last_name)}>&nbsp; {buyer.last_name}, {buyer.first_name}</span><span>&nbsp;&nbsp;&nbsp;</span><span className="u28562-3"><a style={{cursor: "pointer"}} onClick={this.viewBuyerInfo.bind(this, buyer.email)}>view info</a></span>
                 </p>
               }
               </span>

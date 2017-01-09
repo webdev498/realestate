@@ -774,7 +774,7 @@ var AddBuyer = React.createClass({
           var info = jQuery.parseJSON(data);
 
           // CHECK IF ACCOUNT EXISTS IF NOT CREATE ONE
-          if(info == null){
+          if(info == null || info == false){
             $.get("/controllers/ajax.php", {
               addBuyer: 'true',
               firstname: firstname,
@@ -790,7 +790,7 @@ var AddBuyer = React.createClass({
                   dialogClass: 'ajaxbox confirmationMessage',
                   buttons: {
                     "View Buyer": function(){
-                      window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname;
+                      window.location = "http://homepik.com/controllers/buyers.php?buyer="+email+"&fn="+firstname+"&ln="+lastname+"&MP=address";
                     },
                     "Close": function(){
                       $( this ).dialog( "destroy" );
@@ -832,7 +832,7 @@ var AddBuyer = React.createClass({
                 buttons: {
                   Ok: function(){
                     $(this).dialog("destroy");
-                    window.location = "http://homepik.com/controllers/buyers.php";
+                    window.location = "http://homepik.com/controllers/buyers.php?MP=address";
                   }
                 },
                 close: function() {
@@ -878,7 +878,7 @@ var AddBuyer = React.createClass({
                       buttons: {
                         Ok: function(){
                           $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
+                          window.location = "http://homepik.com/controllers/buyers.php?MP=address";
                         }
                       },
                       close: function() {
@@ -907,7 +907,7 @@ var AddBuyer = React.createClass({
                       buttons: {
                         Ok: function(){
                           $(this).dialog("destroy");
-                          window.location = "http://homepik.com/controllers/buyers.php";
+                          window.location = "http://homepik.com/controllers/buyers.php?MP=address";
                         }
                       },
                       close: function() {
@@ -940,7 +940,7 @@ var AddBuyer = React.createClass({
                 buttons: {
                   Ok: function(){
                     $(this).dialog("destroy");
-                    $('#ajax-box').dialog( "option", "title", "Add A New Buyer" ).dialog('destroy');
+                    $('#ajax-box').dialog('destroy');
                   }
                 },
                 close: function() {

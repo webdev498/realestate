@@ -12,6 +12,15 @@
 .deleteBuyerPopup .ui-resizable-handle{ display: none !important; }
 .formulaLine{ background-color: #C2C2C2; height: 1px; left: 18px; max-width: 850px; position: absolute; width: 99%; z-index: 268; }
 
+.viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; }
+.viewBuyerInfoPopup .ui-resizable-handle{ display: none !important; }
+#closeBuyerInformationPopup{ color: #B2B2B2; cursor: pointer; text-align: right; width: 100%; }
+#bottomCloseBuyerInformationPopup{ color: #646464; cursor: pointer; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding-bottom: 20px; text-align: right; }
+#buyerInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
+#buyerInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
+#buyerInformationBorder{ margin:auto; padding: 0 40px; }
+#buyerInformationArea tr > td{ padding-bottom: 1em !important; }
+
 #noFormulas, #loadingFormulas{ font-size: 18px !important; }
 #overlay{ background-color: white; display: none; height: 100%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
 #u28564-29{ background-color: transparent; font-size: 18px; height: 100%; line-height: 18px; margin-right: -10000px; margin-top: 73px; max-width: 304px; position: relative; width: 100%; z-index: 47; }
