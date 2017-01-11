@@ -44,4 +44,9 @@ textarea{ height: 200px; }
 	#page{ min-width: 100%;	}
 	#agentProfile{ margin-left: 5px;	}
 }
-@media (max-width: 992px){ #profile-section{ margin-left: 15px;	} }
+@media (max-width: 992px){
+	#profile-section{ margin-left: 15px; }
+	#u7132-18{ min-height: 295px; }
+	#activity-section{ width: 100%; }
+	#u7137-86{ border: none; }
+}

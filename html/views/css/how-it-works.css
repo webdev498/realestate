@@ -83,6 +83,11 @@
 	.video-image { margin-left: 0px; text-align: center; }
 	.pdf-image { text-align: center; }
 }
+@media (max-width: 767px){
+	.col-md-5ths{ margin-bottom: 20px; width: 50%; }
+	#col-two, #col-four{ border-right: none; }
+	#col-five .panel-body{ min-height: 330px; }
+}
 @media (max-width: 700px){ #backBtn{ margin-top: -40px; } }
 @media (max-width: 550px){ #backBtn{ margin-top: -75px; } }
 @media (max-width: 500px){

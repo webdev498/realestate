@@ -67,6 +67,10 @@
 	#u8048{	top: 75px;}
 	.last-button{	margin-right: 40px !important;}
 }
+@media (min-width: 640px) and (max-width: 767px){
+	.menu-image{ margin-right: 6px; }
+	.button-links{ margin-right: 31px; }
+}
 @media (max-width: 790px){
 	.menu-image{ margin-right: 10px;}
 }

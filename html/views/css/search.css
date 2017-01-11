@@ -1699,7 +1699,6 @@ input[value='hidden0'], input[value='hidden'], input[value='hidden2']{ display: 
   #searchresultsheader #logo{ margin-left: 7px; width: 35% !important; }
   #searchresultsheader #what_symbol_means{ margin: 0; max-width: 100%; width: 100% !important; }
   .thead-container, #jqGrid_container {-moz-transform: scale(0.53, 0.53); zoom: 0.53; zoom: 53%;}
-  #main div#scrollwrapper2, #scroller{ height: 520px; }
   #listings li, #listings li.ui-tabs-selected{ width: 30% !important; }
   #listings.ui-tabs .ui-tabs-nav li a{ font-size: 15px; overflow: hidden; width: 75%; }
   #listings.ui-tabs .ui-tabs-nav .details{ font-size: 15px; }
@@ -1789,7 +1788,6 @@ input[value='hidden0'], input[value='hidden'], input[value='hidden2']{ display: 
   #listings.ui-tabs .ui-tabs-nav .details{ font-size: 13px; }
   #profile .listingtop1 h1.blue{ line-height: 1; }
   .listNum #main{ padding-left: 5px; }
-  #main div#scrollwrapper2, #scroller{ height: 365px; }
   #profile .imagebig img{ height: 252px !important; width: 74% !important; }
   #profile .images .imagesgallery{ width: 74% !important; }
 }

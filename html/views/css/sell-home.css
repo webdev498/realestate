@@ -53,6 +53,14 @@
 #u115-2,#u115-4,#u115-5,#u117-2,#u117-4,#u121-2,#u121-4,#u121-5,#u126-2,#u126-4,#u126-5,#u132-2,#u132-4{ color:#7F7F7F; font-size:20px; font-family:lato, sans-serif; font-weight:700; line-height:21px; }
 #u106,#u106-3,#u124-2,#u124-4,#u124-9,#u117-7{ color:#0085C6; font-family:lato, sans-serif; font-weight:700; }
 
+@media (max-width: 767px){
+	.col-md-5ths{ margin-bottom: 20px; width: 50%; }
+	#col-two, #col-four{ border-right: none; }
+	#col-one .panel-body, #col-two .panel-body{ min-height: 335px; }
+	#col-three .panel-body, #col-four .panel-body{ min-height: 220px; }
+	#col-five .panel-body{ min-height: 290px; }
+	#u116, #u117-11, #u112, #u115-18, #u129, #u132-13, #u125, #u126-13, #u120, #u121-12{ width: 100%; }
+}
 @media (max-width: 700px){ #backBtn{ margin-top: -40px; } }
 @media (max-width: 550px){ #backBtn{ margin-top: -75px; } }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
