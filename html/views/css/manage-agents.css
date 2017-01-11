@@ -48,3 +48,11 @@ input[type="radio"].indent{ margin-left: 12px; }
 @media screen and (-webkit-min-device-pixel-ratio:0) { #page{ min-height: 614px; } }
 @media (max-width: 1040px){ .col-md-4.col-sm-6.col-xs-12{ text-align: left; }}
 @media (max-width: 360px){ #adminOptions{ margin-left: 10px; } }
+@media (max-width: 375px) {
+	.editAgentInfoPopup{padding: 0 !important; width: 90% !important;}
+	#agentInformationTop{ height:55px; padding: 0; }
+	#agentInformationHeader{font-size: 20px;}
+	#agentInformationBorder{padding: 0;}
+	#editAgentInformationSubmit{float: left;}
+	.editAgentInfoPopup #closePopup{ margin-right: -75px !important;}
+}
