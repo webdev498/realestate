@@ -316,3 +316,6 @@
   #u1971-5{ left: 905px !important; }
 	#overlay{height: 230% !important;}
 }
+@media (max-width: 375px) {
+	#u8786{width: 370px;}
+}

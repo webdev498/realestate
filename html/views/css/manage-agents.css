@@ -51,4 +51,12 @@ input[type="radio"].indent{ margin-left: 12px; }
   .col-xs-12{ width: 50%; }
   #displayAgents tr > td, #displayActiveAgents tr > td, #archivedAgentsTable tr > td{ padding-right: 20px; }
 }
+@media (max-width: 375px) {
+	.editAgentInfoPopup{padding: 0 !important; width: 90% !important;}
+	#agentInformationTop{ height:55px; padding: 0; }
+	#agentInformationHeader{font-size: 20px;}
+	#agentInformationBorder{padding: 0;}
+	#editAgentInformationSubmit{float: left;}
+	.editAgentInfoPopup #closePopup{ margin-right: -75px !important;}
+}
 @media (max-width: 360px){ #adminOptions{ margin-left: 10px; } }

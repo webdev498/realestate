@@ -252,6 +252,9 @@ body{ position: relative; width: 100%; }
   #addBuyerBorder .input1{ width: 210px !important }
   .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
 }
+@media (max-width: 375px){
+	.ui-dialog.comingSoon #closePopup{ margin-top: 5px !important; }
+}
 
 /* back button - Mobile */
 @media (max-width: 500px){
