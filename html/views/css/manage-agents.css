@@ -28,12 +28,13 @@ tr > td{ padding-bottom: 1em !important; }
 label{ font-size: 18px; font-weight: unset !important; /*padding-right: 80px;*/ }
 input[type="radio"].indent{ margin-left: 12px; }
 
-.editAgentInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 400 }
+.editAgentInfoPopup{ max-height: 90%; max-width: 560px; overflow-y: auto; position: fixed; top: 5% !important; width: 95% !important; z-index: 400 }
 .editAgentInfoPopup .ui-resizable-handle{ display: none !important; }
-#agentInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
-#agentInformationTop #closePopup{ left: 510px !important; }
+#closeAgentInformationPopup{ color: #B2B2B2; cursor: pointer; text-align: right; }
+#agentInformationTop{ font-size:1.1em; height: auto; margin: 30px auto; padding: 0 7%; }
+#agentInformationTop img{ float: right; }
 #agentInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
-#agentInformationBorder{ margin:auto; padding: 0 40px; }
+#agentInformationBorder{ margin:auto; padding: 0 7%; }
 #agentInformationArea input{ color: #646464; font-family: lato, sans-serif !important; font-size: 18px !important; font-weight: 300; line-height: 25px; padding: 0px 3px; }
 #agentInformationArea textarea{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; color: #646464; font-family: lato, sans-serif !important; font-size: 18px !important; font-weight: 300; line-height: 25px; margin-left: 10px; margin-right: 30px; padding: 0px 3px; width: 260px; }
 #agentInformationArea table tr > td:first-child{ vertical-align: top; }
@@ -41,7 +42,6 @@ input[type="radio"].indent{ margin-left: 12px; }
 #editOptions .indent{ margin-right: 10px; }
 #editAgentInformationSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; }
 #editOptions .fa.fa-check, #editOptions .fa.fa-circle-thin{ color: #646464; font-family: '__FontAwesome_5'; line-height: 25px; }
-.editAgentInfoPopup #closePopup{ margin-right: -100px !important; margin-top: -25px !important; }
 
 .col-md-4.col-sm-6.col-xs-12{ padding-bottom: 1em; text-align: right; }
 
@@ -52,11 +52,13 @@ input[type="radio"].indent{ margin-left: 12px; }
   #displayAgents tr > td, #displayActiveAgents tr > td, #archivedAgentsTable tr > td{ padding-right: 20px; }
 }
 @media (max-width: 375px) {
+	/*
 	.editAgentInfoPopup{padding: 0 !important; width: 90% !important;}
 	#agentInformationTop{ height:55px; padding: 0; }
 	#agentInformationHeader{font-size: 20px;}
 	#agentInformationBorder{padding: 0;}
 	#editAgentInformationSubmit{float: left;}
 	.editAgentInfoPopup #closePopup{ margin-right: -75px !important;}
+	*/
 }
 @media (max-width: 360px){ #adminOptions{ margin-left: 10px; } }

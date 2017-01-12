@@ -19,10 +19,10 @@ input[type="radio"].indent{ margin-left: 12px; }
 #userActivity button{ border: 1px solid #b2b2b2; margin-left: 10px; padding: 0 5px; }
 #userActivityInfo{ display: none; margin-top: 15px; }
 
-.ui-dialog.emailFolderPopup{	background-color: #ffffff;	border-color: #b2b2b2;	border-style: solid;	border-width: 1px;	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);	height: auto !important; margin: -50px 0 0 -125px;	max-height: 500px;	overflow-y: auto;	position: fixed !important;	top: 20% !important;	width: 400px !important;	z-index: 1001;}
+.ui-dialog.emailFolderPopup{	background-color: #ffffff;	border-color: #b2b2b2;	border-style: solid;	border-width: 1px;	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);	height: auto !important; margin: -50px 0 0 -125px;	max-height: 500px; max-width: 400px;	overflow-y: auto;	position: fixed !important;	top: 20% !important;	width: 95% !important;	z-index: 1001;}
 .ui-dialog.emailFolderPopup .ui-resizable-handle{	display: none !important;}
-.emailFolderPopup textarea{ border: 1px solid rgb(100, 100, 100); height: 100px; width: 350px; }
-.emailFolderPopup input{ border: 1px solid rgb(100, 100, 100); min-height: 27px; width: 350px; }
+.emailFolderPopup textarea{ border: 1px solid rgb(100, 100, 100); height: 100px; max-width: 350px; width: 100%; }
+.emailFolderPopup input{ border: 1px solid rgb(100, 100, 100); min-height: 27px; max-width: 350px; width: 100%; }
 #u1330-2{	text-align: left;	line-height: 36px;	font-family: lato, sans-serif;	font-weight: 300;}
 #u1330-5,#u1330-6{	color: #0085C6;	font-family: lato, sans-serif;	font-weight: 700;}
 #u1330-3,#u1330-10{	font-family: lato, sans-serif;	font-weight: 700;}
@@ -32,16 +32,17 @@ input[type="radio"].indent{ margin-left: 12px; }
 #u1330-19{ line-height: 25px; }
 #u1330-20{ font-size: 14px;	color: #0085C6;	font-family: '__FontAwesome_5';	font-weight: 400;	line-height: 20px; }
 #u1330-8,#u1330-22{	font-family: lato, sans-serif;	font-weight: 400; }
-#closePopup3{ color: #B2B2B2;	cursor: pointer; position: absolute; left: 370px; width: 10px; }
+#closeEmailListingPopup{ color: #B2B2B2; cursor: pointer; position: absolute; text-align: right; width: 92%; }
 
-.viewBuyerInfoPopup{ max-height: 90%; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; }
+.viewBuyerInfoPopup{ max-height: 90%; max-width: 565px; overflow-y: auto; position: fixed; top: 5% !important; z-index: 700; width: 95% !important; }
 .viewBuyerInfoPopup .ui-resizable-handle{ display: none !important; }
 #closeBuyerInformationPopup{ color: #B2B2B2; cursor: pointer; text-align: right; width: 100%; }
 #bottomCloseBuyerInformationPopup{ color: #646464; cursor: pointer; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; padding-bottom: 20px; text-align: right; }
-#buyerInformationTop{ font-size:1.1em; height:65px; margin: 30px auto; padding: 0 40px; }
+#buyerInformationTop{ font-size:1.1em; height: auto; margin: 30px auto; padding: 0 7.5%; }
+#buyerInformationTop img{ float: right; }
 #buyerInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
-#buyerInformationBorder{ margin:auto; padding: 0 40px; }
-#buyerInformationArea input{ color: #646464; font-family: lato, sans-serif !important; font-size: 18px !important; font-weight: 300; line-height: 25px; padding: 0px 3px; width: 240px }
+#buyerInformationBorder{ margin:auto; padding: 0 7.5%; }
+#buyerInformationArea input{ color: #646464; font-family: lato, sans-serif !important; font-size: 18px !important; font-weight: 300; line-height: 25px; max-width: 240px; padding: 0px 3px; width: 100%; }
 #buyerInformationArea tr > td{ padding-bottom: 1em !important; }
 
 #agentsBuyers{ margin-top: 30px; }
@@ -96,20 +97,26 @@ input[type="radio"].indent{ margin-left: 12px; }
 #u28562-3{	font-size: 16px;	color: #7F7F7F;	font-family: lato, sans-serif;	font-weight: 600;	font-style: italic;	line-height: 22px;}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { #page{ min-height: 614px; } }
-@media (max-width: 650px){
-	#tableHeader, #fullTable, .midTable{ display: none;	}
-	.smallTable{ display: block;	}
+@media (max-width: 639px){
+	#tableHeader, #fullTable, .midTable{ display: none; }
+	.smallTable{ display: block; }
+	#listingSection{ margin-top: 30px; }
 }
 @media (max-width: 767px){
 	.folderDetails.col-xs-4, .folderDetails.col-xs-12{ padding-bottom: 0px; padding-top: 10px;	}
-	.folderDetails.col-xs-4.indent, .folderDetails.col-xs-12.indent{ padding-left: 10px;	}
+	.folderDetails.col-xs-4.indent, .folderDetails.col-xs-12.indent{ padding-left: 10px; padding-top: 30px; width: auto; }
+	#u8521-1{ margin-left: 5px; }
+	#userActivity{ padding-bottom: 20px; }
 }
 @media (min-width: 768px) and (max-width: 1075px){
 	.folderDetails{ width: auto; padding-left: 0px; padding-right: 10px;	}
+	#u8521-1{ margin-left: 5px; }
 }
-@media (min-width: 651px) and (max-width: 1000px){
-	#tableHeader, #fullTable, .smallTable{ display: none;	}
-	.midTable{ display: block;	}
+@media (min-width: 640px) and (max-width: 1000px){
+	#tableHeader, #fullTable, .smallTable{ display: none; }
+	.midTable{ display: block; }
+	#u16157-211{ margin: 0 auto; max-width: 515px; }
+	#listingSection{ margin-top: 30px; }
 }
 @media (min-width: 1001px){
 	#tableHeader, #fullTable{ display: block;	}

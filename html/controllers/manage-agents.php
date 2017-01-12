@@ -189,10 +189,10 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
     render: function(){
       return(
         <div id="agentInformationArea">
+          <h4 id="closeAgentInformationPopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           <div id="agentInformationTop">
+            <img src="/images/button_pen_states.png"/>
             <span id="agentInformationHeader" className="text-popups">Agent Information</span>
-            <img src="/images/button_pen_states.png" style={{float: "right"}}/>
-            <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           </div>
           <div id="agentInformationBorder">
             <table cellPadding="2" cellSpacing="0" border="0">
@@ -397,7 +397,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             },
             open: function(){
               $(".ui-widget-overlay").bind("click", function(){
-                $("#ajax-box").dialog('close');
+                $("#edit-agent").dialog('close');
               });
             }
           });

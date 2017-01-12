@@ -443,7 +443,7 @@ tr.ui-state-hover { background: none !important; border: none !important; }
 #y25231-3, #y25231-4, #y25231-6, #y25231-7, #y25231-8, #y25231-11, #y25231-12, #y25231-14, #y25231-16, #y25231-17, #y25231-18, #y25231-36, #y25231-37, #y25213-3, #y25213-4, #y25213-6, #y25213-7, #y25213-8, #y25213-14, #y25213-20, #y25213-22, #y25213-23, #y25213-24, #y25213-30, #y25213-31, #y25213-32, #y25213-38, #y25213-40, #y25213-43, #y25213-52 { width: 98% !important; }
 #y25217-6 { font-size: 24px !important; }
 
-.ui-dialog.addBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 455px !important; margin: -50px 0 0 -125px; padding-bottom: 69px; position: fixed !important; width: 580px !important; z-index: 1001; }
+.ui-dialog.addBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 95% !important; max-height: 455px !important; max-width: 585px; margin: -50px 0 0 -125px; position: fixed !important; width: 95% !important; z-index: 1001; }
 .add-buyer-custom.ui-dialog-content.ui-widget-content { position: relative; }
 .add-buyer-custom table { float: left; width: 100%; }
 .add-buyer-custom .text-popups { color: #646464; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 25px; }

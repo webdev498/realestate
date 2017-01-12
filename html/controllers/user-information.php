@@ -73,7 +73,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 		render: function(){
 			return(
 				<div>
-          <div className="text-popups clearfix grpelem" id="closePopup3">
+          <div className="text-popups clearfix grpelem" id="closeEmailListingPopup">
             <h4 style={{cursor: "pointer"}} onClick={this.closePopup}><i className="fa fa-times" data-toggle='tooltip' title='close'></i></h4>
           </div>
           <h2 className="Subhead-2" id="u1330-2">Email Folder</h2>
@@ -298,10 +298,10 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
     render: function(){
       return(
         <div id="buyerInformationArea">
+          <h4 id="closeBuyerInformationPopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           <div id="buyerInformationTop">
+            <img src="../images/button_pen_states.png"/>
             <span id="buyerInformationHeader" className="text-popups">Buyer Information</span>
-            <img src="../images/button_pen_states.png" style={{float: "right"}}/>
-            <h4 id="closePopup" onClick={this.closePopup} title="close"><i className="fa fa-times"></i></h4>
           </div>
           <div id="buyerInformationBorder">
             <table cellPadding="2" cellSpacing="0" border="0">
