@@ -239,6 +239,9 @@ body{ position: relative; width: 100%; }
 }
 
 /* Add Buyer Popup - Mobile */
+@media (max-width: 768px) {
+	.ui-dialog.ajaxbox.addBuyerPopup{left: 65px !important;}
+}
 @media (max-width: 500px){
   .ui-dialog.addBuyerPopup{ height: 312px !important; overflow-y: scroll; top: 17% !important; width: 465px !important; }
   .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
@@ -252,8 +255,11 @@ body{ position: relative; width: 100%; }
   #addBuyerBorder .input1{ width: 210px !important }
   .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
 }
-@media (max-width: 375px){
-	.ui-dialog.comingSoon #closePopup{ margin-top: 5px !important; }
+@media (max-width: 375px) {
+	.ui-dialog.comingSoon #closePopup{ margin-top: 5px !important;}
+	.ui-dialog.ajaxbox.addBuyerPopup{left: 5px !important; top: 15px !important; height: 500px !important; width: 320px !important; overflow-y: hidden !important;}
+	#addBuyerHeader{ font-size: 20px !important; }
+	#addBuyerBorder .input1{ width: 180px !important; }
 }
 
 /* back button - Mobile */
