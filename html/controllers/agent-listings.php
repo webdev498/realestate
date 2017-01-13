@@ -1883,7 +1883,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                 </div>
                 <div className="row">
                   <div className="clearfix grpelem" id="u16159-5b">
-                    <p id="u16159-3" onClick={this.switchViews.bind(this, 'active')}><span id="u16159">View Active Folders </span><i className="fa fa-chevron-right"></i></p>
+                    <p id="u16159-3" onClick={this.switchViews.bind(this, 'active')}><i className="fa fa-chevron-left"></i><span id="u16159"> Return to Active Folders</span></p>
                   </div>
                 </div>
               </div>

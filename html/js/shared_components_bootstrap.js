@@ -1883,7 +1883,16 @@ window.NavBar = React.createClass({
               : null }
 
               <ul className="nav navbar-nav navbar-right">
-                <li id="name">{this.state.name}</li>
+                {this.state.role == "agent" ?
+                  <li id="name" className="dropdown">
+										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span id="u2688">{this.state.name} <i className="fa fa-angle-down"></i></span></a>
+										<ul className="dropdown-menu">
+                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+										</ul>
+									</li>
+                :
+                  <li id="name">{this.state.name}</li>
+                }
                 {this.state.role == "guest" ? <li id="signup"><a href="/controllers/guest-register.php"><span id="u2688">Sign<br/>up</span></a></li> : null}
                 {this.state.role == "guest" ?
                   <li id="logout" className="dropdown">
@@ -2115,7 +2124,6 @@ window.MenuNavBar = React.createClass({
                   <ul className="nav navbar-nav">
                     <li id="firstOption"><a href="/menu.php">Home</a></li>
                     <li><a href="/search.php#newSearch">New Search</a></li>
-                    <li><a href="/controllers/agent-profile.php?MP=menu">Agent Profile</a></li>
                     <li><a style={{cursor: "pointer"}} onClick={this.addBuyer}>Add New Buyer</a></li>
                     <li><a href="/controllers/buyers.php?MP=menu">Manage Buyers</a></li>
                     <li><a href="/controllers/agent-listings.php?MP=menu">Saved Listings</a></li>
@@ -2124,7 +2132,16 @@ window.MenuNavBar = React.createClass({
               : null }
 
               <ul className="nav navbar-nav navbar-right">
-                <li id="name">{this.state.name}</li>
+                {this.state.role == "agent" ?
+                  <li id="name" className="dropdown">
+										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span id="u2688">{this.state.name} <i className="fa fa-angle-down"></i></span></a>
+										<ul className="dropdown-menu">
+                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+										</ul>
+									</li>
+                :
+                  <li id="name">{this.state.name}</li>
+                }
                 {this.state.role == "guest" ? <li id="signup"><a href="/controllers/guest-register.php"><span id="u2688">Sign<br/>up</span></a></li> : null}
                 {this.state.role == "guest" ?
                   <li id="logout" className="dropdown">

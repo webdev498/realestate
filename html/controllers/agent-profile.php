@@ -48,7 +48,8 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
         agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
         active: "<?php echo (isset($active) ? $active : "") ?>",
         admin: "<?php echo (isset($admin) ? $admin : "") ?>",
-        bio: "<?php echo (isset($bio) ? $bio : "") ?>",        
+        bio: "<?php echo (isset($bio) ? $bio : "") ?>",    
+        agent_img: "",    
         month: "default",
         day: "default",
         year: "default",
@@ -59,6 +60,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       };
 	  },
 	  componentDidMount: function(){
+      this.setState({agent_img: "http://www.bellmarc.com/pictures/agent/medium/"+this.state.agent_id+".jpg"});
       var currentTime = new Date(); // Return today's date and time
       var year = parseInt(currentTime.getFullYear()); // returns the year (four digits) as integer
       var dates = [];
@@ -72,6 +74,9 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
       change[name] = event.target.value;
       this.setState(change);
 	  },
+    ChangeAgentImgURL: function(){
+      this.setState({agent_img: "http://homepik.com/images/noagent.png"});
+    },
 	  Edit: function(){
       this.setState({editing: "true"});
       this.setState({old_email: this.state.email});
@@ -377,6 +382,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     <p>Agent ID</p>
                     <p>Status</p>
                     <p>Administrator</p>
+                    <p style={{height: 149 + "px"}}>Agent Image</p>
                     <p>Bio</p>
                   </div>
 
@@ -390,6 +396,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                         <p>{this.state.agent_id}</p>
                         <p>{this.state.active == "Y" ? <span>Active</span> : <span>Not Active</span>}</p>
                         <p>{this.state.admin == "Y" ? <span>Yes</span> : <span>No</span>}</p>
+                        <p><img alt="agent photo" onError={this.ChangeAgentImgURL} src={this.state.agent_img} width="149" height="149" /></p>
                         <p><textarea type="text" name="bio" id="agentBio" className="agent-bio input" value={this.state.bio} onChange={this.handleChange.bind(this, 'bio')}/></p>
                       </div>
                     :
@@ -401,6 +408,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                         <p>{this.state.agent_id}</p>
                         <p>{this.state.active == "Y" ? <span>Active</span> : <span>Not Active</span>}</p>
                         <p>{this.state.admin == "Y" ? <span>Yes</span> : <span>No</span>}</p>
+                        <p><img alt="agent photo" onError={this.ChangeAgentImgURL} src={this.state.agent_img} width="149" height="149" /></p>
                         <p>{this.state.bio}</p>
                       </div>
                     }

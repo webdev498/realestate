@@ -344,7 +344,16 @@ window.CriteriaNavBar = React.createClass({
               : null }
 
               <ul className="nav navbar-nav navbar-right">
-                <li id="name">{this.state.name}</li>
+                {this.state.role == "agent" ?
+                  <li id="name" className="dropdown">
+										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span id="u2688">{this.state.name} <i className="fa fa-angle-down"></i></span></a>
+										<ul className="dropdown-menu">
+                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+										</ul>
+									</li>
+                :
+                  <li id="name">{this.state.name}</li>
+                }
                 {this.state.role == "guest" ? <li id="signup"><a href="/controllers/guest-register.php?r=search"><span id="u2688">Sign<br/>up</span></a></li> : null}
                 {this.state.role == "guest" ?
                   <li id="logout" className="dropdown">
@@ -586,7 +595,16 @@ window.SearchNavBar = React.createClass({
               : null }
 
               <ul className="nav navbar-nav navbar-right">
-                <li id="name">{this.state.name}</li>
+                {this.state.role == "agent" ?
+                  <li id="name" className="dropdown">
+										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span id="u2688">{this.state.name} <i className="fa fa-angle-down"></i></span></a>
+										<ul className="dropdown-menu">
+                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+										</ul>
+									</li>
+                :
+                  <li id="name">{this.state.name}</li>
+                }
                 {this.state.role == "guest" ? <li id="signup"><a href="/controllers/guest-register.php?r=search"><span id="u2688">Sign<br/>up</span></a></li> : null}
                 {this.state.role == "guest" ?
                   <li id="logout" className="dropdown">
