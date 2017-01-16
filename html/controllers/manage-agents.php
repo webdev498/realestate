@@ -647,14 +647,14 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                         <div className="col-md-4 col-sm-6 col-xs-12"> 
                           <span>Title: </span><span><input className="input1" name="title" value={this.state.addAgent_title} onChange={this.handleChange.bind(this, 'addAgent_title')}/></span>
                         </div>
-                        <div className="col-md-4 col-sm-6 col-xs-12">  
-                          <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
-                        </div>
                         <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Phone: </td><td><input className="input1" name="phone" value={this.state.addAgent_phone} onChange={this.handleChange.bind(this, 'addAgent_phone')} onBlur={this.updatePhone}/></td>
                         </div>
                         <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Agent ID: </td><td><input className="input1" name="agentId" value={this.state.addAgent_agentId} onChange={this.handleChange.bind(this, 'addAgent_agentId')}/></td>                                                                           
+                        </div>
+						<div className="col-md-4 col-sm-6 col-xs-12">  
+                          <td>Email: </td><td><input className="input1" name="email" value={this.state.addAgent_email} onChange={this.handleChange.bind(this, 'addAgent_email')}/></td>
                         </div>
                         <div className="col-md-4 col-sm-6 col-xs-12">
                           <td>Status: </td><td><input type="radio" name="status" value="Y" className="indent" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Active &nbsp;&nbsp;&nbsp;<input type="radio" name="status" value="N" onChange={this.handleChange.bind(this, 'addAgent_status')}/> Not Active</td>
