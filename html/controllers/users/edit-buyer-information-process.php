@@ -124,7 +124,12 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								
 								$_SESSION['id'] = $row2['id'];
 								$_SESSION['assigned'] = $row2['assigned'];
+								$_SESSION['firstname'] = $row2['first_name'];
+								$_SESSION['lastname'] = $row2['last_name'];
+								$_SESSION['phone'] = $row2['phone'];
 								$_SESSION['email'] = $email;
+								$_SESSION['agent1'] = $row2['P_agent'];
+								$_SESSION['agent2'] = $row2['P_agent2'];	
 								$_SESSION['role'] = "buyer";
 								$_SESSION['user'] = 'true';
 								$_SESSION['buyer'] = 'true';
@@ -156,15 +161,20 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 					else if($formStep == "noEditContinue"){
 						$email = $_GET['email'];
 						
-						$res2 = mysql_query("SELECT first_name, last_name, id, assigned, rtime FROM users WHERE email = '" . $email . "'");
+						$res2 = mysql_query("SELECT first_name, last_name, id, phone, P_agent, P_agent2, assigned, rtime FROM users WHERE email = '" . $email . "'");
 						$row2 = mysql_fetch_assoc($res2);
 											
 						$_SESSION['id'] = $row2['id'];
 						$_SESSION['assigned'] = $row2['assigned'];
+						$_SESSION['firstname'] = $row2['first_name'];
+						$_SESSION['lastname'] = $row2['last_name'];
+						$_SESSION['phone'] = $row2['phone'];
 						$_SESSION['email'] = $email;
+						$_SESSION['agent1'] = $row2['P_agent'];
+						$_SESSION['agent2'] = $row2['P_agent2'];	
 						$_SESSION['role'] = "buyer";
 						$_SESSION['user'] = 'true';
-						$_SESSION['buyer'] = 'true';
+						$_SESSION['buyer'] = 'true';	
 						
 						// Get un-read message count
 						$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());

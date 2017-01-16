@@ -68,7 +68,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							//if the number of matchs is 1
 							if ($num1 >= 1) {
 								//select all rows from the table where the email matches the one entered by the user
-								$res = mysql_query("SELECT first_name, last_name, password, phone, security_question, security_answer, active FROM users WHERE email = '" . $email . "'");
+								$res = mysql_query("SELECT first_name, last_name, password, phone, security_question, security_answer, active, P_agent, P_agent2 FROM users WHERE email = '" . $email . "'");
 								$row = mysql_fetch_assoc($res);
 								$fn = strtolower($row['first_name']);
 								$ln = strtolower($row['last_name']);
@@ -80,10 +80,15 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 									if($firstName == $fn && $lastName == $ln && $phone == $p){
 										$_SESSION['id'] = $row['id'];
 										$_SESSION['assigned'] = $row['assigned'];
+										$_SESSION['firstname'] = $fn;
+										$_SESSION['lastname'] = $ln;
+										$_SESSION['phone'] = $p;
 										$_SESSION['email'] = $email;
+										$_SESSION['agent1'] = $row['P_agent'];
+										$_SESSION['agent2'] = $row['P_agent2'];
 										$_SESSION['role'] = "buyer";
 										$_SESSION['user'] = 'true';
-										$_SESSION['buyer'] = 'true';
+										$_SESSION['buyer'] = 'true';	
 	
 										//update the online field
 										$time = date('U');
@@ -103,7 +108,12 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 									if($firstName == $fn && $lastName == $ln && $question == $sq && $answer == $sa){
 										$_SESSION['id'] = $row['id'];
 										$_SESSION['assigned'] = $row['assigned'];
+										$_SESSION['firstname'] = $fn;
+										$_SESSION['lastname'] = $ln;
+										$_SESSION['phone'] = $p;			
 										$_SESSION['email'] = $email;
+										$_SESSION['agent1'] = $row['P_agent'];
+										$_SESSION['agent2'] = $row['P_agent2'];	
 										$_SESSION['role'] = "buyer";
 										$_SESSION['user'] = 'true';
 										$_SESSION['buyer'] = 'true';

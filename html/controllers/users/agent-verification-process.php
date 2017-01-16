@@ -66,7 +66,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								//if the number of matchs is 1
 								if ($num1 >= 1) {
 								//select all rows from the table where the email matches the one entered by the user
-								$res = mysql_query("SELECT id, first_name, last_name, agent_id, admin FROM registered_agents WHERE email = '" . $email . "'");
+								$res = mysql_query("SELECT id, first_name, last_name, agent_id, phone, admin FROM registered_agents WHERE email = '" . $email . "'");
 								$row = mysql_fetch_assoc($res);
 								$fn = strtolower($row['first_name']);
 								$ln = strtolower($row['last_name']);
@@ -74,6 +74,10 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 
 								if($firstName == $fn && $lastName == $ln && $agentID == $aid){
 									$_SESSION['id'] = $row['id'];
+									$_SESSION['agent_id'] = $aid;
+									$_SESSION['firstname'] = $fn;
+									$_SESSION['lastname'] = $ln;
+									$_SESSION['phone'] = $row['phone'];
 									$_SESSION['email'] = $email;
 									$_SESSION['role'] = 'agent';
 									$_SESSION['agent'] = 'true';

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("functions.php");
-include_once("basicHeadOld.php");
+include_once("basicHead.php");
 
 if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); };
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
@@ -422,7 +422,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 											<img src="/images/button_pen_states.png" style={{float:"right"}}/>
 										</div>
 										<div id="registrationBorder">
-											<form onSubmit={this.validate} action="http://homepik.com/controllers/users/guest-register-process.php" id="validate" className="validate" method="post" autoComplete="off" data-bind="nextFieldOnEnter:true">
+											<form onSubmit={this.validate} action="users/guest-register-process.php" id="validate" className="validate" method="post" autoComplete="off" data-bind="nextFieldOnEnter:true">
 												<table cellPadding="2" cellSpacing="0" border="0">
 													<tbody>
 														<tr>

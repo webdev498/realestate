@@ -74,10 +74,10 @@ if(isset($email) && $email != ''){
       $result_total = $result_total + 1;
     };
   
-    $grade_average['loc'] = $grade_total['loc'] / $result_total;
-    $grade_average['bld'] = $grade_total['bld'] / $result_total;
-    $grade_average['vws'] = $grade_total['vws'] / $result_total;
-    $grade_average['vroom_sqf'] = $grade_total['vroom_sqf'] / $result_total;
+    $grade_average['loc'] = $results_total != 0 ? $grade_total['loc'] / $result_total : 0;
+    $grade_average['bld'] = $results_total != 0 ? $grade_total['bld'] / $result_total : 0;
+    $grade_average['vws'] = $results_total != 0 ? $grade_total['vws'] / $result_total : 0;
+    $grade_average['vroom_sqf'] = $results_total != 0 ? $grade_total['vroom_sqf'] / $result_total : 0;
   
     foreach($grade_average as &$value){
         $value = number_format($value, 0, '.', ',');

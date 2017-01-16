@@ -398,8 +398,9 @@ if(isset($_GET['emailFolder'])){
   
   if(isset($comment) && $comment != ""){ $message .= " with the following message: " . $comment; }
   
-  if(isset($_SESSION['buyer']) || isset($_SESSION['agent'])){ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."'>here</a> to view their folder. If the link doesn't work enter this into the URL: <a style='text-decoration:none !important; text-decoration:none;'>www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."</a>"; }
-  else{ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."&name=".$guestName."'>here</a> to view their folder. If the link doesn't work enter this into the URL: <a style='text-decoration:none !important; text-decoration:none;'>www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."&name=".$guestName."</a>"; }
+  $folderNoSpace = str_replace(" ", "%20", $folder);
+  if(isset($_SESSION['buyer']) || isset($_SESSION['agent'])){ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."'>here</a> to view their folder. If the link doesn't work, copy and paste this into the URL: www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folderNoSpace; }
+  else{ $message .= ".<br><br> Click <a href='www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folder."&name=".$guestName."'>here</a> to view their folder. If the link doesn't work, copy and paste this into the URL: www.homepik.com/controllers/emailed-folder.php?user=".$sender."&folder=".$folderNoSpace."&name=".$guestName; }
   
   $message .= "<br><br><br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
   $message .= "HomePik.com is licensed by Nice Idea Media";
@@ -874,7 +875,7 @@ if(isset($_GET['addBuyer'])){
     $message .= "$fn $ln from HomePik has invited you to join HomePik.com, which is a unique real-estate search engine that has a patented technology to allow users to compare listings. As a result, users are guided in finding the best listing on the market, based on their preferences.";
     $message .= " For detailed information go <a href='http://homepik.com/controllers/about.php'>here</a>.";
     $message .= "<br><br>To finish registering your account click <a href='http://homepik.com/controllers/complete-register.php?f=".$_GET['firstname']."&l=".$_GET['lastname']."&e=".$_GET['email']."&p=".$_GET['phone']."'>here</a>.<br><br>";
-    $message .= "If the link to register doesn't work enter this URL into your web browser: http://homepik.com/controllers/complete-register.php?f=".$_GET['firstname']."&l=".$_GET['lastname']."&e=".$_GET['email']."";
+    $message .= "If the link to register doesn't work, copy and paste this URL into your web browser: http://homepik.com/controllers/complete-register.php?f=".$_GET['firstname']."&l=".$_GET['lastname']."&e=".$_GET['email']."";
     $message .= "<br><br><center><a href='http://www.homepik.com/controllers/change-email-alert-settings.php?user=".$email."'>Change Email Alert Settings</a></center><br>";
     $message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
     $message .= "HomePik.com is licensed by Nice Idea Media";

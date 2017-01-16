@@ -1570,7 +1570,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('a.listing-small-icons').attr('data-list-num');
 
     $.get("/controllers/dialog.php", {
@@ -1649,7 +1649,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('a.listing-small-icons').attr('data-list-num');
 
     $.get("/controllers/dialog.php", {
@@ -1725,7 +1725,7 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'saveListingPopup'
             });
-            $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+            $('#save-listing').dialog('open');
             //$(e.target).closest('a.listing-small-icons').append(popup);
             /*set referrer who opened the tab*/
             $('.save-this-listing-popup-footer button').attr('data-referrer', 'heart-tab-inner');
@@ -1747,7 +1747,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('a.listing-small-icons').attr('data-list-num')
 
     $.get("/controllers/dialog.php", {
@@ -1822,7 +1822,7 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'saveListingPopup'
             });
-            $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+            $('#save-listing').dialog('open');
             /*set referrer who opened the tab*/
             $('.save-this-listing-agent-popup-footer button').attr('data-referrer', 'heart-tab-inner');
           }
@@ -1844,7 +1844,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('tr').attr('id');
 
     $.get("/controllers/dialog.php", {
@@ -1921,7 +1921,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('tr').attr('id');
 
     $.get("/controllers/dialog.php", {
@@ -1996,7 +1996,7 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'saveListingPopup'
             });
-            $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+            $('#save-listing').dialog('open');
             /*set referrer who opened the tab*/
             $('.save-this-listing-popup-footer button').attr('data-referrer', 'heart-list');
           }
@@ -2016,7 +2016,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).closest('tr').attr('id');
 
     $.get("/controllers/dialog.php", {
@@ -2090,7 +2090,7 @@ $(document).ready(function(){
                 autoOpen: false,
                 dialogClass: 'saveListingPopup'
               });
-              $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+              $('#save-listing').dialog('open');
               /*set referrer who opened the tab*/
               $('.save-this-listing-agent-popup-footer button').attr('data-referrer', 'heart-list');
           }
@@ -2110,7 +2110,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).parent('div').attr('data-list-num');
 
     $.get("/controllers/dialog.php", {
@@ -2187,7 +2187,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).parent('div').attr('data-list-num');
 
     $.get("/controllers/dialog.php", {
@@ -2263,7 +2263,7 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'saveListingPopup'
             });
-            $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+            $('#save-listing').dialog('open');
             /*set referrer who opened the tab*/
             $('.save-this-listing-popup-footer button').attr('data-referrer', 'heart-tab-head');
           }
@@ -2283,7 +2283,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadsaveListingPopup'
     });
-    $('#save-listing').dialog( "option", "title", "Loading Save Listing" ).dialog('open');
+    $('#save-listing').dialog('open');
     var list_num = $(e.target).parent('div').attr('data-list-num')
 
     $.get("/controllers/dialog.php", {
@@ -2358,7 +2358,7 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'saveListingPopup'
             });
-            $('#save-listing').dialog( "option", "title", "Save Listing" ).dialog('open');
+            $('#save-listing').dialog('open');
             /*set referrer who opened the tab*/
             $('.save-this-listing-agent-popup-footer button').attr('data-referrer', 'heart-tab-head');
           }
@@ -2664,7 +2664,7 @@ $(document).ready(function(){
         }
       });
       $('#ajax-box').load('/controllers/messages.php #saveError',function(){
-        $('#ajax-box').dialog( "option", "title", "Save Error" ).dialog('open');
+        $('#ajax-box').dialog('open');
       });
 
       return false;
@@ -2693,7 +2693,7 @@ $(document).ready(function(){
             }
         });
         $('#ajax-box').load('/controllers/messages.php #errorMessage',function(){
-          $('#ajax-box').dialog( "option", "title", "Error" ).dialog('open');
+          $('#ajax-box').dialog('open');
         });
         return;
       }
@@ -2765,7 +2765,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadCompareListingsPopup',
     });
-    $('#compare-listings').dialog( "option", "title", "Loading Compare Listing" ).dialog('open');
+    $('#compare-listings').dialog('open');
 
     $.ajax({
       type: "POST",
@@ -2784,7 +2784,17 @@ $(document).ready(function(){
           autoOpen: false,
           dialogClass: 'compareListingsPopup'
         });
-        $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+        $('#compare-listings').dialog('open');
+        
+        // Automatically open the guest folder as they only have one folder.
+        if(listings.length == 1){
+          $(".toggleFolder").parents().eq(3).find(".listingSection").toggle(); // Open folder
+          $(".toggleFolder").parents().eq(3).find(".closedFolder").hide(); // hide the closed folder icon
+          $(".toggleFolder").parents().eq(3).find(".openFolder").show(); // show the open folder icon
+          lastUserFolderOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-user"); // Set open folder
+          lastFolderNameOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-folder"); // Set open Folder
+          $(".toggleFolder").parents().eq(3).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in order to close
+        }
       },
       error: function(){
         console.log("failed");
@@ -2805,7 +2815,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadCompareListingsPopup'
     });
-    $('#compare-listings').dialog( "option", "title", "Loading Compare Listing" ).dialog('open');
+    $('#compare-listings').dialog('open');
 
     $.ajax({
       type: "POST",
@@ -2827,7 +2837,17 @@ $(document).ready(function(){
           autoOpen: false,
           dialogClass: 'compareListingsPopup'
         });
-        $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+        $('#compare-listings').dialog('open');
+        
+        // Automatically open the buyer folder if they only have one.
+        if(listings.length == 1){
+          $(".toggleFolder").parents().eq(3).find(".listingSection").toggle(); // Open folder
+          $(".toggleFolder").parents().eq(3).find(".closedFolder").hide(); // hide the closed folder icon
+          $(".toggleFolder").parents().eq(3).find(".openFolder").show(); // show the open folder icon
+          lastUserFolderOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-user"); // Set open folder
+          lastFolderNameOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-folder"); // Set open Folder
+          $(".toggleFolder").parents().eq(3).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in order to close
+        }
       },
       error: function(){
         console.log("failed");
@@ -2848,7 +2868,7 @@ $(document).ready(function(){
       autoOpen: false,
       dialogClass: 'loadCompareListingsPopup'
     });
-    $('#compare-listings').dialog( "option", "title", "Loading Compare Listing" ).dialog('open');
+    $('#compare-listings').dialog('open');
 
     $.ajax({
       type: "POST",
@@ -2876,7 +2896,17 @@ $(document).ready(function(){
               autoOpen: false,
               dialogClass: 'compareListingsPopup'
             });
-            $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+            $('#compare-listings').dialog('open');
+            
+            // Automatically open the agent folder if the agent only has the one folders.
+            if(listings.length == 1){
+              $(".toggleFolder").parents().eq(3).find(".listingSection").toggle(); // Open folder
+              $(".toggleFolder").parents().eq(3).find(".closedFolder").hide(); // hide the closed folder icon
+              $(".toggleFolder").parents().eq(3).find(".openFolder").show(); // show the open folder icon
+              lastUserFolderOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-user"); // Set open folder
+              lastFolderNameOpen = $(".toggleFolder").parents().find(".folderDetails:first-child").attr("data-folder"); // Set open Folder
+              $(".toggleFolder").parents().eq(3).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in order to close
+            }
           },
           error: function(){
             console.log("failed");
@@ -2975,7 +3005,7 @@ $(document).ready(function(){
                 autoOpen: false,
                 dialogClass: 'compareListingsPopup'
               });
-              $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+              $('#compare-listings').dialog('open');
               
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder        
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".closedFolder").hide(); // hide the closed folder icon      
@@ -3052,7 +3082,7 @@ $(document).ready(function(){
                 autoOpen: false,
                 dialogClass: 'compareListingsPopup'
               });
-              $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+              $('#compare-listings').dialog('open');
               
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close
@@ -3134,7 +3164,7 @@ $(document).ready(function(){
                     autoOpen: false,
                     dialogClass: 'compareListingsPopup'
                   });
-                  $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+                  $('#compare-listings').dialog('open');
                   
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close
@@ -3224,7 +3254,7 @@ $(document).ready(function(){
                     autoOpen: false,
                     dialogClass: 'compareListingsPopup'
                   });
-                  $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+                  $('#compare-listings').dialog('open');
                   
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close
@@ -3281,7 +3311,7 @@ $(document).ready(function(){
                 autoOpen: false,
                 dialogClass: 'compareListingsPopup'
               });
-              $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+              $('#compare-listings').dialog('open');
               
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close              
@@ -3325,7 +3355,7 @@ $(document).ready(function(){
                 autoOpen: false,
                 dialogClass: 'compareListingsPopup'
               });
-              $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+              $('#compare-listings').dialog('open');
               
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
               $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close
@@ -3375,7 +3405,7 @@ $(document).ready(function(){
                     autoOpen: false,
                     dialogClass: 'compareListingsPopup'
                   });
-                  $('#compare-listings').dialog( "option", "title", "Compare Listings" ).dialog('open');
+                  $('#compare-listings').dialog('open');
                   
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".listingSection").toggle(); // Open folder
                   $(".folderDetails[data-user="+lastUserFolderOpen+"][data-folder="+lastFolderNameOpen+"]").parents().eq(1).find(".toggleFolder").addClass("toggleFolderClosed").removeClass("toggleFolder"); // Change class in oder to close
@@ -3591,7 +3621,7 @@ $(document).ready(function(){
       open: function(){ $("#overlay2").show(); },
       close: function(){ $("#overlay2").hide(); }
     });
-    $('#email-listing-folder').dialog( "option", "title", "Email Folder" ).dialog('open');
+    $('#email-listing-folder').dialog('open');
   });
   
   $('body').delegate('.closeEmailFolderPopup','click',function(e){
@@ -3670,7 +3700,7 @@ $(document).ready(function(){
       open: function(){ $("#overlay2").show(); $(".addEditListingCommentPopup #comments").val(comment) },
       close: function(){ $("#overlay2").hide(); }
     });
-    $('#add-edit-listing-comment').dialog( "option", "title", "Add/Edit Comment" ).dialog('open');
+    $('#add-edit-listing-comment').dialog('open');
   
   });
   

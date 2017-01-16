@@ -3,7 +3,7 @@
 html{ min-height: 100%; min-width: 100%; -ms-text-size-adjust: none; }
 body, html{ height: 100%; margin: 0; padding: 0 !important; }
 body,div,ul,ol,li,nav,h1,h2,h3,h4,h5,h6,form,input,button,textarea,p,th,td,a{ background-repeat: no-repeat; border-color: transparent; border-style: solid; border-width: 0px; margin: 0px; padding: 0px; transform-origin: left top; -webkit-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; }
-body{ font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: left; font-size: 14px; line-height: 17px; word-wrap: break-word; text-rendering: optimizeLegibility; -moz-font-feature-settings: 'liga'; -ms-font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; max-width: 1400px; margin: auto;}
+body{ font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: left; font-size: 14px; line-height: 17px; word-wrap: break-word; text-rendering: optimizeLegibility; -moz-font-feature-settings: 'liga'; -ms-font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; /*max-width: 1400px;*/ max-width: 100%; margin: auto;}
 img{ border: 0px; border-style: solid; transform-origin: left top; -webkit-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; }
 li{ list-style: none; }
 h1,h2,h3,h4,h5,h6{ font-size: 100%;	font-weight: inherit; }

@@ -62,8 +62,8 @@ input.users, select.users { border: 1px solid #D3D3D3; height: 18px; letter-spac
 #main { height: auto !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none; }
 #role, #email, #guestID, #agentID { display:none; }
 #criteriaFooter{ margin-left: auto; margin-right: auto; width: 100%; }
-#searchResultsFooter{ display: none; margin-left: auto; margin-right: auto; width: 1347px; }
-#criteriaFooter nav.footerNavBar, #searchResultsFooter nav.footerNavBar{ max-width: 1347px; }
+#searchResultsFooter{ display: none; margin-left: auto; margin-right: auto; /*width: 1347px;*/ width: 100%; }
+#criteriaFooter nav.footerNavBar, #searchResultsFooter nav.footerNavBar{ /*max-width: 1347px;*/ max-width: 100%; }
 
 #tabs { letter-spacing: 0; }
 #tabs .ui-widget-header { border-color: RGB(234,234,234); border-radius: 0; border-width: 1px 0 1px; margin-left:0; padding: 3px 0; }

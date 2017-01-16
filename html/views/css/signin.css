@@ -1,11 +1,15 @@
 html{ font-size: 1em; }
 body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-weight:normal; letter-spacing: 0.02em; margin: 0 auto 20px; line-height:140%; letter-spacing: 0.05em; }
 
-#signinBackground{ background-image: url('/images/fotolia_61552970.jpg'); background-position: center; height: 950px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+/* #signinBackground{ background-image: url('../../images/fotolia_61552970.jpg'); background-position: center; height: 950px; opacity: 0.5; position: absolute; top: 0px; width: 100%; } */
+#signinBackground{ background-image: url('../../images/fotolia_61552970.jpg'); background-position: center; background-size: 100% 100%; height: 100%; opacity: 0.5; overflow: hidden; position: absolute; top: 0px; width: 100%; }
 #header{ margin: auto; max-width: 960px; }
 #wrapper{ margin: auto; max-width: 960px; }
-#signinArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 430px; margin: auto; margin-top: 7%; max-width: 580px; min-width: 440px; position: fixed; }
-#agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: 11%; max-width: 580px; position: fixed; }
+#signin, #wrapper, .container-fluid, .row, .col-md-9.col-sm-9.col-xs-11{ height: 100%; }
+/* #signinArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 430px; margin: auto; margin-top: 7%; max-width: 580px; min-width: 440px; position: fixed; } */
+#signinArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 430px; margin: auto; margin-top: -215px; max-width: 580px; min-width: 440px; position: absolute; top: 50%; }
+/* #agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: 11%; max-width: 580px; position: fixed; } */
+#agentSigninArea{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 340px; margin: auto; margin-top: -170px; max-width: 580px; position: absolute; top: 50%; }
 #signinHeader{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
 #loginHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
 #signinBorder{ margin:auto; padding: 40px; }
