@@ -474,9 +474,6 @@ else{ print "<script> window.location = '/users/logout.php' </script>"; }
                     <td className="text-popups" colSpan="2" id="fieldsAlert">{this.checkInput() ? <strong style={{color:'#D2008F', fontSize: 1.1 + 'em', float:"right", fontWeight: 600}}> {'All Required Fields Filled'}</strong> : <strong style={{color:'#D2008F', fontSize: 1.1 + 'em', float:"right", fontWeight: 600}}> {'\u002A Required Fields'}</strong> }</td>
                   </tr>
                   <tr>
-                    <td className="text-popups" colSpan="2">&nbsp;</td>
-                  </tr>
-                  <tr>
                     <td colSpan="2">
                       <button type="submit" name="addBuyer" className="text-popups" id="addBuyerSubmit" onClick={this.addBuyer}>Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
                     </td>

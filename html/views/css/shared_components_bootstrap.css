@@ -38,7 +38,7 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 
 /* Add Buyer Popup CSS */
 /* .ui-dialog.addBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 455px !important; margin: -50px 0 0 -125px; padding-bottom: 69px; position: fixed !important; width: 580px !important; z-index: 1001; } */
-.ui-dialog.addBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 95% !important; max-height: 455px !important; max-width: 585px; position: fixed !important; width: 95% !important; z-index: 1001; }
+.ui-dialog.addBuyerPopup{ background-color: #ffffff; border-color: #b2b2b2; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 90% !important; max-height: 450px; max-width: 585px; position: fixed !important; width: 95% !important; z-index: 1001; }
 .ui-dialog.addBuyerPopup .ui-resizable-handle{ display: none !important; }
 #addBuyerBorder{ margin:auto;	padding: 40px 40px 2px; }
 #addBuyerBorder tr > td{ padding-bottom: 1em !important; }
@@ -240,19 +240,24 @@ body{ position: relative; width: 100%; }
 }
 
 /* Add Buyer Popup - Mobile */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
 	.ui-dialog.ajaxbox.addBuyerPopup{ left: 65px !important; }
-}
-@media (max-width: 400px){
+}*/
+/*@media (max-width: 400px){
   #addBuyerTop{ padding: 10px 0 0 !important; }
   #addBuyerBorder{ padding: 40px 0 2px !important; }
   #addBuyerHeader{ font-size: 25px !important; }
   #closePopup{ margin-right: -10px !important; margin-top: -15px !important; }
   #addBuyerBorder .input1{ width: 210px !important }
-}
+}*/
 @media (max-width: 375px) {
+	#addBuyerTop{ padding: 10px 0 0 !important; }
+	#addBuyerBorder{ padding: 40px 0 2px !important; }
+	#addBuyerHeader{ font-size: 25px !important; }
+	#closePopup{ margin-right: -10px !important; margin-top: -15px !important; }
+	#addBuyerBorder .input1{ width: 210px !important }
 	.ui-dialog.comingSoon #closePopup{ margin-top: 5px !important;}
-	.ui-dialog.ajaxbox.addBuyerPopup{left: 5px !important; top: 15px !important; height: 500px !important; width: 320px !important; overflow-y: hidden !important;}
+	.ui-dialog.ajaxbox.addBuyerPopup{left: 7% !important; top: 15px !important; width: 320px !important; overflow-y: hidden !important;}
 	#addBuyerHeader{ font-size: 20px !important; }
 	#addBuyerBorder .input1{ width: 180px !important; }
 }
