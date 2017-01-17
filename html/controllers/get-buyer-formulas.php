@@ -10,7 +10,7 @@ $formulas = array();
 $id = 1;
 
 if(isset($_POST['agentID'])){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_POST['agentID']."%') ORDER BY name ASC"; }
-else if($_SESSION['agent']){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_SESSION['agent_id']."%') ORDER BY name ASC"; }
+else if(isset($_SESSION['agent'])){ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') AND (agent LIKE '%".$_SESSION['agent_id']."%') ORDER BY name ASC"; }
 else{ $SQL = "SELECT * FROM `Users_Search` WHERE (email = '".$buyer_email."') ORDER BY name ASC"; }
 
 $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());

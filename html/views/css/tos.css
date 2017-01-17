@@ -1,12 +1,21 @@
 .version.tos { color: #00001E; background-color: #D27654; }
-#tos{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }#page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; margin-left: auto; margin-right: auto; max-width: 1200px; min-height: 700px; padding-bottom: 50px; width: inherit; z-index: 1; }
+
+#tos{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
+/*#page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; margin-left: auto; margin-right: auto; max-width: 1200px; min-height: 700px; padding-bottom: 50px; width: inherit; z-index: 1; }*/
+#page{ background-color: transparent; background-image: none; border-color: #000000; border-width: 0px; margin-left: auto; margin-right: auto; max-width: 89%; min-height: 700px; padding-bottom: 50px; width: inherit; z-index: 1; }
 #page_position_content{ margin-bottom: -4px; width: 100%; }
+
 #pu2680 { margin-left: 0px !important; }
 #overlay{ background-color: white; display: none; height: 120%; left: 0; opacity: 0.9; position: absolute; top: 0; width: 100%; z-index: 300; }
-#termsOfService{ min-height: 650px; max-width: 1200px; }
-#tosText{ max-width: 1200px; width: inherit; }
+
+/*#termsOfService{ min-height: 650px; max-width: 1200px; }*/
+#termsOfService{ min-height: 650px; max-width: 100%; }
+/*#tosText{ max-width: 1200px; width: inherit; }*/
+#tosText{ max-width: 100%; width: inherit; }
 #u22654-4{ background-color: transparent; color: #0085C6; font-family: lato, sans-serif; font-size: 24px; font-weight: 700; line-height: 29px; margin-left: 1px; margin-top: 39px; min-height: 29px; position: relative; width: inherit; z-index: 63; }
+
 .boldText{ font-weight: 600; }
+
 #backBtn{ display: none; }
 
 @media only screen and (min-device-width: 769px) and (max-device-width: 1024px) and (orientation: landscape){

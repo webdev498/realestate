@@ -1,10 +1,7 @@
 <?php
 session_start();
-include("dbconfig.php");
-include("functions.php");
-include("basicHead.php");
-$con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
-$db = mysql_select_db('sp', $con) or die(mysql_error());
+include_once("functions.php");
+include_once("basicHead.php");
 if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
 ?>

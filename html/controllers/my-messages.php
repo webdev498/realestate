@@ -195,7 +195,6 @@ $_SESSION['unreadMessages'] = 0;
                   </table>
                 : null }
               </div>
-              <div className="grpelem" id="u22675"></div>
               <div className="clearfix grpelem" id="u22718-99">
                 <div className="messages"></div>
                 <div className="rounded-corners grpelem" style={{marginLeft: 12 + 'px'}}>
@@ -347,7 +346,6 @@ $_SESSION['unreadMessages'] = 0;
           {this.state.num_buyers > 0 ?
             <div className="clearfix colelem" id="pu22655-16">
               <div className="text-popups clearfix grpelem buyers" id="u22655-16">{buyers}</div>
-              <div className="grpelem" id="u22675"></div>
               <div className="clearfix grpelem" id="u22718-99">
                 <div className="messages"></div>
                 <div className="rounded-corners grpelem" style={{marginLeft: 12 + 'px'}}>

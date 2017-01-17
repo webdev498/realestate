@@ -272,7 +272,7 @@ $section = (isset($_GET['section']) ? $_GET['section'] : "general");
 									{this.checkSection('communication') ? <h6 id="u6390-4"><i id="u6390" className="fa fa-chevron-right"> &nbsp;</i>Communication</h6> : <h6 style={{cursor: "pointer"}} onClick={this.handleClick.bind(this, 'communication')}>Communication</h6> }
 								</div>
 							</div>
-							<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 answerSection">
+							<div className="col-lg-10 col-md-9 col-sm-9 col-xs-12 answerSection">
 								<div className="grpelm" id="u6389"></div>
 								{this.checkSection('general') ? <General /> : null}
 								{this.checkSection('listings') ? <Listings /> : null}

@@ -57,9 +57,10 @@ input.users, select.users { border: 1px solid #D3D3D3; height: 18px; letter-spac
 #searchresultsheader #logo{ width: 25% !important; }
 #searchresultsheader #what_symbol_means{ cursor: pointer; height: auto; left: 0; margin: 0 0 0 25px; max-width: 73%; opacity: 1; position: relative; width: auto !important; }
 #wrapper{ min-height: 89%; height: auto !important; height: 100%; margin: 0 auto -53px; padding:0px; }
-#main, #tabs, #header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; position: relative; width: 1204px; max-width:100%;}
-#main, #tabs { padding-bottom: 30px; width: 1204px; }
+#main, #tabs, #header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; position: relative; /*width: 1204px;*/ width: 89%; max-width:100%;}
+#main, #tabs { padding-bottom: 30px; /*width: 1204px;*/ width: 89%; }
 #main { height: auto !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none; }
+.listNum #main{ max-width: 100%; width: 100%; }
 #role, #email, #guestID, #agentID { display:none; }
 #criteriaFooter{ margin-left: auto; margin-right: auto; width: 100%; }
 #searchResultsFooter{ display: none; margin-left: auto; margin-right: auto; /*width: 1347px;*/ width: 100%; }
@@ -427,7 +428,7 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .ui-jqgrid .ui-pager-control { padding: 2px; position: relative; }
 .ui-jqgrid .ui-jqgrid-bdiv{ overflow-x: hidden; overflow-y: scroll; }
 .ui-jqgrid .ui-jqgrid-pager{ margin: 7px 0 0 0 !important; }
-.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid.ui-widget.ui-widget-content.ui-corner-all, .ui-jqgrid-view, .ui-state-default.ui-jqgrid-hdiv, .ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-btable, .ui-jqgrid-bdiv, .ui-state-default.ui-jqgrid-pager.ui-corner-bottom{ width: 1204px!important; }
+.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid.ui-widget.ui-widget-content.ui-corner-all, .ui-jqgrid-view, .ui-state-default.ui-jqgrid-hdiv, .ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-btable, .ui-jqgrid-bdiv, .ui-state-default.ui-jqgrid-pager.ui-corner-bottom{ /*width: 1204px!important;*/ width: 100% !important; }
 .ui-jqgrid .loading { background: url('/images/ajax-loader-large.gif'); background-repeat: no-repeat; border: none; height: 125px; width: 125px; }
 .ui-jqgrid .ui-jqgrid-pager { margin: 52px 0 0 !important; }
 .ui-jqgrid-hbox { float: left; width: 100%; }
@@ -435,7 +436,7 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .ui-jqgrid-resize.ui-jqgrid-resize-ltr { float: left; height: auto; margin: 0; padding: 0; }
 
 .loader { height: 60px; width: 60px; }
-.thead-container { background: white none repeat scroll 0% 0%; display: none; float: left; height: 38px; left: 3px; position: relative; max-width: 1200px; width: 100%; z-index: 50; }
+.thead-container { background: white none repeat scroll 0% 0%; display: none; float: left; height: 38px; left: 3px; position: relative; /*max-width: 1200px;*/ max-width: 100%; width: 100%; z-index: 50; }
 .thead-container.fixedTheadTop { background: white none repeat scroll 0% 0%; display: none; float: left; left: initial; position: fixed; max-width: 1180px; top:40px; width: 100%; z-index: 1000; }
 #new-thead { border:none; border-bottom: 1px solid rgb(204, 204, 204); border-bottom-color: rgb(204, 204, 204); border-bottom-style: solid; border-bottom-width: 1px; border-top: 1px solid rgb(204, 204, 204); bottom: auto !important; display: block; height: 40px; position: relative !important; top: auto !important; z-index: 50 !important; }
 .ui-jqgrid-htable{ height: 40px; }

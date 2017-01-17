@@ -111,7 +111,7 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #u25521_img_3{ height: auto !important; max-height: 100px; max-width: 562px; padding-top: 3px; width: 100% !important; }
 
 /* Top Nav Bar CSS */
-.menuNavBar{ background: transparent none repeat scroll 0% 0%; border-color: #C2C2C2; border-radius: inherit; border-style: solid none; border-width: 1px medium; margin-bottom: 0; margin-left: auto; margin-right: auto; margin-top: 10px; max-width: 1200px; min-height: 44px; position: relative; width: 100%;}
+.menuNavBar{ background: transparent none repeat scroll 0% 0%; border-color: #C2C2C2; border-radius: inherit; border-style: solid none; border-width: 1px medium; margin-bottom: 0; margin-left: auto; margin-right: auto; margin-top: 10px; /*max-width: 1200px;*/ max-width: 100%; min-height: 44px; position: relative; width: 100%;}
 .menuNavBar .navbar-text{ color: #7F7F7F; display: none; font-family: lato, sans-serif; font-size: 18px; line-height: 20px; position: absolute; top: -4px; }
 .menuNavBar .navbar-nav > li{ color: #7F7F7F; font-family: lato, sans-serif; font-size: 18px; font-weight: 300; line-height: 18px; }
 .menuNavBar .navbar-nav > li > a{ padding-bottom: 10px !important; padding-top: 10px !important; }
@@ -132,7 +132,8 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #backBtn:hover{ color: #0085C6; cursor: pointer; }
 #backBtn .fa.fa-chevron-left{ color: #0085C6; }
 
-#pu2680{ margin-left: auto; margin-top: 11px; max-width: 1200px; 	width: 100%; }
+/*#pu2680{ margin-left: auto; margin-top: 11px; max-width: 1200px; 	width: 100%; }*/
+#pu2680{ margin-left: auto; margin-top: 11px; max-width: 100%; 	width: 100%; }
 #u2683{ background-color: transparent; float: right; position: relative; width: 28px; z-index: 11; }
 #u2680{ background-color: transparent; border-width: 0px; border-color: transparent; float: right;	margin-right: 5px; position: relative;	width: 284px;	z-index: 5; }
 #u2681::before{	bottom: -1px;	box-shadow: inset 1px 1px 2px rgba(255,255,255,0.33), inset -1px -1px 2px rgba(0,0,0,0.33); content: ""; position: absolute;	pointer-events: none;	left: -1px;	right: -1px; top: -1px; }
