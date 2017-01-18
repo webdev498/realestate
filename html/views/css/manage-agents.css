@@ -1,10 +1,12 @@
 
 #manageAgents{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
-#page {	z-index: 1;	width: 100%;	max-width: 1200px;	height: 100%; background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 0px;	margin-left: auto;	margin-right: auto;}
+/*#page {	z-index: 1;	width: 100%;	max-width: 1200px;	height: 100%; background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 0px;	margin-left: auto;	margin-right: auto;}*/
+#page {	z-index: 1;	width: 100%;	max-width: 89%;	height: 100%; background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 0px;	margin: 0 auto;}
 #page_position_content{	margin-bottom: -4px;	width: 100%;}
 #u8521-1{	z-index: 47;	max-width: 100%;	min-height: 460px;	background-color: transparent;	line-height: 25px;	font-size: 18px;	margin-top: 10px;	padding-bottom: 100px; }
 #u8522-1{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; font-weight: bold; color: #0085C6; }
-#adminOptions{ margin-left: 33px; }
+/* #adminOptions{ margin-left: 33px; } */
+#adminOptions{ margin-left: 33px; max-width: 1138px; }
 #addAgentTitle, #removeAgentsTitle, #updateAgentsTitle{ text-align: left;  line-height: 3;  font-family: lato,sans-serif;  font-weight: 300;  font-size: 24px; color: #0085C6; }
 #addAgentForm, #removeAgents{ padding-bottom: 50px; }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover{ color: #0085C6 !important; }

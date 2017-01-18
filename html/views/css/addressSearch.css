@@ -34,15 +34,20 @@ input:focus, select:focus, textarea:focus, button:focus { outline: none; }
 .grpelem p { font-size: 14px; margin: 0; }
 
 #header { background:url("images/gradient.png") repeat-x scroll 0 0 transparent; height: 73px; margin:0px; position:relative; }
-#searchresultsheader{ background:url("images/gradient.png") repeat-x scroll 0 0 transparent; display: none; height:98px; margin:0; position:relative; max-width:100%; }
+/*#searchresultsheader{ background:url("images/gradient.png") repeat-x scroll 0 0 transparent; display: none; height:98px; margin:0; position:relative; max-width:100%; }*/
+#searchresultsheader{ background:url("images/gradient.png") repeat-x scroll 0 0 transparent; display: none; height:auto; margin:0; position:relative; max-width:100%; }
 #logo { cursor: pointer; height: auto; left: -16px; margin: 0; opacity: 1; position: relative; width: 100%; }
 #searchresultsheader #logo{ width: 25% !important; }
 #searchresultsheader #what_symbol_means{ cursor: pointer; height: auto; left: 0; margin: 0 0 0 25px; max-width: 73%; opacity: 1; position: relative; width: auto !important; }
-#main{ font-family: 'Lato', sans-serif; height: auto !important; margin: auto; max-width: 1204px; padding-bottom: 30px; position: relative; width: 100%; }
-#header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; max-width: 1204px; position: relative; width: 100%; }
+/*#main{ font-family: 'Lato', sans-serif; height: auto !important; margin: auto; max-width: 1204px; padding-bottom: 30px; position: relative; width: 100%; }*/
+#main{ font-family: 'Lato', sans-serif; height: auto !important; margin: auto; max-width: 89%; padding-bottom: 30px; position: relative; width: 100%; }
+/*#header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; max-width: 1204px; position: relative; width: 100%; }*/
+#header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; max-width: 89%; position: relative; width: 100%; }
 #wrapper { min-height: 92.5%; height: auto !important; height: 100%; margin: 0 auto -53px; padding:0px; }
-#searchResultsFooter{ margin-left: auto; margin-right: auto; width: 1347px; }
-#searchResultsFooter nav.footerNavBar{ max-width: 1347px; }
+/*#searchResultsFooter{ margin-left: auto; margin-right: auto; width: 1347px; }*/
+#searchResultsFooter{ margin-left: auto; margin-right: auto; width: 100%; }
+/*#searchResultsFooter nav.footerNavBar{ max-width: 1347px; }*/
+#searchResultsFooter nav.footerNavBar{ max-width: 100%; }
 #overlay{ background-color: white; display: none; height: 250%; left: 0; opacity: 0.9; position: fixed; top: 0; width: 98% !important; z-index: 1000 !important; }
 #overlay2{ background-color: white; display: none; height: 250%; left: 0; opacity: 0.9; position: fixed; top: 0; width: 100%; z-index: 1009; }
 
@@ -64,7 +69,8 @@ input:focus, select:focus, textarea:focus, button:focus { outline: none; }
 .logoutBtn:hover{ color: #0085C6; }
 
 #backBtn{ padding-left: 10px; padding-top: 5px; }
-#addressSearch{ margin-bottom: 10px; margin-left: 0px !important; width: 1200px !important; }
+/*#addressSearch{ margin-bottom: 10px; margin-left: 0px !important; width: 1200px !important; }*/
+#addressSearch{ margin-bottom: 10px; margin-left: 0px !important; width: 100% !important; }
 #address-search{ border: 1px solid #D3D3D3; color: #888888; font-size: 1em; font-weight: normal; height: 18px; margin: 0; margin-bottom: 20px; padding: 8px 35px 8px 8px; width: 200px; }
 input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !important; width: 99% !important; }
 .searchAddress{ background-color: #fff; float: right; margin-top: 3px; top: 0; }
@@ -120,8 +126,10 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .tab-saved-body { color: #0085c6 !important; }
 .btnicon { height: 16px; margin-left: 12px; margin-right: -7px; position: relative; top: 2px; }
 
-.thead-container { background: white none repeat scroll 0% 0%; float: left; height: 39px; left: 4px; position: relative; max-width: 1200px; width: 100%; z-index: 50; }
-.thead-container.fixedTheadTop { background: white none repeat scroll 0% 0%; float: left; left: initial; position: fixed; max-width: 1180px; top:32px; width: 100%; z-index: 1000; }
+/*.thead-container { background: white none repeat scroll 0% 0%; float: left; height: 39px; left: 4px; position: relative; max-width: 1200px; width: 100%; z-index: 50; }*/
+.thead-container { background: white none repeat scroll 0% 0%; float: left; height: 39px; left: 4px; position: relative; max-width: 100%; width: 100%; z-index: 50; }
+/*.thead-container.fixedTheadTop { background: white none repeat scroll 0% 0%; float: left; left: initial; position: fixed; max-width: 1180px; top:32px; width: 100%; z-index: 1000; }*/
+.thead-container.fixedTheadTop { background: white none repeat scroll 0% 0%; float: left; left: initial; position: fixed; max-width: 86.7%; top:32px; width: 100%; z-index: 1000; }
 #new-thead { border:none; border-bottom: 1px solid rgb(204, 204, 204);  border-bottom-color: rgb(204, 204, 204); border-bottom-style: solid; border-bottom-width: 1px; border-top: 1px solid rgb(204, 204, 204); bottom: auto !important; display: block; height: 40px; position: relative !important; top: auto !important; z-index: 50 !important; }
 #list_address{ width: 514px !important; }
 .jqgh_sorter { cursor: pointer; }
@@ -283,7 +291,8 @@ input#addressSearch { color: #000; font-size: 15px; margin: 0 0 0 -4px !importan
 .ui-state-default.ui-jqgrid-pager.ui-corner-bottom { margin-top: 0 !important; }
 .ui-state-default .ui-icon { background-image: url("../../images/gray_cross.jpg"); background-position: 0 0; margin-right: -2px; margin-top: 0; }
 tr.ui-state-hover { background: none !important; border: none !important; }
-.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid.ui-widget.ui-widget-content.ui-corner-all, .ui-jqgrid-view, .ui-state-default.ui-jqgrid-hdiv, .ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-btable, .ui-jqgrid-bdiv, .ui-state-default.ui-jqgrid-pager.ui-corner-bottom{ width: 1204px!important; }
+/*.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid.ui-widget.ui-widget-content.ui-corner-all, .ui-jqgrid-view, .ui-state-default.ui-jqgrid-hdiv, .ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-btable, .ui-jqgrid-bdiv, .ui-state-default.ui-jqgrid-pager.ui-corner-bottom{ width: 1204px!important; }*/
+.ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid.ui-widget.ui-widget-content.ui-corner-all, .ui-jqgrid-view, .ui-state-default.ui-jqgrid-hdiv, .ui-jqgrid .ui-jqgrid-hbox, .ui-jqgrid-htable, .ui-jqgrid-btable, .ui-jqgrid-bdiv, .ui-state-default.ui-jqgrid-pager.ui-corner-bottom{ width: 100% !important; }
 .ui-jqgrid tr.jqgrow td { border-bottom-color: #cccccc; overflow: visible; padding: 12px 5px; vertical-align: top; white-space:nowrap; }
 .ui-jqgrid tr.ui-row-ltr td { border-right-width:0px; }
 .ui-jqgrid .ui-jqgrid-hbox { background: none repeat scroll 0 0 white; border-bottom: 1px solid #cccccc; border-top: 1px solid #bbbbbb; font-family: 'Lato', sans-serif; float: left; overflow: hidden; padding-right: 1px; width: 990px; z-index: 80; }
@@ -455,6 +464,7 @@ tr.ui-state-hover { background: none !important; border: none !important; }
 .add-buyer-custom #addBuyerSubmit span{ color: #646464; font-size: 1.1em; font-weight: bold; padding: 0; }
 .add-buyer-custom #arrow { color: #0085C6; }
 
+.listNum #main{ max-width: 100% !important; }
 #profile { color: #707070; }
 #profile h1, #profile h2, #profile h3, #profile h4, #profile h5, #profile h6, #profile form { display:block; font-weight:normal; margin:0; padding:0; }
 #profile body, #profile form, #profile label, #profile td, #profile th { color:#646464; font-family: 'Lato', sans-serif; font-size:17px; font-weight:normal; letter-spacing: 0; line-height:140%; }

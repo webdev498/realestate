@@ -2,7 +2,8 @@
 .version.analytics {color: #0000EC; background-color: #97DA38; }
 
 #analytics{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
-#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 700px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;}
+/*#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 700px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;}*/
+#page {	z-index: 1;	width: 100%;	max-width: 89%;	min-height: 700px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	margin: 0 auto;	padding-bottom: 50px;}
 #page_position_content {	margin-bottom: -4px;	width: 100%;}
 #info-wrapper{ padding-top: 65px !important;}
 .col-md-5, .col-md-6{	text-align: center;	padding-bottom: 30px;}

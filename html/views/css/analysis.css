@@ -1,12 +1,9 @@
 
 .version.analysis {	color: #0000EC;	background-color: #97DA38;}
-
 .FAQ-1-grey-bd {	color: #939393;	font-family: lato, sans-serif;	font-size: 18px;	font-weight: 600;	line-height: 25px;	padding: 0px;}
-.Text-1 {	color: #7F7F7F;	font-family: lato, sans-serif;	font-size: 16px;	font-weight: 300;	line-height: 22px;	padding: 0px;}
-.clip_frame {	overflow: hidden;}
-.grpelem,.accordion_wrapper {	display: inline;	float: left;}
 
-#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 100%;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent; height: auto !important; height: 100%; margin: 0 auto -53px;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;}
+/*#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 100%;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent; height: auto !important; height: 100%; margin: 0 auto -53px;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;}*/
+#page {	z-index: 1;	width: 100%;	max-width: 89%;	min-height: 100%;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent; height: auto !important; height: 100%; margin: 0 auto -53px;	padding-bottom: 50px;}
 /*#page {	z-index: 1;	width: 100%;	max-width: 1200px;	min-height: 800px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	margin-left: auto;	margin-right: auto;	padding-bottom: 50px;} */
 #page_position_content {	margin-bottom: -4px;	width: 100%;}
 #page-header{   padding-top: 65px !important;}
@@ -17,13 +14,11 @@
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
    #page{	width: 100%; min-height: 600px; }
 }
-
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){
 	#page{ width: 100%; min-height: 900px;	}
 	.report-header { text-align: center; color: #0085C6; font-size: 14px; font-weight: 300;	padding-bottom: 15px;	}
 	#overlay { height: 1500%;	}
 }
-
 @media only screen and (max-device-width: 375px){
 	.mobileText{text-align: left !important; padding: 0px !important;}
 	.col-xs-3{padding: 1px !important;}

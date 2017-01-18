@@ -102,7 +102,8 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 
 #close1{	background-color: transparent; color: #B2B2B2; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; left: 200px; line-height: 20px; margin-right: -10000px; margin-top: 7px; min-height: 27px; position: relative; top: -80px; width: 12px; z-index: 124; }
 
-.header-container{ margin-left: auto; margin-right: auto; max-width: 1200px; width: 100%; }
+/*.header-container{ margin-left: auto; margin-right: auto; max-width: 1200px; width: 100%; }*/
+.header-container{ margin: 0 auto; max-width: 100%; padding: 0; width: 100%; }
 #u25521 .col-md-3, #u25521 .col-md-4, #u25521 .col-md-5{ padding-left: 0; padding-right: 0; }
 #u25521 .col-md-4{ margin-left: -35px; }
 #u25521{ background-color: transparent; max-width: 1237px; position: relative; width: 100%; z-index: 45; }

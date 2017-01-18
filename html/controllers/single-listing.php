@@ -1888,7 +1888,7 @@ if(isset($_GET['newTab'])){ ?>
                     : null }
                     {this.state.role == "agent" ? <br style={{lineHeight: 23}}/> : null }
                     {this.state.role == "agent" ?
-                      <div id="u8788-28">
+                      <div id="HomePikOfficeOptions">
                         <h2 className="Subhead-4 contactHeader" id="u8788-2">HomePik Office</h2>
                         <p className="Text-3--2-kern" id="u8788-16">
                           <span id="u8788-14"><i className="fa fa-chevron-right"></i></span>

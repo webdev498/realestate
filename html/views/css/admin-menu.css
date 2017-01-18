@@ -3,7 +3,8 @@
 
 /* start of menu css */
 #menu{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; } 
-#page {	z-index: 1;	width: inherit;	max-width: 1200px;	min-height: 900px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 50px;	margin-left: auto;	margin-right: auto;}
+/* #page {	z-index: 1;	width: inherit;	max-width: 1200px;	min-height: 900px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 50px;	margin-left: auto;	margin-right: auto;}*/
+#page {	z-index: 1;	width: inherit;	max-width: 89%;	min-height: 900px;	background-image: none;	border-width: 0px;	border-color: #000000;	background-color: transparent;	padding-bottom: 50px;	margin: 0 auto;}
 #page_position_content{	margin-bottom: -4px;	width: 100%;}
 #overlay{	display: none;	background-color: white;	height: 106%;	width: 100%;	top: 0;	left: 0;	position: absolute;	z-index: 300;	opacity: 0.9;}
 #u26451-5{	z-index: 124;	width: 12px;	min-height: 27px;	background-color: transparent;	color: #B2B2B2;	font-size: 14px;	line-height: 20px;	font-family: '__FontAwesome_5';	font-weight: 400;	position: relative;	margin-right: -10000px;	margin-top: 7px;	left: 200px;	top: -80px;}
@@ -14,7 +15,8 @@
 #u2688-4-1{	z-index: 13;	width: 42px;	min-height: 42px;	position: relative;	margin-right: -10000px;	left: 957px;}
 #u25504{	z-index: 2;	width: 1237px;	left: -19px;	position: relative;}
 #u25504_img{	width: 1237px;	height: 91px;}
-#main-section{	width: 100%;	max-width: 1200px;}
+/* #main-section{	width: 100%;	max-width: 1200px;} */
+#main-section{	width: 100%;	max-width: 100%;}
 #pu7925{	max-width: 665px;	height: 390px;	margin-left: auto;	margin-right: auto;	margin-top: 72px;}
 
 .menu-image img{	max-height: 374px;	max-width: 156px;	width: 100%;	height: auto;}
