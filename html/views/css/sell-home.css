@@ -1,13 +1,17 @@
 .version.sellers_info_page{ background-color:#9BAAFB; color:#000008; }
 
 #sellHome{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -53px; }
-#page{ background-color:transparent; background-image:none; border-color:#000000; border-width:0px; margin-left:auto; margin-right:auto; max-width:1200px; min-height:900px; padding-bottom:0px; width:100%; z-index:1; }
+/*#page{ background-color:transparent; background-image:none; border-color:#000000; border-width:0px; margin-left:auto; margin-right:auto; max-width:1200px; min-height:900px; padding-bottom:0px; width:100%; z-index:1; }*/
+#page{ background-color:transparent; background-image:none; border-color:#000000; border-width:0px; margin: 0 auto; max-width:89%; min-height:900px; padding-bottom:0px; width:100%; z-index:1; }
 #page_position_content{ margin-bottom:-11px; padding-top:7px; width:100%; }
+
+.header-container{ max-width: 1200px !important; padding: 0 15px !important; }
 
 #backBtn{ margin-right: -72.2px; }
 #backBtn .fa.fa-chevron-left{ line-height: 2; }
 
-.col-md-5ths{ border-bottom: none; border-left: none; border-right: 1px solid #B2B2B2; border-top: none; display: inline-block; width: 234px; }
+/*.col-md-5ths{ border-bottom: none; border-left: none; border-right: 1px solid #B2B2B2; border-top: none; display: inline-block; width: 234px; }*/
+.col-md-5ths{ border-bottom: none; border-left: none; border-right: 1px solid #B2B2B2; border-top: none; display: inline-block; width: 20%; }
 .col-md-5ths:last-child{ border-right: none; }
 .panel{ border: none; box-shadow: none; margin-bottom: 0 !important; }
 .panel-body{ min-height: 381px; padding: 0 15px; }
@@ -20,32 +24,42 @@
 #u124-6,#u124-7,#u124-11{ line-height:21px; }
 #u124-13{ line-height:30px; }
 
-#u116{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:216px; z-index:57; }
-#u117-11{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:58; }
+/*#u116{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:216px; z-index:57; }*/
+#u116{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:100%; z-index:57; }
+/*#u117-11{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:58; }*/
+#u117-11{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:100%; z-index:58; }
 #u118{ background-color:transparent; margin-right:-10000px; position:relative; width:75px; z-index:69; }
 #u119{ display:block; z-index:70; }
 
-#u112{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:218px; z-index:36; }
-#u115-18{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:217px; z-index:37; }
+/*#u112{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:218px; z-index:36; }*/
+#u112{ background-color:transparent; border-color:transparent; border-width:0px; margin-right:-10000px; margin-top:2px; position:relative; width:100%; z-index:36; }
+/*#u115-18{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:217px; z-index:37; }*/
+#u115-18{ background-color:transparent; left:1px; margin-right:-10000px; margin-top:16px; position:relative; width:100%; z-index:37; }
 #u115-7,#u115-11{ color:#DD6000; font-family:lato, sans-serif; font-weight:700; }
 #u115-14{ color:#DD6000; }
 #u113{ background-color:transparent; margin-right:-10000px; position:relative; width:75px; z-index:55; }
 #u114{ display:block; z-index:56; }
 
-#u129{ background-color:transparent; border-color:transparent; border-width:0px; margin-top:2px; position:relative; width:215px; z-index:117; }
-#u132-13{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:118; }
+/*#u129{ background-color:transparent; border-color:transparent; border-width:0px; margin-top:2px; position:relative; width:215px; z-index:117; }*/
+#u129{ background-color:transparent; border-color:transparent; border-width:0px; margin-top:2px; position:relative; width:100%; z-index:117; }
+/*#u132-13{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:118; }*/
+#u132-13{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:100%; z-index:118; }
 #u132-7{ color:#569243; font-family:lato, sans-serif; font-weight:700; }
 #u130{ background-color:transparent; margin-right:-10000px; position:relative; width:75px; z-index:131; }
 #u131{ display:block; z-index:132; }
 
-#u125{ background-color:transparent; border-color:transparent; border-width:0px; position:relative; width:215px; z-index:101; }
-#u126-13{ background-color: transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:102; }
+/*#u125{ background-color:transparent; border-color:transparent; border-width:0px; position:relative; width:215px; z-index:101; }*/
+#u125{ background-color:transparent; border-color:transparent; border-width:0px; position:relative; width:100%; z-index:101; }
+/*#u126-13{ background-color: transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:102; }*/
+#u126-13{ background-color: transparent; margin-right:-10000px; margin-top:16px; position:relative; width:100%; z-index:102; }
 #u126-7{ color:#7E499E; font-family:lato, sans-serif; font-weight:700; }
 #u127{ background-color:transparent; margin-right:-10000px; position:relative; width:75px; z-index:115; }
 #u128{ display:block; z-index:116; }
 
-#u120{ border-color:transparent; border-width:0px; background-color:transparent; margin-top:2px; position:relative; width:215px; z-index:71; }
-#u121-12{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:72; }
+/*#u120{ border-color:transparent; border-width:0px; background-color:transparent; margin-top:2px; position:relative; width:215px; z-index:71; }*/
+#u120{ border-color:transparent; border-width:0px; background-color:transparent; margin-top:2px; position:relative; width:100%; z-index:71; }
+/*#u121-12{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:215px; z-index:72; }*/
+#u121-12{ background-color:transparent; margin-right:-10000px; margin-top:16px; position:relative; width:100%; z-index:72; }
 #u122{ background-color:transparent; left:2px; margin-right:-10000px; position:relative; width:75px; z-index:84; }
 #u123{ display:block; z-index:85; }
 
