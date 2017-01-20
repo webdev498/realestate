@@ -1789,15 +1789,12 @@ var Register = React.createClass({
     else{ return false; }
   },
   checkPQ: function(){
-    if(this.state.phone != ""){ return true; }
-    else{
-      if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
-      else{ return false; }
-    }
+	if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
+		else{ return false; }
   },
   checkInput: function(){
-    if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
-    else{ return false }
+    if( this.state.firstname != "" &&  this.state.lastname != "" && this.state.email != "" && this.state.pass != "" &&  this.state.secQues != "default" && this.state.secAns != "") { return true; }
+	    else{ return false }
   },
   getAgents: function(){
     $.ajax({
@@ -2034,17 +2031,17 @@ var Register = React.createClass({
                           </td>
                           <td className="text-popups"><input type="text" id="formAgent" className="agent-code text-popups input1" name="agent-code" value={this.state.agent} onChange={this.handleChange.bind(this, 'agent')} onFocus={this.getAgents} onBlur={this.switchAgent}/></td>
                         </tr>
-                        <tr>
-                          <td colSpan="2">&nbsp;</td>
-                        </tr>
-                        <tr>
-                          <td colSpan='2' id="phoneStatement" className="text-popups">Please enter your phone number or select a security question.{this.checkPQ() ? null : <strong id="phoneMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }</td>
-                        </tr>
                         <tr className="phone1">
                           <td className="text-popups">Phone:</td>
                           <td className="text-popups"><input type="text" id="formPhone" className="text-popups input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
                         </tr>
-                        <tr><td>OR</td><td></td></tr>
+                        <tr>
+                          <td colSpan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td colSpan='2' id="phoneStatement" className="text-popups">Please select a security question.{this.checkPQ() ? null : <strong id="phoneMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }</td>
+                        </tr>
+                        <tr>
                         <tr>
                           <td className="text-popups">Security Question:</td>
                           <td className="text-popups"><select id="formQuestion" className="input2" name="security-question" onChange={this.handleChange.bind(this, 'secQues')}>
