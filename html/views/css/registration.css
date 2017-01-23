@@ -6,9 +6,9 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 
 #header{ margin: auto; max-width: 960px; }
 #wrapper{ margin: auto; max-width: 960px; }
-#registerBackground{ background-image: url('../../images/fotolia_83811129_retouched.jpg'); background-size: 100% 100%; height: 1170px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
-#registerBackground2{ background-image: url('../../images/fotolia_68256058_subscription_monthly_m.jpg'); background-size: 100% 100%; height: 1150px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
-#registrationArea{ background: white; border: gray; border-style: solid; border-width: 1pt; box-shadow: 7px 7px 7px #D1D0CE; height: 100%; margin: auto; max-width: 580px; min-width: 560px; top: 1%; }
+#registerBackground{ background-image: url('../../images/fotolia_83811129_retouched.jpg'); background-size: 100% 100%; height: 1045px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#registerBackground2{ background-image: url('../../images/fotolia_68256058_subscription_monthly_m.jpg'); background-size: 100% 100%; height: 1015px; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
+#registrationArea{ background: white; border: gray; border-style: solid; border-width: 1pt; box-shadow: 7px 7px 7px #D1D0CE; height: 100%; margin: 10px auto 0; max-width: 580px; min-width: 560px; top: 1%; }
 #registrationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
 #registrationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
 #registrationBorder{ margin:auto; padding: 40px 40px 0; }
@@ -18,7 +18,7 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 #registrationBorder form td select { float: left; width: 92%; border:1px solid;}
 #registrationBorder .asterisk{ color: #D2008F; padding-left: 2px; }
 #registrationBorder #agentMoreInfo:hover{ color: #0085C6; }
-#primaryAgent{ background-image: url('../../images/box_625x400.png'); height: 485px; left: 496px; position: absolute; top: 355px; width: 670px; z-index: 700; }
+#primaryAgent{ background-image: url('../../images/box_625x400.png'); height: 485px; left: 496px; position: absolute; top: 510px; width: 670px; z-index: 700; }
 #primAgentText{ left: 80px; position: absolute; top: 100px; width: 550px; }
 #primAgentList{ color: #0085C6; padding-left: 20px; }
 #primAgentList p{ color: #606060; }
@@ -27,9 +27,7 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 .terms-box{ border:1px solid #cccccc; color:#333333; font-size:0.9em; height: 200px; overflow: auto; padding: 12px; width: 450px; }
 #arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
 #registrationSubmit{ background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; }
-#closePopup{ left: 640px; position: absolute; top: 85px; width: 15px; }
-#moreInfoBox{ background: white none repeat scroll 0% 0%; bottom: 0; color: #0085C6; font-family: lato, sans-serif; font-size: 20pt; font-weight: bold; height: 35px; max-width: 580px; min-width: 560px; position: fixed; text-align: center; vertical-align: middle; }
-#moreInfoBox span{ vertical-align: middle; }
+#closePrimaryAgentPopup{ color: #B2B2B2; cursor: pointer; margin-top: -15px; text-align: right; width: 100%; }
 
 .input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
 .input2{ border: medium none; height: 35px; width: 323px; }

@@ -1,11 +1,13 @@
 <?php session_start(); ?>
 <div id="login_blank" class="text-popups"><p>You need to enter your email and password to sign in.</p></div>
-<div id="agent_verification_blank" class="text-popups"><p>You need to enter your first name, last name, email and agent id so we can verify who you are.</p></div>
+<div id="verification_setup_blank" class="text-popups"><p>You need to select a security question and enter an answer. These will be used to verify who you are if you forget your password.</p></div>
+<div id="agent_verification_blank" class="text-popups"><p>You need to enter your email so we can verify who you are.</p></div>
+<div id="agent_verification_blank_two" class="text-popups"><p>You need to enter your email and answer your security question so we can verify who you are.</p></div>
 <div id="buyer_verification_blank" class="text-popups"><p>You need to enter your first name, last name and email so we can verify who you are.</p></div>
-<div id="buyer_verification_blank_two" class="text-popups"><p>You need to enter your first name, last name, email and phone/security question and answer so we can verify who you are.</p></div>
+<div id="buyer_verification_blank_two" class="text-popups"><p>You need to enter your first name, last name, email and security question and answer so we can verify who you are.</p></div>
 <div id="agent_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, phone number and a password.</p></div>
-<div id="buyer_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, phone number or security question/answer, a password and select a security option.</p></div>
-<div id="registration_blank" class="text-popups"><p>You need to enter your first name, last name, email, phone number or a security question/answer and create a password in order to register.</p></div>
+<div id="buyer_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, a security question/answer, a password and select a security option.</p></div>
+<div id="registration_blank" class="text-popups"><p>You need to enter your first name, last name, email, a security question/answer and create a password in order to register.</p></div>
 <div id="registration_disclosure_consent" class="text-popups"><p>You must select whether you consent or don't consent to the New York State Disclosure Form for Buyer and Seller in order to continue.</p></div>
 <div id="registration_disclosure_no_consent" class="text-popups"><p>You did not consent to the New York State Disclosure Form for Buyer and Seller, thus you have not been registered with HomePik.</p></div>
 <div id="short_password" class="text-popups"><p>Your password must be at least five characters long.</p></div>

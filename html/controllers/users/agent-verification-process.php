@@ -36,14 +36,12 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$formStep = $_REQUEST['formStep'];
-					$firstName = strtolower($_REQUEST['firstName']);
-					$lastName = strtolower($_REQUEST['lastName']);
-					$email = $_REQUEST['email'];
-					$agentID = $_REQUEST['agentCode'];
-					$name = explode('@', $email);
+					$formStep = $_POST['formStep'];
+					$email = $_POST['email'];
+					$question = $_POST['security-question'];
+					$answer = $_POST['security-answer'];
 
-					if (!$firstName || !$lastName || !$email || !$agentID) {
+					if( !$email || !$question || !$answer ) {
 						//if any weren't display the error message
 						echo "<center class='Text-1 clearfix title'>Validation Error</center>";
 						echo "<center class='Text-1 clearfix'><br><br>You need to fill in all of the required fields.</center>";
@@ -65,26 +63,26 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								$num1 = mysql_num_rows($res1);
 								//if the number of matchs is 1
 								if ($num1 >= 1) {
-								//select all rows from the table where the email matches the one entered by the user
-								$res = mysql_query("SELECT id, first_name, last_name, agent_id, phone, admin FROM registered_agents WHERE email = '" . $email . "'");
-								$row = mysql_fetch_assoc($res);
-								$fn = strtolower($row['first_name']);
-								$ln = strtolower($row['last_name']);
-								$aid = $row['agent_id'];
+								$row = mysql_fetch_assoc($res1);
 
-								if($firstName == $fn && $lastName == $ln && $agentID == $aid){
+								if($question == $row['security_question'] && $answer == $row['security_answer']){
 									$_SESSION['id'] = $row['id'];
-									$_SESSION['agent_id'] = $aid;
-									$_SESSION['firstname'] = $fn;
-									$_SESSION['lastname'] = $ln;
+									$_SESSION['agent_id'] = $row['agent_id'];
+									$_SESSION['firstname'] = $row['first_name'];
+									$_SESSION['lastname'] = $row['last_name'];
 									$_SESSION['phone'] = $row['phone'];
 									$_SESSION['email'] = $email;
+									$_SESSION['admin'] = $row['admin'];
 									$_SESSION['role'] = 'agent';
 									$_SESSION['agent'] = 'true';
-									$_SESSION['admin'] = $row['admin'];
+									
+									// Get un-read message count
+									$result2 = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `registered_agents` as r ON m.agent=r.email WHERE (agent = '".$email."') AND (sender != '".$email."') AND (m.time > r.online)") or die("Couldn't execute query.".mysql_error());
+									$row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+									$_SESSION['unreadMessages'] = $row2['messages'];
 
 									echo "<br><br><center class='Text-1 clearfix'><b>Logging In...</b></center>";
-									print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";
+									print "<script> window.location = '/menu.php' </script>";
 								}
 								else{
 									echo "<center class='Text-1 clearfix title'>Validation Error</center>";

@@ -218,7 +218,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "index");
 	  getInitialState: function(){
       return{
         user: "<?php echo (isset($email) ? $email : "") ?>",
-        agent_id: "<?php echo (isset($agent_id) ? $_agent_id : "") ?>",
+        agent_id: "<?php echo (isset($agent_id) ? $agent_id : "") ?>",
         listing: this.props.listing_num,
         buyers:[],
         buyer: "<?php echo (isset($email) ? $email : "") ?>",

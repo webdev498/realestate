@@ -106,22 +106,22 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 		},
 		render: function(){
 		  return(
-				<div id="primaryAgent" style={{display:"none"}}>
-					<img id="closePopup" src="/images/close-x.png" style={{cursor: "pointer"}} onClick={this.closePopup} title='close'/>
+				<div id="primaryAgent" style={{display:"none"}}>					
 					<div id="primAgentText" className="text-popups">
-					By default, every listing in the system has a designated agent.
-					You may elect to work with that agent or select a different agent, who will then become your Primary Agent for all listings.
-					<br/><br/>
-					<ul id="primAgentList">
-						<li><p>You can change your primary agent at any time.</p></li>
-						<li><p>You can have up to two primary agents.
-							(For example, you may choose to work with one primary agent
-							for the East Side and another primary agent for Downtown.)</p></li>
-						<li><p>You can select an agent from any listing, or click <a id="agentList" style={{cursor: "pointer"}} onClick={this.listAgents}>here</a> to see a
-							list of all agents.</p></li>
-					</ul>
-					<br/>
-					It is not necessary to choose a primary agent. In that case, the agent associated with a listing will represent you on that property
+						<h4 id="closePrimaryAgentPopup" onClick={this.closePopup} title='close'><i className="fa fa-times"></i></h4>
+						By default, every listing in the system has a designated agent.
+						You may elect to work with that agent or select a different agent, who will then become your Primary Agent for all listings.
+						<br/><br/>
+						<ul id="primAgentList">
+							<li><p>You can change your primary agent at any time.</p></li>
+							<li><p>You can have up to two primary agents.
+								(For example, you may choose to work with one primary agent
+								for the East Side and another primary agent for Downtown.)</p></li>
+							<li><p>You can select an agent from any listing, or click <a id="agentList" style={{cursor: "pointer"}} onClick={this.listAgents}>here</a> to see a
+								list of all agents.</p></li>
+						</ul>
+						<br/>
+						It is not necessary to choose a primary agent. In that case, the agent associated with a listing will represent you on that property
 					</div>
 				</div>
 		  );
@@ -148,18 +148,10 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 		componentWillUnmount: function() {
 			window.removeEventListener('scroll', this.handleScroll);
 		},
-		handleScroll: function(){
-			if($(window).scrollTop() + $(window).height() >= $(document).height()){ $("#moreInfoBox").hide(); }
-			if($(window).scrollTop() + $(window).height() < $(document).height()){ $("#moreInfoBox").show(); }
-		},
 		handleChange: function (name, event) {
 		  var change = {};
 		  change[name] = event.target.value;
 		  this.setState(change);
-		},
-		checkPQ: function(){
-		   if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
-				else{ return false; }
 		},
 		checkInput: function(){
 			if( this.state.firstname != "" &&  this.state.lastname != "" && this.state.email != "" && this.state.pass != "" &&  this.state.secQues != "default" && this.state.secAns != "") { return true; }
@@ -237,7 +229,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 		  }
 		},
 		showPopup: function(){
-			$(window).scrollTop(300);
+			$(window).scrollTop(400);
 		  $("#primAgentPopupOverlay").show();
 		  $("#primaryAgent").show();
 		},
@@ -245,7 +237,7 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 		  var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 		  var emailValid = emailReg.test(this.state.email);
 
-		  if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.pass == "" || (this.state.phone == "" && (this.state.secQues == "default" || this.state.secAns == "" ))){
+		  if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.pass == "" || this.state.secQues == "default" || this.state.secAns == "" ){
 				$("#ajax-box").dialog({
 					modal: true,
 					height: 'auto',
@@ -435,23 +427,12 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 															<td className="text-popups"><input type="text" autoCapitalize="off" id="formEmail" className="grade_desc input1" value={this.state.email} name="email" onChange={this.handleChange.bind(this, 'email')} />{this.state.email != "" ? null : <strong id="emailMark" className="asterisk"> {'\u002A'}</strong> }</td>
 														</tr>
 														<tr>
+															<td className="text-popups">Phone:</td>
+															<td className="text-popups"><input type="text" id="formPhone" className="grade_desc input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
+														</tr>
+														<tr>
 															<td className="text-popups">Create Password:</td>
 															<td className="text-popups"><input type="password" id="formPass" className="grade_desc input1" name="password" autoComplete="new-password" onChange={this.handleChange.bind(this, 'pass')} />{this.state.pass != "" ? null : <strong id="passwordMark" className="asterisk"> {'\u002A'}</strong> }</td>
-														</tr>
-														<tr>
-															<td className="text-popups">Agent Code:<br/><i>(optional)</i>&nbsp;
-															<i id="agentMoreInfo" className="fa fa-question-circle" style={{width:15+"px", cursor: "pointer"}} onClick={this.showPopup} title='more info'></i></td>
-															<td className="text-popups"><input type="text" id="formAgent" className="agent-code input1" name="agent-code" value={this.state.agent} onChange={this.handleChange.bind(this, 'agent')} onFocus={this.getAgents} onBlur={this.switchAgent}/></td>
-														</tr>
-														<tr>
-															<td className="text-popups" style={{paddingBottom: 0 + 'px !important'}}>Phone:</td>
-															<td className="text-popups" style={{paddingBottom: 0 + 'px !important'}}><input type="text" id="formPhone" className="grade_desc input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
-														</tr>
-														<tr>
-															<td colSpan="2">&nbsp;</td>
-														</tr>
-														<tr>
-															<td className="text-popups" colSpan="2">Please select a security question.{this.checkPQ() ? null : <strong id="phoneMark" className="asterisk"> {'\u002A'}</strong> }</td>
 														</tr>
 														<tr>
 															<td className="text-popups">Security Question:</td>
@@ -461,11 +442,18 @@ $referrer = (isset($_GET['r']) ? $_GET['r'] : "registrationPage");
 																<option value="2">What is your mother's maiden name?</option>
 																<option value="3">What was the name of the street where you grew up?</option>
 																<option value="4">What is your favorite food?</option>
-															</select></td>
+															</select>
+															{this.state.secQues != "default" ? null : <strong id="questionMark" className="asterisk"> {'\u002A'}</strong> }
+															</td>
 														</tr>
 														<tr>
 															<td className="text-popups">Security Answer:</td>
-															<td className="text-popups"><input type="text" id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/></td>
+															<td className="text-popups"><input type="text" id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/>{this.state.secAns != "" ? null : <strong id="answerMark" className="asterisk"> {'\u002A'}</strong> }</td>
+														</tr>
+														<tr>
+															<td className="text-popups">Agent Code:<br/><i>(optional)</i>&nbsp;
+															<i id="agentMoreInfo" className="fa fa-question-circle" style={{width:15+"px", cursor: "pointer"}} onClick={this.showPopup} title='more info'></i></td>
+															<td className="text-popups"><input type="text" id="formAgent" className="agent-code input1" name="agent-code" value={this.state.agent} onChange={this.handleChange.bind(this, 'agent')} onFocus={this.getAgents} onBlur={this.switchAgent}/></td>
 														</tr>
 														<tr>
 															<td className="text-popups" colSpan="2" id="fieldsAlert">{this.checkInput() ? <strong style={{color:'#D2008F', float:"right"}}> {'All Fields Filled'}</strong> : <strong style={{color:'#D2008F', float:"right"}}> {'\u002A Required Fields'}</strong> }</td>

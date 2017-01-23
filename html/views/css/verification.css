@@ -29,6 +29,8 @@ a:hover #backBtn, #backBtn:hover{ color: #646464 !important; }
 #editOptions #editBuyerInformationSubmit, #editOptions #editAgentInformationSubmit{ font-weight: normal; }
 #editOptions .fa.fa-check, #editOptions .fa.fa-circle-thin{ color: #646464; font-family: '__FontAwesome_5'; line-height: 25px; }
 
+.pink{ color: #D2008F; }
+.right{ float: right; }
 .input1{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; width: 280px; }
 textarea{ height: 100px !important; }
 *, *::before, *::after { box-sizing: content-box; }

@@ -5,7 +5,17 @@ include_once("dbconfig.php");
 $db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
 mysql_select_db($database) or die("Error connecting to db.");
 
-if(isset($_POST['fullValidationInfo'])){
+if(isset($_POST['emailValidation'])){
+  $email = $_POST['email'];
+
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$email."')";
+  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  
+  echo json_encode($row);
+}
+
+else if(isset($_POST['fullValidationInfo'])){
   $email = $_POST['email'];
   $firstName = $_POST['firstName'];
   $lastName = $_POST['lastName'];
@@ -17,6 +27,7 @@ if(isset($_POST['fullValidationInfo'])){
   
   echo json_encode($row);
 }
+
 else if(isset($_POST['fullValidation'])){
   $email = $_POST['email'];
   $firstName = $_POST['firstName'];
@@ -33,6 +44,7 @@ else if(isset($_POST['fullValidation'])){
     echo "exists";
   }
 }
+
 else if(isset($_POST['passReset'])){
   $email = $_POST['email'];
   $newPassword = $_POST['password'];
@@ -48,6 +60,7 @@ else if(isset($_POST['passReset'])){
     $row = mysql_fetch_assoc($res2);		
   }
 }
+
 else if(isset($_POST['code'])){
   $result = mysql_query( "SELECT agent_id FROM `registered_agents` where (agent_id = '".$_POST['code']."')" ) or die("Couldn't execute query.".mysql_error());
   $row = mysql_fetch_array($result,MYSQL_ASSOC);  
@@ -63,6 +76,7 @@ else if(isset($_POST['code'])){
   
   echo json_encode($info);
 }
+
 else if(isset($_POST['reassignCheck'])){
   if(isset($_POST['id'])){ $id = $_POST['id']; }
   else if(isset($_POST['firstname'])){
@@ -84,6 +98,7 @@ else if(isset($_POST['reassignCheck'])){
   
   echo json_encode($status);
 }
+
 else if(isset($_POST['name'])){
   $code = "none";
   $result = mysql_query( "SELECT agent_id FROM `registered_agents` where (first_name = '".$_POST['firstname']."') AND (last_name = '".$_POST['lastname']."')" ) or die("Couldn't execute query.".mysql_error());  
@@ -100,6 +115,7 @@ else if(isset($_POST['name'])){
   
   echo json_encode($info);
 }
+
 else if(isset($_POST['getID'])){
   $result = mysql_query( "SELECT agent_id FROM `registered_agents` where (first_name = '".$_POST['firstname']."') AND (last_name = '".$_POST['lastname']."')" ) or die("Couldn't execute query.".mysql_error());  
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -107,6 +123,7 @@ else if(isset($_POST['getID'])){
   
   echo json_encode($id);
 }
+
 else if(isset($_POST['getEmail'])){
   $result = mysql_query( "SELECT email FROM `registered_agents` where (agent_id = '".$_POST['id']."')" ) or die("Couldn't execute query.".mysql_error());  
   $row = mysql_fetch_array($result,MYSQL_ASSOC);
@@ -114,4 +131,5 @@ else if(isset($_POST['getEmail'])){
   
   echo json_encode($email);
 }
+
 ?>

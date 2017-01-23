@@ -30,30 +30,13 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 				secAns: ""
 		  };
 		},
-		componentDidMount: function() {
-			window.addEventListener('scroll', this.handleScroll);
-		},	
-		componentWillUnmount: function() {
-			window.removeEventListener('scroll', this.handleScroll);
-		},
-		handleScroll: function(){
-			if($(window).scrollTop() + $(window).height() >= $(document).height()){ $("#moreInfoBox").hide(); }
-			if($(window).scrollTop() + $(window).height() < $(document).height()){ $("#moreInfoBox").show(); }
-		},
 		handleChange: function (name, event) {
 		  var change = {};
 		  change[name] = event.target.value;
 		  this.setState(change);
 		},
-		checkPQ: function(){
-		  if(this.state.phone != ""){ return true; }
-			else{
-				if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
-				else{ return false; }
-		  }
-		},
 		checkInput: function(){
-		  if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
+		  if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && this.state.secQues != "default" && this.state.secAns != "" ){ return true; }
 			else{ return false }
 		},
 		updatePhone: function(){
@@ -95,7 +78,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 			var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 		  var emailValid = emailReg.test(this.state.email);
 			
-		  if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.pass == "" || (this.state.phone == "" && (this.state.secQues == "default" || this.state.secAns == "" ))){
+		  if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.pass == "" || this.state.secQues == "default" || this.state.secAns == "" ){
 				$("#ajax-box").dialog({
 					modal: true,
 					height: 'auto',
@@ -268,7 +251,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 										<img src="/images/button_pen_states.png" style={{float:"right"}}/>
 									</div>
 									<div id="registrationBorder">
-										<form onSubmit={this.validate} action="http://homepik.com/controllers/users/complete-register-process.php" id="validate" className="validate" method="post" autoComplete="off" data-bind="nextFieldOnEnter:true">
+										<form onSubmit={this.validate} action="users/complete-register-process.php" id="validate" className="validate" method="post" autoComplete="off" data-bind="nextFieldOnEnter:true">
 											<table cellPadding="2" cellSpacing="0" border="0">
 												<tbody>
 													<tr>
@@ -284,20 +267,13 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 														<td className="text-popups"><input type="text" autoCapitalize="off" id="formEmail" className="grade_desc input1" name="email" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} />{this.state.email != "" ? null : <strong id="emailMark" className="asterisk"> {'\u002A'}</strong> }</td>
 													</tr>
 													<tr>
+														<td className="text-popups">Phone:</td>
+														<td className="text-popups"><input type="text" id="formPhone" className="grade_desc input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
+													</tr>
+													<tr>
 														<td className="text-popups">Create Password:</td>
 														<td className="text-popups"><input type="password" id="formNewPass" className="grade_desc input1" name="newPassword" autoComplete="new-password" onChange={this.handleChange.bind(this, 'pass')} />{this.state.pass != "" ? null : <strong id="passwordMark" className="asterisk"> {'\u002A'}</strong> }</td>
 													</tr>
-													<tr>
-														<td colSpan="2">&nbsp;</td>
-													</tr>
-													<tr>
-														<td className="text-popups" colSpan="2">Please enter your phone number or select a security question.{this.checkPQ() ? null : <strong id="phoneMark" className="asterisk"> {'\u002A'}</strong> }</td>
-													</tr>
-													<tr>
-														<td className="text-popups" style={{paddingBottom: 0 + 'px !important'}}>Phone:</td>
-														<td className="text-popups" style={{paddingBottom: 0 + 'px !important'}}><input type="text" id="formPhone" className="grade_desc input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
-													</tr>
-													<tr><td className="text-popups" style={{paddingBottom: 0 + 'px !important'}}>OR</td></tr>
 													<tr>
 														<td className="text-popups">Security Question:</td>
 														<td className="text-popups"><select id="formQuestion" className="input2" name="security-question" onChange={this.handleChange.bind(this, 'secQues')}>
@@ -306,11 +282,13 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
 															<option value="2">What is your mother's maiden name?</option>
 															<option value="3">What was the name of the street where you grew up?</option>
 															<option value="4">What is your favorite food?</option>
-														</select></td>
+														</select>
+															{this.state.secQues != "default" ? null : <strong id="questionMark" className="asterisk"> {'\u002A'}</strong> }
+														</td>
 													</tr>
 													<tr>
 														<td className="text-popups">Security Answer:</td>
-														<td className="text-popups"><input type="text" id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/></td>
+														<td className="text-popups"><input type="text" id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/>{this.state.secAns != "" ? null : <strong id="answerMark" className="asterisk"> {'\u002A'}</strong> }</td>
 													</tr>
 													<tr>
 														<td className="text-popups" colSpan="2" id="fieldsAlert">{this.checkInput() ? <strong style={{color:'#D2008F', float:"right"}}> {'All Fields Filled'}</strong> : <strong style={{color:'#D2008F', float:"right"}}> {'\u002A Required Fields'}</strong> }</td>

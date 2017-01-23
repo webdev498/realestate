@@ -47,7 +47,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							//if any weren't display the error message
 							echo "<center class='Text-1 clearfix title'>Login Error</center>";
 							echo "<br><br><center class='Text-1 clearfix'>You need to fill in all of the required fields.</center>";
-							echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+							echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 					} else {
 						//otherwise continue checking
 						//check if the password is less than 5 characters long
@@ -55,7 +55,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							//if it is display error message
 							echo "<center class='Text-1 clearfix title'>Login Error</center>";
 							echo "<br><br><center class='Text-1 clearfix'>Your <b>Password</b> must be more than 5 characters long.</center>";
-							echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+							echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 						} else {
 							//continue checking
 							//Set the format we want to check out email address against
@@ -65,7 +65,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								//if not display error message
 								echo "<center class='Text-1 clearfix title'>Login Error</center>";
 								echo "<br><br><center class='Text-1 clearfix'>The <b>E-mail</b> is not valid, must be name@server.tld.</center>";
-								echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+								echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 							}
 							else {
 								//if they do, continue checking
@@ -82,7 +82,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 										//if not display an error message
 										echo "<center class='Text-1 clearfix title'>Login Error</center>";
 										echo "<br><br><center class='Text-1 clearfix'>You need to fill in an <b>email</b> and a <b>Password</b>.</center>";
-										echo '<br><br><center class="Text-1 clearfix"><a href="http://homepik.com/controllers/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+										echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 									} else {
 										if ($agent != 'true') {
 												//if the were continue checking
@@ -99,7 +99,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														echo "<center class='Text-1 clearfix title'>Login Error</center>";
 														echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 														echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the login to re-enter an email.</center> ";
-														echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+														echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 												} else {
 													//if there was a match continue checking
 													//select all rows where the email and password match the ones submitted by the user
@@ -109,7 +109,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													if ($num == 0) {
 														//if not display error message
 														print "<center class='Text-1 clearfix'>Re-directing...</center>";
-														print "<script> window.location = 'http://homepik.com/controllers/verification.php?x=1' </script>";
+														print "<script> window.location = '/verification.php?x=1' </script>";
 													} else {
 														//if there was continue checking
 														//split all fields fom the correct row into an associative array
@@ -131,21 +131,24 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														unset($_SESSION['guestID']); //Clear the guest ID saved in session as user is no longer a guest
 
 														// Get un-read message count
-														$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());
-														$row = mysql_fetch_array($result,MYSQL_ASSOC);
-														$_SESSION['unreadMessages'] = $row['messages'];
-														
-														//show message
-														echo "<center class='Text-1 clearfix'>Logging in...</center>";
+														$result2 = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `users` as u ON m.buyer=u.email WHERE (buyer = '".$email."') AND (sender != '".$email."') AND (m.time > u.online)") or die("Couldn't execute query.".mysql_error());
+														$row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+														$_SESSION['unreadMessages'] = $row2['messages'];
 														
 														//update the online field
 														$time = date('U');
 														mysql_query("UPDATE users SET online = '" . $time . "' WHERE id = '" . $_SESSION['id'] . "' ");
 														$_SESSION['logged_in'] = $time;
 														
-														//redirect them to the menu page
-														print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";
-				
+														if( (!isset($row['security_question']) || $row['security_question'] == "" || $row['security_question'] == 'default') || (!isset($row['security_answer']) || $row['security_answer'] == "") ){
+															echo "<center class='Text-1 clearfix'>Re-directing...</center>"; //show message
+															print "<script> window.location = '/verification-setup.php' </script>"; //redirect them to the verification setup page
+														}
+														else{
+															echo "<center class='Text-1 clearfix'>Logging in...</center>"; //show message
+															print "<script> window.location = '/menu.php' </script>"; //redirect them to the menu page
+														}
+														
 														// Sets session for inactivity
 														$_SESSION['last_activity'] = time();
 														//$_SESSION['end'] = 1800; // 30 minutes
@@ -155,14 +158,14 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 											} else{
 												echo "<center class='Text-1 clearfix title'>Login Error</center>";
 												echo "<br><br><center class='Text-1 clearfix'>You must log in using Registered Agent login.</center>";
-												echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/agent-signin.php"><button type="button" id="back">Go to Agent Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+												echo '<br><br><center class="Text-1 clearfix"><a href="/agent-signin.php"><button type="button" id="back">Go to Agent Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 											}
 										} // END LOGIN
 									} else {
 										echo "<center class='Text-1 clearfix title'>Login Error</center>";
 										echo "<br><br><center class='Text-1 clearfix'>The <b>email</b> you supplied is not associated with any accounts.</center>";
 										echo "<br><center class='Text-1 clearfix'>Please go to <b>Create an Account</b> to make an account or go back to the login to re-enter an email.</center> ";
-										echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/controllers/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+										echo '<br><br><center class="Text-1 clearfix"><a href="javascript:history.back()"><button type="button" id="back" class="extraSpace"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a>&nbsp;&nbsp;<a href="/guest-register.php"><button type="button" id="back">Create an Account &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 									}
 								}
 							}

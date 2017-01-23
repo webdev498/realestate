@@ -51,13 +51,13 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 					if (!$password || !$email) {
 						echo "<center class='Text-1 clearfix title'>Login Error</center>";
 						echo "<br><br><center class='Text-1 clearfix'>You need to fill in all of the required fields.</center>";
-						echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+						echo '<br><br><center class="Text-1 clearfix"><a href="/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 					} else {
 						//check if the password is less than 5 characters long
 						if (strlen($password) < 5) {
 							echo "<center class='Text-1 clearfix title'>Login Error</center>";
 							echo "<br><br><center class='Text-1 clearfix'>Your <b>Password</b> must be more than 5 characters long.</center>";
-							echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+							echo '<br><br><center class="Text-1 clearfix"><a href="/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 						} else {
 							//Set the format we want to check out email address against
 							$checkemail = "/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i";
@@ -65,7 +65,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							if (!preg_match($checkemail, $email)) {
 								echo "<center class='Text-1 clearfix title'>Login Error</center>";
 								echo "<br><br><center class='Text-1 clearfix'>The <b>E-mail</b> is not valid, must be name@server.tld.</center>";
-								echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+								echo '<br><br><center class="Text-1 clearfix"><a href="/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 							}
 							else {
 								//select all rows from our users table where the emails match
@@ -81,12 +81,12 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 									if (!$email || !$password) {
 										echo "<center class='Text-1 clearfix title'>Login Error</center>";
 										echo "<br><br><center class='Text-1 clearfix'>You need to fill in a <b>email</b> and a <b>Password</b>.</center>";
-										echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
+										echo '<br><br><center class="Text-1 clearfix"><a href="/agent-signin.php?e='.$email.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Login</button></a></center>';
 									} else {
 										if ($agent != 'true') {
 											echo "<center class='Text-1 clearfix title'>Login Error</center>";
 											echo "<br><br><center class='Text-1 clearfix'>You must log in using Registered Buyer login.</center>";
-											echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/signin.php"><button type="button" id="back">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+											echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php"><button type="button" id="back">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 										}
 										else{
 											//select all rows from the table where the email matches the one entered by the user
@@ -111,7 +111,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 												if ($num == 0) {
 													//if not display error message
 													print "<center class='Text-1 clearfix'>Re-directing...</center>";
-													print "<script> window.location = 'http://homepik.com/controllers/agent-verification.php' </script>";
+													print "<script> window.location = '/agent-verification.php' </script>";
 												} else {
 													//split all fields fom the correct row into an associative array
 													$row = mysql_fetch_assoc($res);
@@ -131,17 +131,21 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 													unset($_SESSION['guestID']);
 													
 													// Get un-read message count
-													$result = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `registered_agents` as r ON m.agent=r.email WHERE (agent = '".$email."') AND (sender != '".$email."') AND (m.time > r.online)") or die("Couldn't execute query.".mysql_error());
-													$row = mysql_fetch_array($result,MYSQL_ASSOC);
-													$_SESSION['unreadMessages'] = $row['messages'];
+													$result2 = mysql_query("SELECT COUNT(*) as messages FROM `messages` as m LEFT JOIN `registered_agents` as r ON m.agent=r.email WHERE (agent = '".$email."') AND (sender != '".$email."') AND (m.time > r.online)") or die("Couldn't execute query.".mysql_error());
+													$row2 = mysql_fetch_array($result2,MYSQL_ASSOC);
+													$_SESSION['unreadMessages'] = $row2['messages'];
 													
 													//update the online field
 													mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' ");
-													
-													//show message
-													echo "<center class='Text-1 clearfix'>Logging in...</center>";
-													//redirect them to the menu page
-													print "<script> window.location = 'http://homepik.com/controllers/menu.php' </script>";
+																										
+													if( (!isset($row['security_question']) || $row['security_question'] == "" || $row['security_question'] == 'default') || (!isset($row['security_answer']) || $row['security_answer'] == "") ){
+														echo "<center class='Text-1 clearfix'>Re-directing...</center>"; //show message
+														print "<script> window.location = '/verification-setup.php' </script>"; //redirect them to the verification setup page
+													}
+													else{
+														echo "<center class='Text-1 clearfix'>Logging in...</center>"; //show message
+														print "<script> window.location = '/menu.php' </script>"; //redirect them to the menu page
+													}
 				
 													// Sets session for inactivity after 30 minutes
 													$_SESSION['last_activity'] = time();
@@ -154,7 +158,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								} else {
 									echo "<center class='Text-1 clearfix title'>Login Error</center>";
 									echo "<br><br><center class='Text-1 clearfix'>You must log in using Registered Buyer Login.</center>";
-									echo '<br><br><center class="Text-1 clearfix"><a href="/controllers/signin.php"><button type="button" id="back">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
+									echo '<br><br><center class="Text-1 clearfix"><a href="/signin.php"><button type="button" id="back">Go to Buyer Login &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 								}
 							}
 						}

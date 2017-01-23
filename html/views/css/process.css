@@ -1,7 +1,8 @@
 html{ min-height: 100%; min-width: 100%; -ms-text-size-adjust: none; }
 body, html{ margin:0 !important; padding: 0 !important; }
 body,div,button,p,a{ background-repeat: no-repeat; border-color: transparent; border-style: solid; border-width: 0px; margin: 0px; padding: 0px; transform-origin: left top; -webkit-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; }
-body{ font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: left; font-size: 14px; line-height: 17px; margin-left: auto !important; margin-right: auto !important; word-wrap: break-word; text-rendering: optimizeLegibility; width: 1200px; -moz-font-feature-settings: 'liga'; -ms-font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; }
+/*body{ font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: left; font-size: 14px; line-height: 17px; margin-left: auto !important; margin-right: auto !important; word-wrap: break-word; text-rendering: optimizeLegibility; width: 1200px; -moz-font-feature-settings: 'liga'; -ms-font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; }*/
+body{ font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: left; font-size: 14px; line-height: 17px; margin: 0 auto !important; max-width: 89%; word-wrap: break-word; text-rendering: optimizeLegibility; width: 100%; -moz-font-feature-settings: 'liga'; -ms-font-feature-settings: 'liga'; -webkit-font-feature-settings: 'liga'; font-feature-settings: 'liga'; }
 
 strong{ font-style: inherit; font-weight: inherit; }
 button{ background: none; font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; }
@@ -29,10 +30,7 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #registrationVerfication #continue { background: none; border: none; float: right; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: 400; margin-right: 25px; }
 #registrationVerfication #arrow{ color: #0085C6; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; line-height: 20px; }
 
-@font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
-@media screen and (-webkit-min-device-pixel-ratio:0){ body{ text-rendering: auto; } }
-
-.header-container{ margin-left: auto; margin-right: auto; max-width: 1200px; width: 100%; }
+.header-container{ margin: 0 auto; max-width: 1200px; width: 100%; }
 #u25521 .col-md-3, #u25521 .col-md-4, #u25521 .col-md-5{ padding-left: 0; padding-right: 0; }
 #u25521 .col-md-4{ margin-left: -35px; }
 #u25521{ background-color: transparent; max-width: 1237px; position: relative; width: 100%; z-index: 45; }
@@ -40,6 +38,10 @@ a.nontext{ color: black; text-decoration: none; font-style: normal; font-weight:
 #u25521_img_2{ height: auto !important; max-height: 100px; max-width: 414px; width: 100% !important; }
 #u25521_img_3{ height: auto !important; max-height: 100px; max-width: 562px; width: 100% !important; }
 
-#wrapper{	margin: auto; max-width: 1200px; width: 100%; }
+/*#wrapper{	margin: auto; max-width: 1200px; width: 100%; }*/
+#wrapper{	margin: auto; max-width: 100%; width: 100%; }
 #back{ margin-bottom: 10px; }
 #back.extraSpace{ margin-right: 100px; }
+
+@font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('â˜º'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
+@media screen and (-webkit-min-device-pixel-ratio:0){ body{ text-rendering: auto; } }
