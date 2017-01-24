@@ -413,6 +413,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                       </div>
                     }
                     <p id="u7132-20"><span id="u7132-19"><a href={"change-password.php?MP="+this.state.mainPage}>Change password</a></span></p>
+					<p id="u7132-20"><span id="u7132-19"><a href={"change-security-question.php?MP="+this.state.mainPage}>Change security question</a></span></p>
                   </div>
                 </div>
 

@@ -1795,6 +1795,8 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p id="u7132-20"><span id="u7132-19"><a href={"change-password.php?MP="+this.state.mainPage}>Change password</a></span></p>
+					<p id="u7132-20"><span id="u7132-19"><a href={"change-security-question.php?MP="+this.state.mainPage}>Change security question</a></span></p>
+					<p>&nbsp;</p>
                   </div>
 
                   <div className="Text-1 clearfix grpelem" id="u7123-19">

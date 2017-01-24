@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once("/controllers/dbconfig.php");
-include_once('/controllers/functions.php');
-include_once('/controllers/basicHead2.php');
+include_once("dbconfig.php");
+include_once('functions.php');
+include_once('basicHead.php');
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
@@ -18,7 +18,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 ?>
 
   <title>HomePik - Change Password</title>
-  <?php include_css("/views/css/change-password.css");
+  <?php include_css("/views/css/change-security-question.css");
   include_once('autoLogout.php'); ?>
 
 </head>
@@ -82,10 +82,10 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             <NavBar mainPage={this.state.mainPage}  />
             <AddressSearch mainPage={this.state.mainPage}  />
             <div className="Text-1" id="u8521-1">
-			<span className="Text-1" id="u8522-1">Update Security Question</span> 
+			<span className="Text-1" id="u8522-1">Change Security Question and Answer</span> 
               <form onSubmit={this.validate} action="users/change-security.php" id="validate" className="validate" method="get">
                 <table cellPadding="2" cellSpacing="0" border="0">
-                  <colgroup><col width="250"/><col width="300"/></colgroup>
+                  <colgroup><col width="200"/><col width="315"/></colgroup>
                   <tbody>
                     <tr>
 						<td className="text-popups security">Security Question:</td>
@@ -97,11 +97,12 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
 								<option value="3">What was the name of the street where you grew up?</option>
 								<option value="4">What is your favorite food?</option>
                             </select>
+							{this.state.secQues != "default" ? null : <strong className="pink"> {'\u002A'}</strong> }
 							</td>
 					</tr>
 					<tr id="answer">
 					  <td className="text-popups security">Security Answer:</td>
-					  <td className="text-popups"><input type="text" value={this.state.secAns} id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/></td>
+					  <td className="text-popups"><input type="text" value={this.state.secAns} id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'secAns')}/>{this.state.secAns != "" ? null : <strong className="pink"> {'\u002A'}</strong> }</td>
 					</tr>
                     <tr>
                       <td>&nbsp;</td>
