@@ -36,13 +36,13 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$formStep = $_REQUEST['formStep'];					
-					$firstName = strtolower($_REQUEST['firstName']);
-					$lastName = strtolower($_REQUEST['lastName']);
-					$email = $_REQUEST['email'];
-					$phone = $_REQUEST['phone'];
-					$question = $_REQUEST['security-question'];
-					$answer = $_REQUEST['security-answer'];
+					$formStep = $_POST['formStep'];					
+					$firstName = strtolower($_POST['firstName']);
+					$lastName = strtolower($_POST['lastName']);
+					$email = $_POST['email'];
+					$phone = $_POST['phone'];
+					$question = $_POST['security-question'];
+					$answer = $_POST['security-answer'];
 					$name = explode('@', $email);
 
 					if (!$firstName || !$lastName || !$email) {

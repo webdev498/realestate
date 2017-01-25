@@ -35,10 +35,10 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$formStep = $_REQUEST['formStep'];
+					$formStep = $_POST['formStep'];
 					$email = $_SESSION['email'];
-					$question = $_REQUEST['security-question'];
-					$answer = $_REQUEST['security-answer'];
+					$question = $_POST['security-question'];
+					$answer = $_POST['security-answer'];
 					
 					if(isset($_SESSION['buyer'])){
 						//select all rows from our users table where the emails match

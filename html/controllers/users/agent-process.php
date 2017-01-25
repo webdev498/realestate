@@ -34,9 +34,9 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 		<br><br>
 		<?php
 			if (isset($_POST['submit'])) { //Check to see if the form has been submitted
-				$password = protect($_REQUEST['password']); //protect and then add the posted data to variables
-				$email = protect($_REQUEST['email']);
-				$formStep = protect($_REQUEST['formStep']);
+				$password = protect($_POST['password']); //protect and then add the posted data to variables
+				$email = protect($_POST['email']);
+				$formStep = protect($_POST['formStep']);
 				$role = 'agent';
 				$stristr1 = stristr($email, 'bellmarc');
 				$agent = 'false';
@@ -75,8 +75,8 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								if($num1 > 0 || $agent == 'true') {
 									//BEGIN LOGIN
 									//protect the posted value then store them to variables
-									$email = protect($_REQUEST['email']);
-									$password = protect($_REQUEST['password']);
+									$email = protect($_POST['email']);
+									$password = protect($_POST['password']);
 									//Check if the email or password boxes were not filled in
 									if (!$email || !$password) {
 										echo "<center class='Text-1 clearfix title'>Login Error</center>";
@@ -146,11 +146,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														echo "<center class='Text-1 clearfix'>Logging in...</center>"; //show message
 														print "<script> window.location = '/menu.php' </script>"; //redirect them to the menu page
 													}
-				
-													// Sets session for inactivity after 30 minutes
-													$_SESSION['last_activity'] = time();
-													//$_SESSION['end'] = 1800; // 30 minutes
-													$_SESSION['end'] = 60; // 1 minute for testing
+
 												}
 											}
 										}

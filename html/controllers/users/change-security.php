@@ -47,8 +47,9 @@ if($_SESSION['role']){ $role = $_SESSION['role']; }
 							
 				if($_SESSION['role'] == 'agent'){ $res3 = mysql_query("UPDATE regustered_agents SET security_question = '" . $securityQuestion . "', security_answer = '" . $securityAnswer . "' WHERE email = '" . $email . "'"); }
 				else{ $res3 = mysql_query("UPDATE users SET security_question = '" . $securityQuestion . "', security_answer = '" . $securityAnswer . "' WHERE email = '" . $email . "'"); }
-				$row = mysql_fetch_assoc($res3);
+				//$row = mysql_fetch_assoc($res3);
 				echo "<br><br><center class='Text-1 clearfix'><strong>Your security question and answer have been updated.</strong></center><br><br>";
+				echo '<br><center class="Text-1 clearfix"><a href="/menu.php"><button type="button" id="back">Go back to Menu &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
 				
 			?>
 		</div>

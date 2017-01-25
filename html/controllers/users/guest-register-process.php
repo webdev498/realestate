@@ -37,17 +37,17 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$firstName = trim($_REQUEST['firstName']);
-					$lastName = trim($_REQUEST['lastName']);
-					$phone = $_REQUEST['phone'];
-					$email = $_REQUEST['email'];
-					$password = $_REQUEST['password'];
-					$pass = $_REQUEST['password'];
-					$question = $_REQUEST['security-question'];
-					$answer = $_REQUEST['security-answer'];
-					$terms = $_REQUEST['terms'];
-					$agent_code = $_REQUEST['agent-code'];
-					$referrer = $_REQUEST['referrer'];
+					$firstName = mysql_real_escape_string($_POST['firstName']);
+					$lastName = mysql_real_escape_string($_POST['lastName']);
+					$phone = mysql_real_escape_string($_POST['phone']);
+					$email = mysql_real_escape_string($_POST['email']);
+					$password = mysql_real_escape_string($_POST['password']);
+					$pass = mysql_real_escape_string($_POST['password']);
+					$question = $_POST['security-question'];
+					$answer = mysql_real_escape_string($_POST['security-answer']);
+					$terms = $_POST['terms'];
+					$agent_code = $_POST['agent-code'];
+					$referrer = $_POST['referrer'];
 					$name = explode('@', $email);
 					$agent = 'false';
 					$stristr1 = stristr($email, 'bellmarc');
@@ -91,7 +91,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							//finally, otherwise begin the registration process, add them to the database and show TOS agreement							
 							$registerTime = date('U'); //time of register (unix)							
 							$password = string_encrypt($password, $registerTime);
-							$assigned = $_REQUEST['assigned'];
+							$assigned = $_POST['assigned'];
 							//Get email of agent code
 							$res = mysql_query("SELECT first_name, last_name, email FROM `registered_agents` WHERE (agent_id = '" . $agent_code . "')") or die("Couldn't execute query.".mysql_error());
 							$row = mysql_fetch_assoc($res);

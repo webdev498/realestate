@@ -34,10 +34,10 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 		<br><br>
 		<?php
 			if (isset($_POST['submit'])) { //Check to see if the form has been submitted
-				$password = protect($_REQUEST['password']); //protect and then add the posted data to variables
-				$email = protect($_REQUEST['email']);
-				$formStep = protect($_REQUEST['formStep']);
-				$role = $_REQUEST['role'];
+				$password = protect($_POST['password']); //protect and then add the posted data to variables
+				$email = protect($_POST['email']);
+				$formStep = protect($_POST['formStep']);
+				$role = $_POST['role'];
 				$agent = 'false';
 				$stristr1 = stristr($email, 'bellmarc');
 				if ($stristr1 != false || $stristr1 !== false) { $agent = 'true'; }
@@ -75,8 +75,8 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 								//if the number of matchs is 1
 								if ($num1 > 0 || $agent == 'true') {
 									// Log the user in
-									$email = protect($_REQUEST['email']);
-									$password = protect($_REQUEST['password']);
+									$email = protect($_POST['email']);
+									$password = protect($_POST['password']);
 									//Check if the email or password boxes were not filled in
 									if (!$email || !$password) {
 										//if not display an error message
@@ -126,7 +126,9 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														$_SESSION['agent1'] = $row['P_agent'];
 														$_SESSION['agent2'] = $row['P_agent2'];													
 														$_SESSION['user'] = 'true'; // Set 'user' as 'true' in the session. This marks the user as "logged in"
-														$_SESSION['buyer'] = 'true';														
+														$_SESSION['buyer'] = 'true';	
+														$secQues = $row['security_question'];
+														$secAns = $row['security_answer'];
 														
 														unset($_SESSION['guestID']); //Clear the guest ID saved in session as user is no longer a guest
 
@@ -140,7 +142,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														mysql_query("UPDATE users SET online = '" . $time . "' WHERE id = '" . $_SESSION['id'] . "' ");
 														$_SESSION['logged_in'] = $time;
 														
-														if( (!isset($row['security_question']) || $row['security_question'] == "" || $row['security_question'] == 'default') || (!isset($row['security_answer']) || $row['security_answer'] == "") ){
+														if( ($secQues == "" || $secQues == 'default') || $secAns == "") {
 															echo "<center class='Text-1 clearfix'>Re-directing...</center>"; //show message
 															print "<script> window.location = '/verification-setup.php' </script>"; //redirect them to the verification setup page
 														}
@@ -148,11 +150,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 															echo "<center class='Text-1 clearfix'>Logging in...</center>"; //show message
 															print "<script> window.location = '/menu.php' </script>"; //redirect them to the menu page
 														}
-														
-														// Sets session for inactivity
-														$_SESSION['last_activity'] = time();
-														//$_SESSION['end'] = 1800; // 30 minutes
-														$_SESSION['end'] = 60; // 1 minute for testing
+
 													}
 												}
 											} else{

@@ -37,15 +37,15 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 			<br><br>
 			<?php
 				if (isset($_POST['submit']))  {
-					$firstName = trim($_REQUEST['firstName']);
-					$lastName = trim($_REQUEST['lastName']);
-					$phone = $_REQUEST['phone'];
-					$email = $_REQUEST['email'];
-					$newPassword = $_REQUEST['newPassword'];
-					$copyPass = $_REQUEST['newPassword'];
-					$question = $_REQUEST['security-question'];
-					$answer = $_REQUEST['security-answer'];
-					$terms = $_REQUEST['terms'];
+					$firstName = mysql_real_escape_string($_POST['firstName']);
+					$lastName = mysql_real_escape_string($_POST['lastName']);
+					$phone = mysql_real_escape_string($_POST['phone']);
+					$email = mysql_real_escape_string($_POST['email']);
+					$newPassword = mysql_real_escape_string($_POST['newPassword']);
+					$copyPass = mysql_real_escape_string($_POST['newPassword']);
+					$question = $_POST['security-question'];
+					$answer = mysql_real_escape_string($_POST['security-answer']);
+					$terms = $_POST['terms'];
 					$name = explode('@', $email);	
 					$agent = 'false';
 					$stristr1 = stristr($email, 'bellmarc');
@@ -78,8 +78,8 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 						if ($num1 > 0 || $agent != 'true'){
 							//BEGIN REGISTRATION COMPLETION
 							//protect the posted value then store them to variables
-							$email = protect($_REQUEST['email']);
-							$newPassword = protect($_REQUEST['newPassword']);
+							$email = protect($_POST['email']);
+							$newPassword = protect($_POST['newPassword']);
 							//Check if the email or password boxes were not filled in
 							if (!$email || !$newPassword) {
 								//if not display an error message
