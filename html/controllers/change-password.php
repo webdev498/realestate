@@ -127,7 +127,7 @@ $mainPage = (isset($_GET['MP']) ? $_GET['MP'] : "");
             <AddressSearch mainPage={this.state.mainPage}  />
             <div className="Text-1" id="u8521-1">
               <span className="Text-1" id="u8522-1">Change Password</span>
-              <form onSubmit={this.validate} action="users/change-pass.php" id="validate resetPass" className="validate" method="get">
+              <form onSubmit={this.validate} action="users/change-pass.php" id="validate resetPass" className="validate" method="post">
                 <table cellPadding="2" cellSpacing="0" border="0">
                   <colgroup><col width="250"/><col width="315"/></colgroup>
                   <tbody>
