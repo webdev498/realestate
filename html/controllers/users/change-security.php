@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once("dbconfig.php");
-include_once('functions.php');
-include_once('basicHead.php');
+include_once("../dbconfig.php");
+include_once("../functions.php");
+include_once("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
