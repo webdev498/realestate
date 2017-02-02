@@ -283,7 +283,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 							unset($_SESSION['guestID']);
 
 							//show message
-							echo "<br><br><br><div class='Text-1 clearfix' id='registrationVerfication'>
+							echo "<br><div class='Text-1 clearfix' id='registrationVerfication'>
 							<div>Thank you for becoming a Registered Buyer with HomePik!</div> <br><br>
 							<div>Please be aware of the following: <br><br>
 							You are entering into the HomePik broker listing book. These are the listings which agents associated with HomePik have available at any given time to present to customers.

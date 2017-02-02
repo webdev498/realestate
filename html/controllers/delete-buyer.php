@@ -16,7 +16,7 @@ echo 'Connected successfully<br />';
 
 mysql_select_db( 'sp' );
 
-$email = "";
+$email = "jessicalfranke@outlook.com";
 
 echo $email . "<br />";
 
