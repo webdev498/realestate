@@ -33,21 +33,15 @@ window.SearchHeader = React.createClass({
     $.removeCookie("outdoor");
     $.removeCookie("wheelchair");
     $.removeCookie("newconstruction");
-    location.assign("/users/logout.php");
+    location.assign("/controllers/users/logout.php");
   },
   render : function(){
     return(
       <div id="header-content" className="searchHeader container-fluid header-container">
         <div className="row">
           <div className="clip_frame colelem" id="u25521">
-            <div className="col-md-3 col-sm-3 col-xs-5" id="first-section">
-              {this.props.role == "user" || this.props.role == "agent" ? <a href='../controllers/menu.php'><img className="block" id="u25521_img_1" src="../images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> : <a onClick={this.logout} style={{cursor: 'pointer'}}><img className="block" id="u25521_img_1" src="../images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> }
-            </div>
-            <div className="col-md-4 col-sm-4 col-xs-7" id="second-section">
-              <img className="block" id="u25521_img_2" src="../images/homepik_logo_bubbles_legend_7_part_2.png" alt=""/>
-            </div>
-            <div className="col-md-5 col-sm-5 col-xs-12" id="third-section">
-              <img className="block" id="u25521_img_3" src="../images/homepik_logo_bubbles_legend_7_part_3.png" alt=""/>
+            <div className="col-xs-12" id="first-section">
+              {this.props.role == "user" || this.props.role == "agent" ? <a href='../controllers/menu.php'><img className="block" id="u25521_img_1" src="/images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> : <a onClick={this.logout} style={{cursor: 'pointer'}}><img className="block" id="u25521_img_1" src="/images/homepik_logo_bubbles_legend_7_part_1.png" alt=""/></a> }
             </div>
           </div>
         </div>
@@ -90,20 +84,20 @@ window.SearchResultsHeader = React.createClass({
     $.removeCookie("outdoor");
     $.removeCookie("wheelchair");
     $.removeCookie("newconstruction");
-    location.assign("/users/logout.php");
+    location.assign("/controllers/users/logout.php");
   },
   render : function(){
     return(
       <div>
         {this.props.role == "guest" ?
           <div id="header-content" className="searchResultsHeader">
-            <a onClick={this.logout}><img src='/images/homepik_logo_bubbles_legend_7_part_1_v_2.png' id='logo' alt='Homepik Logo'/></a>
-            <a><img src='/images/what_symbols_means_lighter.png' id='what_symbol_means' alt='Homepik Logo'/></a>
+            <a onClick={this.logout}><img src='../images/homepik_logo_bubbles_legend_7_part_1_v_2.png' id='logo' alt='Homepik Logo'/></a>
+            <a><img src='../images/what_symbols_means_lighter.png' id='what_symbol_means' alt='Homepik Logo'/></a>
           </div>
         :
           <div id="header-content" className="searchResultsHeader">
-            <a href='/controllers/menu.php'><img src='/images/homepik_logo_bubbles_legend_7_part_1_v_2.png' id='logo' alt='Homepik Logo'/></a>
-            <a href='/controllers/menu.php'><img src='/images/what_symbols_means_lighter.png' id='what_symbol_means' alt='Homepik Logo'/></a>
+            <a href='../controllers/menu.php'><img src='../images/homepik_logo_bubbles_legend_7_part_1_v_2.png' id='logo' alt='Homepik Logo'/></a>
+            <a href='../controllers/menu.php'><img src='../images/what_symbols_means_lighter.png' id='what_symbol_means' alt='Homepik Logo'/></a>
           </div>
         }
       </div>
@@ -129,8 +123,8 @@ var ClearListings = React.createClass({
     }
   },
   logout: function(){
-    if(this.state.rememberListings == "true") { location.assign("/users/logout.php"); }
-    else if(this.state.clearListings == "true") { location.assign("/users/logout.php?listings=clear"); }
+    if(this.state.rememberListings == "true") { location.assign("/controllers/users/logout.php"); }
+    else if(this.state.clearListings == "true") { location.assign("/controllers/users/logout.php?listings=clear"); }
   },
   closePopup: function(){
     {this.props.closeDialog()}    
@@ -298,7 +292,7 @@ window.CriteriaNavBar = React.createClass({
     $.removeCookie("wheelchair");
     $.removeCookie("newconstruction");
 
-    location.assign("/users/logout.php");
+    location.assign("/controllers/users/logout.php");
   },
   render: function(){
     return(
@@ -348,7 +342,7 @@ window.CriteriaNavBar = React.createClass({
                   <li id="name" className="dropdown">
 										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{this.state.name} <i className="fa fa-angle-down"></i></span></a>
 										<ul className="dropdown-menu">
-                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+                      <li><a href="/controllers/agent-profile.php?MP=menu">Account Settings</a></li>
 										</ul>
 									</li>
                 :
@@ -406,7 +400,7 @@ window.SearchNavBar = React.createClass({
   editSearch: function(){    
     var $dialog =  $("#ajax-box3").dialog({
       modal: true,
-	  width: 1115,
+      width: 1115,
       dialogClass: "editFormula",
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box3'));
@@ -546,7 +540,7 @@ window.SearchNavBar = React.createClass({
     $.removeCookie("wheelchair");
     $.removeCookie("newconstruction");
 
-    location.assign("/users/logout.php");
+    location.assign("/controllers/users/logout.php");
   },
   render: function(){
     return(
@@ -629,7 +623,7 @@ window.SearchNavBar = React.createClass({
 var RentalsComingSoon = React.createClass({
   goBack: function(){
     if (this.props.role) { window.location = "/controllers/index.php"; }
-    else{ window.location = '/controllers/menu.php'; }
+    else{ window.location = '../controllers/menu.php'; }
   },
   render: function(){
     return(
@@ -782,11 +776,11 @@ var ListContentOnGridItemClick = React.createClass({
   },
   componentWillMount: function (){
     var loader = "<div style='width:500px;margin:auto;text-align:center'>"
-    +"<br>"+"<br>"+"<img className='loader' src='/images/ajax-loader-large.gif' alt='loading, please wait...'>"
+    +"<br>"+"<br>"+"<img className='loader' src='../images/ajax-loader-large.gif' alt='loading, please wait...'>"
     +"</div>";
     this.setState({html:loader})
     $.ajax({
-      url: '/controllers/profile.php?list_numb='+ this.props.listNumb + '&code=' + this.props.code,
+      url: '../controllers/profile.php?list_numb='+ this.props.listNumb + '&code=' + this.props.code,
       method: 'get',
       success: function(data) {
         this.setState({html: data});
@@ -823,6 +817,49 @@ var ListContentOnGridItemClick = React.createClass({
     return(<div id='mycustom' data-tab-index={this.props.tabIndex} dangerouslySetInnerHTML={createMarkup()} ></div>)
   }
 });
+
+var PriceOptions = React.createClass({
+  render: function(){
+    return(
+      <select>
+        <option value="0">0</option>
+        <option value="1">100K</option>
+        <option value="2">200K</option>
+        <option value="3">300K</option>
+        <option value="4">400K</option>
+        <option value="5">500K</option>
+        <option value="6">600K</option>
+        <option value="7">700K</option>
+        <option value="8">800K</option>
+        <option value="9">900K</option>
+        <option value="10">1M</option>
+        <option value="11">1.1M</option>
+        <option value="12">1.2M</option>
+        <option value="13">1.3M</option>
+        <option value="14">1.4M</option>
+        <option value="15">1.5M</option>
+        <option value="16">1.6M</option>
+        <option value="17">1.7M</option>
+        <option value="18">1.8M</option>
+        <option value="19">1.9M</option>
+        <option value="20">2M</option>
+        <option value="21">2.25M</option>
+        <option value="22">2.5M</option>
+        <option value="23">2.75M</option>
+        <option value="24">3M</option>
+        <option value="25">3.5M</option>
+        <option value="26">4M</option>
+        <option value="27">6M</option>
+        <option value="28">8M</option>
+        <option value="29">12M</option>
+        <option value="30">25M</option>
+        <option value="31">50M</option>
+        <option value="32">99M</option>
+      </select>
+    );
+  }
+});
+
 var Tabs = React.createClass({
   getInitialState : function (){
     return {
@@ -928,19 +965,19 @@ var Tabs = React.createClass({
           $.cookie("wheelchair", "false");
           $.cookie("timeshare", "false");
           $.cookie("newconstruction", "false");
-          $("#garage").attr("src", "images/amenities/garage.png").removeClass("selected");
-          $("#pool").attr("src", "images/amenities/pool.png").removeClass("selected");
-          $("#laundry").attr("src", "images/amenities/laundry.png").removeClass("selected");
-          $("#doorman").attr("src", "images/amenities/doorman.png").removeClass("selected");
-          $("#elevator").attr("src", "images/amenities/elevator.png").removeClass("selected");
-          $("#pets").attr("src", "images/amenities/pets.png").removeClass("selected");
-          $("#fireplace").attr("src", "images/amenities/fireplace.png").removeClass("selected");
-          $("#healthclub").attr("src", "images/amenities/healthclub.png").removeClass("selected");
-          $("#prewar").attr("src", "images/amenities/prewar.png").removeClass("selected");
-          $("#outdoor").attr("src", "images/amenities/roofdeck.png").removeClass("selected");
-          $("#wheelchair").attr("src", "images/amenities/wheelchair.png").removeClass("selected");          
-          $("#timeshare").attr("src", "images/amenities/roofdeck.png").removeClass("selected");
-          $("#newconstruction").attr("src", "images/amenities/wheelchair.png").removeClass("selected");
+          $("#garage").attr("src", "/images/amenities/garage.png").removeClass("selected");
+          $("#pool").attr("src", "/images/amenities/pool.png").removeClass("selected");
+          $("#laundry").attr("src", "/images/amenities/laundry.png").removeClass("selected");
+          $("#doorman").attr("src", "/images/amenities/doorman.png").removeClass("selected");
+          $("#elevator").attr("src", "/images/amenities/elevator.png").removeClass("selected");
+          $("#pets").attr("src", "/images/amenities/pets.png").removeClass("selected");
+          $("#fireplace").attr("src", "/images/amenities/fireplace.png").removeClass("selected");
+          $("#healthclub").attr("src", "/images/amenities/healthclub.png").removeClass("selected");
+          $("#prewar").attr("src", "/images/amenities/prewar.png").removeClass("selected");
+          $("#outdoor").attr("src", "/images/amenities/roofdeck.png").removeClass("selected");
+          $("#wheelchair").attr("src", "/images/amenities/wheelchair.png").removeClass("selected");          
+          $("#timeshare").attr("src", "/images/amenities/roofdeck.png").removeClass("selected");
+          $("#newconstruction").attr("src", "/images/amenities/wheelchair.png").removeClass("selected");
           $.cookie("searchName", criteria.name);
           $.cookie("minPrice", criteria.min_price);
           $.cookie("maxPrice", criteria.max_price);
@@ -1062,7 +1099,7 @@ var Tabs = React.createClass({
           if (criteria.amenities != "") {
             criteria.amenities.forEach(function(entry){
               entry = entry.toLowerCase();
-              $("#"+entry).attr("src", "images/amenities/"+entry+"b.png").addClass("selected");
+              $("#"+entry).attr("src", "/images/amenities/"+entry+"b.png").addClass("selected");
             });
           }
 
@@ -1331,6 +1368,7 @@ var Tabs = React.createClass({
     	amenities["newconstruction"] = true;
       $('img.amenity_icons[rel=newconstruction]').attr('src','images/amenities/newconstructionb.png').addClass('selected');
     }
+    
     // LOCATION SLIDER
     $("#location_grade").slider({
       animate: true,
@@ -1345,22 +1383,22 @@ var Tabs = React.createClass({
         var current_desc = $(current_grade).text(); /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $.cookie("location", locationGrade);
         $('#loc_desc').text(current_desc); /* insert the grade description into the text box */
-        var chev_right = "<img src='/images/blue-tick.png'/>";
-        if(ui.value < '10'){ ui.sliderText = '<span>'+chev_right+'</span>'; }
-        else { ui.sliderText = '<span>'+chev_right+'</span>'; }
-        $('#location_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
+        if (ui.value == 1){ $("#location .tapTab2").show(); }
+        else{ $("#location .tapTab2").hide(); }
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) { /*Function to execute when initializing slider */
-        var chev_right = "<img src='/images/blue-tick.png'/>";
         if(!locationGrade){ ui.value = 1; }
         else{ ui.value = locationGrade; }
-        $('#location_grade .ui-slider-handle').html('<span>'+chev_right+'</span>');
+        $('#location_grade .ui-slider-handle').html("<span><img src='../images/blue-tick.png'/></span>");
         var current_grade = '#loc_' + ui.value; /* get the selected grade */
         var current_desc = $(current_grade).text(); /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $('#loc_desc').text(current_desc);
+        if (ui.value == 1){ $("#location .tapTab2").show(); }
+        else{ $("#location .tapTab2").hide(); }
       }
     }).addTouch();
+    
     // BUILDING SLIDER
     $("#building_grade").slider({
       animate: true,
@@ -1375,22 +1413,23 @@ var Tabs = React.createClass({
         var current_desc = $(current_grade).text(); /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $.cookie("building", buildingGrade);
         $('#buil_desc').text(current_desc); /* insert the grade description into the text box */
-        var chev_right = "<img src='/images/purple-tick.png'/>";
-        if(ui.value < '10'){ ui.sliderText = '<span>'+chev_right+'</span>'; }
-        else { ui.sliderText = '<span>'+chev_right+'</span>'; }
-        $('#building_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
+        if (ui.value == 1){ $("#building .tapTab2").show(); }
+        else{ $("#building .tapTab2").hide(); }
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) { /*Function to execute when initializing slider */
         if(!buildingGrade){ ui.value = 1; }
         else{ ui.value = buildingGrade; }
-        var chev_right = "<img src='/images/purple-tick.png'/>";
+        var chev_right = "<img src='../images/purple-tick.png'/>";
         $('#building_grade .ui-slider-handle').html('<span>'+chev_right+'</span>');
         var current_grade = '#buil_' + ui.value; /* get the selected grade */
         var current_desc = $(current_grade).text(); /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $('#buil_desc').text(current_desc);
+        if (ui.value == 1){ $("#building .tapTab2").show(); }
+        else{ $("#building .tapTab2").hide(); }
       }
     }).addTouch();
+    
     // VIEWS SLIDER
     $("#views_grade").slider({
       animate: true,
@@ -1405,23 +1444,24 @@ var Tabs = React.createClass({
         var current_desc = $(current_grade).text();  /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $.cookie("views", viewsGrade);
         $('#views_desc').text(current_desc); /* insert the grade description into the text box */
-        var chev_right = "<img src='/images/pink-tick.png'/>";
-        if(ui.value < '10'){ ui.sliderText = '<span>'+chev_right+'</span>'; }
-        else { ui.sliderText = '<span>'+chev_right+'</span>'; }
-        $('#views_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
+        if (ui.value == 1){ $("#view .tapTab2").show(); }
+        else{ $("#view .tapTab2").hide(); }
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
         if(!viewsGrade){ ui.value = 1; }
         else{ ui.value = viewsGrade; }
-        var chev_right = "<img src='/images/pink-tick.png'/>";
+        var chev_right = "<img src='../images/pink-tick.png'/>";
         $('#views_grade .ui-slider-handle').html('<span>'+chev_right+'</span>');
         var current_grade = '#views_' + ui.value; /* get the selected grade */
         var current_desc = $(current_grade).text();  /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $('#views_desc').text(current_desc);
+        if (ui.value == 1){ $("#view .tapTab2").show(); }
+        else{ $("#view .tapTab2").hide(); }
         return false;
       }
     }).addTouch();
+    
     /* Bedroom and living room grades use letters (M for medium, etc.) instead of numbers */
     var size_grades = ['','S','M','L','XL'];
     // MASTER BEDROOM SIZE SLIDER
@@ -1441,6 +1481,8 @@ var Tabs = React.createClass({
         if(size_grades[ui.value] !== 'XL'){ ui.sliderText =	'<span>'+size_grades[ui.value]+'</span>'; }
         else { ui.sliderText =	'<span class="smaller">'+size_grades[ui.value]+'</span>'; }
         $('#bedroom_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
+        if (ui.value == 1){ $("#bedroom .tapTab2").show(); }
+        else{ $("#bedroom .tapTab2").hide(); }
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) {	/* Function to execute when initializing slider */
@@ -1450,9 +1492,12 @@ var Tabs = React.createClass({
         var current_grade = '#bedroom_' + ui.value; /* get the selected grade */
         var current_desc = $(current_grade).text();  /* get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $('#bedroom_desc').text(current_desc);
+        if (ui.value == 1){ $("#bedroom .tapTab2").show(); }
+        else{ $("#bedroom .tapTab2").hide(); }
         return false;
       }
     }).addTouch();
+    
     // LIVING ROOM SIZE SLIDER
     $("#living_grade").slider({
       animate: true,
@@ -1470,6 +1515,8 @@ var Tabs = React.createClass({
         if(size_grades[ui.value] !== 'XL'){ ui.sliderText =	'<span>'+size_grades[ui.value]+'</span>'; }
         else { ui.sliderText =	'<span class="smaller">'+size_grades[ui.value]+'</span>'; }
         $('#living_grade .ui-slider-handle').html(ui.sliderText);/* show the new grade in the slider handle */
+        if (ui.value == 1){ $("#living .tapTab2").show(); }
+        else{ $("#living .tapTab2").hide(); }
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
@@ -1479,67 +1526,85 @@ var Tabs = React.createClass({
         var current_grade = '#living_' + ui.value; /* get the selected grade */
         var current_desc = $(current_grade).text();  // get the description for the selected grade (e.g. 'a safe residential street near a park') */
         $('#living_desc').text(current_desc);
+        if (ui.value == 1){ $("#living .tapTab2").show(); }
+        else{ $("#living .tapTab2").hide(); }
         return false;
       }
     }).addTouch();
+    
     // NEIGHBORHOODS SELECTOR
     $("#neighborhoods").multiselect({
-      noneSelectedText: "All of Manhattan",
-      selectedText: "# neighborhoods",
+      noneSelectedText: "",
+      selectedText: "",
       height:'auto',
       multiple:true,
       header:false,
+      autoOpen: true,
       position: {
         my: 'left top',
         at: 'left bottom',
         collision: 'none'
       },
       open: function(){
-        $('#amenities').addClass('shift');
         $(this).parent().parent().parent().addClass("active");
-        localStorage.sportive = $("#sportive").val();        
-        $('#neighborhoods-container').find("input[value='hidden']").parent().find("span").addClass('neighborhood-explaination');
-        $('#neighborhoods-container').find("input[value='hidden']").parent().parent().css("margin-bottom", "9px");
-        $('#neighborhoods-container').find("input[value='hidden2']").parent().find("span").addClass('neighborhood-explaination');
-        $('#neighborhoods-container').find("input[value='hidden2']").parent().parent().css("margin-bottom", "23px");
+        localStorage.sportive = $("#sportive").val();
       },
       close:  function(){
-        $('#amenities').removeClass('shift');
         $(this).parent().parent().parent().removeClass("active");
       }
     });
-    $('#neighborhoods-container').find(".ui-multiselect-checkboxes").change(function() {
-      $.cookie('neighborhoodChoice', $(this).val(), {path: '/controllers/', expires: 365});
-      $("#neighborhoods").val($.cookie('neighborhoodChoice'));
+    $('#neighborhoods-container').find(".ui-multiselect-checkboxes").change(function(event){
+      var selection = event.target.value;
+      var selection_status = event.target.checked;
+      if(selection == "All"){
+        $("#ui-multiselect-neighborhoods-option-0").attr("checked", true); // Check All Neighborhoods option
+        $("#ui-multiselect-neighborhoods-option-1").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-2").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-3").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-4").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-5").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-6").attr("checked", false); // Uncheck all other option
+        $("#ui-multiselect-neighborhoods-option-7").attr("checked", false); // Uncheck all other option
+        $("#neighborhood_description_popout").hide();
+      }
+      else if(selection != "All"){
+        $("#ui-multiselect-neighborhoods-option-0").attr("checked", false); // Uncheck All Neighborhoods option
+        if(selection_status == true){
+          $("#neighborhood_description_popout p").html($("#"+selection + "_desc").html());
+          $("#neighborhood_description_popout").removeClass().addClass(selection).show();
+          setTimeout(function (){ $("#neighborhood_description_popout").hide(); },5000);
+        }       
+      }
+      $.cookie('neighborhoodChoice', $("#neighborhoods").val(), {path: '../controllers/', expires: 365});
       setTimeout(function () { getListingCount(); }, 200);
     }.bind(this));
+    
     // PROPERTY TYPE SELECTOR
     $("#prop_type").multiselect({
-      noneSelectedText: "Any Property Type",
-      selectedText: "# selected",
+      noneSelectedText: "",
+      selectedText: "",
       height:"auto",
       multiple:true,
       header:false,
+      autoOpen: true,
       position: {
         my: 'left top',
         at: 'left bottom',
         collision: 'none'
       },
       open: function(){
-        $('.continue').addClass('shift1');
         localStorage.property = $("#prop_type").val();
       },
-     	close:  function(){
-    	  $('.continue').removeClass('shift1');
-      }
     });
     $('#prop-container').find(".ui-multiselect-checkboxes").change(function() {
-      $.cookie('propertyChoice', $(this).val(), {expires: 365, path: '/controllers/' });
+      $.cookie('propertyChoice', $(this).val(), {expires: 365, path: '../controllers/' });
       $("#prop_type").val($.cookie('propertyChoice'));
       setTimeout(function () { getListingCount(); }, 200);
     }.bind(this));
+    
     // MINIMUM FLOOR (disabled)
     $("#min_floor").spinner();
+    
     // PRICE
     // Translate the slider value into price increments. "price" is the value submitted in the search request;
     // "display" is what's shown to the user.
@@ -1593,8 +1658,12 @@ var Tabs = React.createClass({
         $.cookie("minPrice", min_value);
         $.cookie("maxPrice", max_value);
         /* set the display price for the user (e.g. 2.5M), and the data-price attribute will contain the value collected by the search function (e.g. 2500000) */
-        $( "#min_price" ).text(prices[min_value]["display"]).attr('data-price',prices[min_value]["price"]);
-        $( "#max_price" ).text(prices[max_value]["display"]).attr('data-price',prices[max_value]["price"]);
+        $('#price_box .tapTab1').hide();
+        $('#price_box .grade_desc.smaller-width').removeClass("smaller-width");
+        $( "#min_price" ).attr('data-price',prices[min_value]["price"]);
+        $( "#min_price select" ).val(min_value)
+        $( "#max_price" ).attr('data-price',prices[max_value]["price"]);
+        $( "#max_price select" ).val(max_value)
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
       create: function( event, ui ) {	/* Function to execute when initializing slider */
@@ -1605,10 +1674,30 @@ var Tabs = React.createClass({
         return false;
       }
     }).addTouch();
-    if(minPrice != "null"){ $( "#min_price" ).text(prices[minPrice]["display"]).attr('data-price',prices[minPrice]["price"]); }
-    else{ $( "#min_price" ).text(prices[0]["display"]).attr('data-price',prices[0]["price"]); }
-    if(maxPrice != "null"){ $( "#max_price" ).text(prices[maxPrice]["display"]).attr('data-price',prices[maxPrice]["price"]); }
-    else{ $( "#max_price" ).text(prices[32]["display"]).attr('data-price',prices[32]["price"]); }
+    if(minPrice != "null"){
+      $( "#min_price" ).attr('data-price',prices[minPrice]["price"]);
+      $( "#min_price select" ).val(minPrice)
+    }
+    else{
+      $( "#min_price" ).attr('data-price',prices[0]["price"]);
+      $( "#min_price select" ).val(0)
+    }
+    if(maxPrice != "null"){
+      $( "#max_price" ).attr('data-price',prices[maxPrice]["price"]);
+      $( "#max_price select" ).val(maxPrice)
+    }
+    else{
+      $( "#max_price" ).attr('data-price',prices[32]["price"]);
+      $( "#max_price select" ).val(32)
+    }
+    $( "#min_price select" ).change(function(event){
+      if( event.target.value < $("#price").slider('values',1) ){ $("#price").slider('values',0,event.target.value); }
+      else{ $( "#min_price select" ).val($("#price").slider('values',0)); }
+    });
+    $( "#max_price select" ).change(function(event){
+      if( event.target.value > $("#price").slider('values',0) ){ $("#price").slider('values',1,event.target.value); }
+      else{ $( "#max_price select" ).val($("#price").slider('values',1)); }
+    });
 
     // NUMBER OF BEDROOMS
     $( "#bedrooms_slider" ).slider({
@@ -1625,14 +1714,11 @@ var Tabs = React.createClass({
         ui.sliderText =	'<span>'+ui.value+'</span>';
   			$('#bedrooms_box .ui-slider-handle').html(ui.sliderText); //* show the new grade in the slider handle */
   			if(bedrooms == 0){
+          $('#bedrooms_box .tapTab1').show();
   				$('#bedrooms_box .grade_desc input').hide();
-      		$('#bedrooms_box .grade_desc span').text('Studio');
-    		} else if(bedrooms == 1){
-      		$('#bedrooms_box .grade_desc input').show();
-    			$('#bedrooms_box .grade_desc span').text(' Bedroom');
     		} else {
+          $('#bedrooms_box .tapTab1').hide();
         	$('#bedrooms_box .grade_desc input').show();
-      		$('#bedrooms_box .grade_desc span').text(' Bedrooms');
       	}
         setTimeout(function () { getListingCount(); }, 200);
       }.bind(this),
@@ -1642,55 +1728,11 @@ var Tabs = React.createClass({
         $( "#bedrooms" ).val(minBedroom);
         $('#bedrooms_box .ui-slider-handle').html('<span>'+ui.value+'</span>');
         if(minBedroom == 0){
+          $('#bedrooms_box .tapTab1').show();
           $('#bedrooms_box .grade_desc input').hide();
-          $('#bedrooms_box .grade_desc span').text('Studio');
-        } else if(minBedroom == 1){
-    			$('#bedrooms_box .grade_desc input').show();
-    			$('#bedrooms_box .grade_desc span').text(' Bedroom');
-    		} else {
-    			$('#bedrooms_box .grade_desc input').show();
-    			$('#bedrooms_box .grade_desc span').text(' Bedrooms');
-    		}
-    		return false;
-      }
-    }).addTouch();
-
-    $( "#bedrooms_slider_register" ).slider({
-      range: 'max',
-      min: 0,
-      max: 8,
-      value: minBedroom,
-      slide: function( event, ui ) { /* Function to execute when sliding the bedrooms slider    */
-        var bedrooms = ui.value;
-        $( "#bedrooms" ).val(bedrooms);
-        var minBedroom = bedrooms;
-        $.cookie("minBedroom", minBedroom);
-        ui.sliderText =	'<span>'+ui.value+'</span>';
-        $('#bedrooms_box .ui-slider-handle').html(ui.sliderText); //* show the new grade in the slider handle */
-        if(bedrooms == 0){
-          $('#bedrooms_box .grade_desc input').hide();
-          $('#bedrooms_box .grade_desc span').text('Studio');
-        } else if(bedrooms == 1){
-          $('#bedrooms_box .grade_desc input').show();
-          $('#bedrooms_box .grade_desc span').text(' Bedroom');
         } else {
-          $('#bedrooms_box .grade_desc input').show();
-          $('#bedrooms_box .grade_desc span').text(' Bedrooms');
-        }
-        setTimeout(function () { getListingCount(); }, 200);
-      }.bind(this),
-      create: function( event, ui ) {	/* Function to execute when initializing slider */
-        ui.value = 0;
-      	$('#bedrooms_box .ui-slider-handle').html('<span>'+ui.value+'</span>');
-       	if(minBedroom == 0){
-    			$('#bedrooms_box .grade_desc input').hide();
-    			$('#bedrooms_box .grade_desc span').text('Studio');
-    		} else if(minBedroom == 1){
-        	$('#bedrooms_box .grade_desc input').show();
-    			$('#bedrooms_box .grade_desc span').text(' Bedroom');
-    		} else {
+          $('#bedrooms_box .tapTab1').hide();
     			$('#bedrooms_box .grade_desc input').show();
-    			$('#bedrooms_box .grade_desc span').text(' Bedrooms');
     		}
     		return false;
       }
@@ -1727,7 +1769,7 @@ var Tabs = React.createClass({
         p = [],
         amen = [];
 
-        for(var i=0; i < neighborhoods.length; i++){ n.push(neighborhoods[i].value); }
+        for(var i=0; i < neighborhoods.length; i++){ if(neighborhoods[i].value != "All"){ n.push(neighborhoods[i].value); } }
         for(var i=0; i < prop_type.length; i++){ p.push(prop_type[i].value); }
 
         if(n.length == 0){
@@ -1842,8 +1884,8 @@ var Tabs = React.createClass({
     var listingCounters;
     var counterNote;
     if (this.props.role == 'guest'){
-      listingCounters = <div id="listing-counters-div"><span id="listing-count" className="grade_desc hide"><span className='custom-listing-counter'><h4><span id="l_count"></span> Listings on public portal</h4> &mdash; for guests</span></span><span id="listing-count_homepik" className="grade_desc homepik_listing_cnt double-counter"><span className='custom-listing-counter'><h4><span id="lm_count"></span> Listings in HomePik</h4> <span id="loginOrRegister_lnk">&mdash; <span id="registeredOnly">for registered buyers </span><span id="loginOrRegister"><a href="/signin.php">log in</a> or <a href="javascript:void(0)" className='regOrNotSubmit'>register</a></span></span></span></span></div>;
-      counterNote = <div id="listing-count_note" className="grade_desc homepik_listing_cnt double-counter"><div className='custom-listing-counter'><h4>Note:</h4> Results will change as sliders are moved.</div></div>
+      listingCounters = <div id="listing-counters-div"><span id="listing-count" className="grade_desc hide"><span className='custom-listing-counter'><h4><span id="l_count"></span> Listings on public portal</h4><br/>for guests</span></span><br/><span id="listing-count_homepik" className="grade_desc homepik_listing_cnt double-counter"><span className='custom-listing-counter'><h4><span id="lm_count"></span> Listings in HomePik</h4><br/><span id="loginOrRegister_lnk"><span id="registeredOnly">for registered buyers </span>(<span id="loginOrRegister"><a href="/signin.php">log in</a> or <a href="javascript:void(0)" className='regOrNotSubmit'>register</a></span>)</span></span></span></div>;
+      counterNote = <div id="listing-count_note" className="grade_desc homepik_listing_cnt double-counter"><div className='custom-listing-counter'><h4>Note: </h4>results will change as sliders are moved.</div></div>
     }
     else{
       listingCounters = <div id="listing-counters-div"><span id="listing-count_homepik" className="grade_desc homepik_listing_cnt single-counter "><span className='custom-listing-counter'><h4><span id="lm_count"></span> Listings in HomePik</h4></span></span></div>;
@@ -1864,68 +1906,73 @@ var Tabs = React.createClass({
           {listingCounters}
           {counterNote}
           <div id="bedrooms_box" className='criterion break'>
-            <div className="label">Minimum Bedrooms</div>
+            <div className="label">
+              <span className="sliderName">Minimum Bedrooms </span>
+              <span className="tapTab1">&nbsp;(hold circle to adjust)</span>
+              <span id="bedrooms_description" className="grade_desc">
+                <input disabled style={{display:'none'}} id="bedrooms" className="bedrooms_desc numbersOnly"/>
+                <span></span>
+              </span>
+            </div>
             <div className="mini" id="bedrooms_wrapper">
-              <div className="bedrooms mini">
-                <span className="grade_desc">
-                  <input disabled style={{display:'none'}} id="bedrooms" className="bedrooms_desc numbersOnly"/>
-                  <span>Studio</span>
-                </span>
+              <div className="bedrooms mini">                
                 <div className="bedroom_slider_div">
                   <div id="bedrooms_slider" className="mini slider"></div>
-                  <img src="http://homepik.com/images/bedroomsslider2.png" className="numberline" alt="Bedroom Slider"  />
+                  <img src="/images/bedroomsslider2.png" className="numberline" alt="Bedroom Slider"  />
                 </div>
-                <div className="tapTab1">(tap or slide)</div>
               </div>
             </div>
           </div>
           <div id="price_box" className="criterion">
-            <div className="label">Price </div>
-            <div className="price mini">
-              <span className="grade_desc">$
-                <span id="min_price"></span> to <span id="max_price"></span>
+            <div className="label">
+              <span className="sliderName">Price </span>
+              <span className="tapTab1">&nbsp;(hold arrow to adjust)</span>
+              <span className="grade_desc smaller-width">
+                {/* $<span id="min_price"></span> to $<span id="max_price"></span> */}
+                $<span id="min_price"><PriceOptions/></span> to $<span id="max_price"><PriceOptions/></span> 
               </span>
-              <div className="mini ui-slider" id="price"></div>
-              <img src="http://homepik.com/images/homepik_price_slider_c.png" className="numberline" />
             </div>
-            <div className="tapTab1">(tap or slide)</div>
+            <div className="price mini">              
+              <div className="mini ui-slider" id="price"></div>
+              <img src="/images/locationslider2.png" className="numberline" />
+            </div>
           </div>
           <div id="nbhood_box" className='criterion select'>
             <div className="label">Neighborhoods</div><div id="neighborhoods-container">
               <select id="neighborhoods" name="neighborhoods" multiple="multiple">
+                <option value="All" selected>All Neighborhoods</option>
                 <option value="North">Far Uptown</option>
-                <option value="hidden">116th St. and north, including Harlem, Hudson Heights, Washington Heights, Inwood, Spanish Harlem</option>
-                <option value="Westside" >Upper West Side</option>
-                <option value="hidden">59th St. up to 116th St., west of Central Park including Lincoln Center, Upper West Side, Manhattan Valley</option>
-                <option value="Eastside" >Upper East Side</option>
-                <option value="hidden">59th St. to 116th St., east of Central Park, including Lenox Hill, Yorkville, Carnegie Hill, Roosevelt Island</option>
-                <option value="Chelsea" >Midtown West</option>
-                <option value="hidden">14th St. to 59th St., west, including Flatiron, Chelsea, Hudson Yards, Clinton</option>
-                <option value="SMG" >Midtown East</option>
-                <option value="hidden">From 14th St. to 59th St., east, including Gramercy Park, Murray Hill, Sutton Place</option>
-                <option value="Village" >East/West Village</option>
-                <option value="hidden2">From Houston St. to 14th St., east and west, including Noho, Greenwich Village</option>
-                <option value="Lower" >Downtown</option>
-                <option value="hidden">Below Houston St. including Soho, Tribeca, Little Italy, Lower East Side, Chinatown, Financial District, Battery Park City, South Street Seaport</option>
+                <option value="Westside">Upper West Side</option>
+                <option value="Eastside">Upper East Side</option>
+                <option value="Chelsea">Midtown West</option>
+                <option value="SMG">Midtown East</option>
+                <option value="Village">East/West Village</option>
+                <option value="Lower">Downtown</option>
               </select>
+              <div id="neighborhood_description_popout"><p></p></div>
             </div>
-            <div className="selectborder">&nbsp;</div>
+            <div id="North_desc" className="hidden">116th St. and north, including Harlem, Hudson Heights, Washington Heights, Inwood, Spanish Harlem</div>
+            <div id="Westside_desc" className="hidden">59th St. up to 116th St., west of Central Park including Lincoln Center, Upper West Side, Manhattan Valley</div>
+            <div id="Eastside_desc" className="hidden">59th St. to 116th St., east of Central Park, including Lenox Hill, Yorkville, Carnegie Hill, Roosevelt Island</div>
+            <div id="Chelsea_desc" className="hidden">14th St. to 59th St., west, including Flatiron, Chelsea, Hudson Yards, Clinton</div>
+            <div id="SMG_desc" className="hidden">From 14th St. to 59th St., east, including Gramercy Park, Murray Hill, Sutton Place</div>
+            <div id="Village_desc" className="hidden">From Houston St. to 14th St., east and west, including Noho, Greenwich Village</div>
+            <div id="Lower_desc" className="hidden">Below Houston St. including Soho, Tribeca, Little Italy, Lower East Side, Chinatown, Financial District, Battery Park City, South Street Seaport</div>
           </div>
           <div id="floor_box" className='criterion select'>
             <div className="label">Property Type</div>
             <div id="prop-container" >
               <select id="prop_type" name="prop_type" multiple="multiple">
-                <option value="1" >Co-op</option>
-                <option value="2" >Condo</option>
-                <option value="4" >House/Townhouse</option>
-                <option value="5" >Condop</option>
+                <option value="1">Co-op</option>
+                <option value="2">Condo</option>
+                <option value="4">House/Townhouse</option>
+                <option value="5">Condop</option>
               </select>
             </div>
-            <div className="selectborder">&nbsp;</div>
             <div id="floor-container" style={{display:'none'}} ><input  max="99" defaultValue="0" id="min_floor" /></div>
           </div>
           <div id="browseSelection" style={{display: "none"}}></div>
-          <div className="previous_nxt_btns">
+          <div className="continue_btn">
             <div className='continue details' onClick={this.continueStep.bind(this,"tabs-1")} custom = "tabs-1">CONTINUE <span className="nextIcon">›</span></div>
           </div>
           <div id="criteria_footer_tab-1">{disclaimer}</div>
@@ -1937,11 +1984,12 @@ var Tabs = React.createClass({
           <div id="location" className='criterion'>
             <h5 className="label"><span> Minimum Location Grade</span></h5>
             <div id="loc_desc" className="grade_desc">Active commercial street</div>
+            <div className="tapTab2">(tap or slide to change)</div>
             <div className="location-slider" >
               <div id="location_grade" className="mini slider"></div>
-              <img src="http://homepik.com/images/locationslider2.png" className="numberline" alt="Location Slider"  />
+              <img src="/images/locationslider2.png" className="numberline" alt="Location Slider"  />
             </div>
-            <div className="tapTab2">(tap or slide)</div>
+            
             <div id="loc_1" className="hidden">All locations</div>
             <div id="loc_2" className="hidden">New developing market</div>
             <div id="loc_3" className="hidden">Emerging residential area</div>
@@ -1956,11 +2004,12 @@ var Tabs = React.createClass({
           <div id="building" className='criterion'>
             <h5 className="label" ><span > Minimum Building Grade</span></h5>
             <div id="buil_desc" className="grade_desc">Elevator building in fair condition</div>
+            <div className="tapTab2">(tap or slide to change)</div>
             <div className="building-slider">
               <div id="building_grade" className="mini slider"></div>
-              <img src="http://homepik.com/images/buildingslider2.png" className="numberline" alt="Building Slider"  />
+              <img src="/images/buildingslider2.png" className="numberline" alt="Building Slider"  />
             </div>
-            <div className="tapTab2">(tap or slide)</div>
+            
             <div id="buil_1" className="hidden">All buildings</div>
             <div id="buil_2" className="hidden">Walkup in fair condition</div>
             <div id="buil_3" className="hidden">Walkup in good condition </div>
@@ -1975,11 +2024,11 @@ var Tabs = React.createClass({
           <div id="view" className='criterion'>
             <h5 className="label"><span> Minimum View Grade </span></h5>
             <div id="views_desc" className="grade_desc">Interior courtyard or area without view but bright</div>
+            <div className="tapTab2">(tap or slide to change)</div>
             <div className="view-slider">
               <div id="views_grade" className="mini slider"></div>
-              <img src="http://homepik.com/images/viewsslider2.png" className="numberline" alt="Views Slider"  />
-            </div>
-            <div className="tapTab2">(tap or slide)</div>
+              <img src="/images/viewsslider2.png" className="numberline" alt="Views Slider"  />
+            </div>            
             <div id="views_1" className="hidden">All properties</div>
             <div id="views_2" className="hidden">Indirect light</div>
             <div id="views_3" className="hidden">Interior courtyard or area with moderate light</div>
@@ -1994,139 +2043,131 @@ var Tabs = React.createClass({
           <div id="bedroom" className='criterion'>
             <h5 className="label"><span> Master Bedroom </span></h5>
             <div id="bedroom_desc" className="grade_desc">Any bedroom size is okay</div>
+            <div className="tapTab2">(tap or slide to change)</div>
             <div className="master-room-slider">
               <div id="bedroom_grade" className="mini slider"></div>
-              <img src="http://homepik.com/images/bedroomslider2.png" className="numberline" alt="Bedroom Slider"  />
+              <img src="/images/bedroomslider2.png" className="numberline" alt="Bedroom Slider"  />
             </div>
-            <div className="tapTab2">(tap or slide)</div>
-            <div id="bedroom_1" className="hidden">Any bedroom size is okay</div>
-            <div id="bedroom_2" className="hidden">A medium master bedroom or larger: at least 13 ft by 11 ft</div>
-            <div id="bedroom_3" className="hidden">A large master bedroom or larger: at least 16 ft by 11 ft</div>
-            <div id="bedroom_4" className="hidden">An extra-large master bedroom: at least 19 ft by 11 ft</div>
+            <div id="bedroom_1" className="hidden">Any size bedroom is okay</div>
+            <div id="bedroom_2" className="hidden">Medium-sized or larger, at least 13ft x 11ft</div>
+            <div id="bedroom_3" className="hidden">Large-sized or larger, at least 16ft x 11ft</div>
+            <div id="bedroom_4" className="hidden">Extra-large-sized, at least 19ft x 11ft</div>
           </div>
           <div id="living" className='criterion'>
             <h5 className="label"><span> Living Room </span></h5>
-            <div id="living_desc" className="grade_desc">Any living room size is okay</div>
+            <div id="living_desc" className="grade_desc">Any size living room is okay</div>
+            <div className="tapTab2">(tap or slide to change)</div>
             <div className="living-room-slider">
               <div id="living_grade" className="mini slider"></div>
-              <img src="http://homepik.com/images/livingslider2.png" className="numberline" alt="Living Room Slider"  />
-            </div>
-            <div className="tapTab2">(tap or slide)</div>
+              <img src="/images/livingslider2.png" className="numberline" alt="Living Room Slider"  />
+            </div>            
             <div id="living_1" className="hidden">Any living room size is okay</div>
-            <div id="living_2" className="hidden">A medium-sized living room or larger: at least 18 ft by 12 ft</div>
-            <div id="living_3" className="hidden">A large-sized living room or larger: at least 22 ft by 12 ft</div>
-            <div id="living_4" className="hidden">A extra-large living room or larger: at least 27 ft by 12 ft</div>
+            <div id="living_2" className="hidden">Medium-sized or larger, at least 18ft x 12ft</div>
+            <div id="living_3" className="hidden">Large-sized or larger, at least 22ft x 12ft</div>
+            <div id="living_4" className="hidden">Extra-large-sized, at least 27ft x 12ft</div>
             <div className="selectborder">&nbsp;</div>
           </div>
           <div id="amenities" className='criterion select'>
-            <div className="label">Amenities</div>
-            <div style={{height: 27 + 'px', padding: 0}} className="grade_desc">Click icons to select amenities</div>
+            <div className="label">Amenities <span className="italics">(optional)</span></div>
+            <div className="grade_desc">Click icons to select amenities and options</div>
             <div id="amenities-container">
               <div className="amenitiesmenu criterion">
                 <table>
                   <tbody>
                     <tr>
                       <td rel="elevator" className="amenity_icons22">
-                      <div rel="elevator" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/elevator.png" id="elevator" title="elevator" rel="elevator" name="5" className="amenity_icons" alt="Elevator" />
-                          <span className="amenity_icons_text">Elevator</span>
+                        <div rel="elevator" className="amenity_icons_block">
+                          <img src="/images/amenities/elevator.png" id="elevator" title="elevator" rel="elevator" name="5" className="amenity_icons" alt="Elevator" />
+                          <br/><span className="amenity_icons_text">Elevator</span>
                         </div>
                       </td>
                       <td rel="doorman" className="amenity_icons22">
-                      <div rel="doorman" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/doorman.png" id="doorman" title="doorman" rel="doorman" name="4" className="amenity_icons" alt="Doorman" />
-                          <span className="amenity_icons_text">Doorman</span>
+                        <div rel="doorman" className="amenity_icons_block">
+                          <img src="/images/amenities/doorman.png" id="doorman" title="doorman" rel="doorman" name="4" className="amenity_icons" alt="Doorman" />
+                          <br/><span className="amenity_icons_text">Doorman</span>
                         </div>
                       </td>
                       <td rel="laundry" className="amenity_icons22">
-                      <div rel="laundry" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/laundry.png" id="laundry" title="laundry" rel="laundry" name="3" className="amenity_icons" alt="Laundry" />
-                          <span className="amenity_icons_text">Laundry</span>
+                        <div rel="laundry" className="amenity_icons_block">
+                          <img src="/images/amenities/laundry.png" id="laundry" title="laundry" rel="laundry" name="3" className="amenity_icons" alt="Laundry" />
+                          <br/><span className="amenity_icons_text">Laundry</span>
                         </div>
                       </td>
                       <td rel="pets" className="amenity_icons22">
-                      <div rel="pets" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/pets.png" id="pets" title="pets" rel="pets" name="6" className="amenity_icons" alt="Pets" />
-                          <span className="amenity_icons_text">Pets</span>
+                        <div rel="pets" className="amenity_icons_block">
+                          <img src="/images/amenities/pets.png" id="pets" title="pets" rel="pets" name="6" className="amenity_icons" alt="Pets" />
+                          <br/><span className="amenity_icons_text">Pets</span>
                         </div>
                       </td>
                       <td rel="fireplace" className="amenity_icons22">
                         <div rel="fireplace" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/fireplace.png" id="fireplace" title="fireplace" rel="fireplace" name="5" alt="Fireplace" className="amenity_icons" />
-                          <span className="amenity_icons_text">Fireplace</span>
+                          <img src="/images/amenities/fireplace.png" id="fireplace" title="fireplace" rel="fireplace" name="5" alt="Fireplace" className="amenity_icons" />
+                          <br/><span className="amenity_icons_text">Fireplace</span>
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <tr id="second-row">
                       <td rel="pool" className="amenity_icons22">
-                      <div rel="pool" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/pool.png" id="pool" title="pool" rel="pool" name="2" className="amenity_icons" alt="Pool" />
-                          <span className="amenity_icons_text">Pool</span>
+                        <div rel="pool" className="amenity_icons_block">
+                          <img src="/images/amenities/pool.png" id="pool" title="pool" rel="pool" name="2" className="amenity_icons" alt="Pool" />
+                          <br/><span className="amenity_icons_text">Pool</span>
                         </div>
                       </td>
                       <td rel="garage" className="amenity_icons22">
-                      <div rel="garage" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/garage.png"  id="garage" title="garage" rel="garage" name="1" className="amenity_icons" alt="Garage" />
-                          <span className="amenity_icons_text">Garage</span>
+                        <div rel="garage" className="amenity_icons_block">
+                          <img src="/images/amenities/garage.png"  id="garage" title="garage" rel="garage" name="1" className="amenity_icons" alt="Garage" />
+                          <br/><span className="amenity_icons_text">Garage</span>
                         </div>
                       </td>
                       <td rel="healthclub" className="amenity_icons22">
-                      <div rel="healthclub" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/healthclub.png" id="healthclub" title="healthclub" rel="healthclub" name="1" alt="Healthclub" className="amenity_icons" />
-                          <span className="amenity_icons_text">Health club</span>
+                        <div rel="healthclub" className="amenity_icons_block">
+                          <img src="/images/amenities/healthclub.png" id="healthclub" title="healthclub" rel="healthclub" name="1" alt="Healthclub" className="amenity_icons" />
+                          <br/><span className="amenity_icons_text">Health<br/>club</span>
                         </div>
                       </td>
                       <td rel="outdoor" className="amenity_icons22">
                        <div rel="outdoor" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/outdoor.png" title="outdoor space" rel="outdoor" name="4" className="amenity_icons" alt="Roofdeck" />
-                          <span className="amenity_icons_text">Outdoor space</span>
+                          <img src="/images/amenities/outdoor.png" title="outdoor space" rel="outdoor" name="4" className="amenity_icons" alt="Roofdeck" />
+                          <br/><span className="amenity_icons_text">Outdoor<br/>space</span>
                         </div>
                       </td>
                       <td rel="wheelchair" className="amenity_icons22">
                        <div rel="wheelchair" className="amenity_icons_block">
-                          <img src="http://homepik.com/images/amenities/wheelchair.png" id="wheelchair" title="wheelchair" rel="wheelchair" alt="Wheelchair" name="6" className="amenity_icons" />
-                          <span className="amenity_icons_text">Handicap accessible</span>
+                          <img src="/images/amenities/wheelchair.png" id="wheelchair" title="wheelchair" rel="wheelchair" alt="Wheelchair" name="6" className="amenity_icons" />
+                          <br/><span className="amenity_icons_text">Handicap<br/>accessible</span>
                         </div>
                       </td>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td rel="newconstruction" className="amenity_icons22">
+                       <div rel="newconstruction" className="amenity_icons_block">
+                          <img src="/images/amenities/newconstruction.png" id="newconstruction" title="newconstruction" rel="newconstruction" name="3" className="amenity_icons" alt="New Construction" />
+                          <br/><span className="amenity_icons_text">New<br/>construction</span>
+                        </div>
+                      </td>
+                      <td rel="prewar" className="amenity_icons22">
+                      <div rel="prewar" className="amenity_icons_block">
+                          <img src="/images/amenities/prewar.png" id="prewar" title="prewar" rel="prewar" name="3" className="amenity_icons" alt="Prewar" />
+                          <br/><span className="amenity_icons_text">Prewar</span>
+                        </div>
+                      </td>
+                      <td rel="timeshare" className="amenity_icons22">
+                       <div rel="timeshare" className="amenity_icons_block">
+                          <img src="/images/amenities/timeshare.png" id="timeshare" title="timeshare" rel="timeshare" name="3" className="amenity_icons" alt="Time share" />
+                          <br/><span className="amenity_icons_text">Time<br/>Shares</span>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
                   </tbody>
                 </table>
-                <div className='b_left'>
-                  <table>
-                    <tbody>
-                      <tr>
-
-                        <td rel="prewar" className="amenity_icons22">
-                        <div rel="prewar" className="amenity_icons_block">
-                            <img src="http://homepik.com/images/amenities/prewar.png" id="prewar" title="prewar" rel="prewar" name="3" className="amenity_icons" alt="Prewar" />
-                            <span className="amenity_icons_text">Prewar</span>
-                          </div>
-                        </td>
-                        <td rel="timeshare" className="amenity_icons22">
-                         <div rel="timeshare" className="amenity_icons_block">
-                            <img src="http://homepik.com/images/amenities/timeshare.png" id="timeshare" title="timeshare" rel="timeshare" name="3" className="amenity_icons" alt="Time share" />
-                            <span className="amenity_icons_text">Time Shares</span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td rel="newconstruction" className="amenity_icons22">
-                         <div rel="newconstruction" className="amenity_icons_block">
-                            <img src="http://homepik.com/images/amenities/newconstruction.png" id="newconstruction" title="newconstruction" rel="newconstruction" name="3" className="amenity_icons" alt="New Construction" />
-                            <span className="amenity_icons_text">New construction</span>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
 
-          <div className="previous_nxt_btns">
-            <a href="#tabs-1" className='no-underline'><div id="previous" className='previous' onClick ={this.previousTab}><span className="nextIcon">‹</span> PREVIOUS</div></a>
-            <div id="searchbtn" className='continue' custom="tabs-2" data-buyer="{this.props.email}" onClick={this.continueStep.bind(this,"tabs-2")}>CONTINUE <span className="nextIcon">›</span></div>
+          <div className="conduct_search_btn">
+            <div id="searchbtn" className='continue' custom="tabs-2" data-buyer="{this.props.email}" onClick={this.continueStep.bind(this,"tabs-2")}>Conduct Search <span className="nextIcon">›</span></div>
           </div>
           <div id="criteria_footer_tab-2">{disclaimer}</div>
         </div>
@@ -2241,7 +2282,7 @@ window.Content = React.createClass({
 
     var $dialog =  $("#ajax-box").dialog({
       modal: true,
-	  width: 580,
+  	  width: 580,
       dialogClass: 'ajaxbox clearListingsPopup',
       close: function(){
         ReactDOM.unmountComponentAtNode(document.getElementById('ajax-box'));
@@ -2584,14 +2625,16 @@ var Register = React.createClass({
     else{ return false; }
   },
   checkPQ: function(){
-	if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
-		else{ return false; }
+    if(this.state.phone != ""){ return true; }
+    else{
+      if(this.state.secQues != "default" && this.state.secAns != ""){ return true; }
+      else{ return false; }
+    }
   },
   checkInput: function(){
-    if( this.state.firstname != "" &&  this.state.lastname != "" && this.state.email != "" && this.state.pass != "" &&  this.state.secQues != "default" && this.state.secAns != "") { return true; }
-	    else{ return false }
+    if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
+    else{ return false }
   },
-
   getAgents: function(){
     $.ajax({
       type: "POST",
@@ -2654,7 +2697,7 @@ var Register = React.createClass({
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #invalidBuyerPhone',function(){
+        $('#ajax-box').load('../controllers/messages.php #invalidBuyerPhone',function(){
           $('#ajax-box').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
         });
 		  }
@@ -2682,7 +2725,7 @@ var Register = React.createClass({
           });
         }
       });
-      $('#ajax-box').load('/controllers/messages.php #registerRquirements',function(){
+      $('#ajax-box').load('../controllers/messages.php #registerRquirements',function(){
         $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
       });
       e.preventDefault();
@@ -2705,7 +2748,7 @@ var Register = React.createClass({
           });
         }
       });
-      $('#ajax-box').load('/controllers/messages.php #invalidName',function(){
+      $('#ajax-box').load('../controllers/messages.php #invalidName',function(){
         $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
       });
       e.preventDefault();
@@ -2728,7 +2771,7 @@ var Register = React.createClass({
           });
         }
       });
-      $('#ajax-box').load('/controllers/messages.php #invalidBuyerEmail',function(){
+      $('#ajax-box').load('../controllers/messages.php #invalidBuyerEmail',function(){
         $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
       });
       e.preventDefault();
@@ -2751,7 +2794,7 @@ var Register = React.createClass({
           });
         }
       });
-      $('#ajax-box').load('/controllers/messages.php #passwordRequirement',function(){
+      $('#ajax-box').load('../controllers/messages.php #passwordRequirement',function(){
         $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
       });
       e.preventDefault();
@@ -2775,7 +2818,7 @@ var Register = React.createClass({
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #registerDisclosure',function(){
+        $('#ajax-box').load('../controllers/messages.php #registerDisclosure',function(){
           $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
         });
         e.preventDefault();
@@ -2800,7 +2843,7 @@ var Register = React.createClass({
             });
           }
         });
-        $('#ajax-box').load('/controllers/messages.php #noRegistration',function(){
+        $('#ajax-box').load('../controllers/messages.php #noRegistration',function(){
           $('#ajax-box').dialog( "option", "title", "Notification" ).dialog('open');
         });
       }
@@ -2860,16 +2903,17 @@ var Register = React.createClass({
                           </td>
                           <td className="text-popups"><input type="text" id="formAgent" className="agent-code text-popups input1" name="agent-code" value={this.state.agent} onChange={this.handleChange.bind(this, 'agent')} onFocus={this.getAgents} onBlur={this.switchAgent}/></td>
                         </tr>
-						<tr className="phone1">
-                          <td className="text-popups">Phone:</td>
-                          <td className="text-popups"><input type="text" id="formPhone" className="text-popups input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
-                        </tr>
                         <tr>
                           <td colSpan="2">&nbsp;</td>
                         </tr>
                         <tr>
-                          <td colSpan='2' id="phoneStatement" className="text-popups">Please select a security question.{this.checkPQ() ? null : <strong id="phoneMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }</td>
+                          <td colSpan='2' id="phoneStatement" className="text-popups">Please enter your phone number or select a security question.{this.checkPQ() ? null : <strong id="phoneMark" style={{color: "#D2008F"}}> {'\u002A'}</strong> }</td>
                         </tr>
+                        <tr className="phone1">
+                          <td className="text-popups">Phone:</td>
+                          <td className="text-popups"><input type="text" id="formPhone" className="text-popups input1" name="phone" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} onBlur={this.updatePhone}/></td>
+                        </tr>
+                        <tr><td>OR</td><td></td></tr>
                         <tr>
                           <td className="text-popups">Security Question:</td>
                           <td className="text-popups"><select id="formQuestion" className="input2" name="security-question" onChange={this.handleChange.bind(this, 'secQues')}>
@@ -3129,7 +3173,7 @@ var AddBuyer = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidBuyerPhone',function(){
+        $('#ajax-box2').load('../controllers/messages.php #invalidBuyerPhone',function(){
           $('#ajax-box2').dialog( "option", "title", "Invalid Phone Number" ).dialog('open');
         });
       }
@@ -3193,7 +3237,7 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #invalidBuyerEmail',function(){
+      $('#ajax-box2').load('../controllers/messages.php #invalidBuyerEmail',function(){
         $('#ajax-box2').dialog( "option", "title", "Invalid Email" ).dialog('open');
       });
     }
@@ -3219,7 +3263,7 @@ var AddBuyer = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #addBuyerEmail',function(){
+      $('#ajax-box2').load('../controllers/messages.php #addBuyerEmail',function(){
         $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
       });
     }
@@ -3263,7 +3307,7 @@ var AddBuyer = React.createClass({
                     });
                   }
                 });
-                $('#ajax-box2').load('/controllers/messages.php #addBuyerConfirmation',function(){
+                $('#ajax-box2').load('../controllers/messages.php #addBuyerConfirmation',function(){
                   $('#ajax-box2').dialog( "option", "title", "Buyer Email" ).dialog('open');
                 });
               }.bind(this)
@@ -3301,7 +3345,7 @@ var AddBuyer = React.createClass({
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary',function(){
+              $('#ajax-box2').load('../controllers/messages.php #addBuyerPrimary',function(){
                 $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
               });
 
@@ -3346,7 +3390,7 @@ var AddBuyer = React.createClass({
                         });
                       }
                     });
-                    $('#ajax-box2').load('/controllers/messages.php #addBuyerPrimary2',function(){
+                    $('#ajax-box2').load('../controllers/messages.php #addBuyerPrimary2',function(){
                       $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                     });
 
@@ -3374,7 +3418,7 @@ var AddBuyer = React.createClass({
                         });
                       }
                     });
-                    $('#ajax-box2').load('/controllers/messages.php #alreadyAgent',function(){
+                    $('#ajax-box2').load('../controllers/messages.php #alreadyAgent',function(){
                       $('#ajax-box2').dialog( "option", "title", "Adding Buyer" ).dialog('open');
                     });
 
@@ -3406,7 +3450,7 @@ var AddBuyer = React.createClass({
                   });
                 }
               });
-              $('#ajax-box2').load('/controllers/messages.php #addBuyerExists',function(){
+              $('#ajax-box2').load('../controllers/messages.php #addBuyerExists',function(){
                 $('#ajax-box2').dialog( "option", "title", "Buyer Exists" ).dialog('open');
               });
 
@@ -3746,12 +3790,12 @@ var EditSearch = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the location slider */
         var locationGrade = ui.value;
         this.setState({location: locationGrade});
-        ui.sliderText =	"<span><img src='/images/blue-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/blue-tick.png'/></span>";
         $('.editFormula #location_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /*Function to execute when initializing slider */
         ui.value = this.state.location;
-        $('.editFormula #location_grade .ui-slider-handle').html("<span><img src='/images/blue-tick.png'/></span>");
+        $('.editFormula #location_grade .ui-slider-handle').html("<span><img src='../images/blue-tick.png'/></span>");
       }.bind(this)
     }).addTouch();
 
@@ -3764,12 +3808,12 @@ var EditSearch = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the building slider */
         var buildingGrade = ui.value;
         this.setState({building: buildingGrade});
-        ui.sliderText =	"<span><img src='/images/purple-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/purple-tick.png'/></span>";
         $('.editFormula #building_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
         ui.value = this.state.building;
-        $('.editFormula #building_grade .ui-slider-handle').html("<span><img src='/images/purple-tick.png'/></span>");
+        $('.editFormula #building_grade .ui-slider-handle').html("<span><img src='../images/purple-tick.png'/></span>");
         return false;
       }.bind(this)
     }).addTouch();
@@ -3783,12 +3827,12 @@ var EditSearch = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the views slider */
         var viewsGrade = ui.value;
         this.setState({views: viewsGrade});
-        ui.sliderText =	"<span><img src='/images/pink-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/pink-tick.png'/></span>";
         $('.editFormula #views_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
         ui.value = this.state.views;
-        $('.editFormula #views_grade .ui-slider-handle').html("<span><img src='/images/pink-tick.png'/></span>");
+        $('.editFormula #views_grade .ui-slider-handle').html("<span><img src='../images/pink-tick.png'/></span>");
         return false;
       }.bind(this)
     }).addTouch();
@@ -3996,7 +4040,7 @@ var EditSearch = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
+        $('#ajax-box2').load('../controllers/messages.php #invalidPrice',function(){
           $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
         });
 
@@ -4061,7 +4105,7 @@ var EditSearch = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
+        $('#ajax-box2').load('../controllers/messages.php #invalidPrice',function(){
           $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
         });
 
@@ -4401,7 +4445,7 @@ var EditSearch = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
+      $('#ajax-box2').load('../controllers/messages.php #priceRange',function(){
         $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
       });
     }
@@ -4684,12 +4728,12 @@ var EditCriteria = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the location slider */
         var locationGrade = ui.value;
         this.setState({location: locationGrade});
-        ui.sliderText =	"<span><img src='/images/blue-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/blue-tick.png'/></span>";
         $('.editFormula #location_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /*Function to execute when initializing slider */
         ui.value = this.state.location;
-        $('.editFormula #location_grade .ui-slider-handle').html("<span><img src='/images/blue-tick.png'/></span>");
+        $('.editFormula #location_grade .ui-slider-handle').html("<span><img src='../images/blue-tick.png'/></span>");
       }.bind(this)
     }).addTouch();
 
@@ -4702,12 +4746,12 @@ var EditCriteria = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the building slider */
         var buildingGrade = ui.value;
         this.setState({building: buildingGrade});
-        ui.sliderText =	"<span><img src='/images/purple-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/purple-tick.png'/></span>";
         $('.editFormula #building_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
         ui.value = this.state.building;
-        $('.editFormula #building_grade .ui-slider-handle').html("<span><img src='/images/purple-tick.png'/></span>");
+        $('.editFormula #building_grade .ui-slider-handle').html("<span><img src='../images/purple-tick.png'/></span>");
         return false;
       }.bind(this)
     }).addTouch();
@@ -4721,12 +4765,12 @@ var EditCriteria = React.createClass({
       slide: function(event, ui) { /* Function to execute when sliding the views slider */
         var viewsGrade = ui.value;
         this.setState({views: viewsGrade});
-        ui.sliderText =	"<span><img src='/images/pink-tick.png'/></span>";
+        ui.sliderText =	"<span><img src='../images/pink-tick.png'/></span>";
         $('.editFormula #views_grade .ui-slider-handle').html(ui.sliderText); /* show the new grade in the slider handle */
       }.bind(this),
       create: function( event, ui ) { /* Function to execute when initializing slider */
         ui.value = this.state.views;
-        $('.editFormula #views_grade .ui-slider-handle').html("<span><img src='/images/pink-tick.png'/></span>");
+        $('.editFormula #views_grade .ui-slider-handle').html("<span><img src='../images/pink-tick.png'/></span>");
         return false;
       }.bind(this)
     }).addTouch();
@@ -4911,7 +4955,7 @@ var EditCriteria = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
+        $('#ajax-box2').load('../controllers/messages.php #invalidPrice',function(){
           $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
         });
 
@@ -4973,7 +5017,7 @@ var EditCriteria = React.createClass({
             });
           }
         });
-        $('#ajax-box2').load('/controllers/messages.php #invalidPrice',function(){
+        $('#ajax-box2').load('../controllers/messages.php #invalidPrice',function(){
           $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
         });
 
@@ -5295,7 +5339,7 @@ var EditCriteria = React.createClass({
           });
         }
       });
-      $('#ajax-box2').load('/controllers/messages.php #priceRange',function(){
+      $('#ajax-box2').load('../controllers/messages.php #priceRange',function(){
         $('#ajax-box2').dialog( "option", "title", "Price Range" ).dialog('open');
       });
     }
@@ -5365,32 +5409,32 @@ var EditCriteria = React.createClass({
       $('#living_desc').text($("#living_"+living_area).text());
       $("#living_grade").slider('value',living_area);
       $("#living_grade").slider('refresh');      
-      if(this.state.elevator == true){ $.cookie("elevator", "true"); $("#elevator").attr("src", "images/amenities/elevatorb.png").addClass("selected"); }
-      else{ $.cookie("elevator", "false"); $("#elevator").attr("src", "images/amenities/elevator.png").removeClass("selected"); }
-      if(this.state.doorman == true){ $.cookie("doorman", "true"); $("#doorman").attr("src", "images/amenities/doormanb.png").addClass("selected"); }
-      else{ $.cookie("doorman", "false"); $("#doorman").attr("src", "images/amenities/doorman.png").removeClass("selected"); }
-      if(this.state.laundry == true){ $.cookie("laundry", "true"); $("#laundry").attr("src", "images/amenities/laundryb.png").addClass("selected"); }
-      else{ $.cookie("laundry", "false"); $("#laundry").attr("src", "images/amenities/laundry.png").removeClass("selected"); }
-      if(this.state.pets == true){ $.cookie("pets", "true"); $("#pets").attr("src", "images/amenities/petsb.png").addClass("selected"); }
-      else{ $.cookie("pets", "false"); $("#pets").attr("src", "images/amenities/pets.png").removeClass("selected"); }
-      if(this.state.fireplace == true){ $.cookie("fireplace", "true"); $("#fireplace").attr("src", "images/amenities/fireplaceb.png").addClass("selected"); }
-      else{ $.cookie("fireplace", "false"); $("#fireplace").attr("src", "images/amenities/fireplace.png").removeClass("selected"); }
-      if(this.state.pool == true){ $.cookie("pool", "true"); $("#pool").attr("src", "images/amenities/poolb.png").addClass("selected"); }
-      else{ $.cookie("pool", "false"); $("#pool").attr("src", "images/amenities/pool.png").removeClass("selected"); }
-      if(this.state.garage == true){ $.cookie("garage", "true"); $("#garage").attr("src", "images/amenities/garageb.png").addClass("selected"); }
-      else{ $.cookie("garage", "false"); $("#garage").attr("src", "images/amenities/garage.png").removeClass("selected"); }
-      if(this.state.healthclub == true){ $.cookie("healthclub", "true"); $("#healthclub").attr("src", "images/amenities/healthclubb.png").addClass("selected"); }
-      else{ $.cookie("healthclub", "false"); $("#healthclub").attr("src", "images/amenities/healthclub.png").removeClass("selected"); }
-      if(this.state.outdoor == true){ $.cookie("outdoor", "true"); $("#outdoor").attr("src", "images/amenities/roofdeckb.png").addClass("selected"); }
-      else{ $.cookie("outdoor", "false"); $("#outdoor").attr("src", "images/amenities/roofdeck.png").removeClass("selected"); }
-      if(this.state.handicap == true){ $.cookie("wheelchair", "true"); $("#wheelchair").attr("src", "images/amenities/wheelchairb.png").addClass("selected"); }
-      else{ $.cookie("wheelchair", "false"); $("#wheelchair").attr("src", "images/amenities/wheelchair.png").removeClass("selected"); }
-      if(this.state.prewar == true){ $.cookie("prewar", "true"); $("#prewar").attr("src", "images/amenities/prewarb.png").addClass("selected"); }
-      else{ $.cookie("prewar", "false"); $("#prewar").attr("src", "images/amenities/prewar.png").removeClass("selected"); }
-      if(this.state.timeshare == true){ $.cookie("timeshare", "true"); $("#newconstruction").attr("src", "images/amenities/timeshareb.png").addClass("selected"); }
-      else{ $.cookie("timeshare", "false"); $("#newconstruction").attr("src", "images/amenities/timeshare.png").removeClass("selected"); }
-      if(this.state.newconstruction == true){ $.cookie("newconstruction", "true"); $("#newconstruction").attr("src", "images/amenities/newconstructionb.png").addClass("selected"); }
-      else{ $.cookie("newconstruction", "false"); $("#newconstruction").attr("src", "images/amenities/newconstruction.png").removeClass("selected"); }
+      if(this.state.elevator == true){ $.cookie("elevator", "true"); $("#elevator").attr("src", "/images/amenities/elevatorb.png").addClass("selected"); }
+      else{ $.cookie("elevator", "false"); $("#elevator").attr("src", "/images/amenities/elevator.png").removeClass("selected"); }
+      if(this.state.doorman == true){ $.cookie("doorman", "true"); $("#doorman").attr("src", "/images/amenities/doormanb.png").addClass("selected"); }
+      else{ $.cookie("doorman", "false"); $("#doorman").attr("src", "/images/amenities/doorman.png").removeClass("selected"); }
+      if(this.state.laundry == true){ $.cookie("laundry", "true"); $("#laundry").attr("src", "/images/amenities/laundryb.png").addClass("selected"); }
+      else{ $.cookie("laundry", "false"); $("#laundry").attr("src", "/images/amenities/laundry.png").removeClass("selected"); }
+      if(this.state.pets == true){ $.cookie("pets", "true"); $("#pets").attr("src", "/images/amenities/petsb.png").addClass("selected"); }
+      else{ $.cookie("pets", "false"); $("#pets").attr("src", "/images/amenities/pets.png").removeClass("selected"); }
+      if(this.state.fireplace == true){ $.cookie("fireplace", "true"); $("#fireplace").attr("src", "/images/amenities/fireplaceb.png").addClass("selected"); }
+      else{ $.cookie("fireplace", "false"); $("#fireplace").attr("src", "/images/amenities/fireplace.png").removeClass("selected"); }
+      if(this.state.pool == true){ $.cookie("pool", "true"); $("#pool").attr("src", "/images/amenities/poolb.png").addClass("selected"); }
+      else{ $.cookie("pool", "false"); $("#pool").attr("src", "/images/amenities/pool.png").removeClass("selected"); }
+      if(this.state.garage == true){ $.cookie("garage", "true"); $("#garage").attr("src", "/images/amenities/garageb.png").addClass("selected"); }
+      else{ $.cookie("garage", "false"); $("#garage").attr("src", "/images/amenities/garage.png").removeClass("selected"); }
+      if(this.state.healthclub == true){ $.cookie("healthclub", "true"); $("#healthclub").attr("src", "/images/amenities/healthclubb.png").addClass("selected"); }
+      else{ $.cookie("healthclub", "false"); $("#healthclub").attr("src", "/images/amenities/healthclub.png").removeClass("selected"); }
+      if(this.state.outdoor == true){ $.cookie("outdoor", "true"); $("#outdoor").attr("src", "/images/amenities/roofdeckb.png").addClass("selected"); }
+      else{ $.cookie("outdoor", "false"); $("#outdoor").attr("src", "/images/amenities/roofdeck.png").removeClass("selected"); }
+      if(this.state.handicap == true){ $.cookie("wheelchair", "true"); $("#wheelchair").attr("src", "/images/amenities/wheelchairb.png").addClass("selected"); }
+      else{ $.cookie("wheelchair", "false"); $("#wheelchair").attr("src", "/images/amenities/wheelchair.png").removeClass("selected"); }
+      if(this.state.prewar == true){ $.cookie("prewar", "true"); $("#prewar").attr("src", "/images/amenities/prewarb.png").addClass("selected"); }
+      else{ $.cookie("prewar", "false"); $("#prewar").attr("src", "/images/amenities/prewar.png").removeClass("selected"); }
+      if(this.state.timeshare == true){ $.cookie("timeshare", "true"); $("#newconstruction").attr("src", "/images/amenities/timeshareb.png").addClass("selected"); }
+      else{ $.cookie("timeshare", "false"); $("#newconstruction").attr("src", "/images/amenities/timeshare.png").removeClass("selected"); }
+      if(this.state.newconstruction == true){ $.cookie("newconstruction", "true"); $("#newconstruction").attr("src", "/images/amenities/newconstructionb.png").addClass("selected"); }
+      else{ $.cookie("newconstruction", "false"); $("#newconstruction").attr("src", "/images/amenities/newconstruction.png").removeClass("selected"); }
 
       jqgridReload();      
       {this.props.closeDialog()}
@@ -5594,9 +5638,9 @@ var GradeBubbles = React.createClass({
       <div id="gradeBubbles">
         <i id="closeGradeBubblePopup" className="fa fa-times" onClick={this.closePopup} data-toggle='tooltip' title='close'></i>
         <h3>Grade Bubble Meanings</h3>
-        <h6 className="Text-2-ex-lead" id="u334-12"><img className="viewImgs" src="../images/meets.png"/> = meets your criteria</h6>
-        <h6 className="Text-2-ex-lead" id="u334-14"><img className="viewImgs" src="../images/exceeds.png"/> = exceeds your criteria</h6>
-        <h6 className="Text-2-ex-lead"><img className="viewImgs" src="../images/greatly.png"/> = greatly exceeds your</h6>
+        <h6 className="Text-2-ex-lead" id="u334-12"><img className="viewImgs" src="/images/meets.png"/> = meets your criteria</h6>
+        <h6 className="Text-2-ex-lead" id="u334-14"><img className="viewImgs" src="/images/exceeds.png"/> = exceeds your criteria</h6>
+        <h6 className="Text-2-ex-lead"><img className="viewImgs" src="/images/greatly.png"/> = greatly exceeds your</h6>
       </div>
     );
   }

@@ -1,0 +1,250 @@
+html{ height: 100%; margin: 0px; padding: 0; touch-action: manipulation; width: 100%; -ms-touch-action: manipulation; }
+body{ font-family: 'Lato', sans-serif; height: 100%; margin: 0px; max-width:100%; padding: 0; position: relative; width: 100%; }
+
+/* Global Tag CSS */
+a { border:none; cursor: pointer; outline: 0; }
+input:focus, select:focus, textarea:focus, button:focus { outline: none; }
+
+/* Global Font CSS */
+.Text-1{ color: #7F7F7F; font-family: lato, sans-serif; font-size: 16px !important; font-weight: 300; line-height: 22px; padding: 0px; }
+
+/* Global Classes CSS */
+.hidden{ display: none; }
+
+/*Global Dialog CSS */
+.ui-dialog { border: 0; box-shadow: 4px 4px 8px rgba(0,0,0,0.25); font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: normal; padding: 0; }
+.ui-dialog-titlebar-close .ui-icon { background-image: url('../../images/ui-icons_222222_256x240_white.jpg'); background-position: -41px -99px; transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); }
+.ui-dialog-titlebar { background: black; border: 0; border-radius: 0; display: none; margin: 0; }
+.ui-dialog-title { color: white; font-family: 'Lato', sans-serif; font-size: 23px; left: 22px; letter-spacing: 0.5px; margin: 0px !important; position: relative; top: -3px; }
+.ui-dialog .ui-button, .ui-dialog button { background: #666666; border: 0px; border-radius: 60px; height: 31px; width:auto; }
+.ui-dialog .ui-button-text{ color:#ffffff; display: inline; font-family: 'Lato', sans-serif; font-size: 15px; font-weight: 100; padding: 0 14px; }
+.ui-dialog .ui-dialog-buttonpane{ border-width: 0 0 0 0 !important; }
+.ui-dialog .ui-dialog-buttonpane button { background-color: white !important; border: 0px !important; color: #646464; font-weight: 600; }
+.ui-dialog .ui-dialog-buttonpane button span{ color: #646464; font-size: 18px; }
+.ui-dialog .ui-dialog-titlebar{ display: none; }
+.ui-widget-overlay { background: #ffffff none repeat scroll 0 0; opacity: 0.9; width: 100%; z-index: 1000 !important; }
+
+/* Global Headers, Main Body and Footer CSS */
+#header { background:url("images/gradient.png") repeat-x scroll 0 0 transparent; height:80px; height: auto; margin:0; position:relative; max-width:100%; }
+.searchHeader #first-section{ text-align: center; }
+.searchHeader #first-section img{ margin-left: 6%; }
+#searchresultsheader{ background:url("images/gradient.png") repeat-x scroll 0 0 transparent; display: none; height:80px; height: auto; margin:0; position:relative; max-width:100%; }
+#main, #tabs, #header-content { font-family: 'Lato', sans-serif; height: 100%; margin: auto; position: relative; width: 100%; max-width:100%;}
+#wrapper{ min-height: 89%; height: auto !important; height: 100%; margin: 0 auto -53px; padding:0px; }
+#main, #tabs { padding-bottom: 30px; }
+#main { height: auto !important; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none; }
+#criteriaFooter{ margin-left: auto; margin-right: auto; width: 100%; }
+#searchResultsFooter{ display: none; margin-left: auto; margin-right: auto; width: 100%; }
+#criteriaFooter nav.footerNavBar, #searchResultsFooter nav.footerNavBar{ max-width: 100%; }
+
+/* Footer CSS */
+#u2595{ background-color: #B2B2B2; float:left; margin-top:35px; width:100% !important; }
+#u2595-bw{ margin-top: 0 !important; }
+#u2595-bw a{ color: #ffffff; text-decoration: none; }
+#u2595-bw a:hover{ color: #0085C6; text-decoration: none; }
+#u2595-bw img{ margin-right: 5px; }
+#u2595-bw .grpelem{ display: inline; float: left; }
+#u2595-bw #u15182-4{ margin-top: 20px; }
+#u15181-16{ background-color: transparent; color: #FFFFFF; font-family: lato, sans-serif; font-weight: 300; }
+#u15181-2,#u15181-4,#u15181-6,#u15181-8,#u15181-10,#u15181-12{ color: #0085C6; }
+#u15182-4{ background-color: transparent; color: #FFFFFF; font-family: lato, sans-serif; font-size: 24px; font-weight: 400; line-height: 29px; text-align: right; }
+#u15182{ font-family: '__FontAwesome_5'; font-weight: 400; }
+nav.footerNavBar{ margin-top:30px;}
+
+#role, #email, #guestID, #agentID { display:none; }
+
+/* Tabs CSS */
+#tabs { letter-spacing: 0; padding: 0 !important; z-index: 50; }
+#tabs .ui-widget-header { border-color: RGB(234,234,234); border-radius: 0; border-width: 1px 0 1px; margin-left:0; padding: 3px 0; }
+#tabs.ui-widget-content { border: 0px !important; }
+#tabs.ui-tabs .ui-tabs-nav { background-color: white !important; border-color: #c2c2c2; height:44px; position: relative; width: 100% !important; }
+#tabs.ui-tabs .ui-tabs-nav li { background: white !important; border: 0 !important; color: RGB(93,93,93); font-size:17px; font-weight: 100; height: 36px; margin:0 !important; top:0px !important; }
+#tabs.ui-tabs .ui-tabs-nav li a { cursor: text !important; }
+#tabs-1, #tabs-2 { margin: 0 auto 10px auto; max-width: 100%; padding: 1em 0; }
+
+/* Listing Counter CSS */
+#listing-counters-div{ width: 100%; }
+#listing-count{ border-bottom: 1px solid; float: left; margin: auto; padding-bottom: 2px; text-align: center; width: 100%; min-height:37px;}
+.custom-listing-counter { color: #717171; float: left; font-size: 15px; line-height: 1; margin: 0; text-align: center; width: 100%; }
+.custom-listing-counter h4 { display: block !important; float: left; font-size: 15px; margin: 0; text-transform: uppercase; width: 100% !important; }
+.custom-listing-counter span#l_count, .custom-listing-counter span#lm_count{ color: #0085C6; font-size: 18px; font-weight: bold; }
+#listing-count_homepik.double-counter { border-bottom: 1px solid; float: left; margin: 5px auto 0; padding-bottom: 4px; text-align: center; width: 100%; }
+#listing-count_homepik.single-counter { border-bottom: 1px solid; float: left; margin: auto; padding-bottom: 4px; text-align: center; width: 100%; }
+#listing-count_homepik #loginOrRegister a { color: #0085C6; text-decoration: none; }
+#listing-count_homepik #loginOrRegister a:hover { text-decoration: underline; }
+#listing-count_note { float: left; text-align: center; width: 100%; padding-top: 0; }
+#listing-count_note .custom-listing-counter{ border-bottom: 1px solid; margin-top: 5px; padding-bottom: 4px; }
+#listing-count_note .custom-listing-counter h4 { float:left; font-size: 15px; margin: 0 4px 0 35px; max-width: 55px; text-transform: capitalize; width: auto !important; }
+#listing-count_note .custom-listing-counter span{ float:left; }
+
+/* Global UI Slider and Checkbox CSS */
+.ui-slider-range { background: transparent; border: 0px !important; }
+.ui-slider .ui-slider-handle { background: white; border: 2px solid white; cursor:default; height:1.1em; position:absolute; width:1.8em; z-index:2; }
+a.ui-slider-handle span { font-family:'Lato', sans-serif; font-size: 22px; font-weight: bold; height:30px; line-height: 27px; position: relative; text-decoration: none; }
+a.ui-slider-handle span.smaller { font-size: 30px; left: -2px; top: -1px; }
+
+.mini.ui-slider { background: transparent; border: 0px solid; margin: 17px 0 0; width: 365px; z-index: 2; }
+.mini.ui-slider .ui-slider-handle { background: white; behavior: url(/js/csspie/PIE.php); border-radius: 1000px !important; cursor: -webkit-grab; cursor: -moz-grab; cursor: pointer; height:32px; text-align: center; text-decoration: none; top: -5px; width:32px; }
+
+.ui-slider-horizontal { height: 0.1em; }
+.ui-slider-horizontal .ui-slider-handle { border: 2px solid white; top: -0.7em; }
+.ui-slider-horizontal .ui-slider-range-max { right: 0px; }
+.ui-slider-horizontal .ui-slider-range { height: 0.9em; top: -0.15em; }
+#tabs-1 .ui-slider-horizontal .ui-slider-handle{ margin-left:0; }
+
+.select .ui-multiselect-menu { border: 0px; left: -14px !important; width: 410px !important; }
+.select .ui-multiselect-checkboxes { border-bottom: none; left: 6px; overflow: visible; }
+.select .ui-multiselect-checkboxes li { clear: none; color: #000000; font-size: 1.15em; letter-spacing: 0; padding-right: 0; }
+.select .ui-multiselect-checkboxes label { font-family: 'Lato', sans-serif; font-size: 25px; }
+.select .ui-multiselect-checkboxes label input { background: white; border: 1px solid RGB(150,150,150); border-radius: 3px; height: 20px; margin: 3px 8px; position: relative; top: 1px; width: 20px; -moz-background: white; -moz-border: 1px solid RGB(150,150,150); -moz-border-radius: 3px; -webkit-appearance: none; }
+.select .ui-multiselect-checkboxes label input:checked { background: RGB(150,150,150); border-color: RGB(150,150,150); -moz-background: RGB(150,150,150); }
+.ui-multiselect-checkboxes .ui-state-focus, .ui-multiselect-checkboxes .ui-state-hover{ background: none !important; border: none !important; font-size: 12pt; }
+
+/* Muliple Criteria CSS */
+#nbhood_box, #floor_box, #bedroom, #living, #location, #building, #view{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; float:left; height:auto; margin: 30px 0 0 10px; position: relative; width: 97%; }
+.criterion div.label{ float:left; font-size: 16px; padding:0; width:100%; }
+.tapTab1{ color: #717171; font-size: 14px; font-weight: 100; }
+.tapTab2{ color: #717171; font-size: 14px; font-weight: 100; text-align: right; width: 95%; }
+.criterion .mini{ float:left; width:100%;}
+#tabs-2 .criterion { float: left; margin: 0 0 0 10px; width: 97% !important; }
+#tabs-2 .criterion h5{ float:left; font-size: 16px; padding:0; width:100%; }
+#tabs-2 .criterion div.grade_desc{ float:left; height:auto; margin: 0; max-width: 97%; padding: 0; width: auto; }
+.numberline { height: auto; left: -8px; max-height: 42px; position: relative; top: -10px; width: 100% !important; z-index: inherit; }
+
+/* Minimum Bedrooms CSS */
+#bedrooms_box{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; float:left; height:auto; margin: 30px 0 0 10px; position: relative; width: 97%; }
+#bedrooms_box .label .sliderName{ color: #7E499E; }
+#bedrooms_box .grade_desc input { background: none !important; cursor: text !important; text-align: right; width: 54%; }
+#bedrooms_description{ color: #7E499E; }
+#bedrooms_slider.mini.ui-slider{ width: 87%; }
+#bedrooms_box .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 13px; margin: 0 auto; top: -6px; width: 100% !important; }
+#bedrooms_box .ui-slider-handle{ color: #7E499E; margin-top:-4px; }
+
+/* Price CSS */
+#price_box{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; float:left; height:auto; margin: 30px 0 0 10px; position: relative; width: 97%; }
+#price_box .label .sliderName{ color: #2F9EB6; }
+#price_box .grade_desc { color: #2F9EB6; position: absolute; text-align: right; top: -5px; width: 85%; }
+#price_box .grade_desc.smaller-width { width: 48%; }
+#price_box .grade_desc select{ font-family: 'Lato', sans-serif; font-size: 16px; }
+#price.mini.ui-slider{ width: 87%; }
+#price_box .ui-slider-range { background: transparent; cursor: pointer; height: 27px; margin: 0 auto; top: -6px; width: 100% !important; }
+#price_box .ui-slider-handle { color: RGB(65,190,209); top:-10px; }
+#price_box a.ui-slider-handle span { font-size: 50px; top: -7px; }
+
+/* Neighborhood CSS */
+#nbhood_box{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; float:left; height:auto; margin: 20px 0 0 10px !important; position: relative; width: 94% !important; z-index: 90; }
+#nbhood_box .label{ color: #D2008F; cursor: text; height: 20px; }
+#neighborhoods-container{ display: inline-block; }
+#nbhood_box button.ui-multiselect{ display: none !important; }
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all{ display: block !important; float:left; height:auto; position:relative !important; width:45% !important; top:auto !important; bottom:auto !important; left:auto !important; padding:0;}
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul{ border:medium none !important; float:left; margin: 0; padding: 0; width:100%; left:auto;}
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li{ float:left; margin: 0px; width:100% !important; height:auto !important;}
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label{ border-radius:0; font-size:12pt; font-weight:normal; margin:0; padding:0; width:100%; background:none; border:none;}
+#nbhood_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label input{ float:left; margin: 0 5px 0 0; }
+#nbhood_box.select .ui-multiselect-checkboxes label input:checked { background: #D2008F; border-color: #D2008F; }
+
+#neighborhood_description_popout{ border: 1px solid; display: none; height: auto; margin: 0 0 0 168px; position: absolute; width: 50%; }
+#neighborhood_description_popout.Chelsea, #neighborhood_description_popout.SMG{ border: 1px solid; display: none; height: auto; margin: 65px 0 0 168px; position: absolute; width: 50%; }
+#neighborhood_description_popout.Village{ border: 1px solid; display: none; height: auto; margin: 77px 0 0 168px; position: absolute; width: 50%; }
+#neighborhood_description_popout.Lower{ border: 1px solid; display: none; height: auto; margin: 10px 0 0 168px; position: absolute; width: 50%; }
+
+#neighborhood_description_popout p{ padding: 10px; }
+
+#neighborhood_description_popout:after, #neighborhood_description_popout:before { border: solid transparent; border-width: 10px; bottom: 100%; content: " "; height: 0; left: 0%; pointer-events: none; position: absolute; top: 40%; width: 0; }
+#neighborhood_description_popout:after { border-color: rgba(255, 255, 255, 0); border-right-color: #FFFFFF; margin-left: -19px; }
+#neighborhood_description_popout:before { border-color: rgba(113, 158, 206, 0); border-right-color: #000000; margin-left: -20px; }
+
+#neighborhood_description_popout.North:after, #neighborhood_description_popout.North:before{ top: 17% !important; }
+#neighborhood_description_popout.Westside:after, #neighborhood_description_popout.Westside:before{ top: 39% !important; }
+#neighborhood_description_popout.Eastside:after, #neighborhood_description_popout.Eastside:before{ top: 60% !important; }
+#neighborhood_description_popout.Chelsea:after, #neighborhood_description_popout.Chelsea:before{ top: 19% !important; }
+#neighborhood_description_popout.SMG:after, #neighborhood_description_popout.SMG:before{ top: 44% !important; }
+#neighborhood_description_popout.Village:after, #neighborhood_description_popout.Village:before{ top: 56% !important; }
+#neighborhood_description_popout.Lower:after, #neighborhood_description_popout.Lower:before{ top: 87% !important; }
+
+/*Property Type CSS */
+#floor_box{ background: none repeat scroll 0 0 #FFFFFF; box-shadow: none; display: block; float:left; height:auto; margin: 20px 0 0 10px; position: relative; width: 97%; z-index: 90; }
+#floor_box .label{ color: #D3922C; cursor: text; height: 20px; }
+#floor_box button.ui-multiselect{ display: none !important; }
+#floor_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all{ display: block !important; height:auto; position:relative !important; width:100% !important; top:-12px !important; bottom:auto !important; left:auto !important; padding:0;}
+#floor_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul{ border:medium none !important; float:left; margin:7px 0 0 0; padding:5px 0 0; width:100%; left:auto;}
+#floor_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li{ float:left; margin:0 !important; width:98% !important; height:auto !important;}
+#floor_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label{ border-radius:0; font-size:12pt; font-weight:normal; margin:0; padding:0; width:100%; background:none; border:none;}
+#floor_box .ui-multiselect-menu.ui-widget.ui-widget-content.ui-corner-all ul li label input{ float:left; margin:0 5px 0 0;}
+#floor_box.select .ui-multiselect-checkboxes label input:checked { background: #D3922C; border-color: #D3922C; }
+
+/* Min Floor CSS */
+#floor-container { display:none; float: left; left:179px; margin: 14px 0pt 0pt 0px; position:absolute; text-align: center; }
+#min_floor { color: #777777; font-family: 'Lato', sans-serif; font-size: 1.1em; font-weight: bold; padding: 5px; width: 30px; }
+
+/* Location CSS */
+#location{ margin: 10px 0 0 10px !important; }
+#location .label{ color: #2F9EB6; }
+#location .mini{ width:315px; }
+#location .ui-slider-range{ background: transparent; cursor: pointer; height: 27px; left: 12px; margin: 0 auto; top: -6px; width: 100% !important; }
+#location .ui-slider-handle{ color: #2F9EB6; top:-8px; margin-left:0; }
+#location a.ui-slider-handle span{ line-height: 21px !important; }
+
+/* Building CSS */
+#building .label{ color: #7E499E; }
+#building .mini{ width:315px; }
+#building .ui-slider-range{ background: transparent; cursor: pointer; height: 27px; left: 12px; margin: 0 auto; top: -6px; width: 100% !important; }
+#building .ui-slider-handle{ color: #7E499E; top:-10px; margin-left:0;}
+#building a.ui-slider-handle span{ line-height: 22px !important; }
+
+/* View CSS */
+#view .label{ color: #D2008F; }
+#view .mini{ width:315px; }
+#view .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 12px; margin: 0 auto; top: -6px; width: 100% !important; }
+#view .ui-slider-handle { color: #D2008F; margin-left:0; top:-9px; }
+#view a.ui-slider-handle span{ line-height: 23px !important; }
+
+/* Master Bedroom CSS */
+#bedroom .label{ color: #D3922C; }
+#bedroom .mini{ width: 315px; }
+#bedroom .ui-slider-range{ background: transparent; cursor: pointer; height: 27px; left: 5px; margin: 0 auto; top: -6px; width: 100% !important; }
+#bedroom .ui-slider-handle{ color: #D3922C; margin:-3px 0 0 0;}
+#bedroom a.ui-slider-handle span{ font-size: 24px; top: 0; }
+#bedroom a.ui-slider-handle span.smaller{ font-size: 18px; left: 0; top: 0; }
+
+/* Living Room CSS */
+#living .label { color: #569243; }
+#living .mini{ width: 315px; }
+#living .ui-slider-range { background: transparent; cursor: pointer; height: 27px; left: 5px; margin: 0 auto; top: -6px; width: 110% !important; }
+#living .ui-slider-handle{ color: #569243; margin:-4px 0 0 0; }
+#living a.ui-slider-handle span { font-size: 24px; top: 0; }
+#living a.ui-slider-handle span.smaller { font-size: 18px; left: 0; top: 0; }
+
+/* Amenities */
+#amenities .label{ color: #2F9EB6; }
+#amenities .label .italics{ font-style: italic; }
+#tabs-2 .amenitiesmenu.criterion{ background: transparent; border: 0; cursor: pointer; display: block !important; font-size: 12px; height: auto; left: 0; margin: 0 0 0 -10px !important; padding: 0 !important; position: relative; text-align: center; top: 0 !important; width: 100% !important; z-index: 100; }
+.amenitiesmenu.criterion > table { clear: none; float: left; width: 100%; }
+.amenitiesmenu.criterion td { line-height: 10px; vertical-align: top; width: 48px; }
+.amenitiesmenu.criterion tr#second-row{ border-bottom: 1px solid #000; }
+.amenitiesmenu.criterion tr#second-row > td{ padding-bottom: 10px; }
+.amenitiesmenu .amenity_icons { height: 30px; margin: 13px 0 0; opacity: 1; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent; }
+
+/* Previous and Continue Buttons CSS */
+.continue_btn{ float:left; margin: 25px auto 20px; width:100%; }
+.continue_btn .continue{ color: rgb(82, 83, 85); cursor: pointer; font-family: "Lato",sans-serif; font-size: 12pt; margin:0 auto; width: 26%; }
+.continue_btn a.no-underline{ float:left; margin:0 !important;}
+
+.conduct_search_btn{ float:left; margin: 55px auto 20px; width:100%; }
+.conduct_search_btn .continue{ color: rgb(82, 83, 85); cursor: pointer; font-family: "Lato",sans-serif; font-size: 12pt; margin:0 auto; width: 45%; }
+
+.continue span { color: rgb(82, 83, 85); cursor: pointer; float: left; font-family: "Lato",sans-serif; font-size: 12pt; left:auto; margin:0; position: relative; right:auto; text-transform: uppercase; top:auto; }
+.nextIcon { font-size: 30pt !important; line-height: 16px; margin: -4px 0 0 !important; padding-left: 2px; }
+
+/* Criteria Disclaimer CSS */
+#criteria_footer_tab-1{ bottom: -30px; float: left; position:relative; text-align:center; top:auto; width:100%;}
+#criteria_footer_tab-2{ bottom: -27px; float: left; position:relative; text-align:center; top:auto; width:100%;}
+
+/* Back Buttons */
+#tabs-2 #backBtn{ padding-bottom: 0 !important; }
+
+/* Remove this line (for setup only) */
+.ui-jqgrid.table-header, .thread_scrollwrapper_block{ display: none !important; }
+
+@font-face{ font-family: '__FontAwesome_5'; src: url('/views/fonts/fontawesome-webfont.eot'); src: local('ÃƒÆ’Ã‚Â¢Ãƒâ€¹Ã…â€œÃƒâ€šÃ‚Âº'), url('/views/fonts/fontawesome-webfont.woff') format('woff'), url('/views/fonts/fontawesome-webfont.svg') format('svg'); font-weight: 400; font-style: normal; }
+@-ms-viewport { width: device-width; }

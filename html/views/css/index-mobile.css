@@ -1,0 +1,68 @@
+.version.index{ color: #0000F4;	background-color: #FD895B; }
+.popup_anchor{ position: relative; width: 0px; height: 0px; }
+.position_content{ float: left; }
+[data-whatinput="mouse"] *:focus,[data-whatinput="touch"] *:focus,input:focus{ outline: none; }
+
+body{ max-width: 1350px; margin: auto !important; }
+#index{ min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -50px; }
+#page{ z-index: 1; background-image: none; border-width: 0px; border-color: #000000; background-color: transparent; padding-bottom: 0px; margin-left: auto; margin-right: auto; }
+#page_position_content{ float: left; margin: 0 !important; width: 100%; }
+
+#u25718.comingSoonPopup{ background-color: #ffffff; border-color: #b2b2b2; border-radius: 6px; border-style: solid; border-width: 1px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25); height: 145px; left: 50%; margin: -50px 0 0 -125px; padding-bottom: 69px; position: fixed; top: 45%; width: 250px; z-index: 1001; }
+#u25718.comingSoonPopup #comingSoonText p{ color: #0085C6; font-family: lato, sans-serif; font-size: 24px; line-height: 5.8; text-align: center; }
+#comingSoonClose{ background-color: transparent; color: #B2B2B2; font-family: '__FontAwesome_5'; font-size: 14px; font-weight: 400; left: 225px; line-height: 20px; margin-right: -10000px; margin-top: 7px; min-height: 27px; position: absolute; top: 0; width: 12px; z-index: 124; }
+
+#overlay{ background-color: white; display: none; height: 100%; left: 0; opacity: 0.8; position: fixed; top: 0; width: 100%; z-index: 1000; }
+
+.header-container{ max-width: 1200px !important; padding: 0 15px !important; }
+
+.SlideShowWidget img { height:auto !important; margin-left: 0 !important; margin-top:-15px !important; width: 100% !important; }
+#slideshowu644 { float: left; height: auto; max-height: 220px; min-height: 220px; position: relative; width: 100% !important; }
+#slideshowu644 div { background-color: transparent; height: auto !important; position:absolute; left: 0 !important; max-height: 418px; z-index:0; width: 100% !important;}
+.SSSlideLoading{ background: url("../../images/loading.gif") no-repeat center center; }
+
+.header-container{ margin: 0 auto; max-width: 100%; padding: 0; width: 100%; }
+#u25521{ background-color: transparent; max-width: 100%; position: relative; width: 100%; z-index: 45; }
+#first-section{ margin-top: 5px; }
+#first-section p{ color: #7F7F7F; font-family: lato,sans-serif; font-size: 26px; line-height: 1; text-align: center; text-transform: uppercase; }
+#second-section{ margin-top: 5px; text-align: center; }
+#second-section img{ height: auto !important; max-height: 100px; max-width: 270px; width: 100% !important; }
+#third-section{ margin: -2px 0 !important; text-align: center; }
+#third-section img{ height: auto !important; max-height: 100px; max-width: 562px; padding-top: 3px; width: 100% !important; }
+
+.indexNavBar.navbar{ background-color: #000; border-color: #000; border-radius: 0; border-top: none; margin-bottom: 0 !important; min-height: 32px !important; text-transform: uppercase; }
+.indexNavBar.navbar .navbar-nav{ margin: 0 -15px; }
+.indexNavBar.navbar .navbar-nav > li{ color: #FFFFFF; font-size: 14px; font-family: lato, sans-serif; font-weight: 600; height: 40px; letter-spacing: 1px; margin-top: -1px; text-align: center; }
+.indexNavBar.navbar .navbar-nav > li > a{ line-height: 1; padding-bottom: 0 !important; padding-top: 8px !important; }
+.indexNavBar.navbar .navbar-nav > li > a:hover, .indexNavBar.navbar .navbar-nav > li > a:focus{ color: #FFFFFF; }
+.indexNavBar.navbar .navbar-right { margin-right: 20px !important; }
+.indexNavBar.navbar .navbar-nav > li > .dropdown-menu{ background-color: #000; border-radius: 0 !important; height: 115px; left: -2px; padding: 0; text-align: center; width: 101%; z-index: 1001; }
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus { background-color: transparent; color: #FFFFFF; }
+.indexNavBar.navbar .dropdown-menu > li > a { letter-spacing: 0 !important; color: #FFFFFF; font-size: 14px !important; font-family: lato, sans-serif !important; font-weight: 600 !important; padding: 3px 16px; }
+.dropdown:hover .dropdown-menu { display: block; }
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background-color: transparent; }
+
+.container_p { background: #000 none repeat scroll 0 0; color: #fff; display: inline; float: left; font-family: lato,sans-serif; font-size: 22px; font-weight: 300; min-height: 60px; padding: 0; text-align: center; width: 100%; }
+.section_one{ display: inline-block; padding: 12px 0 !important; width: 33%; }
+.section_two{ display: inline-block; padding: 12px 0 !important; width: 29%; }
+.section_three{ display: inline-block; padding: 12px 0 !important; width: 27%; }
+
+.slider-seller-option{ margin-top: 47.5px; position: absolute; right: 10px; z-index: 1000; }
+
+.i_c_f { float: left; margin: 0; text-align: center; text-transform: uppercase; width: 100%; }
+.i_b_c { color: #7f7f7f; float: left; font-family: lato,sans-serif; font-size: 14px; line-height: 22px; width: 100%; }
+.i_c_f a:first-child{ border-bottom: 1px solid #7F7F7F; display: inline-block; padding: 0; vertical-align: top; width: 100%; }
+.i_c_f a{ border-bottom: 1px solid #7F7F7F; display: inline-block; padding: 0; vertical-align: top; width: 50%; }
+.i_c_f a:nth-child(even){ border-right: 1px solid #7F7F7F; }
+.i_c_f a > div { height: 40px; line-height: 40px; vertical-align: middle; width: 100%; }
+
+.grpelem, .accordion_wrapper { display: inline-block; float: none; }
+img { max-width:100%; }
+
+#u108{ color: #0085C6; }
+#u108-3{ color: #D2008F; }
+#u108-5{ color: #569243; }
+#u15181-2,#u15181-6,#u15181-8,#u15181-10,#u15181-12{ color: #0085C6; }
+
+@font-face { font-family: '__FontAwesome_5'; font-style: normal; font-weight: 400; src: url('../fonts/fontawesome-webfont.eot'); src: local('☺'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.svg') format('svg'); }
+@media screen and (-webkit-min-device-pixel-ratio:0){ body{ text-rendering: auto; } }
