@@ -144,7 +144,7 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														$secAns = $row['security_answer'];
 														if( ($secQues == "" || $secQues == 'default') || $secAns == "" ) {
 															echo "<center class='Text-1 clearfix'>Re-directing...</center>"; //show message
-															print "<script> window.location = '/verification-setup.php' </script>"; //redirect them to the verification setup page
+															print "<script> window.location = '/controllers/verification-setup.php' </script>"; //redirect them to the verification setup page
 														}
 														else{
 															echo "<center class='Text-1 clearfix'>Logging in...</center>"; //show message
