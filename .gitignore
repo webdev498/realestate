@@ -5,3 +5,6 @@ html/views/compiled
 html/controllers/Dev
 html/build.sh
 html/controllers/git-webhook.php
+html/*.txt
+html/*.TXT
+html/*.csv
