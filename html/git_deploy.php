@@ -27,3 +27,4 @@ if ($payload->ref === 'refs/heads/master')
 //Test 3
 //Test 4
 //Auto-deploy Test 5
+//Auto-deploy Test 6
