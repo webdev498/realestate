@@ -15,6 +15,18 @@ if(isset($_POST['emailValidation'])){
   echo json_encode($row);
 }
 
+else if(isset($_POST['partialValidation'])){
+  $email = $_POST['email'];
+  $question = $_POST['question'];
+  $answer = $_POST['answer'];
+
+  $SQL = "SELECT * FROM `registered_agents` WHERE (email = '".$email."') AND (security_question = '".$question."') AND (security_answer = '".$answer."')";
+  $result = mysql_query( $SQL ) or die("Couldn't execute query.".mysql_error());
+  $row = mysql_fetch_array($result,MYSQL_ASSOC);
+  
+  echo json_encode($row);
+}
+
 else if(isset($_POST['fullValidationInfo'])){
   $email = $_POST['email'];
   $firstName = $_POST['firstName'];

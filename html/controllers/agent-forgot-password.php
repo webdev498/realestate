@@ -1,9 +1,13 @@
 <?php
 session_start();
-include("functions.php");
+include_once("functions.php");
 include_once("basicHead.php");
-if ((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
+if((authentication() == 'agent') OR (authentication() == 'user')){ header('Location: menu.php'); }
 if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = true; }
+
+$step = isset($_GET['step']) ? $_GET['step'] : 1;
+$email = isset($_GET['e']) ? $_GET['e'] : "";
+$password = isset($_GET['p']) ? $_GET['p'] : "";
 ?>
 
 <html>
@@ -25,19 +29,49 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
         lastname: "",
         title: "",
         id: "",
-        email: "",
+        email: "<?php echo $email ?>",
         oldemail: "",
         phone: "",
         admin: "",
         bio: "",
-        newPass: "",
-        confPass: "",
-        step: 1,
+        newPass: "<?php echo $password ?>",
+        confPass: "<?php echo $password ?>",
+        question: "",
+        answer: "",
+        step: <?php echo $step ?>,
         edit: "false",
         option: "",
         editYes: "false",
         editNo: "false"
       };
+    },
+    componentWillMount: function(){
+      if(this.state.step == 4){
+        $.ajax({
+          type: "POST",
+          url: "check-agent.php",
+          data: {"emailValidation": "true", "email": this.state.email },
+          success: function(data){
+            var info = jQuery.parseJSON(data);
+  
+            if(info != null){
+              this.setState({firstname: info.first_name});
+              this.setState({lastname: info.last_name});
+              this.setState({id: info.agent_id});
+              this.setState({oldemail: info.email});
+              this.setState({title: info.title});
+              this.setState({phone: info.phone});
+              this.setState({admin: info.admin});
+              this.setState({bio: info.bio});
+              this.setState({question: info.security_question});
+              this.setState({answer: info.security_answer});
+              $("#verificationArea").hide();
+              $("#agentInformationArea").show();
+              $("#verificationBackground1").css('height', "130%");
+            }            
+          }.bind(this)
+        });
+      }
     },
     handleChange: function (name, event) {
       var change = {};
@@ -48,17 +82,13 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
       if(name == "yes"){
         this.setState({editYes: "true"});
         this.setState({editNo: "false"});
-        this.setState({edit: "true"});
+        this.setState({edit: "true"});        
       }
       else if(name == "no"){
         this.setState({editNo: "true"});
         this.setState({editYes: "false"});
         this.setState({edit: "false"});
       }
-    },
-    checkInput: function(){
-      if( this.state.firstname != "" && this.state.lastname != "" && this.state.email != "" && this.state.pass != "" && (this.state.phone != "" || (this.state.secQues != "default" && this.state.secAns != "")) ){ return true; }
-      else{ return false; }
     },
     updatePhone: function(){
       var number = this.state.phone;
@@ -99,7 +129,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
       var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
       var emailValid = emailReg.test(this.state.email);
 
-      if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.id == ""){
+      if( this.state.email == "" ){
         $("#ajax-box").dialog({
           modal: true,
           height: 'auto',
@@ -121,31 +151,6 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
           }
         });
         $('#ajax-box').load('messages.php #agent_verification_blank',function(){
-          $('#ajax-box').dialog('open');
-        });
-      }
-      else if(this.state.firstname.match(/[0-9]/g) != null || this.state.lastname.match(/[0-9]/g) != null){
-        $("#ajax-box").dialog({
-          modal: true,
-          height: 'auto',
-          width: 'auto',
-          autoOpen: false,
-          dialogClass: 'ajaxbox errorMessage invalidName',
-          buttons : {
-            close: function(){
-              $(this).dialog("close");
-            }
-          },
-          close: function() {
-            $( this ).dialog( "destroy" );
-          },
-          open: function(){
-            $(".ui-widget-overlay").bind("click", function(){
-              $("#ajax-box").dialog('close');
-            });
-          }
-        });
-        $('#ajax-box').load('messages.php #invalid_name',function(){
           $('#ajax-box').dialog('open');
         });
       }
@@ -178,19 +183,119 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
         $.ajax({
           type: "POST",
           url: "check-agent.php",
-          data: {"fullValidationInfo": "true", "email": this.state.email, "firstName": this.state.firstname, "lastName": this.state.lastname, "id": this.state.id},
+          data: {"emailValidation": "true", "email": this.state.email },
+          success: function(data){
+            var info = jQuery.parseJSON(data);
+            console.log(info);
+  
+            if(info != null){
+              $("#error").hide();  
+              this.setState({question: info.security_question});
+              this.setState({step: 2});
+              $("#formQuestion").val(info.security_question);
+            }
+            else{
+              $("#ajax-box").dialog({
+                modal: true,
+                height: 'auto',
+                width: 'auto',
+                autoOpen: false,
+                dialogClass: 'ajaxbox errorMessage invalidInformation',
+                buttons : {
+                  close: function(){
+                    $(this).dialog("close");
+                  }
+                },
+                close: function() {
+                  $( this ).dialog( "destroy" );
+                },
+                open: function(){
+                  $(".ui-widget-overlay").bind("click", function(){
+                    $("#ajax-box").dialog('close');
+                  });
+                }
+              });
+              $('#ajax-box').load('messages.php #invalid_information',function(){
+                $('#ajax-box').dialog('open');
+              });
+            }
+          }.bind(this)
+        });
+      }
+    },
+    verify_two: function(){
+      var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      var emailValid = emailReg.test(this.state.email);
+
+      if( this.state.email == "" || this.state.question == "default" || this.state.answer == "" ){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage verificationBlank',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
+            }
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #agent_verification_blank_two',function(){
+          $('#ajax-box').dialog('open');
+        });
+      }
+      else if(!emailValid){
+        $("#ajax-box").dialog({
+          modal: true,
+          height: 'auto',
+          width: 'auto',
+          autoOpen: false,
+          dialogClass: 'ajaxbox errorMessage invalidEmail',
+          buttons : {
+            close: function(){
+              $(this).dialog("close");
+            }
+          },
+          close: function() {
+            $( this ).dialog( "destroy" );
+          },
+          open: function(){
+            $(".ui-widget-overlay").bind("click", function(){
+              $("#ajax-box").dialog('close');
+            });
+          }
+        });
+        $('#ajax-box').load('messages.php #invalid_email',function(){
+          $('#ajax-box').dialog('open');
+        });
+      }
+      else{
+        $.ajax({
+          type: "POST",
+          url: "check-agent.php",
+          data: {"partialValidation": "true", "email": this.state.email, "question": this.state.question, "answer": this.state.answer },
           success: function(data){
             var info = jQuery.parseJSON(data);
           
             if(info != null){
               $("#error").hide();
+              this.setState({firstname: info.first_name});
+              this.setState({lastname: info.last_name});
+              this.setState({id: info.agent_id});
               this.setState({oldemail: info.email});
               this.setState({title: info.title});
               this.setState({phone: info.phone});
               this.setState({admin: info.admin});
               this.setState({bio: info.bio});
-              this.setState({step: 2});
-              $(".step2Rows").show();
+              this.setState({step: 3});
             }
             else{
               $("#ajax-box").dialog({
@@ -231,6 +336,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
             success: function(status){
               $("#verificationArea").hide();
               $("#agentInformationArea").show();
+              $("#verificationBackground1").css('height', "130%");
             }
           });
         }
@@ -290,7 +396,7 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
       var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
       var emailValid = emailReg.test(this.state.email);
 
-      if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.newPass == "" || this.state.phone == ""){
+      if( this.state.firstname == "" || this.state.lastname == "" || this.state.email == "" || this.state.newPass == "" || this.state.question == "default" || this.state.answer == "" ){
         $("#ajax-box").dialog({
           modal: true,
           height: 'auto',
@@ -413,49 +519,68 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                   <div id="verificationBorder">
                     <table cellPadding="2" cellSpacing="0" border="0">
                       <colgroup><col width="250"/><col width="350"/></colgroup>
-                      <tbody>
-                        <tr>
-                          <td className="text-popups">First Name:</td>
-                          <td className="text-popups"><input type="text" id="formFirstName" className="grade_desc input1" name="firstName" autoFocus onChange={this.handleChange.bind(this, 'firstname')} /><br/></td>
-                        </tr>
-                        <tr>
-                          <td className="text-popups">Last Name:</td>
-                          <td className="text-popups"><input type="text" id="formLastName" className="grade_desc input1" name="lastName" onChange={this.handleChange.bind(this, 'lastname')} /><br/></td>
-                        </tr>
+                      <tbody>                        
                         <tr>
                           <td className="text-popups">Email:</td>
                           <td className="text-popups"><input type="text" autoCapitalize="off" id="formEmail" className="grade_desc input1" name="email" onChange={this.handleChange.bind(this, 'email')} /></td>
                         </tr>
-                        <tr>
-                          <td className="text-popups">Agent ID:</td>
-                          <td className="text-popups"><input type="text" id="formAgentCode" className="grade_desc input1" name="agentCode" value={this.state.id} onChange={this.handleChange.bind(this, 'id')} /></td>
-                        </tr>
-                        <tr id="error" style={{display: "none"}}>
-                          <td className="text-popups" colSpan="2"><strong style={{color: "#D2008F"}}>{'\u002A'} No account associated with that email.</strong></td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            <a href="javascript:history.back()"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Back</button></a>                            
-                            {this.state.step == 1 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups" onClick={this.verify}>Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }                            
-                            {this.state.step == 2 ? <span id="verifiedButton"><i className="fa fa-check"></i> Verify</span> : null }
-                          </td>
-                        </tr>
-                        <tr className="step2Rows" style={{display: "none"}}><td></td></tr>
-                        <tr className="step2Rows" style={{display: "none"}}>
-                          <td className="text-popups">New Password: </td>
-                          <td className="text-popups"><input type="password" className="users input1 required newPassword" name="newPassword" size="25" autocomplete="off" onChange={this.handleChange.bind(this, 'newPass')} /></td>
-                        </tr>
-                        <tr className="step2Rows" style={{display: "none"}}>
-                          <td className="text-popups">Retype Password: </td>
-                          <td className="text-popups"><input type="password" className="users input1 required confirmPassword" name="confirmPassword" autocomplete="off" size="25"onChange={this.handleChange.bind(this, 'confPass')} /></td>
-                        </tr>
-                        <tr className="step2Rows" style={{display: "none"}}><td></td></tr>
-                        <tr className="step2Rows" style={{display: "none"}}>
-                          <td colSpan="2">
-                            <input type="hidden" name="formStep" value="reset" />
-                            <button type="submit" name="submit" id="resetPasswordSubmit" className="text-popups" onClick={this.resetPassword}>Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
-                          </td>
-                        </tr>
+                        {this.state.step == 2 ?
+                          <tr>
+                            <td className="text-popups">Security Question:</td>
+                            <td className="text-popups">
+                              {this.state.question == 1 ? <span>What is your middle name?</span> : null}
+                              {this.state.question == 2 ? <span>What is your mother's maiden name?</span> : null}
+                              {this.state.question == 3 ? <span>What was the name of the street where you grew up?</span> : null}
+                              {this.state.question == 4 ? <span>What is your favorite food?</span> : null}
+                              <select id="formQuestion" name="security-question" style={{display: "none"}}>
+                                <option value="default" selected="selected">Select A Security Question</option>
+                                <option value="1">What is your middle name?</option>
+                                <option value="2">What is your mother's maiden name?</option>
+                                <option value="3">What was the name of the street where you grew up?</option>
+                                <option value="4">What is your favorite food?</option>
+                              </select>
+                            </td>
+                          </tr>
+                        : null }
+                        {this.state.step == 2 ?
+                          <tr>
+                            <td className="text-popups">Security Answer:</td>
+                            <td className="text-popups"><input type="text" id="formAnswer" className="grade_desc input1" name="security-answer" onChange={this.handleChange.bind(this, 'answer')}/></td>
+                          </tr>
+                        : null }
+                        {this.state.step == 1 || this.state.step == 2 ? <tr><td></td></tr> : null }
+                        {this.state.step == 1 || this.state.step == 2 ?
+                          <tr>
+                            <td colSpan="2">
+                              <a href="javascript:history.back()"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Agent Login</button></a>                            
+                              {this.state.step == 1 ? <button type="submit" name="submit" id="verificationVerify" className="text-popups" onClick={this.verify}>Continue <i id="arrow" className="fa fa-chevron-right"></i></button> : null }                            
+                              {this.state.step == 2 ? <button type="submit" name="submit" id="verificationSubmit" className="text-popups" onClick={this.verify_two}>Verify <i id="arrow" className="fa fa-chevron-right"></i></button> : null }
+                            </td>
+                          </tr>
+                        : null }
+                        {this.state.step == 3 ? <tr><td></td></tr> : null }
+                        {this.state.step == 3 ?
+                          <tr>
+                            <td className="text-popups">New Password: </td>
+                            <td className="text-popups"><input type="password" className="users input1 required newPassword" name="newPassword" size="25" autocomplete="off" onChange={this.handleChange.bind(this, 'newPass')} /></td>
+                          </tr>
+                        : null }
+                        {this.state.step == 3 ?
+                          <tr>
+                            <td className="text-popups">Retype Password: </td>
+                            <td className="text-popups"><input type="password" className="users input1 required confirmPassword" name="confirmPassword" autocomplete="off" size="25"onChange={this.handleChange.bind(this, 'confPass')} /></td>
+                          </tr>
+                        : null }
+                        {this.state.step == 3 ? <tr><td></td></tr> : null }
+                        {this.state.step == 3 ?
+                          <tr>
+                            <td colSpan="2">
+                              <input type="hidden" name="formStep" value="reset" />
+                              <a href="javascript:history.back()"><button id="backBtn" className="text-popups" onClick={this.back}><i id="arrow" className="fa fa-chevron-left"></i> Agent Login</button></a>                            
+                              <button type="submit" name="submit" id="resetPasswordSubmit" className="text-popups" onClick={this.resetPassword}>Submit <i id="arrow" className="fa fa-chevron-right"></i></button>
+                            </td>
+                          </tr>
+                        : null }
                       </tbody>
                     </table>
                   </div>
@@ -497,6 +622,31 @@ if(isset($_GET['saved']) && $_GET['saved'] == true){ $_SESSION['loadSaved'] = tr
                           <tr>
                             <td className="text-popups">Password:</td>
                             <td className="text-popups">{this.state.edit == "true" ? <input type="text" autoCapitalize="off" id="formEmail" className="grade_desc input1" value={this.state.newPass} name="password" onChange={this.handleChange.bind(this, 'newPass')} /> : this.state.newPass }</td>
+                          </tr>
+                          <tr>
+                            <td className="text-popups">Security Question:</td>
+                            <td className="text-popups">
+                              {this.state.edit == "true" ?
+                                <select id="formQuestion" name="security-question" onChange={this.handleChange.bind(this, 'question')}>
+                                  {this.state.question == "default" ? <option value="default" selected="selected">Select A Security Question</option> : <option value="default">Select A Security Question</option> }
+                                  {this.state.question == 1 ? <option value="1" selected="selected">What is your middle name?</option> : <option value="1">What is your middle name?</option>}
+                                  {this.state.question == 2 ? <option value="2" selected="selected">What is your mother's maiden name?</option> : <option value="2">What is your mother's maiden name?</option>}
+                                  {this.state.question == 3 ? <option value="3" selected="selected">What was the name of the street where you grew up?</option> : <option value="3">What was the name of the street where you grew up?</option>}
+                                  {this.state.question == 4 ? <option value="4" selected="selected">What is your favorite food?</option> : <option value="4">What is your favorite food?</option>}
+                                </select>
+                              :
+                                <span>
+                                  {this.state.question == 1 ? <span>What is your middle name?</span> : null}
+                                  {this.state.question == 2 ? <span>What is your mother's maiden name?</span> : null}
+                                  {this.state.question == 3 ? <span>What was the name of the street where you grew up?</span> : null}
+                                  {this.state.question == 4 ? <span>What is your favorite food?</span> : null}
+                                </span>
+                              }
+                            </td>
+                          </tr>                          
+                          <tr>
+                            <td className="text-popups">Security Answer:</td>
+                            <td className="text-popups">{this.state.edit == "true" ? <input type="text" id="formAnswer" className="grade_desc input1" value={this.state.answer} name="security-answer" onChange={this.handleChange.bind(this, 'answer')}/> : this.state.answer }</td>
                           </tr>
                           <tr>
                             <td className="text-popups">Administrator:</td>

@@ -5,7 +5,7 @@
 <div id="agent_verification_blank_two" class="text-popups"><p>You need to enter your email and answer your security question so we can verify who you are.</p></div>
 <div id="buyer_verification_blank" class="text-popups"><p>You need to enter your first name, last name and email so we can verify who you are.</p></div>
 <div id="buyer_verification_blank_two" class="text-popups"><p>You need to enter your first name, last name, email and security question and answer so we can verify who you are.</p></div>
-<div id="agent_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, phone number and a password.</p></div>
+<div id="agent_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, a password and select a security question and answer.</p></div>
 <div id="buyer_information_edit_blank" class="text-popups"><p>You need to enter your first name, last name, email, a security question/answer, a password and select a security option.</p></div>
 <div id="registration_blank" class="text-popups"><p>You need to enter your first name, last name, email, a security question/answer and create a password in order to register.</p></div>
 <div id="registration_disclosure_consent" class="text-popups"><p>You must select whether you consent or don't consent to the New York State Disclosure Form for Buyer and Seller in order to continue.</p></div>

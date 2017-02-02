@@ -1,5 +1,5 @@
 html{ font-size: 1em; }
-body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-weight:normal; letter-spacing: 0.05em; line-height:140%; margin: 0 auto; }
+body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-weight:normal; letter-spacing: 0.05em; line-height:140%; margin: 0 auto }
 
 #verificationBackground1 { background-image: url('../../images/adobestock_823928652.jpg'); background-size: 100% 100%; height: 100%; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
 #verificationBackground2 { background-image: url('../../images/fotolia_82688508.jpg'); background-size: 100% 100%; height: 100%; opacity: 0.5; position: absolute; top: 0px; width: 100%; }
@@ -9,11 +9,12 @@ body { color: #606060; font-family: 'Lato', sans-serif; font-size: 1em; font-wei
 /* #verificationArea.short{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 15%; max-width: 580px; min-width: 560px; } */
 #verificationArea.short{ background: white; border: gray; border-style: solid; border-width: 1pt; margin: 0 auto; max-width: 580px; min-width: 560px; position: absolute; top: 50%; transform: translateY(-50%); }
 /*#verificationArea.long, #buyerInformationArea.long, #agentInformationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; height: 100%; margin: auto; margin-bottom: 75px; margin-top: 6%; max-width: 580px; min-width: 560px; }*/
-#verificationArea.long, #buyerInformationArea.long, #agentInformationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; margin: 0 auto; max-width: 580px; min-width: 560px; position: absolute; top: 50%; transform: translateY(-50%); }
+#verificationArea.long, #buyerInformationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; margin: 0 auto; max-width: 580px; min-width: 560px; position: absolute; top: 50%; transform: translateY(-50%); }
+#agentInformationArea.long{ background: white; border: gray; border-style: solid; border-width: 1pt; margin: 10px auto 0; max-width: 580px; min-width: 560px; }
 #verificationTop, #buyerInformationTop, #agentInformationTop{ font-size:1.1em; height:65px; margin: 0 auto; padding:30px 40px 0; }
 #verificationHeader, #buyerInformationHeader, #agentInformationHeader{ font-family: lato,sans-serif; font-size: 30px; font-weight: 300; line-height: 3; text-align: left; }
 #verificationBorder, #buyerInformationBorder, #agentInformationBorder{ margin:auto; padding: 40px 40px 0; }
-#verificationArea select, #buyerInformationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; height: 30px; width:280px; }
+#verificationArea select, #buyerInformationArea select, #agentInformationArea select{ background-color: transparent; border-color: #B2B2B2; border-style: solid; border-width: 1px; box-shadow: 1px 1px; height: 30px; width:280px; }
 #verificationArea select.macFF, #buyerInformationArea select.macFF{ width:260px; }
 #disclaimer{ color: #626262; font-size: 14px; line-height: 17px; padding:35px 0 0; text-align: justify; }
 

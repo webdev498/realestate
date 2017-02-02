@@ -127,8 +127,6 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														$_SESSION['agent2'] = $row['P_agent2'];													
 														$_SESSION['user'] = 'true'; // Set 'user' as 'true' in the session. This marks the user as "logged in"
 														$_SESSION['buyer'] = 'true';	
-														$secQues = $row['security_question'];
-														$secAns = $row['security_answer'];
 														
 														unset($_SESSION['guestID']); //Clear the guest ID saved in session as user is no longer a guest
 
@@ -142,6 +140,8 @@ $db = mysql_select_db('sp', $con) or die(mysql_error());
 														mysql_query("UPDATE users SET online = '" . $time . "' WHERE id = '" . $_SESSION['id'] . "' ");
 														$_SESSION['logged_in'] = $time;
 														
+														$secQues = $row['security_question'];
+														$secAns = $row['security_answer'];
 														if( ($secQues == "" || $secQues == 'default') || $secAns == "") {
 															echo "<center class='Text-1 clearfix'>Re-directing...</center>"; //show message
 															print "<script> window.location = '/verification-setup.php' </script>"; //redirect them to the verification setup page

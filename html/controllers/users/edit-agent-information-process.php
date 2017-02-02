@@ -47,6 +47,8 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 						$email = $_GET['email'];
 						$password = protect($_GET['password']);
 						$phone = $_GET['phone'];
+						$question = $_GET['security-question'];
+						$answer = $_GET['security-answer'];
 						$bio = $_GET['bio'];
 						
 						$checkemail = "/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i";
@@ -58,13 +60,13 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 						if (preg_match('/[0-9]/', $lastName)) { $errorMessage .= "<center class='Text-1 clearfix'>Last Name cannot have numeric values.</center><br>"; }
 						if (!preg_match($checkemail, $email)) { $errorMessage .= "<center class='Text-1 clearfix'>Email is invalid. An example of valid email is jsmith@email.com.</center><br>"; }
 						if (strlen($password) < 5) { $errorMessage .= "<center class='Text-1 clearfix'>Password must be at least 5 characters long.</center><br>"; }
-						if ( $phone != ""){ if (!preg_match($checkphone, $phone)) { $errorMessage .= "<center class='Text-1 clearfix'>Phone Number must be 10 digits.</center><br>"; } }
+						if ($question == "default" || $answer == "") { $errorMessage .= "<center class='Text-1 clearfix'>You must select a security question and answer.</center><br>"; }
 	
 						if ($errorMessage != " "){
 							echo "<center class='Text-1 clearfix title'>Agent Information Error</center>";
 							echo "<center class='Text-1 clearfix'><h3>Please return to the agent information form to correct the following errors:</h3></center><br><br>";
 							echo $errorMessage;
-							//echo '<br><br><center class="Text-1 clearfix"><a href="../guest-register.php?f='.$firstName.'&l='.$lastName.'&e='.$email.'&p='.$phone.'&a='.$agent_code.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a></center>';
+							echo '<br><br><center class="Text-1 clearfix"><a href="/agent-forgot-password.php?step=4&e='.$email.'&p='.rawurlencode($password).'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Agent Information Form</button></a></center>';
 						}else {
 							$res = mysql_query("SELECT EXISTS (SELECT * FROM registered_agents WHERE email = '" . $oldEmail . "') as num");
 							$row = mysql_fetch_assoc($res);
@@ -72,7 +74,7 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 							if($row['num'] == 0){
 								echo "<center class='Text-1 clearfix title'>Agent Information Error</center>";
 								echo "<center class='Text-1 clearfix'><h3>There was an error finding your account.</h3></center><br><br>";
-								//echo '<br><br><center class="Text-1 clearfix"><a href="../guest-register.php?f='.$firstName.'&l='.$lastName.'&e='.$email.'&p='.$phone.'&a='.$agent_code.'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Registration Form</button></a></center>';
+								echo '<br><br><center class="Text-1 clearfix"><a href="/agent-forgot-password.php?step=4&e='.$email.'&p='.rawurlencode($password).'"><button type="button" id="back"><i class="fa fa-chevron-left color-blue"></i>&nbsp; Go back to Agent Information Form</button></a></center>';
 							}
 							else{
 								$res2 = mysql_query("SELECT id, agent_id, admin, rtime FROM registered_agents WHERE email = '" . $oldEmail . "'");
@@ -82,7 +84,7 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 								$registerTime = $row2['rtime'];
 								$pass = string_encrypt($password, $registerTime);								
 								
-								$res3 = mysql_query("UPDATE registered_agents SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', phone = '".$phone."', bio = '".$bio."'  WHERE email = '" . $oldEmail . "'");						
+								$res3 = mysql_query("UPDATE registered_agents SET first_name = '".$firstName."', last_name = '".$lastName."', email = '".$email."', password = '".$pass."', phone = '".$phone."', bio = '".$bio."', security_question = '".$question."', security_answer = '".$answer."'  WHERE email = '" . $oldEmail . "'");						
 															
 								$_SESSION['id'] = $row2['id'];
 								$_SESSION['pass'] = $pass;
@@ -103,11 +105,12 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 								mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' "); //update the online field
 								
 								$message = 'Hello ' . $firstName. ' ' . $lastName . ', <br><br>';
-							  $message .= 'Your agent information with HomePik has been updated.';
+							  $message .= "Your password and agent information with HomePik has been recently updated.<br/>";
+								$message .= "If this wasn't you please contact HomePik at support@homepik.com.";
 								$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
 
 								$mail->addAddress($email);
-								$mail->Subject = 'HomePik.com Profile Updated';
+								$mail->Subject = 'HomePik.com Password and Profile Updated';
 								$mail->Body = $message;
 								$mail->send();
 								
@@ -138,6 +141,16 @@ if(isset($_SESSION['role'])){ $role = $_SESSION['role']; }
 						$_SESSION['unreadMessages'] = $row['messages'];
 						
 						mysql_query("UPDATE registered_agents SET online = '" . date('U') . "' WHERE email = '" . $email . "' "); //update the online field
+						
+						$message = 'Hello ' . $row2['first_name']. ' ' . $row2['last_name'] . ', <br><br>';
+						$message .= "Your password to login to HomePik has been recently updated.<br/>";
+						$message .= "If this wasn't you please contact HomePik at support@homepik.com.";
+						$message .= "<br><br>&copy; Nice Idea Media  All Rights Reserved<br>";
+
+						$mail->addAddress($email);
+						$mail->Subject = 'HomePik.com Password Reset';
+						$mail->Body = $message;
+						$mail->send();
 						
 						echo "<br><br><center class='Text-1 clearfix'>Welcome back. Your password is now reset and your registered agent privileges are reinstalled.</center><br><br>";
 						echo '<br><center class="Text-1 clearfix"><a href="/menu.php"><button type="button" id="back">Go to Agent Home Page &nbsp;<i class="fa fa-chevron-right color-blue"></i></button></a></center>';
