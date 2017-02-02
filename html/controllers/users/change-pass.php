@@ -37,11 +37,11 @@ if($_SESSION['role']){ $role = $_SESSION['role']; }
 			<br><br>
 			<?php
 				//After form submits
-				if(isset($_GET['submit'])) {
+				if(isset($_POST['submit'])) {
 					//Put passwords in variable
-					$oldPassword = protect($_GET['oldPassword']);
-					$newPassword = protect($_GET['newPassword']);
-					$confirmPassword = protect($_GET['confirmPassword']);
+					$oldPassword = protect($_POST['oldPassword']);
+					$newPassword = protect($_POST['newPassword']);
+					$confirmPassword = protect($_POST['confirmPassword']);
 					//Call error checking/password
 					ErrorCheck($oldPassword, $newPassword, $confirmPassword);
 				}

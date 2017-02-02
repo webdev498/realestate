@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once("dbconfig.php");
-include_once('functions.php');
-include_once('basicHead.php');
+include_once("../dbconfig.php");
+include_once("../functions.php");
+include_once("../basicHead.php");
 $con = mysql_connect($dbhost, $dbuser, $dbpassword) or die(mysql_error());
 $db = mysql_select_db('sp', $con) or die(mysql_error());
 
@@ -37,10 +37,10 @@ if($_SESSION['role']){ $role = $_SESSION['role']; }
 			<br><br>
 			<?php
 				//After form submits
-				if(isset($_GET['submit'])) {
+				if(isset($_POST['submit'])) {
 					//Put passwords in variable
-					$securityQuestion = protect($_GET['security-question']);
-					$securityAnswer = protect($_GET['security-answer']);
+					$securityQuestion = protect($_POST['security-question']);
+					$securityAnswer = protect($_POST['security-answer']);
 					$email = $_SESSION['email'];
 					
 				}
