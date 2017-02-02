@@ -1884,7 +1884,7 @@ window.NavBar = React.createClass({
                   <li id="name" className="dropdown">
 										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{this.state.name} <i className="fa fa-angle-down"></i></span></a>
 										<ul className="dropdown-menu">
-                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+                      <li><a href="/controllers/agent-profile.php?MP=menu">Account Settings</a></li>
 										</ul>
 									</li>
                 :
@@ -2133,7 +2133,7 @@ window.MenuNavBar = React.createClass({
                   <li id="name" className="dropdown">
 										<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span>{this.state.name} <i className="fa fa-angle-down"></i></span></a>
 										<ul className="dropdown-menu">
-                      <li><a href="../controllers/agent-profile.php?MP=menu">Account Settings</a></li>
+                      <li><a href="/controllers/agent-profile.php?MP=menu">Account Settings</a></li>
 										</ul>
 									</li>
                 :
