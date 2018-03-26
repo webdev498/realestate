@@ -8,3 +8,4 @@ html/controllers/git-webhook.php
 html/*.txt
 html/*.TXT
 html/*.csv
+html/office.TXT
